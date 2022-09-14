@@ -1,0 +1,30 @@
+# import "./baseconfig.sdl"
+
+string host = "127.0.0.1";
+int port = 15387;
+string basetopic = "resinet";
+
+# string[] nodeNames;
+
+# Demo 1:
+{    
+    string version = "v1";
+    string x = "asdf";
+    # string topic = basetopic + "/" + version; # not supported yet
+
+    # nodes
+    {
+        float x = 200;
+        #node pvProduction1 = {
+        #    name = "PV Production System 1";
+        #    input =  [ int maxPvProduction, string direction, int tilt, float globalRadiation,  string time, float airTemperature ];
+        #}
+    }
+
+    {        
+        string x = "hola";
+    }
+
+    string test = "v1";
+}
+

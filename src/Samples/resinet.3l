@@ -1,0 +1,103 @@
+import "./baseconfig.3l"
+
+string urlExtension = "/v2"
+baseurl = baseurl + urlExtension
+basetopic = "resinet/demo"
+
+
+# graph definitions:
+# ##################
+
+type datetime:string
+struct positioinMessageContent { float lat, float lng } = ...
+message position positioinMessageContent
+message positionAndTime { float lat, float lng, string timestamp }
+message forecastingWeather { struct x, float globalRadiation, float airTemperature, float humidity }
+message xy { struct x, float globalRadiation, float airTemperature, float humidity }
+
+node weatherService1(in: weather1, weather2) # ?
+
+# implicit node instantiation
+node weatherServiceXY {              
+    # input position pos1, pos2
+    # input positionAndTime pos3
+    input { float lat, float lng, datetime timestamp } pos4    
+
+    output forecastingWeather
+
+}
+
+# additional features
+# default meta
+meta default {
+    property string name
+    property string description
+}
+
+meta servicesInfo {               
+    property string color
+}
+
+# explicit
+nodetype weatherService { 
+
+    import servicesInfo
+    property string font # implicit meta property
+
+    input position pos1, pos2
+    input positionAndTime pos3
+    input { float lat, float lng, datetime timestamp } pos4    
+
+    output forecastingWeather        
+}
+
+node weatherService weatherService1 { name = "", description = "", color = "#665544" }, weatherService2 # default: name=<weatherService1>, description=<typename>
+
+
+
+
+node logger = 
+
+node weatherService2 = {
+    name = "Weather Service Forecast"
+    topic = "weather"    
+    input = float lat, float lng, string timestamp
+    output = weatherService1.output
+}
+
+node systemA = {
+    name = "System A"
+    topic = "system-a"
+    input = string id
+    output = int pvPeak, int battCapacity 
+}
+
+node pvProductionA = {
+    topic = "pvprod-a"       
+    input = forecastingWeather.arguments, int pvPeak, int battCapacity
+}
+
+graph resinet = {  
+
+    weatherService1 -[:forecastingWeather]-> pvProductionA
+    weatherService1 -[:forecastingWeather]->
+    systemA -> pvProductionA
+}
+
+
+/*
+graph r1 = {
+    weatherService1 -[:forecastingWeather]->
+}
+*/
+
+import r1
+
+graph r2 = {
+    r1 -> pvProductionA
+}
+
+
+
+
+

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Sidl.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>Sidl.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include=".generated\SidlBaseVisitor.cs" />
+    <Compile Include=".generated\SidlLexer.cs" />
+    <Compile Include=".generated\SidlParser.cs" />
+    <Compile Include=".generated\SidlVisitor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".generated\Sidl.tokens" />
+    <None Include=".generated\SidlLexer.tokens" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.9.2" />
+  </ItemGroup>
+
+</Project>
