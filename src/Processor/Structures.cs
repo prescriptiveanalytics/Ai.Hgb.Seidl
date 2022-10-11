@@ -95,7 +95,7 @@ namespace Sidl.Processor {
 
     public Scope AddScope(string name, Scope parent) {
       var newScope = new Scope(name, parent);      
-      if (parent != null) parent.ChildScopes.Add(name, newScope);
+      if (parent != null) parent.ChildScopes.Add(name, newScope); // TODO
       return newScope;
     }
 

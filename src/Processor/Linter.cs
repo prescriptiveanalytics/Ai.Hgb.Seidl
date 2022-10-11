@@ -57,7 +57,7 @@ namespace Sidl.Processor {
     
     public void CompleteScopeSymbolDependencies(Dictionary<Scope, List<Declaration>> scopeSymbolStore) {
       foreach (var scope in scopeSymbolStore.Keys.Where(x => x.ParentScope != null)) {
-        scope.ParentScope.ChildScopes.Add(scope);        
+        scope.ParentScope.ChildScopes.Add(scope.Name, scope);        
       }
     }
 

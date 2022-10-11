@@ -2,15 +2,13 @@ import "./baseconfig.3l"
 
 # global config params
 string urlExtension = "/v2"
-baseurl = baseurl + urlExtension
-basetopic = "resinet/demo"
+baseurl = baseurl + urlExtension # baseurl defined within baseconfig.3l
+basetopic = "resinet/demo" # basetopic declared within baseconfig.3l
 
 
-# graph definitions:
-# ##################
-
-type datetime:string
-struct position { float lat, float lng }
+# graph-specific definitions
+type datetime:string # type aliasing
+struct position { float lat, float lng } # message payload definitions
 struct weatherData { float globalRadiation, float airTemperature, float humidity }
 struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
 
@@ -37,12 +35,12 @@ nodetype weatherServiceTemplate(forecastRequest) => weatherReport
 node weatherServiceTemplate weatherService2, weatherService3
 
 # explicit node type definition and instantiation with properties
-nodetype weatherServiceTemplateProps(forecastRequest) => weatherReport {    
+nodetype weatherServiceTemplateWithProps(forecastRequest) => weatherReport {    
     property string graphColor
     input string command
     output int reportCount       
 }
-node weatherServiceTemplateProps weatherService4
+node weatherServiceTemplateWithProps weatherService4
 
 
 nodetype node inverterModel(weatherReport) => inverterData {
@@ -51,7 +49,7 @@ nodetype node inverterModel(weatherReport) => inverterData {
 node inverterModel inverterModel1(weatherReport.zip = 4020, pos = { 13.42, 43.14 }), inverterModel2( ... )
 
 
-# additional features
+# meta information
 # default meta: explicit definition of default = overriding global meta default
 meta default {
     property string name
@@ -62,20 +60,11 @@ meta servicesInfo {
     property string color
 }
 
-# explicit
-nodetype weatherServiceV2 { 
-
-    import servicesInfo
+nodetype weatherServiceTemplateWithMeta(forecastRequest) => weatherReport {
+    import servicesInfo # explicit meta porperty
     property string font # implicit meta property
-
-    input position pos1, pos2
-    input positionAndTime pos3
-    input { float lat, float lng, datetime timestamp } pos4    
-
-    output forecastingWeather        
 }
-
-node weatherServiceV2 weatherService5 { name = "", description = "", color = "#665544" }, weatherService2 # default: name=<weatherService1>, description=<typename>
+node weatherServiceTemplate weatherService5 { name = "", description = "", color = "#665544", font = "Source Sans Pro" }
 
 
 

@@ -21,9 +21,9 @@ string basetopic = "resinet";
         #}
     }
 
-    {        
-        string x = "hola";
-    }
+    #{        
+    #    string xy = "hola";
+    #}
 
     string test = "v1";
 }

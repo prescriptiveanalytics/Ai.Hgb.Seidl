@@ -149,8 +149,9 @@ namespace Sidl.Processor {
     private Scope currentScope;
 
     public ScopedSymbolTableVisitor() {
-      scopedSymbolTable = new ScopedSymbolTable();            
-      currentScope = scopedSymbolTable.AddScope("gobal", null);
+      scopedSymbolTable = new ScopedSymbolTable();
+      //currentScope = scopedSymbolTable.AddScope("gobal", null);
+      currentScope = scopedSymbolTable.Global;
     }
 
     public override object? VisitSet([NotNull] SidlParser.SetContext context) {
