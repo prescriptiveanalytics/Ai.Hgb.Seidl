@@ -1,5 +1,6 @@
 import "./baseconfig.3l"
 
+# global config params
 string urlExtension = "/v2"
 baseurl = baseurl + urlExtension
 basetopic = "resinet/demo"
@@ -9,26 +10,49 @@ basetopic = "resinet/demo"
 # ##################
 
 type datetime:string
-struct positioinMessageContent { float lat, float lng } = ...
-message position positioinMessageContent
-message positionAndTime { float lat, float lng, string timestamp }
-message forecastingWeather { struct x, float globalRadiation, float airTemperature, float humidity }
-message xy { struct x, float globalRadiation, float airTemperature, float humidity }
+struct position { float lat, float lng }
+struct weatherData { float globalRadiation, float airTemperature, float humidity }
+struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
 
-node weatherService1(in: weather1, weather2) # ?
+# message definition v1
+# message forecastRequestV1 { position pos, datetime dt }
+# message weatherReportV1 { weatherData rep, topic int zip }
 
-# implicit node instantiation
-node weatherServiceXY {              
-    # input position pos1, pos2
-    # input positionAndTime pos3
-    input { float lat, float lng, datetime timestamp } pos4    
+# message definition v2
+# message forecastRequestV2 { float lat, float lng, datetime dt }
+# message weatherReportV2 { float globalRadiation, float airTemperature, float humidity }
 
-    output forecastingWeather
+message forecastRequest { position pos, datetime dt }
+message weatherReport { weatherData rep, topic int zip }
 
+# 
+# discussion: enable compatibility of definition v1 vs v2 ?
+#
+
+# one-line node definition (implicit type definition and instantiation)
+node weatherService1(forecastRequest) => weatherReport # publishes per zip-topic
+
+# explicit node type definition and instantiation 
+nodetype weatherServiceTemplate(forecastRequest) => weatherReport
+node weatherServiceTemplate weatherService2, weatherService3
+
+# explicit node type definition and instantiation with properties
+nodetype weatherServiceTemplateProps(forecastRequest) => weatherReport {    
+    property string graphColor
+    input string command
+    output int reportCount       
 }
+node weatherServiceTemplateProps weatherService4
+
+
+nodetype node inverterModel(weatherReport) => inverterData {
+    property position pos            
+}
+node inverterModel inverterModel1(weatherReport.zip = 4020, pos = { 13.42, 43.14 }), inverterModel2( ... )
+
 
 # additional features
-# default meta
+# default meta: explicit definition of default = overriding global meta default
 meta default {
     property string name
     property string description
@@ -39,7 +63,7 @@ meta servicesInfo {
 }
 
 # explicit
-nodetype weatherService { 
+nodetype weatherServiceV2 { 
 
     import servicesInfo
     property string font # implicit meta property
@@ -51,9 +75,15 @@ nodetype weatherService {
     output forecastingWeather        
 }
 
-node weatherService weatherService1 { name = "", description = "", color = "#665544" }, weatherService2 # default: name=<weatherService1>, description=<typename>
+node weatherServiceV2 weatherService5 { name = "", description = "", color = "#665544" }, weatherService2 # default: name=<weatherService1>, description=<typename>
 
 
+
+
+
+
+
+# WORK IN PROGRESS:
 
 
 node logger = 
