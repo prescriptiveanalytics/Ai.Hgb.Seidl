@@ -66,7 +66,7 @@ namespace Sidl.Processor {
 
     public override string ToString() {
       //return $"{Name} (${this.GetHashCode()})";
-      return $"{Name} ({this.GetHashCode()}) child scopes: [{String.Join(", ", ChildScopes.Select(x => x.GetHashCode()))}]";
+      return $"{Name} ({this.GetHashCode()}) child scopes: [{String.Join(", ", ChildScopes.Select(x => x.Value.GetHashCode()))}]";
     }
   }
 
@@ -95,7 +95,7 @@ namespace Sidl.Processor {
 
     public Scope AddScope(string name, Scope parent) {
       var newScope = new Scope(name, parent);      
-      if (parent != null) parent.ChildScopes.Add(name, newScope); // TODO
+      if (parent != null) parent.ChildScopes.Add(name + "_" + Guid.NewGuid(), newScope); // TODO
       return newScope;
     }
 
@@ -172,6 +172,7 @@ namespace Sidl.Processor {
 
     public IEnumerable<Scope> GetScopesDownstream(Scope scope = null) {      
       IEnumerable<IEnumerable<Scope>> ScopeDFS(Scope currentScope) {
+        yield return new List<Scope> { currentScope };
         foreach (var childScope in currentScope.ChildScopes) {
           yield return ScopeDFS(childScope.Value).SelectMany(x => x).Prepend(currentScope);
         }
@@ -242,7 +243,7 @@ namespace Sidl.Processor {
     public Scope AddScope(string name, Scope parent) {
       var newScope = new Scope(name, parent);
       scopes.Add(newScope);
-      if (parent != null) parent.ChildScopes.Add(name, newScope);
+      if (parent != null) parent.ChildScopes.Add(name + Guid.NewGuid(), newScope);
       return newScope;
     }
 

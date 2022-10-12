@@ -4,26 +4,20 @@ string host = "127.0.0.1";
 int port = 15387;
 string basetopic = "resinet";
 
-# string[] nodeNames;
-
 # Demo 1:
 {    
     string version = "v1";
-    string x = "asdf";
-    # string topic = basetopic + "/" + version; # not supported yet
+    string x = "asdf";    
 
-    # nodes
+    # nodes 1
     {
-        float x = 200;
-        #node pvProduction1 = {
-        #    name = "PV Production System 1";
-        #    input =  [ int maxPvProduction, string direction, int tilt, float globalRadiation,  string time, float airTemperature ];
-        #}
+        float foo = 200;
     }
 
-    #{        
-    #    string xy = "hola";
-    #}
+    # nodes 2
+    {        
+        string bar = "hola";
+    }
 
     string test = "v1";
 }
