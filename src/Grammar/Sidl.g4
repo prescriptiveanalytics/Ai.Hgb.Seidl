@@ -26,15 +26,17 @@ statement
     | scope                                             #scopeStatement
     | type variablelist terminator                      #declarationStatement
     | variablelist '=' expressionlist terminator        #assignmentStatement
-    | type variablelist '=' expressionlist terminator   #definitionStatement
-    | graphdefinition                                   #graphdefinitionStatement
+    | type variablelist '=' expressionlist terminator   #definitionStatement    
+    | structdefinition                                  #structdefinitionStatement
+    | messagedefinition                                 #messagedefinitionStatement
+    | nodetypedefinition                                #nodetypedefinitionStatement
     | nodedefinition                                    #nodedefinitionStatement
-    | edgedefinition                                    #edgedefinitionStatement
-    | recorddefinition                                  #recorddefinitionStatement
+    | metadefinition                                    #metadefinitionStatement
+    | importstatement                                   #importStatement
+    | typealiasingstatement                             #typealiasingStatement
 
     // not yet in use
     // | functiondefinition
-    // | importstatement    
     // | functioncall   
 
     // deprecated:
@@ -43,7 +45,7 @@ statement
     ;
 
 scope // = block scope
-    : '{' set '}'
+    : variable? '{' set '}'    
     ;
 
 type
@@ -56,7 +58,12 @@ atomictype
     ;
 
 complextype
-    : 'graph' | 'node' | 'edge' | 'record' | 'function'
+    : structtype
+    // : 'struct' | 'node' | 'message' | 'function'
+    ;
+
+graphtype
+    : messagetype | nodetypetype | nodetype | metatype
     ;
 
 variable
@@ -107,7 +114,11 @@ lefthandside
 
 importstatement
     : 'import' variable
-    | 'import' STRING
+    | 'import' string
+    ;
+
+typealiasingstatement
+    : typetype variable ':' type (',' string)?
     ;
 
 functiondefinition
@@ -134,43 +145,60 @@ functioncall
     : variable '(' variablelist? ')'
     ;
 
-recorddefinition // struct
-    : recordtype variable '=' '{'
+structdefinition
+    : structtype variable '=' '{'
         (type variable terminator)*
     '}'
     ;
 
-graphdefinition
-    : graphtype variable '=' '{' 
-        (
-            'name' '=' NAME terminator
-            | 'nodes' '=' '[' variablelist? ']' terminator
-            | variablelist '->' variablelist
-        )*
-    '}'
+messagedefinition
+    : messagetype variable '{' (topictype? type? variable (',' topictype? type? variable)*)? '}'
+    ;
+
+nodetypedefinition
+    : nodetypetype variable '{' nodebody '}' // parameter based definition
+    | nodetypetype variable nodetypesignature ('{' nodebody '}')? // signature based definition
+    ;
+
+nodetypesignature
+    : '(' (variablelist | typedvariablelist)? '=>' (topictype? type? variable (',' topictype? type? variable)*)? ')'
     ;
 
 nodedefinition
-    : nodetype variable '=' '{' 
+    : nodetype variable '{' nodebody '}' // using implicit nodetype
+    | nodetype variable nodetypesignature ('{' nodebody '}')? // using implicit nodetype
+    | nodetype variable variable // using explicit nodetype
+    ;
+
+nodebody
+    : ( 'name' string terminator
+        | 'description' string terminator
+        | 'input' typedvariablelist? terminator
+        | 'output' typedvariablelist? terminator 
+        | 'include' variable terminator // include pre-defined meta properties
+        | propertytype type variablelist terminator
+    )*
+    ;
+
+metadefinition
+    : metatype variable '{'
         (
-            'name' '=' NAME terminator
-            | 'input' '=' '[' typedvariablelist? ']' terminator
-            | 'output' '=' '[' typedvariablelist? ']' terminator       
+            propertytype type variablelist terminator
         )*
     '}'
     ;
 
-edgedefinition
-    : edgetype variable '=' variablelist? '-[' typedvariablelist ']->' variablelist?
-    | edgetype variable '=' '{'
-        (
-            'name' '=' NAME terminator
-            | 'from' '=' '[' variablelist? ']' terminator
-            | 'to' '=' '[' variablelist? ']' terminator
-            | 'arguments' '=' '[' typedvariablelist ']' terminator
-        )*
-    '}'
-    ;
+// edgedefinition
+//     : edgetype variable '=' variablelist? '-[' typedvariablelist ']->' variablelist?
+//     | edgetype variable '=' '{'
+//         (
+//             'name' '=' NAME terminator
+//             | 'from' '=' '[' variablelist? ']' terminator
+//             | 'to' '=' '[' variablelist? ']' terminator
+//             | 'arguments' '=' '[' typedvariablelist ']' terminator
+//         )*
+//     '}'
+//     ;
 
 number
     : INTEGER | FLOAT
@@ -180,24 +208,40 @@ string
     : STRING //NORMALSTRING | CHARSTRING | LONGSTRING
     ;
 
+typetype
+    : 'type'
+    ;
+
 functiontype
     : 'function'
     ;
 
-recordtype
+structtype
     : 'struct'
     ;
 
-graphtype
-    : 'graph'
+messagetype
+    : 'message'
+    ;
+
+nodetypetype
+    : 'nodetype'
     ;
 
 nodetype
     : 'node'
     ;
 
-edgetype
-    : 'edge'
+propertytype
+    : 'property'
+    ;
+
+topictype
+    : 'topic'
+    ;
+
+metatype
+    : 'meta'
     ;
 
 terminator
@@ -206,9 +250,31 @@ terminator
     ;
 
 
+
 /*
 *  Lexer Rules
 */
+
+// Types
+
+TYPE        : 'type';
+FUNCTION    : 'function';
+STRUCT      : 'struct';
+MESSAGE     : 'message';
+NODETYPE    : 'nodetype';
+NODE        : 'node';
+META        : 'meta';
+
+
+// Keywords
+
+IMPORT      : 'import';
+INCLUDE     : 'include';
+PROPERTY    : 'property';
+TOPIC       : 'topic';
+
+
+// Fragments
 
 fragment LOWERCASE    : [a-z] ;
 fragment UPPERCASE    : [A-Z] ;
@@ -230,6 +296,8 @@ fragment NEWLINE
     | '\r'
     ;
 
+
+// Literals
 
 NAME                  : [a-zA-Z_][a-zA-Z_0-9]* ;
 WORD                  : (LOWERCASE | UPPERCASE)+ ;

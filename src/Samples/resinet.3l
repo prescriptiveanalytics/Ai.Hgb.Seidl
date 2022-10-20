@@ -68,6 +68,45 @@ node weatherServiceTemplate weatherService5 { name = "", description = "", color
 
 
 
+# alternatives:
+
+# a1: input and output within parenthesis
+node weatherService1 (forecastRequest,... => weatherReport,...) {
+    ...
+}
+
+# a2: lambda vs arrow symbol
+node weatherService1 (forecastRequest,... -> weatherReport,...) {
+    ...
+}
+
+# a3: import vs include for meta properties
+nodetype weatherServiceTemplateWithMeta(forecastRequest) => weatherReport {
+    include servicesInfo
+}
+
+# a4: ; terminator
+node weatherService1 (forecastRequest,... => weatherReport,...) {
+    ...
+};
+node weatherService weatherService1, weatherService2;
+string x = "foo";
+
+# a5: aliasing with optional format
+type datetime : string, "yyyy-MM-dd-hh-mm-ss"
+type datetime = string, "yyyy-MM-dd-hh-mm-ss"
+type datetime = (string, "yyyy-MM-dd-hh-mm-ss")
+
+# a6
+# type variable signature vs variable siganture -> allow combinations?
+
+# a7
+# alternatives within node and nodetype signatures:
+# message usage vs implicit message definition and combinations
+# topic-keyword inside node/nodetype signature
+# node-body definition for node vs nodetype
+# type variable signature vs variable siganture - allow combinations?
+# ...
 
 
 
