@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:\Users\P41608\Google Drive\FHHAGENBERG\FE\SPA\Demos\DSL\SpaDsl\Grammar\Sidl.g4 by ANTLR 4.9.2
+// Generated from c:\dev\workspaces\spa\Sidl\src\Grammar\SidlParser.g4 by ANTLR 4.9.2
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -31,7 +31,7 @@ using IToken = Antlr4.Runtime.IToken;
 /// <typeparam name="Result">The return type of the visit operation.</typeparam>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.9.2")]
 [System.CLSCompliant(false)]
-public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
+public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.root"/>.
 	/// </summary>
@@ -80,12 +80,26 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitDefinitionStatement([NotNull] SidlParser.DefinitionStatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>graphdefinitionStatement</c>
+	/// Visit a parse tree produced by the <c>structdefinitionStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitGraphdefinitionStatement([NotNull] SidlParser.GraphdefinitionStatementContext context);
+	Result VisitStructdefinitionStatement([NotNull] SidlParser.StructdefinitionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>messagedefinitionStatement</c>
+	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMessagedefinitionStatement([NotNull] SidlParser.MessagedefinitionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>nodetypedefinitionStatement</c>
+	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodetypedefinitionStatement([NotNull] SidlParser.NodetypedefinitionStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>nodedefinitionStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
@@ -94,19 +108,26 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodedefinitionStatement([NotNull] SidlParser.NodedefinitionStatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>edgedefinitionStatement</c>
+	/// Visit a parse tree produced by the <c>metadefinitionStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitEdgedefinitionStatement([NotNull] SidlParser.EdgedefinitionStatementContext context);
+	Result VisitMetadefinitionStatement([NotNull] SidlParser.MetadefinitionStatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>recorddefinitionStatement</c>
+	/// Visit a parse tree produced by the <c>importStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitRecorddefinitionStatement([NotNull] SidlParser.RecorddefinitionStatementContext context);
+	Result VisitImportStatement([NotNull] SidlParser.ImportStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>typealiasingStatement</c>
+	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTypealiasingStatement([NotNull] SidlParser.TypealiasingStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.scope"/>.
 	/// </summary>
@@ -132,11 +153,23 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitComplextype([NotNull] SidlParser.ComplextypeContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.graphtype"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGraphtype([NotNull] SidlParser.GraphtypeContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.variable"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitVariable([NotNull] SidlParser.VariableContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.typename"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTypename([NotNull] SidlParser.TypenameContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.variablelist"/>.
 	/// </summary>
@@ -192,6 +225,12 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitImportstatement([NotNull] SidlParser.ImportstatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.typealiasingstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTypealiasingstatement([NotNull] SidlParser.TypealiasingstatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.functiondefinition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -216,17 +255,47 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitFunctioncall([NotNull] SidlParser.FunctioncallContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.recorddefinition"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.structdefinition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitRecorddefinition([NotNull] SidlParser.RecorddefinitionContext context);
+	Result VisitStructdefinition([NotNull] SidlParser.StructdefinitionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.graphdefinition"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.messagetypename"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitGraphdefinition([NotNull] SidlParser.GraphdefinitionContext context);
+	Result VisitMessagetypename([NotNull] SidlParser.MessagetypenameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodetypename"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodetypename([NotNull] SidlParser.NodetypenameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.messagetypelist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMessagetypelist([NotNull] SidlParser.MessagetypelistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.messagedefinition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMessagedefinition([NotNull] SidlParser.MessagedefinitionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodetypedefinition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodetypedefinition([NotNull] SidlParser.NodetypedefinitionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodetypesignature"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodetypesignature([NotNull] SidlParser.NodetypesignatureContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.nodedefinition"/>.
 	/// </summary>
@@ -234,11 +303,17 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodedefinition([NotNull] SidlParser.NodedefinitionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.edgedefinition"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.nodebody"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitEdgedefinition([NotNull] SidlParser.EdgedefinitionContext context);
+	Result VisitNodebody([NotNull] SidlParser.NodebodyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.metadefinition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMetadefinition([NotNull] SidlParser.MetadefinitionContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.number"/>.
 	/// </summary>
@@ -251,36 +326,6 @@ public interface ISidlVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitString([NotNull] SidlParser.StringContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.functiontype"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitFunctiontype([NotNull] SidlParser.FunctiontypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.recordtype"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitRecordtype([NotNull] SidlParser.RecordtypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.graphtype"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitGraphtype([NotNull] SidlParser.GraphtypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodetype"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNodetype([NotNull] SidlParser.NodetypeContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.edgetype"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitEdgetype([NotNull] SidlParser.EdgetypeContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.terminator"/>.
 	/// </summary>

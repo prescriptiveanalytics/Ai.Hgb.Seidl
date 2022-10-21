@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:\Users\P41608\Google Drive\FHHAGENBERG\FE\SPA\Demos\DSL\SpaDsl\Grammar\Sidl.g4 by ANTLR 4.9.2
+// Generated from c:\dev\workspaces\spa\Sidl\src\Grammar\SidlParser.g4 by ANTLR 4.9.2
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -37,50 +37,56 @@ public partial class SidlParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
-		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
-		T__31=32, T__32=33, T__33=34, T__34=35, T__35=36, T__36=37, T__37=38, 
-		T__38=39, T__39=40, T__40=41, NAME=42, WORD=43, STRING=44, NORMALSTRING=45, 
-		CHARSTRING=46, LONGSTRING=47, INTEGER=48, FLOAT=49, WHITESPACE=50, STMEND=51, 
-		COMMENT=52, LINECOMMENT=53, SHEBANG=54;
+		TYPE=1, ARRAY=2, STRING=3, INT=4, FLOAT=5, BOOL=6, STRUCT=7, MESSAGE=8, 
+		NODETYPE=9, NODE=10, META=11, FUNCTION=12, IMPORT=13, INCLUDE=14, PROPERTY=15, 
+		TOPIC=16, INPUT=17, OUTPUT=18, NULL=19, TRUE=20, FALSE=21, IF=22, ELSE=23, 
+		ELSEIF=24, FOR=25, IN=26, WHILE=27, RETURN=28, DOT=29, STAR=30, COMMA=31, 
+		COLON=32, SEMI_COLON=33, ASSIGN=34, ADD=35, MINUS=36, DIV=37, ARROW=38, 
+		OPEN_PAREN=39, CLOSE_PAREN=40, OPEN_BRACE=41, CLOSE_BRACE=42, OPEN_BRACKET=43, 
+		CLOSE_BRACKET=44, NAME=45, WORD=46, STRINGLITEARL=47, NORMALSTRING=48, 
+		CHARSTRING=49, LONGSTRING=50, INTEGER=51, FLOATINGPOINTNUMBER=52, WHITESPACE=53, 
+		STMEND=54, COMMENT=55, LINECOMMENT=56, SHEBANG=57;
 	public const int
 		RULE_root = 0, RULE_set = 1, RULE_statement = 2, RULE_scope = 3, RULE_type = 4, 
-		RULE_atomictype = 5, RULE_complextype = 6, RULE_variable = 7, RULE_variablelist = 8, 
-		RULE_typedvariablelist = 9, RULE_expressionlist = 10, RULE_expression = 11, 
-		RULE_arraydeclaration = 12, RULE_arrayaccess = 13, RULE_fieldaccess = 14, 
-		RULE_lefthandside = 15, RULE_importstatement = 16, RULE_functiondefinition = 17, 
-		RULE_functionbody = 18, RULE_returnstatement = 19, RULE_functioncall = 20, 
-		RULE_recorddefinition = 21, RULE_graphdefinition = 22, RULE_nodedefinition = 23, 
-		RULE_edgedefinition = 24, RULE_number = 25, RULE_string = 26, RULE_functiontype = 27, 
-		RULE_recordtype = 28, RULE_graphtype = 29, RULE_nodetype = 30, RULE_edgetype = 31, 
-		RULE_terminator = 32;
+		RULE_atomictype = 5, RULE_complextype = 6, RULE_graphtype = 7, RULE_variable = 8, 
+		RULE_typename = 9, RULE_variablelist = 10, RULE_typedvariablelist = 11, 
+		RULE_expressionlist = 12, RULE_expression = 13, RULE_arraydeclaration = 14, 
+		RULE_arrayaccess = 15, RULE_fieldaccess = 16, RULE_lefthandside = 17, 
+		RULE_importstatement = 18, RULE_typealiasingstatement = 19, RULE_functiondefinition = 20, 
+		RULE_functionbody = 21, RULE_returnstatement = 22, RULE_functioncall = 23, 
+		RULE_structdefinition = 24, RULE_messagetypename = 25, RULE_nodetypename = 26, 
+		RULE_messagetypelist = 27, RULE_messagedefinition = 28, RULE_nodetypedefinition = 29, 
+		RULE_nodetypesignature = 30, RULE_nodedefinition = 31, RULE_nodebody = 32, 
+		RULE_metadefinition = 33, RULE_number = 34, RULE_string = 35, RULE_terminator = 36;
 	public static readonly string[] ruleNames = {
 		"root", "set", "statement", "scope", "type", "atomictype", "complextype", 
-		"variable", "variablelist", "typedvariablelist", "expressionlist", "expression", 
-		"arraydeclaration", "arrayaccess", "fieldaccess", "lefthandside", "importstatement", 
-		"functiondefinition", "functionbody", "returnstatement", "functioncall", 
-		"recorddefinition", "graphdefinition", "nodedefinition", "edgedefinition", 
-		"number", "string", "functiontype", "recordtype", "graphtype", "nodetype", 
-		"edgetype", "terminator"
+		"graphtype", "variable", "typename", "variablelist", "typedvariablelist", 
+		"expressionlist", "expression", "arraydeclaration", "arrayaccess", "fieldaccess", 
+		"lefthandside", "importstatement", "typealiasingstatement", "functiondefinition", 
+		"functionbody", "returnstatement", "functioncall", "structdefinition", 
+		"messagetypename", "nodetypename", "messagetypelist", "messagedefinition", 
+		"nodetypedefinition", "nodetypesignature", "nodedefinition", "nodebody", 
+		"metadefinition", "number", "string", "terminator"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'='", "'{'", "'}'", "'[]'", "'int'", "'float'", "'string'", "'bool'", 
-		"'graph'", "'node'", "'edge'", "'record'", "'function'", "','", "'null'", 
-		"'false'", "'true'", "'['", "']'", "'.'", "'import'", "'('", "')'", "'if'", 
-		"'else if'", "'else'", "'while'", "'for'", "'in'", "'return'", "'name'", 
-		"'nodes'", "'->'", "'input'", "'output'", "'-['", "']->'", "'from'", "'to'", 
-		"'arguments'", "'struct'"
+		null, "'type'", "'[]'", "'string'", "'int'", "'float'", "'bool'", "'struct'", 
+		"'message'", "'nodetype'", "'node'", "'meta'", "'function'", "'import'", 
+		"'include'", "'property'", "'topic'", "'input'", "'output'", "'null'", 
+		"'true'", "'false'", "'if'", "'else'", "'else if'", "'for'", "'in'", "'while'", 
+		"'return'", "'.'", "'*'", "','", "':'", "';'", "'='", "'+'", "'-'", "'/'", 
+		"'-->'", "'('", "')'", "'{'", "'}'", "'['", "']'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, null, "NAME", "WORD", "STRING", "NORMALSTRING", 
-		"CHARSTRING", "LONGSTRING", "INTEGER", "FLOAT", "WHITESPACE", "STMEND", 
-		"COMMENT", "LINECOMMENT", "SHEBANG"
+		null, "TYPE", "ARRAY", "STRING", "INT", "FLOAT", "BOOL", "STRUCT", "MESSAGE", 
+		"NODETYPE", "NODE", "META", "FUNCTION", "IMPORT", "INCLUDE", "PROPERTY", 
+		"TOPIC", "INPUT", "OUTPUT", "NULL", "TRUE", "FALSE", "IF", "ELSE", "ELSEIF", 
+		"FOR", "IN", "WHILE", "RETURN", "DOT", "STAR", "COMMA", "COLON", "SEMI_COLON", 
+		"ASSIGN", "ADD", "MINUS", "DIV", "ARROW", "OPEN_PAREN", "CLOSE_PAREN", 
+		"OPEN_BRACE", "CLOSE_BRACE", "OPEN_BRACKET", "CLOSE_BRACKET", "NAME", 
+		"WORD", "STRINGLITEARL", "NORMALSTRING", "CHARSTRING", "LONGSTRING", "INTEGER", 
+		"FLOATINGPOINTNUMBER", "WHITESPACE", "STMEND", "COMMENT", "LINECOMMENT", 
+		"SHEBANG"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -93,7 +99,7 @@ public partial class SidlParser : Parser {
 		}
 	}
 
-	public override string GrammarFileName { get { return "Sidl.g4"; } }
+	public override string GrammarFileName { get { return "SidlParser.g4"; } }
 
 	public override string[] RuleNames { get { return ruleNames; } }
 
@@ -126,7 +132,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_root; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitRoot(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -139,9 +145,9 @@ public partial class SidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 66;
+			State = 74;
 			set();
-			State = 67;
+			State = 75;
 			Match(Eof);
 			}
 		}
@@ -170,7 +176,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_set; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSet(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -184,17 +190,17 @@ public partial class SidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 72;
+			State = 80;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__40) | (1L << NAME) | (1L << STMEND))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TYPE) | (1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT) | (1L << MESSAGE) | (1L << NODETYPE) | (1L << NODE) | (1L << META) | (1L << IMPORT) | (1L << OPEN_BRACKET) | (1L << NAME) | (1L << STMEND))) != 0)) {
 				{
 				{
-				State = 69;
+				State = 77;
 				statement();
 				}
 				}
-				State = 74;
+				State = 82;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -236,7 +242,7 @@ public partial class SidlParser : Parser {
 		public DeclarationStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDeclarationStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -248,32 +254,32 @@ public partial class SidlParser : Parser {
 		public TerminatorStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTerminatorStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
-	public partial class EdgedefinitionStatementContext : StatementContext {
-		[System.Diagnostics.DebuggerNonUserCode] public EdgedefinitionContext edgedefinition() {
-			return GetRuleContext<EdgedefinitionContext>(0);
+	public partial class StructdefinitionStatementContext : StatementContext {
+		[System.Diagnostics.DebuggerNonUserCode] public StructdefinitionContext structdefinition() {
+			return GetRuleContext<StructdefinitionContext>(0);
 		}
-		public EdgedefinitionStatementContext(StatementContext context) { CopyFrom(context); }
+		public StructdefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitEdgedefinitionStatement(this);
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStructdefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
-	public partial class RecorddefinitionStatementContext : StatementContext {
-		[System.Diagnostics.DebuggerNonUserCode] public RecorddefinitionContext recorddefinition() {
-			return GetRuleContext<RecorddefinitionContext>(0);
+	public partial class ImportStatementContext : StatementContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ImportstatementContext importstatement() {
+			return GetRuleContext<ImportstatementContext>(0);
 		}
-		public RecorddefinitionStatementContext(StatementContext context) { CopyFrom(context); }
+		public ImportStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitRecorddefinitionStatement(this);
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitImportStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -281,6 +287,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext expressionlist() {
 			return GetRuleContext<ExpressionlistContext>(0);
 		}
@@ -290,20 +297,8 @@ public partial class SidlParser : Parser {
 		public AssignmentStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAssignmentStatement(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-	public partial class GraphdefinitionStatementContext : StatementContext {
-		[System.Diagnostics.DebuggerNonUserCode] public GraphdefinitionContext graphdefinition() {
-			return GetRuleContext<GraphdefinitionContext>(0);
-		}
-		public GraphdefinitionStatementContext(StatementContext context) { CopyFrom(context); }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGraphdefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -314,6 +309,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext expressionlist() {
 			return GetRuleContext<ExpressionlistContext>(0);
 		}
@@ -323,8 +319,32 @@ public partial class SidlParser : Parser {
 		public DefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDefinitionStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class MessagedefinitionStatementContext : StatementContext {
+		[System.Diagnostics.DebuggerNonUserCode] public MessagedefinitionContext messagedefinition() {
+			return GetRuleContext<MessagedefinitionContext>(0);
+		}
+		public MessagedefinitionStatementContext(StatementContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMessagedefinitionStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class NodetypedefinitionStatementContext : StatementContext {
+		[System.Diagnostics.DebuggerNonUserCode] public NodetypedefinitionContext nodetypedefinition() {
+			return GetRuleContext<NodetypedefinitionContext>(0);
+		}
+		public NodetypedefinitionStatementContext(StatementContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNodetypedefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -335,8 +355,32 @@ public partial class SidlParser : Parser {
 		public NodedefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodedefinitionStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class MetadefinitionStatementContext : StatementContext {
+		[System.Diagnostics.DebuggerNonUserCode] public MetadefinitionContext metadefinition() {
+			return GetRuleContext<MetadefinitionContext>(0);
+		}
+		public MetadefinitionStatementContext(StatementContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMetadefinitionStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class TypealiasingStatementContext : StatementContext {
+		[System.Diagnostics.DebuggerNonUserCode] public TypealiasingstatementContext typealiasingstatement() {
+			return GetRuleContext<TypealiasingstatementContext>(0);
+		}
+		public TypealiasingStatementContext(StatementContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitTypealiasingStatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -347,7 +391,7 @@ public partial class SidlParser : Parser {
 		public ScopeStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitScopeStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -358,14 +402,14 @@ public partial class SidlParser : Parser {
 		StatementContext _localctx = new StatementContext(Context, State);
 		EnterRule(_localctx, 4, RULE_statement);
 		try {
-			State = 96;
+			State = 107;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
 			case 1:
 				_localctx = new TerminatorStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 75;
+				State = 83;
 				terminator();
 				}
 				break;
@@ -373,7 +417,7 @@ public partial class SidlParser : Parser {
 				_localctx = new ScopeStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 76;
+				State = 84;
 				scope();
 				}
 				break;
@@ -381,11 +425,11 @@ public partial class SidlParser : Parser {
 				_localctx = new DeclarationStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 77;
+				State = 85;
 				type();
-				State = 78;
+				State = 86;
 				variablelist();
-				State = 79;
+				State = 87;
 				terminator();
 				}
 				break;
@@ -393,13 +437,13 @@ public partial class SidlParser : Parser {
 				_localctx = new AssignmentStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 81;
+				State = 89;
 				variablelist();
-				State = 82;
-				Match(T__0);
-				State = 83;
+				State = 90;
+				Match(ASSIGN);
+				State = 91;
 				expressionlist();
-				State = 84;
+				State = 92;
 				terminator();
 				}
 				break;
@@ -407,48 +451,72 @@ public partial class SidlParser : Parser {
 				_localctx = new DefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 86;
+				State = 94;
 				type();
-				State = 87;
+				State = 95;
 				variablelist();
-				State = 88;
-				Match(T__0);
-				State = 89;
+				State = 96;
+				Match(ASSIGN);
+				State = 97;
 				expressionlist();
-				State = 90;
+				State = 98;
 				terminator();
 				}
 				break;
 			case 6:
-				_localctx = new GraphdefinitionStatementContext(_localctx);
+				_localctx = new StructdefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 92;
-				graphdefinition();
+				State = 100;
+				structdefinition();
 				}
 				break;
 			case 7:
-				_localctx = new NodedefinitionStatementContext(_localctx);
+				_localctx = new MessagedefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 93;
-				nodedefinition();
+				State = 101;
+				messagedefinition();
 				}
 				break;
 			case 8:
-				_localctx = new EdgedefinitionStatementContext(_localctx);
+				_localctx = new NodetypedefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 94;
-				edgedefinition();
+				State = 102;
+				nodetypedefinition();
 				}
 				break;
 			case 9:
-				_localctx = new RecorddefinitionStatementContext(_localctx);
+				_localctx = new NodedefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 95;
-				recorddefinition();
+				State = 103;
+				nodedefinition();
+				}
+				break;
+			case 10:
+				_localctx = new MetadefinitionStatementContext(_localctx);
+				EnterOuterAlt(_localctx, 10);
+				{
+				State = 104;
+				metadefinition();
+				}
+				break;
+			case 11:
+				_localctx = new ImportStatementContext(_localctx);
+				EnterOuterAlt(_localctx, 11);
+				{
+				State = 105;
+				importstatement();
+				}
+				break;
+			case 12:
+				_localctx = new TypealiasingStatementContext(_localctx);
+				EnterOuterAlt(_localctx, 12);
+				{
+				State = 106;
+				typealiasingstatement();
 				}
 				break;
 			}
@@ -465,8 +533,13 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ScopeContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SidlParser.OPEN_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public SetContext set() {
 			return GetRuleContext<SetContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SidlParser.CLOSE_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
+			return GetRuleContext<VariableContext>(0);
 		}
 		public ScopeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -475,7 +548,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_scope; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitScope(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -485,15 +558,26 @@ public partial class SidlParser : Parser {
 	public ScopeContext scope() {
 		ScopeContext _localctx = new ScopeContext(Context, State);
 		EnterRule(_localctx, 6, RULE_scope);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 98;
-			Match(T__1);
-			State = 99;
+			State = 110;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if (_la==NAME) {
+				{
+				State = 109;
+				variable();
+				}
+			}
+
+			State = 112;
+			Match(OPEN_BRACKET);
+			State = 113;
 			set();
-			State = 100;
-			Match(T__2);
+			State = 114;
+			Match(CLOSE_BRACKET);
 			}
 		}
 		catch (RecognitionException re) {
@@ -514,6 +598,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ComplextypeContext complextype() {
 			return GetRuleContext<ComplextypeContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARRAY() { return GetToken(SidlParser.ARRAY, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -521,7 +606,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_type; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitType(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -532,39 +617,39 @@ public partial class SidlParser : Parser {
 		TypeContext _localctx = new TypeContext(Context, State);
 		EnterRule(_localctx, 8, RULE_type);
 		try {
-			State = 110;
+			State = 124;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 102;
+				State = 116;
 				atomictype();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 103;
+				State = 117;
 				complextype();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 104;
+				State = 118;
 				atomictype();
-				State = 105;
-				Match(T__3);
+				State = 119;
+				Match(ARRAY);
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 107;
+				State = 121;
 				complextype();
-				State = 108;
-				Match(T__3);
+				State = 122;
+				Match(ARRAY);
 				}
 				break;
 			}
@@ -581,6 +666,10 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class AtomictypeContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INT() { return GetToken(SidlParser.INT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(SidlParser.FLOAT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(SidlParser.STRING, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOL() { return GetToken(SidlParser.BOOL, 0); }
 		public AtomictypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -588,7 +677,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_atomictype; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAtomictype(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -602,9 +691,9 @@ public partial class SidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 112;
+			State = 126;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL))) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -625,6 +714,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ComplextypeContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRUCT() { return GetToken(SidlParser.STRUCT, 0); }
 		public ComplextypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -632,7 +722,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_complextype; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitComplextype(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -642,13 +732,53 @@ public partial class SidlParser : Parser {
 	public ComplextypeContext complextype() {
 		ComplextypeContext _localctx = new ComplextypeContext(Context, State);
 		EnterRule(_localctx, 12, RULE_complextype);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 128;
+			Match(STRUCT);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class GraphtypeContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MESSAGE() { return GetToken(SidlParser.MESSAGE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODETYPE() { return GetToken(SidlParser.NODETYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODE() { return GetToken(SidlParser.NODE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode META() { return GetToken(SidlParser.META, 0); }
+		public GraphtypeContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_graphtype; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitGraphtype(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public GraphtypeContext graphtype() {
+		GraphtypeContext _localctx = new GraphtypeContext(Context, State);
+		EnterRule(_localctx, 14, RULE_graphtype);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 114;
+			State = 130;
 			_la = TokenStream.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MESSAGE) | (1L << NODETYPE) | (1L << NODE) | (1L << META))) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -677,7 +807,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_variable; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitVariable(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -686,11 +816,48 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public VariableContext variable() {
 		VariableContext _localctx = new VariableContext(Context, State);
-		EnterRule(_localctx, 14, RULE_variable);
+		EnterRule(_localctx, 16, RULE_variable);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 116;
+			State = 132;
+			Match(NAME);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class TypenameContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		public TypenameContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_typename; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitTypename(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public TypenameContext typename() {
+		TypenameContext _localctx = new TypenameContext(Context, State);
+		EnterRule(_localctx, 18, RULE_typename);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 134;
 			Match(NAME);
 			}
 		}
@@ -712,6 +879,10 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(SidlParser.COMMA, i);
+		}
 		public VariablelistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -719,7 +890,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_variablelist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitVariablelist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -728,26 +899,26 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public VariablelistContext variablelist() {
 		VariablelistContext _localctx = new VariablelistContext(Context, State);
-		EnterRule(_localctx, 16, RULE_variablelist);
+		EnterRule(_localctx, 20, RULE_variablelist);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 118;
+			State = 136;
 			variable();
-			State = 123;
+			State = 141;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (_la==T__13) {
+			while (_la==COMMA) {
 				{
 				{
-				State = 119;
-				Match(T__13);
-				State = 120;
+				State = 137;
+				Match(COMMA);
+				State = 138;
 				variable();
 				}
 				}
-				State = 125;
+				State = 143;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -777,6 +948,10 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(SidlParser.COMMA, i);
+		}
 		public TypedvariablelistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -784,7 +959,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_typedvariablelist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTypedvariablelist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -793,30 +968,30 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public TypedvariablelistContext typedvariablelist() {
 		TypedvariablelistContext _localctx = new TypedvariablelistContext(Context, State);
-		EnterRule(_localctx, 18, RULE_typedvariablelist);
+		EnterRule(_localctx, 22, RULE_typedvariablelist);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 126;
+			State = 144;
 			type();
-			State = 127;
+			State = 145;
 			variable();
-			State = 134;
+			State = 152;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (_la==T__13) {
+			while (_la==COMMA) {
 				{
 				{
-				State = 128;
-				Match(T__13);
-				State = 129;
+				State = 146;
+				Match(COMMA);
+				State = 147;
 				type();
-				State = 130;
+				State = 148;
 				variable();
 				}
 				}
-				State = 136;
+				State = 154;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -840,6 +1015,10 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression(int i) {
 			return GetRuleContext<ExpressionContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(SidlParser.COMMA, i);
+		}
 		public ExpressionlistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -847,7 +1026,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_expressionlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpressionlist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -856,30 +1035,30 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public ExpressionlistContext expressionlist() {
 		ExpressionlistContext _localctx = new ExpressionlistContext(Context, State);
-		EnterRule(_localctx, 20, RULE_expressionlist);
+		EnterRule(_localctx, 24, RULE_expressionlist);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 137;
+			State = 155;
 			expression();
-			State = 142;
+			State = 160;
 			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,5,Context);
+			_alt = Interpreter.AdaptivePredict(TokenStream,6,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					State = 138;
-					Match(T__13);
-					State = 139;
+					State = 156;
+					Match(COMMA);
+					State = 157;
 					expression();
 					}
 					} 
 				}
-				State = 144;
+				State = 162;
 				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,5,Context);
+				_alt = Interpreter.AdaptivePredict(TokenStream,6,Context);
 			}
 			}
 		}
@@ -895,6 +1074,9 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ExpressionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NULL() { return GetToken(SidlParser.NULL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TRUE() { return GetToken(SidlParser.TRUE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FALSE() { return GetToken(SidlParser.FALSE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NumberContext number() {
 			return GetRuleContext<NumberContext>(0);
 		}
@@ -923,7 +1105,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_expression; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -932,78 +1114,78 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public ExpressionContext expression() {
 		ExpressionContext _localctx = new ExpressionContext(Context, State);
-		EnterRule(_localctx, 22, RULE_expression);
+		EnterRule(_localctx, 26, RULE_expression);
 		try {
-			State = 155;
+			State = 173;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,6,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 145;
-				Match(T__14);
+				State = 163;
+				Match(NULL);
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 146;
-				Match(T__15);
+				State = 164;
+				Match(TRUE);
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 147;
-				Match(T__16);
+				State = 165;
+				Match(FALSE);
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 148;
+				State = 166;
 				number();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 149;
+				State = 167;
 				@string();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 150;
+				State = 168;
 				variable();
 				}
 				break;
 			case 7:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 151;
+				State = 169;
 				scope();
 				}
 				break;
 			case 8:
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 152;
+				State = 170;
 				functiondefinition();
 				}
 				break;
 			case 9:
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 153;
+				State = 171;
 				functioncall();
 				}
 				break;
 			case 10:
 				EnterOuterAlt(_localctx, 10);
 				{
-				State = 154;
+				State = 172;
 				importstatement();
 				}
 				break;
@@ -1024,6 +1206,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type() {
 			return GetRuleContext<TypeContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARRAY() { return GetToken(SidlParser.ARRAY, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
@@ -1034,7 +1217,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_arraydeclaration; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArraydeclaration(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1043,15 +1226,15 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public ArraydeclarationContext arraydeclaration() {
 		ArraydeclarationContext _localctx = new ArraydeclarationContext(Context, State);
-		EnterRule(_localctx, 24, RULE_arraydeclaration);
+		EnterRule(_localctx, 28, RULE_arraydeclaration);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 157;
+			State = 175;
 			type();
-			State = 158;
-			Match(T__3);
-			State = 159;
+			State = 176;
+			Match(ARRAY);
+			State = 177;
 			variable();
 			}
 		}
@@ -1070,9 +1253,11 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SidlParser.OPEN_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SidlParser.CLOSE_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StringContext @string() {
 			return GetRuleContext<StringContext>(0);
 		}
@@ -1083,7 +1268,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayaccess; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayaccess(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1092,35 +1277,35 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public ArrayaccessContext arrayaccess() {
 		ArrayaccessContext _localctx = new ArrayaccessContext(Context, State);
-		EnterRule(_localctx, 26, RULE_arrayaccess);
+		EnterRule(_localctx, 30, RULE_arrayaccess);
 		try {
-			State = 171;
+			State = 189;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case NAME:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 161;
+				State = 179;
 				variable();
-				State = 162;
-				Match(T__17);
-				State = 163;
+				State = 180;
+				Match(OPEN_BRACKET);
+				State = 181;
 				expression();
-				State = 164;
-				Match(T__18);
+				State = 182;
+				Match(CLOSE_BRACKET);
 				}
 				break;
-			case STRING:
+			case STRINGLITEARL:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 166;
+				State = 184;
 				@string();
-				State = 167;
-				Match(T__17);
-				State = 168;
+				State = 185;
+				Match(OPEN_BRACKET);
+				State = 186;
 				expression();
-				State = 169;
-				Match(T__18);
+				State = 187;
+				Match(CLOSE_BRACKET);
 				}
 				break;
 			default:
@@ -1142,6 +1327,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOT() { return GetToken(SidlParser.DOT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public LefthandsideContext lefthandside() {
 			return GetRuleContext<LefthandsideContext>(0);
 		}
@@ -1155,7 +1341,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_fieldaccess; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFieldaccess(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1164,30 +1350,30 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public FieldaccessContext fieldaccess() {
 		FieldaccessContext _localctx = new FieldaccessContext(Context, State);
-		EnterRule(_localctx, 28, RULE_fieldaccess);
+		EnterRule(_localctx, 32, RULE_fieldaccess);
 		try {
-			State = 181;
+			State = 199;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,8,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,9,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 173;
+				State = 191;
 				variable();
-				State = 174;
-				Match(T__19);
-				State = 175;
+				State = 192;
+				Match(DOT);
+				State = 193;
 				lefthandside();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 177;
+				State = 195;
 				arrayaccess();
-				State = 178;
-				Match(T__19);
-				State = 179;
+				State = 196;
+				Match(DOT);
+				State = 197;
 				lefthandside();
 				}
 				break;
@@ -1221,7 +1407,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_lefthandside; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitLefthandside(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1230,29 +1416,29 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public LefthandsideContext lefthandside() {
 		LefthandsideContext _localctx = new LefthandsideContext(Context, State);
-		EnterRule(_localctx, 30, RULE_lefthandside);
+		EnterRule(_localctx, 34, RULE_lefthandside);
 		try {
-			State = 186;
+			State = 204;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,9,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,10,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 183;
+				State = 201;
 				variable();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 184;
+				State = 202;
 				fieldaccess();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 185;
+				State = 203;
 				arrayaccess();
 				}
 				break;
@@ -1270,10 +1456,11 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ImportstatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IMPORT() { return GetToken(SidlParser.IMPORT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(SidlParser.STRING, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRINGLITEARL() { return GetToken(SidlParser.STRINGLITEARL, 0); }
 		public ImportstatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1281,7 +1468,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_importstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitImportstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1290,27 +1477,27 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public ImportstatementContext importstatement() {
 		ImportstatementContext _localctx = new ImportstatementContext(Context, State);
-		EnterRule(_localctx, 32, RULE_importstatement);
+		EnterRule(_localctx, 36, RULE_importstatement);
 		try {
-			State = 192;
+			State = 210;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,10,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,11,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 188;
-				Match(T__20);
-				State = 189;
+				State = 206;
+				Match(IMPORT);
+				State = 207;
 				variable();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 190;
-				Match(T__20);
-				State = 191;
-				Match(STRING);
+				State = 208;
+				Match(IMPORT);
+				State = 209;
+				Match(STRINGLITEARL);
 				}
 				break;
 			}
@@ -1326,12 +1513,86 @@ public partial class SidlParser : Parser {
 		return _localctx;
 	}
 
-	public partial class FunctiondefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public FunctiontypeContext functiontype() {
-			return GetRuleContext<FunctiontypeContext>(0);
-		}
+	public partial class TypealiasingstatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPE() { return GetToken(SidlParser.TYPE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SidlParser.COLON, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type() {
+			return GetRuleContext<TypeContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA() { return GetToken(SidlParser.COMMA, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public StringContext @string() {
+			return GetRuleContext<StringContext>(0);
+		}
+		public TypealiasingstatementContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_typealiasingstatement; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitTypealiasingstatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public TypealiasingstatementContext typealiasingstatement() {
+		TypealiasingstatementContext _localctx = new TypealiasingstatementContext(Context, State);
+		EnterRule(_localctx, 38, RULE_typealiasingstatement);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 212;
+			Match(TYPE);
+			State = 213;
+			variable();
+			State = 214;
+			Match(COLON);
+			State = 215;
+			type();
+			State = 218;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if (_la==COMMA) {
+				{
+				State = 216;
+				Match(COMMA);
+				State = 217;
+				@string();
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class FunctiondefinitionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FUNCTION() { return GetToken(SidlParser.FUNCTION, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
+			return GetRuleContext<VariableContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] OPEN_PAREN() { return GetTokens(SidlParser.OPEN_PAREN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN(int i) {
+			return GetToken(SidlParser.OPEN_PAREN, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] CLOSE_PAREN() { return GetTokens(SidlParser.CLOSE_PAREN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN(int i) {
+			return GetToken(SidlParser.CLOSE_PAREN, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public FunctionbodyContext functionbody() {
 			return GetRuleContext<FunctionbodyContext>(0);
@@ -1349,7 +1610,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_functiondefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFunctiondefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1358,46 +1619,46 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public FunctiondefinitionContext functiondefinition() {
 		FunctiondefinitionContext _localctx = new FunctiondefinitionContext(Context, State);
-		EnterRule(_localctx, 34, RULE_functiondefinition);
+		EnterRule(_localctx, 40, RULE_functiondefinition);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 194;
-			functiontype();
-			State = 195;
+			State = 220;
+			Match(FUNCTION);
+			State = 221;
 			variable();
-			State = 196;
-			Match(T__0);
-			State = 197;
-			Match(T__21);
-			State = 199;
+			State = 222;
+			Match(ASSIGN);
+			State = 223;
+			Match(OPEN_PAREN);
+			State = 225;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT))) != 0)) {
 				{
-				State = 198;
+				State = 224;
 				typedvariablelist();
 				}
 			}
 
-			State = 201;
-			Match(T__22);
-			State = 202;
-			Match(T__21);
-			State = 204;
+			State = 227;
+			Match(CLOSE_PAREN);
+			State = 228;
+			Match(OPEN_PAREN);
+			State = 230;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT))) != 0)) {
 				{
-				State = 203;
+				State = 229;
 				typedvariablelist();
 				}
 			}
 
-			State = 206;
-			Match(T__22);
-			State = 207;
+			State = 232;
+			Match(CLOSE_PAREN);
+			State = 233;
 			functionbody();
 			}
 		}
@@ -1413,11 +1674,17 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class FunctionbodyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext statement(int i) {
 			return GetRuleContext<StatementContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IF() { return GetTokens(SidlParser.IF); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IF(int i) {
+			return GetToken(SidlParser.IF, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
 			return GetRuleContexts<ExpressionContext>();
@@ -1431,11 +1698,23 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ScopeContext scope(int i) {
 			return GetRuleContext<ScopeContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] WHILE() { return GetTokens(SidlParser.WHILE); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode WHILE(int i) {
+			return GetToken(SidlParser.WHILE, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] FOR() { return GetTokens(SidlParser.FOR); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FOR(int i) {
+			return GetToken(SidlParser.FOR, i);
+		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext[] variablelist() {
 			return GetRuleContexts<VariablelistContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist(int i) {
 			return GetRuleContext<VariablelistContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ASSIGN() { return GetTokens(SidlParser.ASSIGN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN(int i) {
+			return GetToken(SidlParser.ASSIGN, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext[] expressionlist() {
 			return GetRuleContexts<ExpressionlistContext>();
@@ -1443,17 +1722,33 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext expressionlist(int i) {
 			return GetRuleContext<ExpressionlistContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(SidlParser.COMMA, i);
+		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext[] variable() {
 			return GetRuleContexts<VariableContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IN() { return GetTokens(SidlParser.IN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IN(int i) {
+			return GetToken(SidlParser.IN, i);
+		}
 		[System.Diagnostics.DebuggerNonUserCode] public ReturnstatementContext[] returnstatement() {
 			return GetRuleContexts<ReturnstatementContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ReturnstatementContext returnstatement(int i) {
 			return GetRuleContext<ReturnstatementContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ELSEIF() { return GetTokens(SidlParser.ELSEIF); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ELSEIF(int i) {
+			return GetToken(SidlParser.ELSEIF, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ELSE() { return GetTokens(SidlParser.ELSE); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ELSE(int i) {
+			return GetToken(SidlParser.ELSE, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
 			return GetRuleContexts<TypeContext>();
@@ -1468,7 +1763,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_functionbody; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFunctionbody(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1477,61 +1772,61 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public FunctionbodyContext functionbody() {
 		FunctionbodyContext _localctx = new FunctionbodyContext(Context, State);
-		EnterRule(_localctx, 36, RULE_functionbody);
+		EnterRule(_localctx, 42, RULE_functionbody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 209;
-			Match(T__1);
-			State = 258;
+			State = 235;
+			Match(OPEN_BRACE);
+			State = 284;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << T__23) | (1L << T__26) | (1L << T__27) | (1L << T__29) | (1L << T__40) | (1L << NAME) | (1L << STMEND))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << TYPE) | (1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT) | (1L << MESSAGE) | (1L << NODETYPE) | (1L << NODE) | (1L << META) | (1L << IMPORT) | (1L << IF) | (1L << FOR) | (1L << WHILE) | (1L << RETURN) | (1L << OPEN_BRACKET) | (1L << NAME) | (1L << STMEND))) != 0)) {
 				{
-				State = 256;
+				State = 282;
 				ErrorHandler.Sync(this);
-				switch ( Interpreter.AdaptivePredict(TokenStream,18,Context) ) {
+				switch ( Interpreter.AdaptivePredict(TokenStream,20,Context) ) {
 				case 1:
 					{
-					State = 210;
+					State = 236;
 					statement();
 					}
 					break;
 				case 2:
 					{
-					State = 211;
-					Match(T__23);
-					State = 212;
+					State = 237;
+					Match(IF);
+					State = 238;
 					expression();
-					State = 213;
+					State = 239;
 					scope();
-					State = 220;
+					State = 246;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
-					while (_la==T__24) {
+					while (_la==ELSEIF) {
 						{
 						{
-						State = 214;
-						Match(T__24);
-						State = 215;
+						State = 240;
+						Match(ELSEIF);
+						State = 241;
 						expression();
-						State = 216;
+						State = 242;
 						scope();
 						}
 						}
-						State = 222;
+						State = 248;
 						ErrorHandler.Sync(this);
 						_la = TokenStream.LA(1);
 					}
-					State = 225;
+					State = 251;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
-					if (_la==T__25) {
+					if (_la==ELSE) {
 						{
-						State = 223;
-						Match(T__25);
-						State = 224;
+						State = 249;
+						Match(ELSE);
+						State = 250;
 						scope();
 						}
 					}
@@ -1540,92 +1835,92 @@ public partial class SidlParser : Parser {
 					break;
 				case 3:
 					{
-					State = 227;
-					Match(T__26);
-					State = 228;
+					State = 253;
+					Match(WHILE);
+					State = 254;
 					expression();
-					State = 229;
+					State = 255;
 					scope();
 					}
 					break;
 				case 4:
 					{
-					State = 231;
-					Match(T__27);
-					State = 233;
+					State = 257;
+					Match(FOR);
+					State = 259;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT))) != 0)) {
 						{
-						State = 232;
+						State = 258;
 						type();
 						}
 					}
 
-					State = 235;
+					State = 261;
 					variablelist();
-					State = 236;
-					Match(T__0);
-					State = 237;
+					State = 262;
+					Match(ASSIGN);
+					State = 263;
 					expressionlist();
-					State = 238;
-					Match(T__13);
-					State = 239;
+					State = 264;
+					Match(COMMA);
+					State = 265;
 					expression();
-					State = 242;
+					State = 268;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
-					if (_la==T__13) {
+					if (_la==COMMA) {
 						{
-						State = 240;
-						Match(T__13);
-						State = 241;
+						State = 266;
+						Match(COMMA);
+						State = 267;
 						expression();
 						}
 					}
 
-					State = 244;
+					State = 270;
 					scope();
 					}
 					break;
 				case 5:
 					{
-					State = 246;
-					Match(T__27);
-					State = 248;
+					State = 272;
+					Match(FOR);
+					State = 274;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT))) != 0)) {
 						{
-						State = 247;
+						State = 273;
 						type();
 						}
 					}
 
-					State = 250;
+					State = 276;
 					variable();
-					State = 251;
-					Match(T__28);
-					State = 252;
+					State = 277;
+					Match(IN);
+					State = 278;
 					variable();
-					State = 253;
+					State = 279;
 					scope();
 					}
 					break;
 				case 6:
 					{
-					State = 255;
+					State = 281;
 					returnstatement();
 					}
 					break;
 				}
 				}
-				State = 260;
+				State = 286;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 261;
-			Match(T__2);
+			State = 287;
+			Match(CLOSE_BRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1640,6 +1935,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ReturnstatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RETURN() { return GetToken(SidlParser.RETURN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
@@ -1650,7 +1946,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_returnstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitReturnstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1659,18 +1955,18 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public ReturnstatementContext returnstatement() {
 		ReturnstatementContext _localctx = new ReturnstatementContext(Context, State);
-		EnterRule(_localctx, 38, RULE_returnstatement);
+		EnterRule(_localctx, 44, RULE_returnstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 263;
-			Match(T__29);
-			State = 265;
+			State = 289;
+			Match(RETURN);
+			State = 291;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,20,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,22,Context) ) {
 			case 1:
 				{
-				State = 264;
+				State = 290;
 				variablelist();
 				}
 				break;
@@ -1692,6 +1988,8 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SidlParser.OPEN_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SidlParser.CLOSE_PAREN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
@@ -1702,7 +2000,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_functioncall; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFunctioncall(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1711,27 +2009,27 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public FunctioncallContext functioncall() {
 		FunctioncallContext _localctx = new FunctioncallContext(Context, State);
-		EnterRule(_localctx, 40, RULE_functioncall);
+		EnterRule(_localctx, 46, RULE_functioncall);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 267;
+			State = 293;
 			variable();
-			State = 268;
-			Match(T__21);
-			State = 270;
+			State = 294;
+			Match(OPEN_PAREN);
+			State = 296;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==NAME) {
 				{
-				State = 269;
+				State = 295;
 				variablelist();
 				}
 			}
 
-			State = 272;
-			Match(T__22);
+			State = 298;
+			Match(CLOSE_PAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1745,16 +2043,16 @@ public partial class SidlParser : Parser {
 		return _localctx;
 	}
 
-	public partial class RecorddefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public RecordtypeContext recordtype() {
-			return GetRuleContext<RecordtypeContext>(0);
-		}
+	public partial class StructdefinitionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRUCT() { return GetToken(SidlParser.STRUCT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext[] variable() {
 			return GetRuleContexts<VariableContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
 			return GetRuleContexts<TypeContext>();
 		}
@@ -1767,55 +2065,53 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
 			return GetRuleContext<TerminatorContext>(i);
 		}
-		public RecorddefinitionContext(ParserRuleContext parent, int invokingState)
+		public StructdefinitionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_recorddefinition; } }
+		public override int RuleIndex { get { return RULE_structdefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitRecorddefinition(this);
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitStructdefinition(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public RecorddefinitionContext recorddefinition() {
-		RecorddefinitionContext _localctx = new RecorddefinitionContext(Context, State);
-		EnterRule(_localctx, 42, RULE_recorddefinition);
+	public StructdefinitionContext structdefinition() {
+		StructdefinitionContext _localctx = new StructdefinitionContext(Context, State);
+		EnterRule(_localctx, 48, RULE_structdefinition);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 274;
-			recordtype();
-			State = 275;
+			State = 300;
+			Match(STRUCT);
+			State = 301;
 			variable();
-			State = 276;
-			Match(T__0);
-			State = 277;
-			Match(T__1);
-			State = 284;
+			State = 302;
+			Match(OPEN_BRACE);
+			State = 309;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT))) != 0)) {
 				{
 				{
-				State = 278;
+				State = 303;
 				type();
-				State = 279;
+				State = 304;
 				variable();
-				State = 280;
+				State = 305;
 				terminator();
 				}
 				}
-				State = 286;
+				State = 311;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 287;
-			Match(T__2);
+			State = 312;
+			Match(CLOSE_BRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1829,122 +2125,463 @@ public partial class SidlParser : Parser {
 		return _localctx;
 	}
 
-	public partial class GraphdefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public GraphtypeContext graphtype() {
-			return GetRuleContext<GraphtypeContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
-			return GetRuleContext<VariableContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NAME() { return GetTokens(SidlParser.NAME); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME(int i) {
-			return GetToken(SidlParser.NAME, i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext[] terminator() {
-			return GetRuleContexts<TerminatorContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
-			return GetRuleContext<TerminatorContext>(i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext[] variablelist() {
-			return GetRuleContexts<VariablelistContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist(int i) {
-			return GetRuleContext<VariablelistContext>(i);
-		}
-		public GraphdefinitionContext(ParserRuleContext parent, int invokingState)
+	public partial class MessagetypenameContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		public MessagetypenameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_graphdefinition; } }
+		public override int RuleIndex { get { return RULE_messagetypename; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGraphdefinition(this);
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMessagetypename(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public GraphdefinitionContext graphdefinition() {
-		GraphdefinitionContext _localctx = new GraphdefinitionContext(Context, State);
-		EnterRule(_localctx, 44, RULE_graphdefinition);
+	public MessagetypenameContext messagetypename() {
+		MessagetypenameContext _localctx = new MessagetypenameContext(Context, State);
+		EnterRule(_localctx, 50, RULE_messagetypename);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 314;
+			Match(NAME);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class NodetypenameContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		public NodetypenameContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_nodetypename; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNodetypename(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public NodetypenameContext nodetypename() {
+		NodetypenameContext _localctx = new NodetypenameContext(Context, State);
+		EnterRule(_localctx, 52, RULE_nodetypename);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 316;
+			Match(NAME);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class MessagetypelistContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public MessagetypenameContext[] messagetypename() {
+			return GetRuleContexts<MessagetypenameContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public MessagetypenameContext messagetypename(int i) {
+			return GetRuleContext<MessagetypenameContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext[] variable() {
+			return GetRuleContexts<VariableContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
+			return GetRuleContext<VariableContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(SidlParser.COMMA, i);
+		}
+		public MessagetypelistContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_messagetypelist; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMessagetypelist(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public MessagetypelistContext messagetypelist() {
+		MessagetypelistContext _localctx = new MessagetypelistContext(Context, State);
+		EnterRule(_localctx, 54, RULE_messagetypelist);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 289;
-			graphtype();
-			State = 290;
+			State = 318;
+			messagetypename();
+			State = 319;
 			variable();
-			State = 291;
-			Match(T__0);
-			State = 292;
-			Match(T__1);
-			State = 311;
+			State = 326;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__31) | (1L << NAME))) != 0)) {
+			while (_la==COMMA) {
 				{
-				State = 309;
+				{
+				State = 320;
+				Match(COMMA);
+				State = 321;
+				messagetypename();
+				State = 322;
+				variable();
+				}
+				}
+				State = 328;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class MessagedefinitionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MESSAGE() { return GetToken(SidlParser.MESSAGE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public MessagetypenameContext messagetypename() {
+			return GetRuleContext<MessagetypenameContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext[] variable() {
+			return GetRuleContexts<VariableContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
+			return GetRuleContext<VariableContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypenameContext[] typename() {
+			return GetRuleContexts<TypenameContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypenameContext typename(int i) {
+			return GetRuleContext<TypenameContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
+			return GetRuleContexts<TypeContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type(int i) {
+			return GetRuleContext<TypeContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] TOPIC() { return GetTokens(SidlParser.TOPIC); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TOPIC(int i) {
+			return GetToken(SidlParser.TOPIC, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
+			return GetToken(SidlParser.COMMA, i);
+		}
+		public MessagedefinitionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_messagedefinition; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMessagedefinition(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public MessagedefinitionContext messagedefinition() {
+		MessagedefinitionContext _localctx = new MessagedefinitionContext(Context, State);
+		EnterRule(_localctx, 56, RULE_messagedefinition);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 329;
+			Match(MESSAGE);
+			State = 330;
+			messagetypename();
+			State = 331;
+			Match(OPEN_BRACE);
+			State = 355;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT) | (1L << TOPIC) | (1L << NAME))) != 0)) {
+				{
+				State = 333;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==TOPIC) {
+					{
+					State = 332;
+					Match(TOPIC);
+					}
+				}
+
+				State = 337;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
-				case T__30:
-					{
-					State = 293;
-					Match(T__30);
-					State = 294;
-					Match(T__0);
-					State = 295;
-					Match(NAME);
-					State = 296;
-					terminator();
-					}
-					break;
-				case T__31:
-					{
-					State = 297;
-					Match(T__31);
-					State = 298;
-					Match(T__0);
-					State = 299;
-					Match(T__17);
-					State = 301;
-					ErrorHandler.Sync(this);
-					_la = TokenStream.LA(1);
-					if (_la==NAME) {
-						{
-						State = 300;
-						variablelist();
-						}
-					}
-
-					State = 303;
-					Match(T__18);
-					State = 304;
-					terminator();
-					}
-					break;
 				case NAME:
 					{
-					State = 305;
-					variablelist();
-					State = 306;
-					Match(T__32);
-					State = 307;
-					variablelist();
+					State = 335;
+					typename();
+					}
+					break;
+				case STRING:
+				case INT:
+				case FLOAT:
+				case BOOL:
+				case STRUCT:
+					{
+					State = 336;
+					type();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				}
-				State = 313;
+				State = 339;
+				variable();
+				State = 352;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
+				while (_la==COMMA) {
+					{
+					{
+					State = 340;
+					Match(COMMA);
+					State = 342;
+					ErrorHandler.Sync(this);
+					_la = TokenStream.LA(1);
+					if (_la==TOPIC) {
+						{
+						State = 341;
+						Match(TOPIC);
+						}
+					}
+
+					State = 346;
+					ErrorHandler.Sync(this);
+					switch (TokenStream.LA(1)) {
+					case NAME:
+						{
+						State = 344;
+						typename();
+						}
+						break;
+					case STRING:
+					case INT:
+					case FLOAT:
+					case BOOL:
+					case STRUCT:
+						{
+						State = 345;
+						type();
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
+					}
+					State = 348;
+					variable();
+					}
+					}
+					State = 354;
+					ErrorHandler.Sync(this);
+					_la = TokenStream.LA(1);
+				}
+				}
 			}
-			State = 314;
-			Match(T__2);
+
+			State = 357;
+			Match(CLOSE_BRACE);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class NodetypedefinitionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODETYPE() { return GetToken(SidlParser.NODETYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public NodetypenameContext nodetypename() {
+			return GetRuleContext<NodetypenameContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public NodebodyContext nodebody() {
+			return GetRuleContext<NodebodyContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public NodetypesignatureContext nodetypesignature() {
+			return GetRuleContext<NodetypesignatureContext>(0);
+		}
+		public NodetypedefinitionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_nodetypedefinition; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNodetypedefinition(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public NodetypedefinitionContext nodetypedefinition() {
+		NodetypedefinitionContext _localctx = new NodetypedefinitionContext(Context, State);
+		EnterRule(_localctx, 58, RULE_nodetypedefinition);
+		int _la;
+		try {
+			State = 374;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,33,Context) ) {
+			case 1:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 359;
+				Match(NODETYPE);
+				State = 360;
+				nodetypename();
+				State = 361;
+				Match(OPEN_BRACE);
+				State = 362;
+				nodebody();
+				State = 363;
+				Match(CLOSE_BRACE);
+				}
+				break;
+			case 2:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 365;
+				Match(NODETYPE);
+				State = 366;
+				nodetypename();
+				State = 367;
+				nodetypesignature();
+				State = 372;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==OPEN_BRACE) {
+					{
+					State = 368;
+					Match(OPEN_BRACE);
+					State = 369;
+					nodebody();
+					State = 370;
+					Match(CLOSE_BRACE);
+					}
+				}
+
+				}
+				break;
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class NodetypesignatureContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SidlParser.OPEN_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARROW() { return GetToken(SidlParser.ARROW, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SidlParser.CLOSE_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public MessagetypelistContext[] messagetypelist() {
+			return GetRuleContexts<MessagetypelistContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public MessagetypelistContext messagetypelist(int i) {
+			return GetRuleContext<MessagetypelistContext>(i);
+		}
+		public NodetypesignatureContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_nodetypesignature; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNodetypesignature(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public NodetypesignatureContext nodetypesignature() {
+		NodetypesignatureContext _localctx = new NodetypesignatureContext(Context, State);
+		EnterRule(_localctx, 60, RULE_nodetypesignature);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 376;
+			Match(OPEN_PAREN);
+			State = 378;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if (_la==NAME) {
+				{
+				State = 377;
+				messagetypelist();
+				}
+			}
+
+			State = 380;
+			Match(ARROW);
+			State = 382;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if (_la==NAME) {
+				{
+				State = 381;
+				messagetypelist();
+				}
+			}
+
+			State = 384;
+			Match(CLOSE_PAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1959,27 +2596,20 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodedefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public NodetypeContext nodetype() {
-			return GetRuleContext<NodetypeContext>(0);
-		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODE() { return GetToken(SidlParser.NODE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NAME() { return GetTokens(SidlParser.NAME); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME(int i) {
-			return GetToken(SidlParser.NAME, i);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public NodebodyContext nodebody() {
+			return GetRuleContext<NodebodyContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext[] terminator() {
-			return GetRuleContexts<TerminatorContext>();
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public NodetypesignatureContext nodetypesignature() {
+			return GetRuleContext<NodetypesignatureContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
-			return GetRuleContext<TerminatorContext>(i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public TypedvariablelistContext[] typedvariablelist() {
-			return GetRuleContexts<TypedvariablelistContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public TypedvariablelistContext typedvariablelist(int i) {
-			return GetRuleContext<TypedvariablelistContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public TypenameContext typename() {
+			return GetRuleContext<TypenameContext>(0);
 		}
 		public NodedefinitionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1988,7 +2618,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodedefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodedefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1997,97 +2627,63 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public NodedefinitionContext nodedefinition() {
 		NodedefinitionContext _localctx = new NodedefinitionContext(Context, State);
-		EnterRule(_localctx, 46, RULE_nodedefinition);
+		EnterRule(_localctx, 62, RULE_nodedefinition);
 		int _la;
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 316;
-			nodetype();
-			State = 317;
-			variable();
-			State = 318;
-			Match(T__0);
-			State = 319;
-			Match(T__1);
-			State = 342;
+			State = 405;
 			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__33) | (1L << T__34))) != 0)) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,37,Context) ) {
+			case 1:
+				EnterOuterAlt(_localctx, 1);
 				{
-				State = 340;
-				ErrorHandler.Sync(this);
-				switch (TokenStream.LA(1)) {
-				case T__30:
-					{
-					State = 320;
-					Match(T__30);
-					State = 321;
-					Match(T__0);
-					State = 322;
-					Match(NAME);
-					State = 323;
-					terminator();
-					}
-					break;
-				case T__33:
-					{
-					State = 324;
-					Match(T__33);
-					State = 325;
-					Match(T__0);
-					State = 326;
-					Match(T__17);
-					State = 328;
-					ErrorHandler.Sync(this);
-					_la = TokenStream.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
-						{
-						State = 327;
-						typedvariablelist();
-						}
-					}
-
-					State = 330;
-					Match(T__18);
-					State = 331;
-					terminator();
-					}
-					break;
-				case T__34:
-					{
-					State = 332;
-					Match(T__34);
-					State = 333;
-					Match(T__0);
-					State = 334;
-					Match(T__17);
-					State = 336;
-					ErrorHandler.Sync(this);
-					_la = TokenStream.LA(1);
-					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << T__5) | (1L << T__6) | (1L << T__7) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) {
-						{
-						State = 335;
-						typedvariablelist();
-						}
-					}
-
-					State = 338;
-					Match(T__18);
-					State = 339;
-					terminator();
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				State = 386;
+				Match(NODE);
+				State = 387;
+				variable();
+				State = 388;
+				Match(OPEN_BRACE);
+				State = 389;
+				nodebody();
+				State = 390;
+				Match(CLOSE_BRACE);
 				}
-				}
-				State = 344;
+				break;
+			case 2:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 392;
+				Match(NODE);
+				State = 393;
+				variable();
+				State = 394;
+				nodetypesignature();
+				State = 399;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			}
-			State = 345;
-			Match(T__2);
+				if (_la==OPEN_BRACE) {
+					{
+					State = 395;
+					Match(OPEN_BRACE);
+					State = 396;
+					nodebody();
+					State = 397;
+					Match(CLOSE_BRACE);
+					}
+				}
+
+				}
+				break;
+			case 3:
+				EnterOuterAlt(_localctx, 3);
+				{
+				State = 401;
+				Match(NODE);
+				State = 402;
+				typename();
+				State = 403;
+				variable();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -2101,18 +2697,32 @@ public partial class SidlParser : Parser {
 		return _localctx;
 	}
 
-	public partial class EdgedefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public EdgetypeContext edgetype() {
-			return GetRuleContext<EdgetypeContext>(0);
+	public partial class NodebodyContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext[] terminator() {
+			return GetRuleContexts<TerminatorContext>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
-			return GetRuleContext<VariableContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
+			return GetRuleContext<TerminatorContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public TypedvariablelistContext[] typedvariablelist() {
-			return GetRuleContexts<TypedvariablelistContext>();
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] INCLUDE() { return GetTokens(SidlParser.INCLUDE); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INCLUDE(int i) {
+			return GetToken(SidlParser.INCLUDE, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public TypedvariablelistContext typedvariablelist(int i) {
-			return GetRuleContext<TypedvariablelistContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext[] variable() {
+			return GetRuleContexts<VariableContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
+			return GetRuleContext<VariableContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] PROPERTY() { return GetTokens(SidlParser.PROPERTY); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PROPERTY(int i) {
+			return GetToken(SidlParser.PROPERTY, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
+			return GetRuleContexts<TypeContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type(int i) {
+			return GetRuleContext<TypeContext>(i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext[] variablelist() {
 			return GetRuleContexts<VariablelistContext>();
@@ -2120,9 +2730,140 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist(int i) {
 			return GetRuleContext<VariablelistContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] NAME() { return GetTokens(SidlParser.NAME); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME(int i) {
-			return GetToken(SidlParser.NAME, i);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] INPUT() { return GetTokens(SidlParser.INPUT); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INPUT(int i) {
+			return GetToken(SidlParser.INPUT, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] OUTPUT() { return GetTokens(SidlParser.OUTPUT); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OUTPUT(int i) {
+			return GetToken(SidlParser.OUTPUT, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypedvariablelistContext[] typedvariablelist() {
+			return GetRuleContexts<TypedvariablelistContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypedvariablelistContext typedvariablelist(int i) {
+			return GetRuleContext<TypedvariablelistContext>(i);
+		}
+		public NodebodyContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_nodebody; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNodebody(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public NodebodyContext nodebody() {
+		NodebodyContext _localctx = new NodebodyContext(Context, State);
+		EnterRule(_localctx, 64, RULE_nodebody);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 423;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INCLUDE) | (1L << PROPERTY) | (1L << INPUT) | (1L << OUTPUT))) != 0)) {
+				{
+				State = 421;
+				ErrorHandler.Sync(this);
+				switch (TokenStream.LA(1)) {
+				case INPUT:
+				case OUTPUT:
+					{
+					State = 407;
+					_la = TokenStream.LA(1);
+					if ( !(_la==INPUT || _la==OUTPUT) ) {
+					ErrorHandler.RecoverInline(this);
+					}
+					else {
+						ErrorHandler.ReportMatch(this);
+					    Consume();
+					}
+					State = 409;
+					ErrorHandler.Sync(this);
+					_la = TokenStream.LA(1);
+					if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << STRING) | (1L << INT) | (1L << FLOAT) | (1L << BOOL) | (1L << STRUCT))) != 0)) {
+						{
+						State = 408;
+						typedvariablelist();
+						}
+					}
+
+					State = 411;
+					terminator();
+					}
+					break;
+				case INCLUDE:
+					{
+					State = 412;
+					Match(INCLUDE);
+					State = 413;
+					variable();
+					State = 414;
+					terminator();
+					}
+					break;
+				case PROPERTY:
+					{
+					State = 416;
+					Match(PROPERTY);
+					State = 417;
+					type();
+					State = 418;
+					variablelist();
+					State = 419;
+					terminator();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				}
+				State = 425;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class MetadefinitionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode META() { return GetToken(SidlParser.META, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
+			return GetRuleContext<VariableContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] PROPERTY() { return GetTokens(SidlParser.PROPERTY); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PROPERTY(int i) {
+			return GetToken(SidlParser.PROPERTY, i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
+			return GetRuleContexts<TypeContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type(int i) {
+			return GetRuleContext<TypeContext>(i);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext[] variablelist() {
+			return GetRuleContexts<VariablelistContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist(int i) {
+			return GetRuleContext<VariablelistContext>(i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext[] terminator() {
 			return GetRuleContexts<TerminatorContext>();
@@ -2130,172 +2871,55 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
 			return GetRuleContext<TerminatorContext>(i);
 		}
-		public EdgedefinitionContext(ParserRuleContext parent, int invokingState)
+		public MetadefinitionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_edgedefinition; } }
+		public override int RuleIndex { get { return RULE_metadefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitEdgedefinition(this);
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMetadefinition(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public EdgedefinitionContext edgedefinition() {
-		EdgedefinitionContext _localctx = new EdgedefinitionContext(Context, State);
-		EnterRule(_localctx, 48, RULE_edgedefinition);
+	public MetadefinitionContext metadefinition() {
+		MetadefinitionContext _localctx = new MetadefinitionContext(Context, State);
+		EnterRule(_localctx, 66, RULE_metadefinition);
 		int _la;
 		try {
-			State = 397;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 426;
+			Match(META);
+			State = 427;
+			variable();
+			State = 428;
+			Match(OPEN_BRACE);
+			State = 436;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,36,Context) ) {
-			case 1:
-				EnterOuterAlt(_localctx, 1);
+			_la = TokenStream.LA(1);
+			while (_la==PROPERTY) {
 				{
-				State = 347;
-				edgetype();
-				State = 348;
-				variable();
-				State = 349;
-				Match(T__0);
-				State = 351;
+				{
+				State = 429;
+				Match(PROPERTY);
+				State = 430;
+				type();
+				State = 431;
+				variablelist();
+				State = 432;
+				terminator();
+				}
+				}
+				State = 438;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				if (_la==NAME) {
-					{
-					State = 350;
-					variablelist();
-					}
-				}
-
-				State = 353;
-				Match(T__35);
-				State = 354;
-				typedvariablelist();
-				State = 355;
-				Match(T__36);
-				State = 357;
-				ErrorHandler.Sync(this);
-				switch ( Interpreter.AdaptivePredict(TokenStream,31,Context) ) {
-				case 1:
-					{
-					State = 356;
-					variablelist();
-					}
-					break;
-				}
-				}
-				break;
-			case 2:
-				EnterOuterAlt(_localctx, 2);
-				{
-				State = 359;
-				edgetype();
-				State = 360;
-				variable();
-				State = 361;
-				Match(T__0);
-				State = 362;
-				Match(T__1);
-				State = 392;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__37) | (1L << T__38) | (1L << T__39))) != 0)) {
-					{
-					State = 390;
-					ErrorHandler.Sync(this);
-					switch (TokenStream.LA(1)) {
-					case T__30:
-						{
-						State = 363;
-						Match(T__30);
-						State = 364;
-						Match(T__0);
-						State = 365;
-						Match(NAME);
-						State = 366;
-						terminator();
-						}
-						break;
-					case T__37:
-						{
-						State = 367;
-						Match(T__37);
-						State = 368;
-						Match(T__0);
-						State = 369;
-						Match(T__17);
-						State = 371;
-						ErrorHandler.Sync(this);
-						_la = TokenStream.LA(1);
-						if (_la==NAME) {
-							{
-							State = 370;
-							variablelist();
-							}
-						}
-
-						State = 373;
-						Match(T__18);
-						State = 374;
-						terminator();
-						}
-						break;
-					case T__38:
-						{
-						State = 375;
-						Match(T__38);
-						State = 376;
-						Match(T__0);
-						State = 377;
-						Match(T__17);
-						State = 379;
-						ErrorHandler.Sync(this);
-						_la = TokenStream.LA(1);
-						if (_la==NAME) {
-							{
-							State = 378;
-							variablelist();
-							}
-						}
-
-						State = 381;
-						Match(T__18);
-						State = 382;
-						terminator();
-						}
-						break;
-					case T__39:
-						{
-						State = 383;
-						Match(T__39);
-						State = 384;
-						Match(T__0);
-						State = 385;
-						Match(T__17);
-						State = 386;
-						typedvariablelist();
-						State = 387;
-						Match(T__18);
-						State = 388;
-						terminator();
-						}
-						break;
-					default:
-						throw new NoViableAltException(this);
-					}
-					}
-					State = 394;
-					ErrorHandler.Sync(this);
-					_la = TokenStream.LA(1);
-				}
-				State = 395;
-				Match(T__2);
-				}
-				break;
+			}
+			State = 439;
+			Match(CLOSE_BRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2311,7 +2935,7 @@ public partial class SidlParser : Parser {
 
 	public partial class NumberContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INTEGER() { return GetToken(SidlParser.INTEGER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(SidlParser.FLOAT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOATINGPOINTNUMBER() { return GetToken(SidlParser.FLOATINGPOINTNUMBER, 0); }
 		public NumberContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2319,7 +2943,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_number; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNumber(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2328,14 +2952,14 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public NumberContext number() {
 		NumberContext _localctx = new NumberContext(Context, State);
-		EnterRule(_localctx, 50, RULE_number);
+		EnterRule(_localctx, 68, RULE_number);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 399;
+			State = 441;
 			_la = TokenStream.LA(1);
-			if ( !(_la==INTEGER || _la==FLOAT) ) {
+			if ( !(_la==INTEGER || _la==FLOATINGPOINTNUMBER) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -2356,7 +2980,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class StringContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(SidlParser.STRING, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRINGLITEARL() { return GetToken(SidlParser.STRINGLITEARL, 0); }
 		public StringContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2364,7 +2988,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_string; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitString(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2373,192 +2997,12 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public StringContext @string() {
 		StringContext _localctx = new StringContext(Context, State);
-		EnterRule(_localctx, 52, RULE_string);
+		EnterRule(_localctx, 70, RULE_string);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 401;
-			Match(STRING);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class FunctiontypeContext : ParserRuleContext {
-		public FunctiontypeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_functiontype; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitFunctiontype(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public FunctiontypeContext functiontype() {
-		FunctiontypeContext _localctx = new FunctiontypeContext(Context, State);
-		EnterRule(_localctx, 54, RULE_functiontype);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 403;
-			Match(T__12);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class RecordtypeContext : ParserRuleContext {
-		public RecordtypeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_recordtype; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitRecordtype(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public RecordtypeContext recordtype() {
-		RecordtypeContext _localctx = new RecordtypeContext(Context, State);
-		EnterRule(_localctx, 56, RULE_recordtype);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 405;
-			Match(T__40);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class GraphtypeContext : ParserRuleContext {
-		public GraphtypeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_graphtype; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitGraphtype(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public GraphtypeContext graphtype() {
-		GraphtypeContext _localctx = new GraphtypeContext(Context, State);
-		EnterRule(_localctx, 58, RULE_graphtype);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 407;
-			Match(T__8);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class NodetypeContext : ParserRuleContext {
-		public NodetypeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_nodetype; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitNodetype(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public NodetypeContext nodetype() {
-		NodetypeContext _localctx = new NodetypeContext(Context, State);
-		EnterRule(_localctx, 60, RULE_nodetype);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 409;
-			Match(T__9);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class EdgetypeContext : ParserRuleContext {
-		public EdgetypeContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_edgetype; } }
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitEdgetype(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public EdgetypeContext edgetype() {
-		EdgetypeContext _localctx = new EdgetypeContext(Context, State);
-		EnterRule(_localctx, 62, RULE_edgetype);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 411;
-			Match(T__10);
+			State = 443;
+			Match(STRINGLITEARL);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2581,7 +3025,7 @@ public partial class SidlParser : Parser {
 		public override int RuleIndex { get { return RULE_terminator; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlVisitor<TResult> typedVisitor = visitor as ISidlVisitor<TResult>;
+			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTerminator(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2590,11 +3034,11 @@ public partial class SidlParser : Parser {
 	[RuleVersion(0)]
 	public TerminatorContext terminator() {
 		TerminatorContext _localctx = new TerminatorContext(Context, State);
-		EnterRule(_localctx, 64, RULE_terminator);
+		EnterRule(_localctx, 72, RULE_terminator);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 413;
+			State = 445;
 			Match(STMEND);
 			}
 		}
@@ -2611,7 +3055,7 @@ public partial class SidlParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\x38', '\x1A2', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', ';', '\x1C2', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
 		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x4', '\v', '\t', '\v', 
@@ -2623,354 +3067,381 @@ public partial class SidlParser : Parser {
 		'\x18', '\x4', '\x19', '\t', '\x19', '\x4', '\x1A', '\t', '\x1A', '\x4', 
 		'\x1B', '\t', '\x1B', '\x4', '\x1C', '\t', '\x1C', '\x4', '\x1D', '\t', 
 		'\x1D', '\x4', '\x1E', '\t', '\x1E', '\x4', '\x1F', '\t', '\x1F', '\x4', 
-		' ', '\t', ' ', '\x4', '!', '\t', '!', '\x4', '\"', '\t', '\"', '\x3', 
-		'\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x3', '\a', '\x3', 'I', '\n', 
-		'\x3', '\f', '\x3', '\xE', '\x3', 'L', '\v', '\x3', '\x3', '\x4', '\x3', 
-		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
-		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
-		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
-		'\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x5', 
-		'\x4', '\x63', '\n', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', 
-		'\x3', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', 
-		'\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x5', '\x6', 
-		'q', '\n', '\x6', '\x3', '\a', '\x3', '\a', '\x3', '\b', '\x3', '\b', 
-		'\x3', '\t', '\x3', '\t', '\x3', '\n', '\x3', '\n', '\x3', '\n', '\a', 
-		'\n', '|', '\n', '\n', '\f', '\n', '\xE', '\n', '\x7F', '\v', '\n', '\x3', 
-		'\v', '\x3', '\v', '\x3', '\v', '\x3', '\v', '\x3', '\v', '\x3', '\v', 
-		'\a', '\v', '\x87', '\n', '\v', '\f', '\v', '\xE', '\v', '\x8A', '\v', 
-		'\v', '\x3', '\f', '\x3', '\f', '\x3', '\f', '\a', '\f', '\x8F', '\n', 
-		'\f', '\f', '\f', '\xE', '\f', '\x92', '\v', '\f', '\x3', '\r', '\x3', 
-		'\r', '\x3', '\r', '\x3', '\r', '\x3', '\r', '\x3', '\r', '\x3', '\r', 
-		'\x3', '\r', '\x3', '\r', '\x3', '\r', '\x5', '\r', '\x9E', '\n', '\r', 
-		'\x3', '\xE', '\x3', '\xE', '\x3', '\xE', '\x3', '\xE', '\x3', '\xF', 
+		' ', '\t', ' ', '\x4', '!', '\t', '!', '\x4', '\"', '\t', '\"', '\x4', 
+		'#', '\t', '#', '\x4', '$', '\t', '$', '\x4', '%', '\t', '%', '\x4', '&', 
+		'\t', '&', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x3', '\a', 
+		'\x3', 'Q', '\n', '\x3', '\f', '\x3', '\xE', '\x3', 'T', '\v', '\x3', 
+		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
+		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
+		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
+		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
+		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x5', '\x4', 
+		'n', '\n', '\x4', '\x3', '\x5', '\x5', '\x5', 'q', '\n', '\x5', '\x3', 
+		'\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x6', '\x3', 
+		'\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', 
+		'\x6', '\x3', '\x6', '\x5', '\x6', '\x7F', '\n', '\x6', '\x3', '\a', '\x3', 
+		'\a', '\x3', '\b', '\x3', '\b', '\x3', '\t', '\x3', '\t', '\x3', '\n', 
+		'\x3', '\n', '\x3', '\v', '\x3', '\v', '\x3', '\f', '\x3', '\f', '\x3', 
+		'\f', '\a', '\f', '\x8E', '\n', '\f', '\f', '\f', '\xE', '\f', '\x91', 
+		'\v', '\f', '\x3', '\r', '\x3', '\r', '\x3', '\r', '\x3', '\r', '\x3', 
+		'\r', '\x3', '\r', '\a', '\r', '\x99', '\n', '\r', '\f', '\r', '\xE', 
+		'\r', '\x9C', '\v', '\r', '\x3', '\xE', '\x3', '\xE', '\x3', '\xE', '\a', 
+		'\xE', '\xA1', '\n', '\xE', '\f', '\xE', '\xE', '\xE', '\xA4', '\v', '\xE', 
 		'\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', 
-		'\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x5', '\xF', 
-		'\xAE', '\n', '\xF', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x3', 
-		'\x10', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x3', '\x10', '\x5', 
-		'\x10', '\xB8', '\n', '\x10', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', 
-		'\x5', '\x11', '\xBD', '\n', '\x11', '\x3', '\x12', '\x3', '\x12', '\x3', 
-		'\x12', '\x3', '\x12', '\x5', '\x12', '\xC3', '\n', '\x12', '\x3', '\x13', 
-		'\x3', '\x13', '\x3', '\x13', '\x3', '\x13', '\x3', '\x13', '\x5', '\x13', 
-		'\xCA', '\n', '\x13', '\x3', '\x13', '\x3', '\x13', '\x3', '\x13', '\x5', 
-		'\x13', '\xCF', '\n', '\x13', '\x3', '\x13', '\x3', '\x13', '\x3', '\x13', 
-		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
-		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\a', '\x14', 
-		'\xDD', '\n', '\x14', '\f', '\x14', '\xE', '\x14', '\xE0', '\v', '\x14', 
-		'\x3', '\x14', '\x3', '\x14', '\x5', '\x14', '\xE4', '\n', '\x14', '\x3', 
-		'\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', 
-		'\x14', '\x5', '\x14', '\xEC', '\n', '\x14', '\x3', '\x14', '\x3', '\x14', 
-		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
-		'\x5', '\x14', '\xF5', '\n', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', 
-		'\x14', '\x3', '\x14', '\x5', '\x14', '\xFB', '\n', '\x14', '\x3', '\x14', 
-		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', 
-		'\a', '\x14', '\x103', '\n', '\x14', '\f', '\x14', '\xE', '\x14', '\x106', 
-		'\v', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x15', '\x3', '\x15', 
-		'\x5', '\x15', '\x10C', '\n', '\x15', '\x3', '\x16', '\x3', '\x16', '\x3', 
-		'\x16', '\x5', '\x16', '\x111', '\n', '\x16', '\x3', '\x16', '\x3', '\x16', 
+		'\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', '\x3', '\xF', 
+		'\x5', '\xF', '\xB0', '\n', '\xF', '\x3', '\x10', '\x3', '\x10', '\x3', 
+		'\x10', '\x3', '\x10', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', '\x3', 
+		'\x11', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', '\x3', '\x11', '\x3', 
+		'\x11', '\x3', '\x11', '\x5', '\x11', '\xC0', '\n', '\x11', '\x3', '\x12', 
+		'\x3', '\x12', '\x3', '\x12', '\x3', '\x12', '\x3', '\x12', '\x3', '\x12', 
+		'\x3', '\x12', '\x3', '\x12', '\x5', '\x12', '\xCA', '\n', '\x12', '\x3', 
+		'\x13', '\x3', '\x13', '\x3', '\x13', '\x5', '\x13', '\xCF', '\n', '\x13', 
+		'\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x3', '\x14', '\x5', '\x14', 
+		'\xD5', '\n', '\x14', '\x3', '\x15', '\x3', '\x15', '\x3', '\x15', '\x3', 
+		'\x15', '\x3', '\x15', '\x3', '\x15', '\x5', '\x15', '\xDD', '\n', '\x15', 
+		'\x3', '\x16', '\x3', '\x16', '\x3', '\x16', '\x3', '\x16', '\x3', '\x16', 
+		'\x5', '\x16', '\xE4', '\n', '\x16', '\x3', '\x16', '\x3', '\x16', '\x3', 
+		'\x16', '\x5', '\x16', '\xE9', '\n', '\x16', '\x3', '\x16', '\x3', '\x16', 
+		'\x3', '\x16', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', 
 		'\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', 
-		'\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\a', '\x17', '\x11D', '\n', 
-		'\x17', '\f', '\x17', '\xE', '\x17', '\x120', '\v', '\x17', '\x3', '\x17', 
-		'\x3', '\x17', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', 
-		'\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', 
-		'\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x5', '\x18', '\x130', '\n', 
-		'\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', 
-		'\x18', '\x3', '\x18', '\a', '\x18', '\x138', '\n', '\x18', '\f', '\x18', 
-		'\xE', '\x18', '\x13B', '\v', '\x18', '\x3', '\x18', '\x3', '\x18', '\x3', 
-		'\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', 
-		'\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', 
-		'\x19', '\x3', '\x19', '\x5', '\x19', '\x14B', '\n', '\x19', '\x3', '\x19', 
-		'\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x19', 
-		'\x5', '\x19', '\x153', '\n', '\x19', '\x3', '\x19', '\x3', '\x19', '\a', 
-		'\x19', '\x157', '\n', '\x19', '\f', '\x19', '\xE', '\x19', '\x15A', '\v', 
-		'\x19', '\x3', '\x19', '\x3', '\x19', '\x3', '\x1A', '\x3', '\x1A', '\x3', 
-		'\x1A', '\x3', '\x1A', '\x5', '\x1A', '\x162', '\n', '\x1A', '\x3', '\x1A', 
-		'\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x5', '\x1A', '\x168', '\n', 
-		'\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', 
-		'\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', 
-		'\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x5', '\x1A', '\x176', '\n', '\x1A', 
-		'\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', 
-		'\x3', '\x1A', '\x5', '\x1A', '\x17E', '\n', '\x1A', '\x3', '\x1A', '\x3', 
-		'\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', 
-		'\x1A', '\x3', '\x1A', '\x3', '\x1A', '\a', '\x1A', '\x189', '\n', '\x1A', 
-		'\f', '\x1A', '\xE', '\x1A', '\x18C', '\v', '\x1A', '\x3', '\x1A', '\x3', 
-		'\x1A', '\x5', '\x1A', '\x190', '\n', '\x1A', '\x3', '\x1B', '\x3', '\x1B', 
-		'\x3', '\x1C', '\x3', '\x1C', '\x3', '\x1D', '\x3', '\x1D', '\x3', '\x1E', 
-		'\x3', '\x1E', '\x3', '\x1F', '\x3', '\x1F', '\x3', ' ', '\x3', ' ', '\x3', 
-		'!', '\x3', '!', '\x3', '\"', '\x3', '\"', '\x3', '\"', '\x2', '\x2', 
-		'#', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x14', 
+		'\a', '\x17', '\xF7', '\n', '\x17', '\f', '\x17', '\xE', '\x17', '\xFA', 
+		'\v', '\x17', '\x3', '\x17', '\x3', '\x17', '\x5', '\x17', '\xFE', '\n', 
+		'\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', 
+		'\x17', '\x3', '\x17', '\x5', '\x17', '\x106', '\n', '\x17', '\x3', '\x17', 
+		'\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', 
+		'\x3', '\x17', '\x5', '\x17', '\x10F', '\n', '\x17', '\x3', '\x17', '\x3', 
+		'\x17', '\x3', '\x17', '\x3', '\x17', '\x5', '\x17', '\x115', '\n', '\x17', 
+		'\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x17', 
+		'\x3', '\x17', '\a', '\x17', '\x11D', '\n', '\x17', '\f', '\x17', '\xE', 
+		'\x17', '\x120', '\v', '\x17', '\x3', '\x17', '\x3', '\x17', '\x3', '\x18', 
+		'\x3', '\x18', '\x5', '\x18', '\x126', '\n', '\x18', '\x3', '\x19', '\x3', 
+		'\x19', '\x3', '\x19', '\x5', '\x19', '\x12B', '\n', '\x19', '\x3', '\x19', 
+		'\x3', '\x19', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', 
+		'\x3', '\x1A', '\x3', '\x1A', '\x3', '\x1A', '\a', '\x1A', '\x136', '\n', 
+		'\x1A', '\f', '\x1A', '\xE', '\x1A', '\x139', '\v', '\x1A', '\x3', '\x1A', 
+		'\x3', '\x1A', '\x3', '\x1B', '\x3', '\x1B', '\x3', '\x1C', '\x3', '\x1C', 
+		'\x3', '\x1D', '\x3', '\x1D', '\x3', '\x1D', '\x3', '\x1D', '\x3', '\x1D', 
+		'\x3', '\x1D', '\a', '\x1D', '\x147', '\n', '\x1D', '\f', '\x1D', '\xE', 
+		'\x1D', '\x14A', '\v', '\x1D', '\x3', '\x1E', '\x3', '\x1E', '\x3', '\x1E', 
+		'\x3', '\x1E', '\x5', '\x1E', '\x150', '\n', '\x1E', '\x3', '\x1E', '\x3', 
+		'\x1E', '\x5', '\x1E', '\x154', '\n', '\x1E', '\x3', '\x1E', '\x3', '\x1E', 
+		'\x3', '\x1E', '\x5', '\x1E', '\x159', '\n', '\x1E', '\x3', '\x1E', '\x3', 
+		'\x1E', '\x5', '\x1E', '\x15D', '\n', '\x1E', '\x3', '\x1E', '\x3', '\x1E', 
+		'\a', '\x1E', '\x161', '\n', '\x1E', '\f', '\x1E', '\xE', '\x1E', '\x164', 
+		'\v', '\x1E', '\x5', '\x1E', '\x166', '\n', '\x1E', '\x3', '\x1E', '\x3', 
+		'\x1E', '\x3', '\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x3', 
+		'\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x3', 
+		'\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x3', '\x1F', '\x5', '\x1F', '\x177', 
+		'\n', '\x1F', '\x5', '\x1F', '\x179', '\n', '\x1F', '\x3', ' ', '\x3', 
+		' ', '\x5', ' ', '\x17D', '\n', ' ', '\x3', ' ', '\x3', ' ', '\x5', ' ', 
+		'\x181', '\n', ' ', '\x3', ' ', '\x3', ' ', '\x3', '!', '\x3', '!', '\x3', 
+		'!', '\x3', '!', '\x3', '!', '\x3', '!', '\x3', '!', '\x3', '!', '\x3', 
+		'!', '\x3', '!', '\x3', '!', '\x3', '!', '\x3', '!', '\x5', '!', '\x192', 
+		'\n', '!', '\x3', '!', '\x3', '!', '\x3', '!', '\x3', '!', '\x5', '!', 
+		'\x198', '\n', '!', '\x3', '\"', '\x3', '\"', '\x5', '\"', '\x19C', '\n', 
+		'\"', '\x3', '\"', '\x3', '\"', '\x3', '\"', '\x3', '\"', '\x3', '\"', 
+		'\x3', '\"', '\x3', '\"', '\x3', '\"', '\x3', '\"', '\x3', '\"', '\a', 
+		'\"', '\x1A8', '\n', '\"', '\f', '\"', '\xE', '\"', '\x1AB', '\v', '\"', 
+		'\x3', '#', '\x3', '#', '\x3', '#', '\x3', '#', '\x3', '#', '\x3', '#', 
+		'\x3', '#', '\x3', '#', '\a', '#', '\x1B5', '\n', '#', '\f', '#', '\xE', 
+		'#', '\x1B8', '\v', '#', '\x3', '#', '\x3', '#', '\x3', '$', '\x3', '$', 
+		'\x3', '%', '\x3', '%', '\x3', '&', '\x3', '&', '\x3', '&', '\x2', '\x2', 
+		'\'', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x14', 
 		'\x16', '\x18', '\x1A', '\x1C', '\x1E', ' ', '\"', '$', '&', '(', '*', 
 		',', '.', '\x30', '\x32', '\x34', '\x36', '\x38', ':', '<', '>', '@', 
-		'\x42', '\x2', '\x5', '\x3', '\x2', '\a', '\n', '\x3', '\x2', '\v', '\xF', 
-		'\x3', '\x2', '\x32', '\x33', '\x2', '\x1BF', '\x2', '\x44', '\x3', '\x2', 
-		'\x2', '\x2', '\x4', 'J', '\x3', '\x2', '\x2', '\x2', '\x6', '\x62', '\x3', 
-		'\x2', '\x2', '\x2', '\b', '\x64', '\x3', '\x2', '\x2', '\x2', '\n', 'p', 
-		'\x3', '\x2', '\x2', '\x2', '\f', 'r', '\x3', '\x2', '\x2', '\x2', '\xE', 
-		't', '\x3', '\x2', '\x2', '\x2', '\x10', 'v', '\x3', '\x2', '\x2', '\x2', 
-		'\x12', 'x', '\x3', '\x2', '\x2', '\x2', '\x14', '\x80', '\x3', '\x2', 
-		'\x2', '\x2', '\x16', '\x8B', '\x3', '\x2', '\x2', '\x2', '\x18', '\x9D', 
-		'\x3', '\x2', '\x2', '\x2', '\x1A', '\x9F', '\x3', '\x2', '\x2', '\x2', 
-		'\x1C', '\xAD', '\x3', '\x2', '\x2', '\x2', '\x1E', '\xB7', '\x3', '\x2', 
-		'\x2', '\x2', ' ', '\xBC', '\x3', '\x2', '\x2', '\x2', '\"', '\xC2', '\x3', 
-		'\x2', '\x2', '\x2', '$', '\xC4', '\x3', '\x2', '\x2', '\x2', '&', '\xD3', 
-		'\x3', '\x2', '\x2', '\x2', '(', '\x109', '\x3', '\x2', '\x2', '\x2', 
-		'*', '\x10D', '\x3', '\x2', '\x2', '\x2', ',', '\x114', '\x3', '\x2', 
-		'\x2', '\x2', '.', '\x123', '\x3', '\x2', '\x2', '\x2', '\x30', '\x13E', 
-		'\x3', '\x2', '\x2', '\x2', '\x32', '\x18F', '\x3', '\x2', '\x2', '\x2', 
-		'\x34', '\x191', '\x3', '\x2', '\x2', '\x2', '\x36', '\x193', '\x3', '\x2', 
-		'\x2', '\x2', '\x38', '\x195', '\x3', '\x2', '\x2', '\x2', ':', '\x197', 
-		'\x3', '\x2', '\x2', '\x2', '<', '\x199', '\x3', '\x2', '\x2', '\x2', 
-		'>', '\x19B', '\x3', '\x2', '\x2', '\x2', '@', '\x19D', '\x3', '\x2', 
-		'\x2', '\x2', '\x42', '\x19F', '\x3', '\x2', '\x2', '\x2', '\x44', '\x45', 
-		'\x5', '\x4', '\x3', '\x2', '\x45', '\x46', '\a', '\x2', '\x2', '\x3', 
-		'\x46', '\x3', '\x3', '\x2', '\x2', '\x2', 'G', 'I', '\x5', '\x6', '\x4', 
-		'\x2', 'H', 'G', '\x3', '\x2', '\x2', '\x2', 'I', 'L', '\x3', '\x2', '\x2', 
-		'\x2', 'J', 'H', '\x3', '\x2', '\x2', '\x2', 'J', 'K', '\x3', '\x2', '\x2', 
-		'\x2', 'K', '\x5', '\x3', '\x2', '\x2', '\x2', 'L', 'J', '\x3', '\x2', 
-		'\x2', '\x2', 'M', '\x63', '\x5', '\x42', '\"', '\x2', 'N', '\x63', '\x5', 
-		'\b', '\x5', '\x2', 'O', 'P', '\x5', '\n', '\x6', '\x2', 'P', 'Q', '\x5', 
-		'\x12', '\n', '\x2', 'Q', 'R', '\x5', '\x42', '\"', '\x2', 'R', '\x63', 
-		'\x3', '\x2', '\x2', '\x2', 'S', 'T', '\x5', '\x12', '\n', '\x2', 'T', 
-		'U', '\a', '\x3', '\x2', '\x2', 'U', 'V', '\x5', '\x16', '\f', '\x2', 
-		'V', 'W', '\x5', '\x42', '\"', '\x2', 'W', '\x63', '\x3', '\x2', '\x2', 
-		'\x2', 'X', 'Y', '\x5', '\n', '\x6', '\x2', 'Y', 'Z', '\x5', '\x12', '\n', 
-		'\x2', 'Z', '[', '\a', '\x3', '\x2', '\x2', '[', '\\', '\x5', '\x16', 
-		'\f', '\x2', '\\', ']', '\x5', '\x42', '\"', '\x2', ']', '\x63', '\x3', 
-		'\x2', '\x2', '\x2', '^', '\x63', '\x5', '.', '\x18', '\x2', '_', '\x63', 
-		'\x5', '\x30', '\x19', '\x2', '`', '\x63', '\x5', '\x32', '\x1A', '\x2', 
-		'\x61', '\x63', '\x5', ',', '\x17', '\x2', '\x62', 'M', '\x3', '\x2', 
-		'\x2', '\x2', '\x62', 'N', '\x3', '\x2', '\x2', '\x2', '\x62', 'O', '\x3', 
-		'\x2', '\x2', '\x2', '\x62', 'S', '\x3', '\x2', '\x2', '\x2', '\x62', 
-		'X', '\x3', '\x2', '\x2', '\x2', '\x62', '^', '\x3', '\x2', '\x2', '\x2', 
-		'\x62', '_', '\x3', '\x2', '\x2', '\x2', '\x62', '`', '\x3', '\x2', '\x2', 
-		'\x2', '\x62', '\x61', '\x3', '\x2', '\x2', '\x2', '\x63', '\a', '\x3', 
-		'\x2', '\x2', '\x2', '\x64', '\x65', '\a', '\x4', '\x2', '\x2', '\x65', 
-		'\x66', '\x5', '\x4', '\x3', '\x2', '\x66', 'g', '\a', '\x5', '\x2', '\x2', 
-		'g', '\t', '\x3', '\x2', '\x2', '\x2', 'h', 'q', '\x5', '\f', '\a', '\x2', 
-		'i', 'q', '\x5', '\xE', '\b', '\x2', 'j', 'k', '\x5', '\f', '\a', '\x2', 
-		'k', 'l', '\a', '\x6', '\x2', '\x2', 'l', 'q', '\x3', '\x2', '\x2', '\x2', 
-		'm', 'n', '\x5', '\xE', '\b', '\x2', 'n', 'o', '\a', '\x6', '\x2', '\x2', 
-		'o', 'q', '\x3', '\x2', '\x2', '\x2', 'p', 'h', '\x3', '\x2', '\x2', '\x2', 
-		'p', 'i', '\x3', '\x2', '\x2', '\x2', 'p', 'j', '\x3', '\x2', '\x2', '\x2', 
-		'p', 'm', '\x3', '\x2', '\x2', '\x2', 'q', '\v', '\x3', '\x2', '\x2', 
-		'\x2', 'r', 's', '\t', '\x2', '\x2', '\x2', 's', '\r', '\x3', '\x2', '\x2', 
-		'\x2', 't', 'u', '\t', '\x3', '\x2', '\x2', 'u', '\xF', '\x3', '\x2', 
-		'\x2', '\x2', 'v', 'w', '\a', ',', '\x2', '\x2', 'w', '\x11', '\x3', '\x2', 
-		'\x2', '\x2', 'x', '}', '\x5', '\x10', '\t', '\x2', 'y', 'z', '\a', '\x10', 
-		'\x2', '\x2', 'z', '|', '\x5', '\x10', '\t', '\x2', '{', 'y', '\x3', '\x2', 
-		'\x2', '\x2', '|', '\x7F', '\x3', '\x2', '\x2', '\x2', '}', '{', '\x3', 
-		'\x2', '\x2', '\x2', '}', '~', '\x3', '\x2', '\x2', '\x2', '~', '\x13', 
-		'\x3', '\x2', '\x2', '\x2', '\x7F', '}', '\x3', '\x2', '\x2', '\x2', '\x80', 
-		'\x81', '\x5', '\n', '\x6', '\x2', '\x81', '\x88', '\x5', '\x10', '\t', 
-		'\x2', '\x82', '\x83', '\a', '\x10', '\x2', '\x2', '\x83', '\x84', '\x5', 
-		'\n', '\x6', '\x2', '\x84', '\x85', '\x5', '\x10', '\t', '\x2', '\x85', 
-		'\x87', '\x3', '\x2', '\x2', '\x2', '\x86', '\x82', '\x3', '\x2', '\x2', 
-		'\x2', '\x87', '\x8A', '\x3', '\x2', '\x2', '\x2', '\x88', '\x86', '\x3', 
-		'\x2', '\x2', '\x2', '\x88', '\x89', '\x3', '\x2', '\x2', '\x2', '\x89', 
-		'\x15', '\x3', '\x2', '\x2', '\x2', '\x8A', '\x88', '\x3', '\x2', '\x2', 
-		'\x2', '\x8B', '\x90', '\x5', '\x18', '\r', '\x2', '\x8C', '\x8D', '\a', 
-		'\x10', '\x2', '\x2', '\x8D', '\x8F', '\x5', '\x18', '\r', '\x2', '\x8E', 
-		'\x8C', '\x3', '\x2', '\x2', '\x2', '\x8F', '\x92', '\x3', '\x2', '\x2', 
-		'\x2', '\x90', '\x8E', '\x3', '\x2', '\x2', '\x2', '\x90', '\x91', '\x3', 
-		'\x2', '\x2', '\x2', '\x91', '\x17', '\x3', '\x2', '\x2', '\x2', '\x92', 
-		'\x90', '\x3', '\x2', '\x2', '\x2', '\x93', '\x9E', '\a', '\x11', '\x2', 
-		'\x2', '\x94', '\x9E', '\a', '\x12', '\x2', '\x2', '\x95', '\x9E', '\a', 
-		'\x13', '\x2', '\x2', '\x96', '\x9E', '\x5', '\x34', '\x1B', '\x2', '\x97', 
-		'\x9E', '\x5', '\x36', '\x1C', '\x2', '\x98', '\x9E', '\x5', '\x10', '\t', 
-		'\x2', '\x99', '\x9E', '\x5', '\b', '\x5', '\x2', '\x9A', '\x9E', '\x5', 
-		'$', '\x13', '\x2', '\x9B', '\x9E', '\x5', '*', '\x16', '\x2', '\x9C', 
-		'\x9E', '\x5', '\"', '\x12', '\x2', '\x9D', '\x93', '\x3', '\x2', '\x2', 
-		'\x2', '\x9D', '\x94', '\x3', '\x2', '\x2', '\x2', '\x9D', '\x95', '\x3', 
-		'\x2', '\x2', '\x2', '\x9D', '\x96', '\x3', '\x2', '\x2', '\x2', '\x9D', 
-		'\x97', '\x3', '\x2', '\x2', '\x2', '\x9D', '\x98', '\x3', '\x2', '\x2', 
-		'\x2', '\x9D', '\x99', '\x3', '\x2', '\x2', '\x2', '\x9D', '\x9A', '\x3', 
-		'\x2', '\x2', '\x2', '\x9D', '\x9B', '\x3', '\x2', '\x2', '\x2', '\x9D', 
-		'\x9C', '\x3', '\x2', '\x2', '\x2', '\x9E', '\x19', '\x3', '\x2', '\x2', 
-		'\x2', '\x9F', '\xA0', '\x5', '\n', '\x6', '\x2', '\xA0', '\xA1', '\a', 
-		'\x6', '\x2', '\x2', '\xA1', '\xA2', '\x5', '\x10', '\t', '\x2', '\xA2', 
-		'\x1B', '\x3', '\x2', '\x2', '\x2', '\xA3', '\xA4', '\x5', '\x10', '\t', 
-		'\x2', '\xA4', '\xA5', '\a', '\x14', '\x2', '\x2', '\xA5', '\xA6', '\x5', 
-		'\x18', '\r', '\x2', '\xA6', '\xA7', '\a', '\x15', '\x2', '\x2', '\xA7', 
-		'\xAE', '\x3', '\x2', '\x2', '\x2', '\xA8', '\xA9', '\x5', '\x36', '\x1C', 
-		'\x2', '\xA9', '\xAA', '\a', '\x14', '\x2', '\x2', '\xAA', '\xAB', '\x5', 
-		'\x18', '\r', '\x2', '\xAB', '\xAC', '\a', '\x15', '\x2', '\x2', '\xAC', 
-		'\xAE', '\x3', '\x2', '\x2', '\x2', '\xAD', '\xA3', '\x3', '\x2', '\x2', 
-		'\x2', '\xAD', '\xA8', '\x3', '\x2', '\x2', '\x2', '\xAE', '\x1D', '\x3', 
-		'\x2', '\x2', '\x2', '\xAF', '\xB0', '\x5', '\x10', '\t', '\x2', '\xB0', 
-		'\xB1', '\a', '\x16', '\x2', '\x2', '\xB1', '\xB2', '\x5', ' ', '\x11', 
-		'\x2', '\xB2', '\xB8', '\x3', '\x2', '\x2', '\x2', '\xB3', '\xB4', '\x5', 
-		'\x1C', '\xF', '\x2', '\xB4', '\xB5', '\a', '\x16', '\x2', '\x2', '\xB5', 
-		'\xB6', '\x5', ' ', '\x11', '\x2', '\xB6', '\xB8', '\x3', '\x2', '\x2', 
-		'\x2', '\xB7', '\xAF', '\x3', '\x2', '\x2', '\x2', '\xB7', '\xB3', '\x3', 
-		'\x2', '\x2', '\x2', '\xB8', '\x1F', '\x3', '\x2', '\x2', '\x2', '\xB9', 
-		'\xBD', '\x5', '\x10', '\t', '\x2', '\xBA', '\xBD', '\x5', '\x1E', '\x10', 
-		'\x2', '\xBB', '\xBD', '\x5', '\x1C', '\xF', '\x2', '\xBC', '\xB9', '\x3', 
-		'\x2', '\x2', '\x2', '\xBC', '\xBA', '\x3', '\x2', '\x2', '\x2', '\xBC', 
-		'\xBB', '\x3', '\x2', '\x2', '\x2', '\xBD', '!', '\x3', '\x2', '\x2', 
-		'\x2', '\xBE', '\xBF', '\a', '\x17', '\x2', '\x2', '\xBF', '\xC3', '\x5', 
-		'\x10', '\t', '\x2', '\xC0', '\xC1', '\a', '\x17', '\x2', '\x2', '\xC1', 
-		'\xC3', '\a', '.', '\x2', '\x2', '\xC2', '\xBE', '\x3', '\x2', '\x2', 
-		'\x2', '\xC2', '\xC0', '\x3', '\x2', '\x2', '\x2', '\xC3', '#', '\x3', 
-		'\x2', '\x2', '\x2', '\xC4', '\xC5', '\x5', '\x38', '\x1D', '\x2', '\xC5', 
-		'\xC6', '\x5', '\x10', '\t', '\x2', '\xC6', '\xC7', '\a', '\x3', '\x2', 
-		'\x2', '\xC7', '\xC9', '\a', '\x18', '\x2', '\x2', '\xC8', '\xCA', '\x5', 
-		'\x14', '\v', '\x2', '\xC9', '\xC8', '\x3', '\x2', '\x2', '\x2', '\xC9', 
-		'\xCA', '\x3', '\x2', '\x2', '\x2', '\xCA', '\xCB', '\x3', '\x2', '\x2', 
-		'\x2', '\xCB', '\xCC', '\a', '\x19', '\x2', '\x2', '\xCC', '\xCE', '\a', 
-		'\x18', '\x2', '\x2', '\xCD', '\xCF', '\x5', '\x14', '\v', '\x2', '\xCE', 
-		'\xCD', '\x3', '\x2', '\x2', '\x2', '\xCE', '\xCF', '\x3', '\x2', '\x2', 
-		'\x2', '\xCF', '\xD0', '\x3', '\x2', '\x2', '\x2', '\xD0', '\xD1', '\a', 
-		'\x19', '\x2', '\x2', '\xD1', '\xD2', '\x5', '&', '\x14', '\x2', '\xD2', 
-		'%', '\x3', '\x2', '\x2', '\x2', '\xD3', '\x104', '\a', '\x4', '\x2', 
-		'\x2', '\xD4', '\x103', '\x5', '\x6', '\x4', '\x2', '\xD5', '\xD6', '\a', 
-		'\x1A', '\x2', '\x2', '\xD6', '\xD7', '\x5', '\x18', '\r', '\x2', '\xD7', 
-		'\xDE', '\x5', '\b', '\x5', '\x2', '\xD8', '\xD9', '\a', '\x1B', '\x2', 
-		'\x2', '\xD9', '\xDA', '\x5', '\x18', '\r', '\x2', '\xDA', '\xDB', '\x5', 
-		'\b', '\x5', '\x2', '\xDB', '\xDD', '\x3', '\x2', '\x2', '\x2', '\xDC', 
-		'\xD8', '\x3', '\x2', '\x2', '\x2', '\xDD', '\xE0', '\x3', '\x2', '\x2', 
-		'\x2', '\xDE', '\xDC', '\x3', '\x2', '\x2', '\x2', '\xDE', '\xDF', '\x3', 
-		'\x2', '\x2', '\x2', '\xDF', '\xE3', '\x3', '\x2', '\x2', '\x2', '\xE0', 
-		'\xDE', '\x3', '\x2', '\x2', '\x2', '\xE1', '\xE2', '\a', '\x1C', '\x2', 
-		'\x2', '\xE2', '\xE4', '\x5', '\b', '\x5', '\x2', '\xE3', '\xE1', '\x3', 
-		'\x2', '\x2', '\x2', '\xE3', '\xE4', '\x3', '\x2', '\x2', '\x2', '\xE4', 
-		'\x103', '\x3', '\x2', '\x2', '\x2', '\xE5', '\xE6', '\a', '\x1D', '\x2', 
-		'\x2', '\xE6', '\xE7', '\x5', '\x18', '\r', '\x2', '\xE7', '\xE8', '\x5', 
-		'\b', '\x5', '\x2', '\xE8', '\x103', '\x3', '\x2', '\x2', '\x2', '\xE9', 
-		'\xEB', '\a', '\x1E', '\x2', '\x2', '\xEA', '\xEC', '\x5', '\n', '\x6', 
-		'\x2', '\xEB', '\xEA', '\x3', '\x2', '\x2', '\x2', '\xEB', '\xEC', '\x3', 
-		'\x2', '\x2', '\x2', '\xEC', '\xED', '\x3', '\x2', '\x2', '\x2', '\xED', 
-		'\xEE', '\x5', '\x12', '\n', '\x2', '\xEE', '\xEF', '\a', '\x3', '\x2', 
-		'\x2', '\xEF', '\xF0', '\x5', '\x16', '\f', '\x2', '\xF0', '\xF1', '\a', 
-		'\x10', '\x2', '\x2', '\xF1', '\xF4', '\x5', '\x18', '\r', '\x2', '\xF2', 
-		'\xF3', '\a', '\x10', '\x2', '\x2', '\xF3', '\xF5', '\x5', '\x18', '\r', 
-		'\x2', '\xF4', '\xF2', '\x3', '\x2', '\x2', '\x2', '\xF4', '\xF5', '\x3', 
-		'\x2', '\x2', '\x2', '\xF5', '\xF6', '\x3', '\x2', '\x2', '\x2', '\xF6', 
-		'\xF7', '\x5', '\b', '\x5', '\x2', '\xF7', '\x103', '\x3', '\x2', '\x2', 
-		'\x2', '\xF8', '\xFA', '\a', '\x1E', '\x2', '\x2', '\xF9', '\xFB', '\x5', 
-		'\n', '\x6', '\x2', '\xFA', '\xF9', '\x3', '\x2', '\x2', '\x2', '\xFA', 
-		'\xFB', '\x3', '\x2', '\x2', '\x2', '\xFB', '\xFC', '\x3', '\x2', '\x2', 
-		'\x2', '\xFC', '\xFD', '\x5', '\x10', '\t', '\x2', '\xFD', '\xFE', '\a', 
-		'\x1F', '\x2', '\x2', '\xFE', '\xFF', '\x5', '\x10', '\t', '\x2', '\xFF', 
-		'\x100', '\x5', '\b', '\x5', '\x2', '\x100', '\x103', '\x3', '\x2', '\x2', 
-		'\x2', '\x101', '\x103', '\x5', '(', '\x15', '\x2', '\x102', '\xD4', '\x3', 
-		'\x2', '\x2', '\x2', '\x102', '\xD5', '\x3', '\x2', '\x2', '\x2', '\x102', 
-		'\xE5', '\x3', '\x2', '\x2', '\x2', '\x102', '\xE9', '\x3', '\x2', '\x2', 
-		'\x2', '\x102', '\xF8', '\x3', '\x2', '\x2', '\x2', '\x102', '\x101', 
-		'\x3', '\x2', '\x2', '\x2', '\x103', '\x106', '\x3', '\x2', '\x2', '\x2', 
-		'\x104', '\x102', '\x3', '\x2', '\x2', '\x2', '\x104', '\x105', '\x3', 
-		'\x2', '\x2', '\x2', '\x105', '\x107', '\x3', '\x2', '\x2', '\x2', '\x106', 
-		'\x104', '\x3', '\x2', '\x2', '\x2', '\x107', '\x108', '\a', '\x5', '\x2', 
-		'\x2', '\x108', '\'', '\x3', '\x2', '\x2', '\x2', '\x109', '\x10B', '\a', 
-		' ', '\x2', '\x2', '\x10A', '\x10C', '\x5', '\x12', '\n', '\x2', '\x10B', 
-		'\x10A', '\x3', '\x2', '\x2', '\x2', '\x10B', '\x10C', '\x3', '\x2', '\x2', 
-		'\x2', '\x10C', ')', '\x3', '\x2', '\x2', '\x2', '\x10D', '\x10E', '\x5', 
-		'\x10', '\t', '\x2', '\x10E', '\x110', '\a', '\x18', '\x2', '\x2', '\x10F', 
-		'\x111', '\x5', '\x12', '\n', '\x2', '\x110', '\x10F', '\x3', '\x2', '\x2', 
-		'\x2', '\x110', '\x111', '\x3', '\x2', '\x2', '\x2', '\x111', '\x112', 
-		'\x3', '\x2', '\x2', '\x2', '\x112', '\x113', '\a', '\x19', '\x2', '\x2', 
-		'\x113', '+', '\x3', '\x2', '\x2', '\x2', '\x114', '\x115', '\x5', ':', 
-		'\x1E', '\x2', '\x115', '\x116', '\x5', '\x10', '\t', '\x2', '\x116', 
-		'\x117', '\a', '\x3', '\x2', '\x2', '\x117', '\x11E', '\a', '\x4', '\x2', 
-		'\x2', '\x118', '\x119', '\x5', '\n', '\x6', '\x2', '\x119', '\x11A', 
-		'\x5', '\x10', '\t', '\x2', '\x11A', '\x11B', '\x5', '\x42', '\"', '\x2', 
-		'\x11B', '\x11D', '\x3', '\x2', '\x2', '\x2', '\x11C', '\x118', '\x3', 
-		'\x2', '\x2', '\x2', '\x11D', '\x120', '\x3', '\x2', '\x2', '\x2', '\x11E', 
-		'\x11C', '\x3', '\x2', '\x2', '\x2', '\x11E', '\x11F', '\x3', '\x2', '\x2', 
-		'\x2', '\x11F', '\x121', '\x3', '\x2', '\x2', '\x2', '\x120', '\x11E', 
-		'\x3', '\x2', '\x2', '\x2', '\x121', '\x122', '\a', '\x5', '\x2', '\x2', 
-		'\x122', '-', '\x3', '\x2', '\x2', '\x2', '\x123', '\x124', '\x5', '<', 
-		'\x1F', '\x2', '\x124', '\x125', '\x5', '\x10', '\t', '\x2', '\x125', 
-		'\x126', '\a', '\x3', '\x2', '\x2', '\x126', '\x139', '\a', '\x4', '\x2', 
-		'\x2', '\x127', '\x128', '\a', '!', '\x2', '\x2', '\x128', '\x129', '\a', 
-		'\x3', '\x2', '\x2', '\x129', '\x12A', '\a', ',', '\x2', '\x2', '\x12A', 
-		'\x138', '\x5', '\x42', '\"', '\x2', '\x12B', '\x12C', '\a', '\"', '\x2', 
-		'\x2', '\x12C', '\x12D', '\a', '\x3', '\x2', '\x2', '\x12D', '\x12F', 
-		'\a', '\x14', '\x2', '\x2', '\x12E', '\x130', '\x5', '\x12', '\n', '\x2', 
-		'\x12F', '\x12E', '\x3', '\x2', '\x2', '\x2', '\x12F', '\x130', '\x3', 
-		'\x2', '\x2', '\x2', '\x130', '\x131', '\x3', '\x2', '\x2', '\x2', '\x131', 
-		'\x132', '\a', '\x15', '\x2', '\x2', '\x132', '\x138', '\x5', '\x42', 
-		'\"', '\x2', '\x133', '\x134', '\x5', '\x12', '\n', '\x2', '\x134', '\x135', 
-		'\a', '#', '\x2', '\x2', '\x135', '\x136', '\x5', '\x12', '\n', '\x2', 
-		'\x136', '\x138', '\x3', '\x2', '\x2', '\x2', '\x137', '\x127', '\x3', 
-		'\x2', '\x2', '\x2', '\x137', '\x12B', '\x3', '\x2', '\x2', '\x2', '\x137', 
-		'\x133', '\x3', '\x2', '\x2', '\x2', '\x138', '\x13B', '\x3', '\x2', '\x2', 
-		'\x2', '\x139', '\x137', '\x3', '\x2', '\x2', '\x2', '\x139', '\x13A', 
-		'\x3', '\x2', '\x2', '\x2', '\x13A', '\x13C', '\x3', '\x2', '\x2', '\x2', 
-		'\x13B', '\x139', '\x3', '\x2', '\x2', '\x2', '\x13C', '\x13D', '\a', 
-		'\x5', '\x2', '\x2', '\x13D', '/', '\x3', '\x2', '\x2', '\x2', '\x13E', 
-		'\x13F', '\x5', '>', ' ', '\x2', '\x13F', '\x140', '\x5', '\x10', '\t', 
-		'\x2', '\x140', '\x141', '\a', '\x3', '\x2', '\x2', '\x141', '\x158', 
-		'\a', '\x4', '\x2', '\x2', '\x142', '\x143', '\a', '!', '\x2', '\x2', 
-		'\x143', '\x144', '\a', '\x3', '\x2', '\x2', '\x144', '\x145', '\a', ',', 
-		'\x2', '\x2', '\x145', '\x157', '\x5', '\x42', '\"', '\x2', '\x146', '\x147', 
-		'\a', '$', '\x2', '\x2', '\x147', '\x148', '\a', '\x3', '\x2', '\x2', 
-		'\x148', '\x14A', '\a', '\x14', '\x2', '\x2', '\x149', '\x14B', '\x5', 
-		'\x14', '\v', '\x2', '\x14A', '\x149', '\x3', '\x2', '\x2', '\x2', '\x14A', 
-		'\x14B', '\x3', '\x2', '\x2', '\x2', '\x14B', '\x14C', '\x3', '\x2', '\x2', 
-		'\x2', '\x14C', '\x14D', '\a', '\x15', '\x2', '\x2', '\x14D', '\x157', 
-		'\x5', '\x42', '\"', '\x2', '\x14E', '\x14F', '\a', '%', '\x2', '\x2', 
-		'\x14F', '\x150', '\a', '\x3', '\x2', '\x2', '\x150', '\x152', '\a', '\x14', 
-		'\x2', '\x2', '\x151', '\x153', '\x5', '\x14', '\v', '\x2', '\x152', '\x151', 
-		'\x3', '\x2', '\x2', '\x2', '\x152', '\x153', '\x3', '\x2', '\x2', '\x2', 
-		'\x153', '\x154', '\x3', '\x2', '\x2', '\x2', '\x154', '\x155', '\a', 
-		'\x15', '\x2', '\x2', '\x155', '\x157', '\x5', '\x42', '\"', '\x2', '\x156', 
-		'\x142', '\x3', '\x2', '\x2', '\x2', '\x156', '\x146', '\x3', '\x2', '\x2', 
-		'\x2', '\x156', '\x14E', '\x3', '\x2', '\x2', '\x2', '\x157', '\x15A', 
-		'\x3', '\x2', '\x2', '\x2', '\x158', '\x156', '\x3', '\x2', '\x2', '\x2', 
-		'\x158', '\x159', '\x3', '\x2', '\x2', '\x2', '\x159', '\x15B', '\x3', 
-		'\x2', '\x2', '\x2', '\x15A', '\x158', '\x3', '\x2', '\x2', '\x2', '\x15B', 
-		'\x15C', '\a', '\x5', '\x2', '\x2', '\x15C', '\x31', '\x3', '\x2', '\x2', 
-		'\x2', '\x15D', '\x15E', '\x5', '@', '!', '\x2', '\x15E', '\x15F', '\x5', 
-		'\x10', '\t', '\x2', '\x15F', '\x161', '\a', '\x3', '\x2', '\x2', '\x160', 
-		'\x162', '\x5', '\x12', '\n', '\x2', '\x161', '\x160', '\x3', '\x2', '\x2', 
-		'\x2', '\x161', '\x162', '\x3', '\x2', '\x2', '\x2', '\x162', '\x163', 
-		'\x3', '\x2', '\x2', '\x2', '\x163', '\x164', '\a', '&', '\x2', '\x2', 
-		'\x164', '\x165', '\x5', '\x14', '\v', '\x2', '\x165', '\x167', '\a', 
-		'\'', '\x2', '\x2', '\x166', '\x168', '\x5', '\x12', '\n', '\x2', '\x167', 
-		'\x166', '\x3', '\x2', '\x2', '\x2', '\x167', '\x168', '\x3', '\x2', '\x2', 
-		'\x2', '\x168', '\x190', '\x3', '\x2', '\x2', '\x2', '\x169', '\x16A', 
-		'\x5', '@', '!', '\x2', '\x16A', '\x16B', '\x5', '\x10', '\t', '\x2', 
-		'\x16B', '\x16C', '\a', '\x3', '\x2', '\x2', '\x16C', '\x18A', '\a', '\x4', 
-		'\x2', '\x2', '\x16D', '\x16E', '\a', '!', '\x2', '\x2', '\x16E', '\x16F', 
-		'\a', '\x3', '\x2', '\x2', '\x16F', '\x170', '\a', ',', '\x2', '\x2', 
-		'\x170', '\x189', '\x5', '\x42', '\"', '\x2', '\x171', '\x172', '\a', 
-		'(', '\x2', '\x2', '\x172', '\x173', '\a', '\x3', '\x2', '\x2', '\x173', 
-		'\x175', '\a', '\x14', '\x2', '\x2', '\x174', '\x176', '\x5', '\x12', 
-		'\n', '\x2', '\x175', '\x174', '\x3', '\x2', '\x2', '\x2', '\x175', '\x176', 
+		'\x42', '\x44', '\x46', 'H', 'J', '\x2', '\x6', '\x3', '\x2', '\x5', '\b', 
+		'\x3', '\x2', '\n', '\r', '\x3', '\x2', '\x13', '\x14', '\x3', '\x2', 
+		'\x35', '\x36', '\x2', '\x1E1', '\x2', 'L', '\x3', '\x2', '\x2', '\x2', 
+		'\x4', 'R', '\x3', '\x2', '\x2', '\x2', '\x6', 'm', '\x3', '\x2', '\x2', 
+		'\x2', '\b', 'p', '\x3', '\x2', '\x2', '\x2', '\n', '~', '\x3', '\x2', 
+		'\x2', '\x2', '\f', '\x80', '\x3', '\x2', '\x2', '\x2', '\xE', '\x82', 
+		'\x3', '\x2', '\x2', '\x2', '\x10', '\x84', '\x3', '\x2', '\x2', '\x2', 
+		'\x12', '\x86', '\x3', '\x2', '\x2', '\x2', '\x14', '\x88', '\x3', '\x2', 
+		'\x2', '\x2', '\x16', '\x8A', '\x3', '\x2', '\x2', '\x2', '\x18', '\x92', 
+		'\x3', '\x2', '\x2', '\x2', '\x1A', '\x9D', '\x3', '\x2', '\x2', '\x2', 
+		'\x1C', '\xAF', '\x3', '\x2', '\x2', '\x2', '\x1E', '\xB1', '\x3', '\x2', 
+		'\x2', '\x2', ' ', '\xBF', '\x3', '\x2', '\x2', '\x2', '\"', '\xC9', '\x3', 
+		'\x2', '\x2', '\x2', '$', '\xCE', '\x3', '\x2', '\x2', '\x2', '&', '\xD4', 
+		'\x3', '\x2', '\x2', '\x2', '(', '\xD6', '\x3', '\x2', '\x2', '\x2', '*', 
+		'\xDE', '\x3', '\x2', '\x2', '\x2', ',', '\xED', '\x3', '\x2', '\x2', 
+		'\x2', '.', '\x123', '\x3', '\x2', '\x2', '\x2', '\x30', '\x127', '\x3', 
+		'\x2', '\x2', '\x2', '\x32', '\x12E', '\x3', '\x2', '\x2', '\x2', '\x34', 
+		'\x13C', '\x3', '\x2', '\x2', '\x2', '\x36', '\x13E', '\x3', '\x2', '\x2', 
+		'\x2', '\x38', '\x140', '\x3', '\x2', '\x2', '\x2', ':', '\x14B', '\x3', 
+		'\x2', '\x2', '\x2', '<', '\x178', '\x3', '\x2', '\x2', '\x2', '>', '\x17A', 
+		'\x3', '\x2', '\x2', '\x2', '@', '\x197', '\x3', '\x2', '\x2', '\x2', 
+		'\x42', '\x1A9', '\x3', '\x2', '\x2', '\x2', '\x44', '\x1AC', '\x3', '\x2', 
+		'\x2', '\x2', '\x46', '\x1BB', '\x3', '\x2', '\x2', '\x2', 'H', '\x1BD', 
+		'\x3', '\x2', '\x2', '\x2', 'J', '\x1BF', '\x3', '\x2', '\x2', '\x2', 
+		'L', 'M', '\x5', '\x4', '\x3', '\x2', 'M', 'N', '\a', '\x2', '\x2', '\x3', 
+		'N', '\x3', '\x3', '\x2', '\x2', '\x2', 'O', 'Q', '\x5', '\x6', '\x4', 
+		'\x2', 'P', 'O', '\x3', '\x2', '\x2', '\x2', 'Q', 'T', '\x3', '\x2', '\x2', 
+		'\x2', 'R', 'P', '\x3', '\x2', '\x2', '\x2', 'R', 'S', '\x3', '\x2', '\x2', 
+		'\x2', 'S', '\x5', '\x3', '\x2', '\x2', '\x2', 'T', 'R', '\x3', '\x2', 
+		'\x2', '\x2', 'U', 'n', '\x5', 'J', '&', '\x2', 'V', 'n', '\x5', '\b', 
+		'\x5', '\x2', 'W', 'X', '\x5', '\n', '\x6', '\x2', 'X', 'Y', '\x5', '\x16', 
+		'\f', '\x2', 'Y', 'Z', '\x5', 'J', '&', '\x2', 'Z', 'n', '\x3', '\x2', 
+		'\x2', '\x2', '[', '\\', '\x5', '\x16', '\f', '\x2', '\\', ']', '\a', 
+		'$', '\x2', '\x2', ']', '^', '\x5', '\x1A', '\xE', '\x2', '^', '_', '\x5', 
+		'J', '&', '\x2', '_', 'n', '\x3', '\x2', '\x2', '\x2', '`', '\x61', '\x5', 
+		'\n', '\x6', '\x2', '\x61', '\x62', '\x5', '\x16', '\f', '\x2', '\x62', 
+		'\x63', '\a', '$', '\x2', '\x2', '\x63', '\x64', '\x5', '\x1A', '\xE', 
+		'\x2', '\x64', '\x65', '\x5', 'J', '&', '\x2', '\x65', 'n', '\x3', '\x2', 
+		'\x2', '\x2', '\x66', 'n', '\x5', '\x32', '\x1A', '\x2', 'g', 'n', '\x5', 
+		':', '\x1E', '\x2', 'h', 'n', '\x5', '<', '\x1F', '\x2', 'i', 'n', '\x5', 
+		'@', '!', '\x2', 'j', 'n', '\x5', '\x44', '#', '\x2', 'k', 'n', '\x5', 
+		'&', '\x14', '\x2', 'l', 'n', '\x5', '(', '\x15', '\x2', 'm', 'U', '\x3', 
+		'\x2', '\x2', '\x2', 'm', 'V', '\x3', '\x2', '\x2', '\x2', 'm', 'W', '\x3', 
+		'\x2', '\x2', '\x2', 'm', '[', '\x3', '\x2', '\x2', '\x2', 'm', '`', '\x3', 
+		'\x2', '\x2', '\x2', 'm', '\x66', '\x3', '\x2', '\x2', '\x2', 'm', 'g', 
+		'\x3', '\x2', '\x2', '\x2', 'm', 'h', '\x3', '\x2', '\x2', '\x2', 'm', 
+		'i', '\x3', '\x2', '\x2', '\x2', 'm', 'j', '\x3', '\x2', '\x2', '\x2', 
+		'm', 'k', '\x3', '\x2', '\x2', '\x2', 'm', 'l', '\x3', '\x2', '\x2', '\x2', 
+		'n', '\a', '\x3', '\x2', '\x2', '\x2', 'o', 'q', '\x5', '\x12', '\n', 
+		'\x2', 'p', 'o', '\x3', '\x2', '\x2', '\x2', 'p', 'q', '\x3', '\x2', '\x2', 
+		'\x2', 'q', 'r', '\x3', '\x2', '\x2', '\x2', 'r', 's', '\a', '-', '\x2', 
+		'\x2', 's', 't', '\x5', '\x4', '\x3', '\x2', 't', 'u', '\a', '.', '\x2', 
+		'\x2', 'u', '\t', '\x3', '\x2', '\x2', '\x2', 'v', '\x7F', '\x5', '\f', 
+		'\a', '\x2', 'w', '\x7F', '\x5', '\xE', '\b', '\x2', 'x', 'y', '\x5', 
+		'\f', '\a', '\x2', 'y', 'z', '\a', '\x4', '\x2', '\x2', 'z', '\x7F', '\x3', 
+		'\x2', '\x2', '\x2', '{', '|', '\x5', '\xE', '\b', '\x2', '|', '}', '\a', 
+		'\x4', '\x2', '\x2', '}', '\x7F', '\x3', '\x2', '\x2', '\x2', '~', 'v', 
+		'\x3', '\x2', '\x2', '\x2', '~', 'w', '\x3', '\x2', '\x2', '\x2', '~', 
+		'x', '\x3', '\x2', '\x2', '\x2', '~', '{', '\x3', '\x2', '\x2', '\x2', 
+		'\x7F', '\v', '\x3', '\x2', '\x2', '\x2', '\x80', '\x81', '\t', '\x2', 
+		'\x2', '\x2', '\x81', '\r', '\x3', '\x2', '\x2', '\x2', '\x82', '\x83', 
+		'\a', '\t', '\x2', '\x2', '\x83', '\xF', '\x3', '\x2', '\x2', '\x2', '\x84', 
+		'\x85', '\t', '\x3', '\x2', '\x2', '\x85', '\x11', '\x3', '\x2', '\x2', 
+		'\x2', '\x86', '\x87', '\a', '/', '\x2', '\x2', '\x87', '\x13', '\x3', 
+		'\x2', '\x2', '\x2', '\x88', '\x89', '\a', '/', '\x2', '\x2', '\x89', 
+		'\x15', '\x3', '\x2', '\x2', '\x2', '\x8A', '\x8F', '\x5', '\x12', '\n', 
+		'\x2', '\x8B', '\x8C', '\a', '!', '\x2', '\x2', '\x8C', '\x8E', '\x5', 
+		'\x12', '\n', '\x2', '\x8D', '\x8B', '\x3', '\x2', '\x2', '\x2', '\x8E', 
+		'\x91', '\x3', '\x2', '\x2', '\x2', '\x8F', '\x8D', '\x3', '\x2', '\x2', 
+		'\x2', '\x8F', '\x90', '\x3', '\x2', '\x2', '\x2', '\x90', '\x17', '\x3', 
+		'\x2', '\x2', '\x2', '\x91', '\x8F', '\x3', '\x2', '\x2', '\x2', '\x92', 
+		'\x93', '\x5', '\n', '\x6', '\x2', '\x93', '\x9A', '\x5', '\x12', '\n', 
+		'\x2', '\x94', '\x95', '\a', '!', '\x2', '\x2', '\x95', '\x96', '\x5', 
+		'\n', '\x6', '\x2', '\x96', '\x97', '\x5', '\x12', '\n', '\x2', '\x97', 
+		'\x99', '\x3', '\x2', '\x2', '\x2', '\x98', '\x94', '\x3', '\x2', '\x2', 
+		'\x2', '\x99', '\x9C', '\x3', '\x2', '\x2', '\x2', '\x9A', '\x98', '\x3', 
+		'\x2', '\x2', '\x2', '\x9A', '\x9B', '\x3', '\x2', '\x2', '\x2', '\x9B', 
+		'\x19', '\x3', '\x2', '\x2', '\x2', '\x9C', '\x9A', '\x3', '\x2', '\x2', 
+		'\x2', '\x9D', '\xA2', '\x5', '\x1C', '\xF', '\x2', '\x9E', '\x9F', '\a', 
+		'!', '\x2', '\x2', '\x9F', '\xA1', '\x5', '\x1C', '\xF', '\x2', '\xA0', 
+		'\x9E', '\x3', '\x2', '\x2', '\x2', '\xA1', '\xA4', '\x3', '\x2', '\x2', 
+		'\x2', '\xA2', '\xA0', '\x3', '\x2', '\x2', '\x2', '\xA2', '\xA3', '\x3', 
+		'\x2', '\x2', '\x2', '\xA3', '\x1B', '\x3', '\x2', '\x2', '\x2', '\xA4', 
+		'\xA2', '\x3', '\x2', '\x2', '\x2', '\xA5', '\xB0', '\a', '\x15', '\x2', 
+		'\x2', '\xA6', '\xB0', '\a', '\x16', '\x2', '\x2', '\xA7', '\xB0', '\a', 
+		'\x17', '\x2', '\x2', '\xA8', '\xB0', '\x5', '\x46', '$', '\x2', '\xA9', 
+		'\xB0', '\x5', 'H', '%', '\x2', '\xAA', '\xB0', '\x5', '\x12', '\n', '\x2', 
+		'\xAB', '\xB0', '\x5', '\b', '\x5', '\x2', '\xAC', '\xB0', '\x5', '*', 
+		'\x16', '\x2', '\xAD', '\xB0', '\x5', '\x30', '\x19', '\x2', '\xAE', '\xB0', 
+		'\x5', '&', '\x14', '\x2', '\xAF', '\xA5', '\x3', '\x2', '\x2', '\x2', 
+		'\xAF', '\xA6', '\x3', '\x2', '\x2', '\x2', '\xAF', '\xA7', '\x3', '\x2', 
+		'\x2', '\x2', '\xAF', '\xA8', '\x3', '\x2', '\x2', '\x2', '\xAF', '\xA9', 
+		'\x3', '\x2', '\x2', '\x2', '\xAF', '\xAA', '\x3', '\x2', '\x2', '\x2', 
+		'\xAF', '\xAB', '\x3', '\x2', '\x2', '\x2', '\xAF', '\xAC', '\x3', '\x2', 
+		'\x2', '\x2', '\xAF', '\xAD', '\x3', '\x2', '\x2', '\x2', '\xAF', '\xAE', 
+		'\x3', '\x2', '\x2', '\x2', '\xB0', '\x1D', '\x3', '\x2', '\x2', '\x2', 
+		'\xB1', '\xB2', '\x5', '\n', '\x6', '\x2', '\xB2', '\xB3', '\a', '\x4', 
+		'\x2', '\x2', '\xB3', '\xB4', '\x5', '\x12', '\n', '\x2', '\xB4', '\x1F', 
+		'\x3', '\x2', '\x2', '\x2', '\xB5', '\xB6', '\x5', '\x12', '\n', '\x2', 
+		'\xB6', '\xB7', '\a', '-', '\x2', '\x2', '\xB7', '\xB8', '\x5', '\x1C', 
+		'\xF', '\x2', '\xB8', '\xB9', '\a', '.', '\x2', '\x2', '\xB9', '\xC0', 
+		'\x3', '\x2', '\x2', '\x2', '\xBA', '\xBB', '\x5', 'H', '%', '\x2', '\xBB', 
+		'\xBC', '\a', '-', '\x2', '\x2', '\xBC', '\xBD', '\x5', '\x1C', '\xF', 
+		'\x2', '\xBD', '\xBE', '\a', '.', '\x2', '\x2', '\xBE', '\xC0', '\x3', 
+		'\x2', '\x2', '\x2', '\xBF', '\xB5', '\x3', '\x2', '\x2', '\x2', '\xBF', 
+		'\xBA', '\x3', '\x2', '\x2', '\x2', '\xC0', '!', '\x3', '\x2', '\x2', 
+		'\x2', '\xC1', '\xC2', '\x5', '\x12', '\n', '\x2', '\xC2', '\xC3', '\a', 
+		'\x1F', '\x2', '\x2', '\xC3', '\xC4', '\x5', '$', '\x13', '\x2', '\xC4', 
+		'\xCA', '\x3', '\x2', '\x2', '\x2', '\xC5', '\xC6', '\x5', ' ', '\x11', 
+		'\x2', '\xC6', '\xC7', '\a', '\x1F', '\x2', '\x2', '\xC7', '\xC8', '\x5', 
+		'$', '\x13', '\x2', '\xC8', '\xCA', '\x3', '\x2', '\x2', '\x2', '\xC9', 
+		'\xC1', '\x3', '\x2', '\x2', '\x2', '\xC9', '\xC5', '\x3', '\x2', '\x2', 
+		'\x2', '\xCA', '#', '\x3', '\x2', '\x2', '\x2', '\xCB', '\xCF', '\x5', 
+		'\x12', '\n', '\x2', '\xCC', '\xCF', '\x5', '\"', '\x12', '\x2', '\xCD', 
+		'\xCF', '\x5', ' ', '\x11', '\x2', '\xCE', '\xCB', '\x3', '\x2', '\x2', 
+		'\x2', '\xCE', '\xCC', '\x3', '\x2', '\x2', '\x2', '\xCE', '\xCD', '\x3', 
+		'\x2', '\x2', '\x2', '\xCF', '%', '\x3', '\x2', '\x2', '\x2', '\xD0', 
+		'\xD1', '\a', '\xF', '\x2', '\x2', '\xD1', '\xD5', '\x5', '\x12', '\n', 
+		'\x2', '\xD2', '\xD3', '\a', '\xF', '\x2', '\x2', '\xD3', '\xD5', '\a', 
+		'\x31', '\x2', '\x2', '\xD4', '\xD0', '\x3', '\x2', '\x2', '\x2', '\xD4', 
+		'\xD2', '\x3', '\x2', '\x2', '\x2', '\xD5', '\'', '\x3', '\x2', '\x2', 
+		'\x2', '\xD6', '\xD7', '\a', '\x3', '\x2', '\x2', '\xD7', '\xD8', '\x5', 
+		'\x12', '\n', '\x2', '\xD8', '\xD9', '\a', '\"', '\x2', '\x2', '\xD9', 
+		'\xDC', '\x5', '\n', '\x6', '\x2', '\xDA', '\xDB', '\a', '!', '\x2', '\x2', 
+		'\xDB', '\xDD', '\x5', 'H', '%', '\x2', '\xDC', '\xDA', '\x3', '\x2', 
+		'\x2', '\x2', '\xDC', '\xDD', '\x3', '\x2', '\x2', '\x2', '\xDD', ')', 
+		'\x3', '\x2', '\x2', '\x2', '\xDE', '\xDF', '\a', '\xE', '\x2', '\x2', 
+		'\xDF', '\xE0', '\x5', '\x12', '\n', '\x2', '\xE0', '\xE1', '\a', '$', 
+		'\x2', '\x2', '\xE1', '\xE3', '\a', ')', '\x2', '\x2', '\xE2', '\xE4', 
+		'\x5', '\x18', '\r', '\x2', '\xE3', '\xE2', '\x3', '\x2', '\x2', '\x2', 
+		'\xE3', '\xE4', '\x3', '\x2', '\x2', '\x2', '\xE4', '\xE5', '\x3', '\x2', 
+		'\x2', '\x2', '\xE5', '\xE6', '\a', '*', '\x2', '\x2', '\xE6', '\xE8', 
+		'\a', ')', '\x2', '\x2', '\xE7', '\xE9', '\x5', '\x18', '\r', '\x2', '\xE8', 
+		'\xE7', '\x3', '\x2', '\x2', '\x2', '\xE8', '\xE9', '\x3', '\x2', '\x2', 
+		'\x2', '\xE9', '\xEA', '\x3', '\x2', '\x2', '\x2', '\xEA', '\xEB', '\a', 
+		'*', '\x2', '\x2', '\xEB', '\xEC', '\x5', ',', '\x17', '\x2', '\xEC', 
+		'+', '\x3', '\x2', '\x2', '\x2', '\xED', '\x11E', '\a', '+', '\x2', '\x2', 
+		'\xEE', '\x11D', '\x5', '\x6', '\x4', '\x2', '\xEF', '\xF0', '\a', '\x18', 
+		'\x2', '\x2', '\xF0', '\xF1', '\x5', '\x1C', '\xF', '\x2', '\xF1', '\xF8', 
+		'\x5', '\b', '\x5', '\x2', '\xF2', '\xF3', '\a', '\x1A', '\x2', '\x2', 
+		'\xF3', '\xF4', '\x5', '\x1C', '\xF', '\x2', '\xF4', '\xF5', '\x5', '\b', 
+		'\x5', '\x2', '\xF5', '\xF7', '\x3', '\x2', '\x2', '\x2', '\xF6', '\xF2', 
+		'\x3', '\x2', '\x2', '\x2', '\xF7', '\xFA', '\x3', '\x2', '\x2', '\x2', 
+		'\xF8', '\xF6', '\x3', '\x2', '\x2', '\x2', '\xF8', '\xF9', '\x3', '\x2', 
+		'\x2', '\x2', '\xF9', '\xFD', '\x3', '\x2', '\x2', '\x2', '\xFA', '\xF8', 
+		'\x3', '\x2', '\x2', '\x2', '\xFB', '\xFC', '\a', '\x19', '\x2', '\x2', 
+		'\xFC', '\xFE', '\x5', '\b', '\x5', '\x2', '\xFD', '\xFB', '\x3', '\x2', 
+		'\x2', '\x2', '\xFD', '\xFE', '\x3', '\x2', '\x2', '\x2', '\xFE', '\x11D', 
+		'\x3', '\x2', '\x2', '\x2', '\xFF', '\x100', '\a', '\x1D', '\x2', '\x2', 
+		'\x100', '\x101', '\x5', '\x1C', '\xF', '\x2', '\x101', '\x102', '\x5', 
+		'\b', '\x5', '\x2', '\x102', '\x11D', '\x3', '\x2', '\x2', '\x2', '\x103', 
+		'\x105', '\a', '\x1B', '\x2', '\x2', '\x104', '\x106', '\x5', '\n', '\x6', 
+		'\x2', '\x105', '\x104', '\x3', '\x2', '\x2', '\x2', '\x105', '\x106', 
+		'\x3', '\x2', '\x2', '\x2', '\x106', '\x107', '\x3', '\x2', '\x2', '\x2', 
+		'\x107', '\x108', '\x5', '\x16', '\f', '\x2', '\x108', '\x109', '\a', 
+		'$', '\x2', '\x2', '\x109', '\x10A', '\x5', '\x1A', '\xE', '\x2', '\x10A', 
+		'\x10B', '\a', '!', '\x2', '\x2', '\x10B', '\x10E', '\x5', '\x1C', '\xF', 
+		'\x2', '\x10C', '\x10D', '\a', '!', '\x2', '\x2', '\x10D', '\x10F', '\x5', 
+		'\x1C', '\xF', '\x2', '\x10E', '\x10C', '\x3', '\x2', '\x2', '\x2', '\x10E', 
+		'\x10F', '\x3', '\x2', '\x2', '\x2', '\x10F', '\x110', '\x3', '\x2', '\x2', 
+		'\x2', '\x110', '\x111', '\x5', '\b', '\x5', '\x2', '\x111', '\x11D', 
+		'\x3', '\x2', '\x2', '\x2', '\x112', '\x114', '\a', '\x1B', '\x2', '\x2', 
+		'\x113', '\x115', '\x5', '\n', '\x6', '\x2', '\x114', '\x113', '\x3', 
+		'\x2', '\x2', '\x2', '\x114', '\x115', '\x3', '\x2', '\x2', '\x2', '\x115', 
+		'\x116', '\x3', '\x2', '\x2', '\x2', '\x116', '\x117', '\x5', '\x12', 
+		'\n', '\x2', '\x117', '\x118', '\a', '\x1C', '\x2', '\x2', '\x118', '\x119', 
+		'\x5', '\x12', '\n', '\x2', '\x119', '\x11A', '\x5', '\b', '\x5', '\x2', 
+		'\x11A', '\x11D', '\x3', '\x2', '\x2', '\x2', '\x11B', '\x11D', '\x5', 
+		'.', '\x18', '\x2', '\x11C', '\xEE', '\x3', '\x2', '\x2', '\x2', '\x11C', 
+		'\xEF', '\x3', '\x2', '\x2', '\x2', '\x11C', '\xFF', '\x3', '\x2', '\x2', 
+		'\x2', '\x11C', '\x103', '\x3', '\x2', '\x2', '\x2', '\x11C', '\x112', 
+		'\x3', '\x2', '\x2', '\x2', '\x11C', '\x11B', '\x3', '\x2', '\x2', '\x2', 
+		'\x11D', '\x120', '\x3', '\x2', '\x2', '\x2', '\x11E', '\x11C', '\x3', 
+		'\x2', '\x2', '\x2', '\x11E', '\x11F', '\x3', '\x2', '\x2', '\x2', '\x11F', 
+		'\x121', '\x3', '\x2', '\x2', '\x2', '\x120', '\x11E', '\x3', '\x2', '\x2', 
+		'\x2', '\x121', '\x122', '\a', ',', '\x2', '\x2', '\x122', '-', '\x3', 
+		'\x2', '\x2', '\x2', '\x123', '\x125', '\a', '\x1E', '\x2', '\x2', '\x124', 
+		'\x126', '\x5', '\x16', '\f', '\x2', '\x125', '\x124', '\x3', '\x2', '\x2', 
+		'\x2', '\x125', '\x126', '\x3', '\x2', '\x2', '\x2', '\x126', '/', '\x3', 
+		'\x2', '\x2', '\x2', '\x127', '\x128', '\x5', '\x12', '\n', '\x2', '\x128', 
+		'\x12A', '\a', ')', '\x2', '\x2', '\x129', '\x12B', '\x5', '\x16', '\f', 
+		'\x2', '\x12A', '\x129', '\x3', '\x2', '\x2', '\x2', '\x12A', '\x12B', 
+		'\x3', '\x2', '\x2', '\x2', '\x12B', '\x12C', '\x3', '\x2', '\x2', '\x2', 
+		'\x12C', '\x12D', '\a', '*', '\x2', '\x2', '\x12D', '\x31', '\x3', '\x2', 
+		'\x2', '\x2', '\x12E', '\x12F', '\a', '\t', '\x2', '\x2', '\x12F', '\x130', 
+		'\x5', '\x12', '\n', '\x2', '\x130', '\x137', '\a', '+', '\x2', '\x2', 
+		'\x131', '\x132', '\x5', '\n', '\x6', '\x2', '\x132', '\x133', '\x5', 
+		'\x12', '\n', '\x2', '\x133', '\x134', '\x5', 'J', '&', '\x2', '\x134', 
+		'\x136', '\x3', '\x2', '\x2', '\x2', '\x135', '\x131', '\x3', '\x2', '\x2', 
+		'\x2', '\x136', '\x139', '\x3', '\x2', '\x2', '\x2', '\x137', '\x135', 
+		'\x3', '\x2', '\x2', '\x2', '\x137', '\x138', '\x3', '\x2', '\x2', '\x2', 
+		'\x138', '\x13A', '\x3', '\x2', '\x2', '\x2', '\x139', '\x137', '\x3', 
+		'\x2', '\x2', '\x2', '\x13A', '\x13B', '\a', ',', '\x2', '\x2', '\x13B', 
+		'\x33', '\x3', '\x2', '\x2', '\x2', '\x13C', '\x13D', '\a', '/', '\x2', 
+		'\x2', '\x13D', '\x35', '\x3', '\x2', '\x2', '\x2', '\x13E', '\x13F', 
+		'\a', '/', '\x2', '\x2', '\x13F', '\x37', '\x3', '\x2', '\x2', '\x2', 
+		'\x140', '\x141', '\x5', '\x34', '\x1B', '\x2', '\x141', '\x148', '\x5', 
+		'\x12', '\n', '\x2', '\x142', '\x143', '\a', '!', '\x2', '\x2', '\x143', 
+		'\x144', '\x5', '\x34', '\x1B', '\x2', '\x144', '\x145', '\x5', '\x12', 
+		'\n', '\x2', '\x145', '\x147', '\x3', '\x2', '\x2', '\x2', '\x146', '\x142', 
+		'\x3', '\x2', '\x2', '\x2', '\x147', '\x14A', '\x3', '\x2', '\x2', '\x2', 
+		'\x148', '\x146', '\x3', '\x2', '\x2', '\x2', '\x148', '\x149', '\x3', 
+		'\x2', '\x2', '\x2', '\x149', '\x39', '\x3', '\x2', '\x2', '\x2', '\x14A', 
+		'\x148', '\x3', '\x2', '\x2', '\x2', '\x14B', '\x14C', '\a', '\n', '\x2', 
+		'\x2', '\x14C', '\x14D', '\x5', '\x34', '\x1B', '\x2', '\x14D', '\x165', 
+		'\a', '+', '\x2', '\x2', '\x14E', '\x150', '\a', '\x12', '\x2', '\x2', 
+		'\x14F', '\x14E', '\x3', '\x2', '\x2', '\x2', '\x14F', '\x150', '\x3', 
+		'\x2', '\x2', '\x2', '\x150', '\x153', '\x3', '\x2', '\x2', '\x2', '\x151', 
+		'\x154', '\x5', '\x14', '\v', '\x2', '\x152', '\x154', '\x5', '\n', '\x6', 
+		'\x2', '\x153', '\x151', '\x3', '\x2', '\x2', '\x2', '\x153', '\x152', 
+		'\x3', '\x2', '\x2', '\x2', '\x154', '\x155', '\x3', '\x2', '\x2', '\x2', 
+		'\x155', '\x162', '\x5', '\x12', '\n', '\x2', '\x156', '\x158', '\a', 
+		'!', '\x2', '\x2', '\x157', '\x159', '\a', '\x12', '\x2', '\x2', '\x158', 
+		'\x157', '\x3', '\x2', '\x2', '\x2', '\x158', '\x159', '\x3', '\x2', '\x2', 
+		'\x2', '\x159', '\x15C', '\x3', '\x2', '\x2', '\x2', '\x15A', '\x15D', 
+		'\x5', '\x14', '\v', '\x2', '\x15B', '\x15D', '\x5', '\n', '\x6', '\x2', 
+		'\x15C', '\x15A', '\x3', '\x2', '\x2', '\x2', '\x15C', '\x15B', '\x3', 
+		'\x2', '\x2', '\x2', '\x15D', '\x15E', '\x3', '\x2', '\x2', '\x2', '\x15E', 
+		'\x15F', '\x5', '\x12', '\n', '\x2', '\x15F', '\x161', '\x3', '\x2', '\x2', 
+		'\x2', '\x160', '\x156', '\x3', '\x2', '\x2', '\x2', '\x161', '\x164', 
+		'\x3', '\x2', '\x2', '\x2', '\x162', '\x160', '\x3', '\x2', '\x2', '\x2', 
+		'\x162', '\x163', '\x3', '\x2', '\x2', '\x2', '\x163', '\x166', '\x3', 
+		'\x2', '\x2', '\x2', '\x164', '\x162', '\x3', '\x2', '\x2', '\x2', '\x165', 
+		'\x14F', '\x3', '\x2', '\x2', '\x2', '\x165', '\x166', '\x3', '\x2', '\x2', 
+		'\x2', '\x166', '\x167', '\x3', '\x2', '\x2', '\x2', '\x167', '\x168', 
+		'\a', ',', '\x2', '\x2', '\x168', ';', '\x3', '\x2', '\x2', '\x2', '\x169', 
+		'\x16A', '\a', '\v', '\x2', '\x2', '\x16A', '\x16B', '\x5', '\x36', '\x1C', 
+		'\x2', '\x16B', '\x16C', '\a', '+', '\x2', '\x2', '\x16C', '\x16D', '\x5', 
+		'\x42', '\"', '\x2', '\x16D', '\x16E', '\a', ',', '\x2', '\x2', '\x16E', 
+		'\x179', '\x3', '\x2', '\x2', '\x2', '\x16F', '\x170', '\a', '\v', '\x2', 
+		'\x2', '\x170', '\x171', '\x5', '\x36', '\x1C', '\x2', '\x171', '\x176', 
+		'\x5', '>', ' ', '\x2', '\x172', '\x173', '\a', '+', '\x2', '\x2', '\x173', 
+		'\x174', '\x5', '\x42', '\"', '\x2', '\x174', '\x175', '\a', ',', '\x2', 
+		'\x2', '\x175', '\x177', '\x3', '\x2', '\x2', '\x2', '\x176', '\x172', 
 		'\x3', '\x2', '\x2', '\x2', '\x176', '\x177', '\x3', '\x2', '\x2', '\x2', 
-		'\x177', '\x178', '\a', '\x15', '\x2', '\x2', '\x178', '\x189', '\x5', 
-		'\x42', '\"', '\x2', '\x179', '\x17A', '\a', ')', '\x2', '\x2', '\x17A', 
-		'\x17B', '\a', '\x3', '\x2', '\x2', '\x17B', '\x17D', '\a', '\x14', '\x2', 
-		'\x2', '\x17C', '\x17E', '\x5', '\x12', '\n', '\x2', '\x17D', '\x17C', 
-		'\x3', '\x2', '\x2', '\x2', '\x17D', '\x17E', '\x3', '\x2', '\x2', '\x2', 
-		'\x17E', '\x17F', '\x3', '\x2', '\x2', '\x2', '\x17F', '\x180', '\a', 
-		'\x15', '\x2', '\x2', '\x180', '\x189', '\x5', '\x42', '\"', '\x2', '\x181', 
-		'\x182', '\a', '*', '\x2', '\x2', '\x182', '\x183', '\a', '\x3', '\x2', 
-		'\x2', '\x183', '\x184', '\a', '\x14', '\x2', '\x2', '\x184', '\x185', 
-		'\x5', '\x14', '\v', '\x2', '\x185', '\x186', '\a', '\x15', '\x2', '\x2', 
-		'\x186', '\x187', '\x5', '\x42', '\"', '\x2', '\x187', '\x189', '\x3', 
-		'\x2', '\x2', '\x2', '\x188', '\x16D', '\x3', '\x2', '\x2', '\x2', '\x188', 
-		'\x171', '\x3', '\x2', '\x2', '\x2', '\x188', '\x179', '\x3', '\x2', '\x2', 
-		'\x2', '\x188', '\x181', '\x3', '\x2', '\x2', '\x2', '\x189', '\x18C', 
-		'\x3', '\x2', '\x2', '\x2', '\x18A', '\x188', '\x3', '\x2', '\x2', '\x2', 
-		'\x18A', '\x18B', '\x3', '\x2', '\x2', '\x2', '\x18B', '\x18D', '\x3', 
-		'\x2', '\x2', '\x2', '\x18C', '\x18A', '\x3', '\x2', '\x2', '\x2', '\x18D', 
-		'\x18E', '\a', '\x5', '\x2', '\x2', '\x18E', '\x190', '\x3', '\x2', '\x2', 
-		'\x2', '\x18F', '\x15D', '\x3', '\x2', '\x2', '\x2', '\x18F', '\x169', 
-		'\x3', '\x2', '\x2', '\x2', '\x190', '\x33', '\x3', '\x2', '\x2', '\x2', 
-		'\x191', '\x192', '\t', '\x4', '\x2', '\x2', '\x192', '\x35', '\x3', '\x2', 
-		'\x2', '\x2', '\x193', '\x194', '\a', '.', '\x2', '\x2', '\x194', '\x37', 
-		'\x3', '\x2', '\x2', '\x2', '\x195', '\x196', '\a', '\xF', '\x2', '\x2', 
-		'\x196', '\x39', '\x3', '\x2', '\x2', '\x2', '\x197', '\x198', '\a', '+', 
-		'\x2', '\x2', '\x198', ';', '\x3', '\x2', '\x2', '\x2', '\x199', '\x19A', 
-		'\a', '\v', '\x2', '\x2', '\x19A', '=', '\x3', '\x2', '\x2', '\x2', '\x19B', 
-		'\x19C', '\a', '\f', '\x2', '\x2', '\x19C', '?', '\x3', '\x2', '\x2', 
-		'\x2', '\x19D', '\x19E', '\a', '\r', '\x2', '\x2', '\x19E', '\x41', '\x3', 
-		'\x2', '\x2', '\x2', '\x19F', '\x1A0', '\a', '\x35', '\x2', '\x2', '\x1A0', 
-		'\x43', '\x3', '\x2', '\x2', '\x2', '\'', 'J', '\x62', 'p', '}', '\x88', 
-		'\x90', '\x9D', '\xAD', '\xB7', '\xBC', '\xC2', '\xC9', '\xCE', '\xDE', 
-		'\xE3', '\xEB', '\xF4', '\xFA', '\x102', '\x104', '\x10B', '\x110', '\x11E', 
-		'\x12F', '\x137', '\x139', '\x14A', '\x152', '\x156', '\x158', '\x161', 
-		'\x167', '\x175', '\x17D', '\x188', '\x18A', '\x18F',
+		'\x177', '\x179', '\x3', '\x2', '\x2', '\x2', '\x178', '\x169', '\x3', 
+		'\x2', '\x2', '\x2', '\x178', '\x16F', '\x3', '\x2', '\x2', '\x2', '\x179', 
+		'=', '\x3', '\x2', '\x2', '\x2', '\x17A', '\x17C', '\a', ')', '\x2', '\x2', 
+		'\x17B', '\x17D', '\x5', '\x38', '\x1D', '\x2', '\x17C', '\x17B', '\x3', 
+		'\x2', '\x2', '\x2', '\x17C', '\x17D', '\x3', '\x2', '\x2', '\x2', '\x17D', 
+		'\x17E', '\x3', '\x2', '\x2', '\x2', '\x17E', '\x180', '\a', '(', '\x2', 
+		'\x2', '\x17F', '\x181', '\x5', '\x38', '\x1D', '\x2', '\x180', '\x17F', 
+		'\x3', '\x2', '\x2', '\x2', '\x180', '\x181', '\x3', '\x2', '\x2', '\x2', 
+		'\x181', '\x182', '\x3', '\x2', '\x2', '\x2', '\x182', '\x183', '\a', 
+		'*', '\x2', '\x2', '\x183', '?', '\x3', '\x2', '\x2', '\x2', '\x184', 
+		'\x185', '\a', '\f', '\x2', '\x2', '\x185', '\x186', '\x5', '\x12', '\n', 
+		'\x2', '\x186', '\x187', '\a', '+', '\x2', '\x2', '\x187', '\x188', '\x5', 
+		'\x42', '\"', '\x2', '\x188', '\x189', '\a', ',', '\x2', '\x2', '\x189', 
+		'\x198', '\x3', '\x2', '\x2', '\x2', '\x18A', '\x18B', '\a', '\f', '\x2', 
+		'\x2', '\x18B', '\x18C', '\x5', '\x12', '\n', '\x2', '\x18C', '\x191', 
+		'\x5', '>', ' ', '\x2', '\x18D', '\x18E', '\a', '+', '\x2', '\x2', '\x18E', 
+		'\x18F', '\x5', '\x42', '\"', '\x2', '\x18F', '\x190', '\a', ',', '\x2', 
+		'\x2', '\x190', '\x192', '\x3', '\x2', '\x2', '\x2', '\x191', '\x18D', 
+		'\x3', '\x2', '\x2', '\x2', '\x191', '\x192', '\x3', '\x2', '\x2', '\x2', 
+		'\x192', '\x198', '\x3', '\x2', '\x2', '\x2', '\x193', '\x194', '\a', 
+		'\f', '\x2', '\x2', '\x194', '\x195', '\x5', '\x14', '\v', '\x2', '\x195', 
+		'\x196', '\x5', '\x12', '\n', '\x2', '\x196', '\x198', '\x3', '\x2', '\x2', 
+		'\x2', '\x197', '\x184', '\x3', '\x2', '\x2', '\x2', '\x197', '\x18A', 
+		'\x3', '\x2', '\x2', '\x2', '\x197', '\x193', '\x3', '\x2', '\x2', '\x2', 
+		'\x198', '\x41', '\x3', '\x2', '\x2', '\x2', '\x199', '\x19B', '\t', '\x4', 
+		'\x2', '\x2', '\x19A', '\x19C', '\x5', '\x18', '\r', '\x2', '\x19B', '\x19A', 
+		'\x3', '\x2', '\x2', '\x2', '\x19B', '\x19C', '\x3', '\x2', '\x2', '\x2', 
+		'\x19C', '\x19D', '\x3', '\x2', '\x2', '\x2', '\x19D', '\x1A8', '\x5', 
+		'J', '&', '\x2', '\x19E', '\x19F', '\a', '\x10', '\x2', '\x2', '\x19F', 
+		'\x1A0', '\x5', '\x12', '\n', '\x2', '\x1A0', '\x1A1', '\x5', 'J', '&', 
+		'\x2', '\x1A1', '\x1A8', '\x3', '\x2', '\x2', '\x2', '\x1A2', '\x1A3', 
+		'\a', '\x11', '\x2', '\x2', '\x1A3', '\x1A4', '\x5', '\n', '\x6', '\x2', 
+		'\x1A4', '\x1A5', '\x5', '\x16', '\f', '\x2', '\x1A5', '\x1A6', '\x5', 
+		'J', '&', '\x2', '\x1A6', '\x1A8', '\x3', '\x2', '\x2', '\x2', '\x1A7', 
+		'\x199', '\x3', '\x2', '\x2', '\x2', '\x1A7', '\x19E', '\x3', '\x2', '\x2', 
+		'\x2', '\x1A7', '\x1A2', '\x3', '\x2', '\x2', '\x2', '\x1A8', '\x1AB', 
+		'\x3', '\x2', '\x2', '\x2', '\x1A9', '\x1A7', '\x3', '\x2', '\x2', '\x2', 
+		'\x1A9', '\x1AA', '\x3', '\x2', '\x2', '\x2', '\x1AA', '\x43', '\x3', 
+		'\x2', '\x2', '\x2', '\x1AB', '\x1A9', '\x3', '\x2', '\x2', '\x2', '\x1AC', 
+		'\x1AD', '\a', '\r', '\x2', '\x2', '\x1AD', '\x1AE', '\x5', '\x12', '\n', 
+		'\x2', '\x1AE', '\x1B6', '\a', '+', '\x2', '\x2', '\x1AF', '\x1B0', '\a', 
+		'\x11', '\x2', '\x2', '\x1B0', '\x1B1', '\x5', '\n', '\x6', '\x2', '\x1B1', 
+		'\x1B2', '\x5', '\x16', '\f', '\x2', '\x1B2', '\x1B3', '\x5', 'J', '&', 
+		'\x2', '\x1B3', '\x1B5', '\x3', '\x2', '\x2', '\x2', '\x1B4', '\x1AF', 
+		'\x3', '\x2', '\x2', '\x2', '\x1B5', '\x1B8', '\x3', '\x2', '\x2', '\x2', 
+		'\x1B6', '\x1B4', '\x3', '\x2', '\x2', '\x2', '\x1B6', '\x1B7', '\x3', 
+		'\x2', '\x2', '\x2', '\x1B7', '\x1B9', '\x3', '\x2', '\x2', '\x2', '\x1B8', 
+		'\x1B6', '\x3', '\x2', '\x2', '\x2', '\x1B9', '\x1BA', '\a', ',', '\x2', 
+		'\x2', '\x1BA', '\x45', '\x3', '\x2', '\x2', '\x2', '\x1BB', '\x1BC', 
+		'\t', '\x5', '\x2', '\x2', '\x1BC', 'G', '\x3', '\x2', '\x2', '\x2', '\x1BD', 
+		'\x1BE', '\a', '\x31', '\x2', '\x2', '\x1BE', 'I', '\x3', '\x2', '\x2', 
+		'\x2', '\x1BF', '\x1C0', '\a', '\x38', '\x2', '\x2', '\x1C0', 'K', '\x3', 
+		'\x2', '\x2', '\x2', ',', 'R', 'm', 'p', '~', '\x8F', '\x9A', '\xA2', 
+		'\xAF', '\xBF', '\xC9', '\xCE', '\xD4', '\xDC', '\xE3', '\xE8', '\xF8', 
+		'\xFD', '\x105', '\x10E', '\x114', '\x11C', '\x11E', '\x125', '\x12A', 
+		'\x137', '\x148', '\x14F', '\x153', '\x158', '\x15C', '\x162', '\x165', 
+		'\x176', '\x178', '\x17C', '\x180', '\x191', '\x197', '\x19B', '\x1A7', 
+		'\x1A9', '\x1B6',
 	};
 
 	public static readonly ATN _ATN =

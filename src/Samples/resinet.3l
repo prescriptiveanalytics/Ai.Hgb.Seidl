@@ -19,7 +19,7 @@ struct inverterData { float pvPowerProduced, float powerConsumed, float batteryS
 # message definition v2
 # message forecastRequestV2 { float lat, float lng, datetime dt }
 # message weatherReportV2 { float globalRadiation, float airTemperature, float humidity }
-
+position pos = { lat = 12.7, lng = 42.4 }
 message forecastRequest { position pos, datetime dt }
 message weatherReport { weatherData rep, topic int zip }
 
@@ -60,7 +60,7 @@ meta servicesInfo {
     property string color
 }
 
-nodetype weatherServiceTemplateWithMeta(forecastRequest) => weatherReport {
+nodetype weatherServiceTemplateWithMeta(forecastRequest --> weatherReport) {
     import servicesInfo # explicit meta porperty
     property string font # implicit meta property
 }
@@ -75,8 +75,8 @@ node weatherService1 (forecastRequest,... => weatherReport,...) {
     ...
 }
 
-# a2: lambda vs arrow symbol
-node weatherService1 (forecastRequest,... -> weatherReport,...) {
+# a2: lambda vs arrow symbol --> TODO
+node weatherService1 (forecastRequest,... --> weatherReport,...) {
     ...
 }
 
@@ -96,6 +96,9 @@ string x = "foo";
 type datetime : string, "yyyy-MM-dd-hh-mm-ss"
 type datetime = string, "yyyy-MM-dd-hh-mm-ss"
 type datetime = (string, "yyyy-MM-dd-hh-mm-ss")
+typedef string datetime // TODO!
+
+
 
 # a6
 # type variable signature vs variable siganture -> allow combinations?
