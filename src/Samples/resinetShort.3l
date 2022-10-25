@@ -5,7 +5,7 @@ int port = 15387;
 string basetopic = "resinet";
 
 # Demo 1:
-{    
+nodes {    
     string version = "v1";
     string x = "asdf";    
 
@@ -21,4 +21,6 @@ string basetopic = "resinet";
 
     string test = "v1";
 }
+
+message forecastRequest { position pos, datetime dt }
 

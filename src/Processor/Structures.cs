@@ -226,6 +226,23 @@ namespace Sidl.Processor {
 
   }
 
+  public class Parameter {
+    public string Name { get; set; }
+    public string Typename { get; set; }
+
+    public Type Type { get; set; }
+    public bool Topic { get; set; }
+  }
+
+  public class Message {
+    public string Name { get; set; }
+    public List<Parameter> Parameters { get; set; }
+
+    public Message(string name) {
+      this.Name = name;
+    }
+  }
+
   #region depr
 
   public class ScopedSymbolTableDeprecated {

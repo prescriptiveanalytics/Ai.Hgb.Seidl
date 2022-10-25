@@ -10,7 +10,7 @@ namespace Sidl.Processor {
       if (typeString == "string") return Type.GetType("System.String");
       if (typeString == "bool") return Type.GetType("System.Boolean");
       if (typeString == "int") return Type.GetType("System.Int32");
-      if (typeString == "float") return Type.GetType("System.Double");
+      if (typeString == "float") return Type.GetType("System.Double");      
       return null;
     }
   }

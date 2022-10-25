@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 // https://stackoverflow.com/questions/887205/tutorial-for-walking-antlr-asts-in-c
 namespace Sidl.Processor {
-  public class StatementPrintVisitor : SidlBaseVisitor<object> {
+  public class StatementPrintVisitor : SidlParserBaseVisitor<object> {
     public override object VisitSet([NotNull] SidlParser.SetContext context) {
       var x = context.ChildCount;
 
@@ -22,7 +22,7 @@ namespace Sidl.Processor {
     }
   }
 
-  public class WeakScopeSymbolDeclarationVisitor : SidlBaseVisitor<object?> {
+  public class WeakScopeSymbolDeclarationVisitor : SidlParserBaseVisitor<object?> {
 
     public Dictionary<Scope, List<Declaration>> DeclarationStore;    
     private Scope currentScope;
@@ -78,7 +78,7 @@ namespace Sidl.Processor {
     }
   }
 
-  public class ScopeSymbolDeclarationVisitor : SidlBaseVisitor<object?> {
+  public class ScopeSymbolDeclarationVisitor : SidlParserBaseVisitor<object?> {
 
     public Dictionary<Scope, Dictionary<string, Declaration>> DeclarationStore;
     private Scope currentScope;    
@@ -143,7 +143,7 @@ namespace Sidl.Processor {
     }
   }
           
-  public class ScopedSymbolTableVisitor : SidlBaseVisitor<object?> {
+  public class ScopedSymbolTableVisitor : SidlParserBaseVisitor<object?> {
 
     public ScopedSymbolTable scopedSymbolTable;
     private Scope currentScope;
@@ -163,7 +163,10 @@ namespace Sidl.Processor {
     }
 
     public override object? VisitScopeStatement([NotNull] SidlParser.ScopeStatementContext context) {
-      var newScope = scopedSymbolTable.AddScope("anonymous", currentScope);
+      var scopeVar = context.scope().variable();
+      string scopeName = scopeVar != null ? scopeVar.GetText() : "anonymous";
+
+      var newScope = scopedSymbolTable.AddScope(scopeName, currentScope);
       var parentScope = currentScope;
 
       // step inside scope
@@ -194,6 +197,31 @@ namespace Sidl.Processor {
         scopedSymbolTable.AddDefinition(currentScope, Utils.GetType(typeString), variable.GetText(), exp);        
       }
 
+      return null;
+    }
+
+    public override object VisitMessageDefinitionStatement([NotNull] SidlParser.MessageDefinitionStatementContext context) {
+
+      var def = context.messagedefinition();
+      var name = def.messagetypename();
+      //Console.WriteLine(name.GetText());
+
+      var  varlist = def.topiccustomtypedvariablelist();
+      for (int i = 0; i < varlist.variable().Length; i++) { 
+        var topic = varlist.TOPIC(i);
+        var type = varlist.type(i);
+        var typename = varlist.typename(i);
+        var variable = varlist.variable(i);        
+
+        //Console.WriteLine($"{topic?.GetText()+" "}{type?.GetText()+" "}{typename?.GetText() + " "}{variable.NAME()}");
+      }     
+
+
+      return null;
+      //return base.VisitMessageDefinitionStatement(context);
+    }
+
+    public override object VisitNodeDefinitionStatement([NotNull] SidlParser.NodeDefinitionStatementContext context) {
       return null;
     }
   }

@@ -25,13 +25,13 @@ statement
     | type variablelist terminator                      #declarationStatement
     | variablelist '=' expressionlist terminator        #assignmentStatement
     | type variablelist '=' expressionlist terminator   #definitionStatement    
-    | structdefinition                                  #structdefinitionStatement
-    | messagedefinition                                 #messagedefinitionStatement
-    | nodetypedefinition                                #nodetypedefinitionStatement
-    | nodedefinition                                    #nodedefinitionStatement
-    | metadefinition                                    #metadefinitionStatement
+    | structdefinition                                  #structDefinitionStatement
+    | messagedefinition                                 #messageDefinitionStatement
+    | nodetypedefinition                                #nodetypeDefinitionStatement
+    | nodedefinition                                    #nodeDefinitionStatement
+    | metadefinition                                    #metaDefinitionStatement
     | importstatement                                   #importStatement
-    | typealiasingstatement                             #typealiasingStatement
+    | typealiasingstatement                             #typeAliasingStatement
 
     // not yet in use
     // | functiondefinition
@@ -43,7 +43,7 @@ statement
     ;
 
 scope // = block scope
-    : variable? '[' set ']'
+    : variable? '{' set '}'
     ;
 
 type
@@ -77,6 +77,14 @@ variablelist
 
 typedvariablelist
     : type variable (',' type variable)*
+    ;
+
+customtypedvariablelist
+    : ((typename | type) variable (',' (typename | type) variable)*)?
+    ;
+
+topiccustomtypedvariablelist
+    : (TOPIC? (typename | type) variable (',' TOPIC? (typename | type) variable)*)?
     ;
 
 expressionlist
@@ -164,7 +172,7 @@ messagetypelist
     ;
 
 messagedefinition    
-    : MESSAGE messagetypename '{' (TOPIC? (typename | type) variable (',' TOPIC? (typename | type) variable)*)? '}'
+    : MESSAGE messagetypename '{' topiccustomtypedvariablelist '}'
     ;
 
 nodetypedefinition
