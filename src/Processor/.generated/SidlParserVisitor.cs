@@ -122,12 +122,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitImportStatement([NotNull] SidlParser.ImportStatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>typeAliasingStatement</c>
+	/// Visit a parse tree produced by the <c>typedefStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitTypeAliasingStatement([NotNull] SidlParser.TypeAliasingStatementContext context);
+	Result VisitTypedefStatement([NotNull] SidlParser.TypedefStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.scope"/>.
 	/// </summary>
@@ -237,11 +237,11 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitImportstatement([NotNull] SidlParser.ImportstatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.typealiasingstatement"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.typedefstatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitTypealiasingstatement([NotNull] SidlParser.TypealiasingstatementContext context);
+	Result VisitTypedefstatement([NotNull] SidlParser.TypedefstatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.functiondefinition"/>.
 	/// </summary>

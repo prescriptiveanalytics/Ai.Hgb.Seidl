@@ -30,8 +30,8 @@ statement
     | nodetypedefinition                                #nodetypeDefinitionStatement
     | nodedefinition                                    #nodeDefinitionStatement
     | metadefinition                                    #metaDefinitionStatement
-    | importstatement                                   #importStatement
-    | typealiasingstatement                             #typeAliasingStatement
+    | importstatement terminator                        #importStatement
+    | typedefstatement terminator                       #typedefStatement
 
     // not yet in use
     // | functiondefinition
@@ -126,8 +126,8 @@ importstatement
     | IMPORT STRINGLITEARL
     ;
 
-typealiasingstatement
-    : TYPE variable ':' type (',' string)?
+typedefstatement
+    : TYPEDEF type variable
     ;
 
 functiondefinition
@@ -163,10 +163,12 @@ structdefinition
 // move up/down
 messagetypename
     : NAME
-    ;    
+    ;  
+
 nodetypename
     : NAME
     ;
+    
 messagetypelist    
     : messagetypename variable (',' messagetypename variable)*
     ;

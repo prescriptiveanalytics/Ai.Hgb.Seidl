@@ -2,7 +2,6 @@ lexer grammar SidlLexer;
 
 // Types
 
-TYPE                : 'type';
 ARRAY               : '[]';
 STRING              : 'string';
 INT                 : 'int';
@@ -19,6 +18,7 @@ FUNCTION            : 'function';
 
 // Keywords
 
+TYPEDEF             : 'typedef';
 IMPORT              : 'import';
 INCLUDE             : 'include';
 PROPERTY            : 'property';

@@ -234,7 +234,7 @@ namespace Sidl.Processor {
     public bool Topic { get; set; }
   }
 
-  public class Message {
+  public class Message : Type {
     public string Name { get; set; }
     public List<Parameter> Parameters { get; set; }
 

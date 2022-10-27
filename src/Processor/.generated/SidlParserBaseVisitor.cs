@@ -177,7 +177,7 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// <return>The visitor result.</return>
 	public virtual Result VisitImportStatement([NotNull] SidlParser.ImportStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>typeAliasingStatement</c>
+	/// Visit a parse tree produced by the <c>typedefStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -186,7 +186,7 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypeAliasingStatement([NotNull] SidlParser.TypeAliasingStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitTypedefStatement([NotNull] SidlParser.TypedefStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.scope"/>.
 	/// <para>
@@ -368,7 +368,7 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// <return>The visitor result.</return>
 	public virtual Result VisitImportstatement([NotNull] SidlParser.ImportstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.typealiasingstatement"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.typedefstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -376,7 +376,7 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypealiasingstatement([NotNull] SidlParser.TypealiasingstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitTypedefstatement([NotNull] SidlParser.TypedefstatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.functiondefinition"/>.
 	/// <para>

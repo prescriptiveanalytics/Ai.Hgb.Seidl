@@ -7,7 +7,7 @@ basetopic = "resinet/demo" # basetopic declared within baseconfig.3l
 
 
 # graph-specific definitions
-type datetime:string # type aliasing
+typedef string datetime # type aliasing
 struct position { float lat, float lng } # message payload definitions
 struct weatherData { float globalRadiation, float airTemperature, float humidity }
 struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
@@ -28,14 +28,14 @@ message weatherReport { weatherData rep, topic int zip }
 #
 
 # one-line node definition (implicit type definition and instantiation)
-node weatherService1(forecastRequest) => weatherReport # publishes per zip-topic
+node weatherService1(forecastRequest --> weatherReport) # publishes per zip-topic
 
 # explicit node type definition and instantiation 
-nodetype weatherServiceTemplate(forecastRequest) => weatherReport
+nodetype weatherServiceTemplate(forecastRequest --> weatherReport)
 node weatherServiceTemplate weatherService2, weatherService3
 
 # explicit node type definition and instantiation with properties
-nodetype weatherServiceTemplateWithProps(forecastRequest) => weatherReport {    
+nodetype weatherServiceTemplateWithProps(forecastRequest --> weatherReport) {    
     property string graphColor
     input string command
     output int reportCount       
@@ -43,7 +43,7 @@ nodetype weatherServiceTemplateWithProps(forecastRequest) => weatherReport {
 node weatherServiceTemplateWithProps weatherService4
 
 
-nodetype node inverterModel(weatherReport) => inverterData {
+nodetype node inverterModel(weatherReport --> inverterData) {
     property position pos            
 }
 node inverterModel inverterModel1(weatherReport.zip = 4020, pos = { 13.42, 43.14 }), inverterModel2( ... )
@@ -61,7 +61,7 @@ meta servicesInfo {
 }
 
 nodetype weatherServiceTemplateWithMeta(forecastRequest --> weatherReport) {
-    import servicesInfo # explicit meta porperty
+    include servicesInfo # explicit meta porperty
     property string font # implicit meta property
 }
 node weatherServiceTemplate weatherService5 { name = "", description = "", color = "#665544", font = "Source Sans Pro" }
