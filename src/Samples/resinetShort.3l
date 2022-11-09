@@ -1,17 +1,17 @@
 # import "./baseconfig.sdl"
 
-string host = "127.0.0.1";
-int port = 15387;
-string basetopic = "resinet";
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "resinet"
 
 # Demo 1:
 nodes {    
-    string version = "v1";
-    string x = "asdf";    
+    string version = "v1"
+    string x = "asdf"   
 
     # nodes 1
     {
-        float foo = 200;
+        int foo = 200;
     }
 
     # nodes 2
@@ -22,5 +22,8 @@ nodes {
     string test = "v1";
 }
 
-message forecastRequest { position pos, datetime dt }
+# struct position { float lat, float lng }
+# typedef string datetime
+# message forecastRequest { position pos, datetime dt }
+
 

@@ -22,127 +22,6 @@ namespace Sidl.Processor {
     }
   }
 
-  public class WeakScopeSymbolDeclarationVisitor : SidlParserBaseVisitor<object?> {
-
-    public Dictionary<Scope, List<Declaration>> DeclarationStore;    
-    private Scope currentScope;
-
-    public WeakScopeSymbolDeclarationVisitor() {
-      DeclarationStore = new Dictionary<Scope, List<Declaration>>();
-      currentScope = new Scope() { Name = "global", ParentScope = null };
-      DeclarationStore.Add(currentScope, new List<Declaration>());
-    }
-
-    public override object? VisitSet([NotNull] SidlParser.SetContext context) {
-      var statements = context.statement();
-      foreach (var statement in statements) {
-        Visit(statement);
-      }      
-      return null;
-    }
-
-    public override object? VisitScopeStatement([NotNull] SidlParser.ScopeStatementContext context) {
-      var newScope = new Scope() { ParentScope = currentScope, Name = "anonymous" };
-      var parentScope = currentScope;
-      currentScope = newScope;
-      DeclarationStore.Add(currentScope, new List<Declaration>());
-
-      Visit(context.scope().set());
-
-      // reset scope
-      currentScope = parentScope;
-
-      return null;
-    }
-
-
-    public override object? VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) {
-      var typeString = context.type().GetText();
-      foreach (var variable in context.variablelist().variable()) {
-        var newDeclaration = new Declaration(variable.GetText(), Utils.GetType(typeString), currentScope);        
-        DeclarationStore[currentScope].Add(newDeclaration);
-      }      
-      return null;
-    }
-
-    public override object? VisitDefinitionStatement([NotNull] SidlParser.DefinitionStatementContext context) {
-      var typeString = context.type().GetText();
-
-      // note: initializations are ignored
-      foreach (var variable in context.variablelist().variable()) {
-        var newDeclaration = new Declaration(variable.GetText(), Utils.GetType(typeString), currentScope);
-        DeclarationStore[currentScope].Add(newDeclaration);
-      }
-      
-      return null;
-    }
-  }
-
-  public class ScopeSymbolDeclarationVisitor : SidlParserBaseVisitor<object?> {
-
-    public Dictionary<Scope, Dictionary<string, Declaration>> DeclarationStore;
-    private Scope currentScope;    
-
-    public ScopeSymbolDeclarationVisitor() {
-      DeclarationStore = new Dictionary<Scope, Dictionary<string, Declaration>>();
-      currentScope = new Scope("gloabl", null);      
-      DeclarationStore.Add(currentScope, new Dictionary<string, Declaration>());      
-    }
-
-    public override object? VisitSet([NotNull] SidlParser.SetContext context) {
-      var statements = context.statement();
-      foreach (var statement in statements) {
-        Visit(statement);
-      }
-      return null;
-    }
-
-    public override object? VisitScopeStatement([NotNull] SidlParser.ScopeStatementContext context) {      
-      var newScope = new Scope("anonymous", currentScope);
-      var parentScope = currentScope;
-      currentScope = newScope;
-      DeclarationStore.Add(currentScope, new Dictionary<string, Declaration>());
-
-      Visit(context.scope().set());
-
-      // reset scope
-      currentScope = parentScope;
-
-      return null;
-    }
-
-
-    public override object? VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) {
-      var typeString = context.type().GetText();
-      foreach (var variable in context.variablelist().variable()) {
-        var newDeclaration = new Declaration(variable.GetText(), Utils.GetType(typeString), currentScope);
-        try {
-          DeclarationStore[currentScope].Add(newDeclaration.Name, newDeclaration);
-        }
-        catch (ArgumentException ex) {
-          throw new Exception($"The variable name '{newDeclaration.Name}' has already been used for another declaration inside this scope. Please choose another name.");
-        }
-      }
-      return null;
-    }
-
-    public override object? VisitDefinitionStatement([NotNull] SidlParser.DefinitionStatementContext context) {
-      var typeString = context.type().GetText();
-
-      // note: initializations are ignored
-      foreach (var variable in context.variablelist().variable()) {
-        var newDeclaration = new Declaration(variable.GetText(), Utils.GetType(typeString), currentScope);
-        try {
-          DeclarationStore[currentScope].Add(newDeclaration.Name, newDeclaration);
-        } catch (ArgumentException ex) {
-          throw new Exception($"The variable name '{newDeclaration.Name}' has already been used for another declaration inside this scope. Please choose another name.");
-        }        
-      }
-
-      return null;
-    }
-  }
-          
   public class ScopedSymbolTableVisitor : SidlParserBaseVisitor<object?> {
 
     public ScopedSymbolTable scopedSymbolTable;
@@ -164,7 +43,7 @@ namespace Sidl.Processor {
 
     public override object? VisitScopeStatement([NotNull] SidlParser.ScopeStatementContext context) {
       var scopeVar = context.scope().variable();
-      string scopeName = scopeVar != null ? scopeVar.GetText() : "anonymous";
+      string scopeName = scopeVar?.GetText();
 
       var newScope = scopedSymbolTable.AddScope(scopeName, currentScope);
       var parentScope = currentScope;
@@ -179,23 +58,41 @@ namespace Sidl.Processor {
     }
 
     public override object VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) {
-      var typeString = context.type().GetText();
+      var typeString = context.atomictype().GetText();
       
-      foreach (var variable in context.variablelist().variable()) {        
-        scopedSymbolTable.AddDeclaration(currentScope, Utils.GetType(typeString), variable.GetText());
+      foreach (var variable in context.variablelist().variable()) {                
+        scopedSymbolTable.AddSymbol(variable.GetText(), Utils.CreateAtomicType(typeString), currentScope);
       }
 
       return null;
     }
 
     public override object VisitDefinitionStatement([NotNull] SidlParser.DefinitionStatementContext context) {
-      var typeString = context.type().GetText();
+      if(context.variablelist().ChildCount != context.expressionlist().ChildCount && context.expressionlist().ChildCount != 1) {
+        throw new ArgumentException($"The number of expressions does not match the number of variables. Alternatively a single expression for all variables can be used.");
+      }
+      bool singleExp = context.expressionlist().ChildCount == 1;
+      var typeString = context.atomictype().GetText();
+
+      for(int i = 0; i < context.variablelist().variable().Length; i++) {
+        var variable = context.variablelist().variable(i);
+        var expression = context.expressionlist().expression(singleExp ? 0 : i);
+
+        scopedSymbolTable.AddSymbol(
+          variable.GetText(),
+          Utils.CreateAtomicType(typeString, expression),
+          currentScope);
+      }
 
       // note: initializations are currently not properly handled...
-      foreach(var variable in context.variablelist().variable()) {
-        var exp = context.expressionlist().GetText();
-        scopedSymbolTable.AddDefinition(currentScope, Utils.GetType(typeString), variable.GetText(), exp);        
-      }
+      //foreach(var variable in context.variablelist().variable()) {
+      //  var exp = context.expressionlist().GetText();
+
+      //  scopedSymbolTable.AddSymbol(
+      //    variable.GetText(),
+      //    Utils.CreateAtomicType(typeString, exp),
+      //    currentScope);               
+      //}
 
       return null;
     }
@@ -209,8 +106,8 @@ namespace Sidl.Processor {
       var  varlist = def.topiccustomtypedvariablelist();
       for (int i = 0; i < varlist.variable().Length; i++) { 
         var topic = varlist.TOPIC(i);
-        var type = varlist.type(i);
-        var typename = varlist.typename(i);
+        var type = varlist.atomictype(i); // either atomic type ...
+        var typename = varlist.typename(i); // ... or custom type is declared
         var variable = varlist.variable(i);        
 
         //Console.WriteLine($"{topic?.GetText()+" "}{type?.GetText()+" "}{typename?.GetText() + " "}{variable.NAME()}");

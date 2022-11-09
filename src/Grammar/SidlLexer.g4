@@ -1,5 +1,10 @@
 lexer grammar SidlLexer;
 
+
+/*
+ * Note: all terminals must be defined here
+ */
+
 // Types
 
 ARRAY               : '[]';

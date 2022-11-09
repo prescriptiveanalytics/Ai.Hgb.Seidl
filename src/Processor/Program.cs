@@ -20,11 +20,11 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
 
       Console.WriteLine(" - Analyzing program...");
       Linter linter = new Linter(parser);
-      //linter.AnalyzeScopeSymbolDeclarations();      
+         
       var table = linter.CreateScopedSymbolTable();
 
       var scopesX = table.Scopes;
-      Console.WriteLine(String.Join(' ', scopesX));
+      Console.WriteLine(System.String.Join(' ', scopesX));
 
       Console.WriteLine("\n\n");
 

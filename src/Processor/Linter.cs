@@ -27,41 +27,16 @@ namespace Sidl.Processor {
       return scopedSymbolTable;
     }
 
-    public void AnalyzeScopeSymbolDeclarations() {
-      WeakScopeSymbolDeclarationVisitor declarationVisitor = new WeakScopeSymbolDeclarationVisitor();
-      SidlParser.RootContext rootContext = _parser.root();
-      declarationVisitor.Visit(rootContext);
 
-      var scopeSymbolStore = declarationVisitor.DeclarationStore;
-      CompleteScopeSymbolDependencies(scopeSymbolStore); // generate child dependencies
-
-      var global = scopeSymbolStore.Keys.Where(x => x.ParentScope == null).First();
-      Console.WriteLine("\nScope-Symbol declarations:\n");
-      PrintScopeSymbolStore(scopeSymbolStore, global, 0);
-
-      var scopeSymbolDuplicateStore = CheckScopeSymbolDuplicates(scopeSymbolStore);
-      global = scopeSymbolDuplicateStore.Keys.Where(x => x.ParentScope == null).First();
-      Console.WriteLine("\nScope-Symbol duplicates:\n");
-      PrintScopeSymbolStore(scopeSymbolDuplicateStore, global, 0);
-
-      Console.WriteLine("\nTest strict Scope-Symbol Visitor:\n");
-      ScopeSymbolDeclarationVisitor strictDeclarationVisitor = new ScopeSymbolDeclarationVisitor();
-      
-      try {
-        strictDeclarationVisitor.Visit(rootContext);
-      } catch (Exception exc) {
-        Console.WriteLine("Linter: " + exc.Message);
+    [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]
+    public void CompleteScopeSymbolDependencies(Dictionary<Scope, List<Symbol>> scopeSymbolStore) {
+      foreach (var scope in scopeSymbolStore.Keys.Where(x => x.Parent != null)) {
+        scope.Parent.ChildScopes.Add(scope.Name, scope);        
       }
     }
 
-    
-    public void CompleteScopeSymbolDependencies(Dictionary<Scope, List<Declaration>> scopeSymbolStore) {
-      foreach (var scope in scopeSymbolStore.Keys.Where(x => x.ParentScope != null)) {
-        scope.ParentScope.ChildScopes.Add(scope.Name, scope);        
-      }
-    }
-
-    public Dictionary<Scope, Dictionary<string, int>> CheckScopeSymbolDuplicates(Dictionary<Scope, List<Declaration>> scopeSymbolStore) {
+    [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]
+    public Dictionary<Scope, Dictionary<string, int>> CheckScopeSymbolDuplicates(Dictionary<Scope, List<Symbol>> scopeSymbolStore) {
       // check uniqueness of each declaration per scope (allow shadowing)
       var scopeSymbolDuplicateStore = new Dictionary<Scope, Dictionary<string, int>>();
       foreach (var scopedDecls in scopeSymbolStore) {
@@ -76,9 +51,10 @@ namespace Sidl.Processor {
       }
       return scopeSymbolDuplicateStore;
     }
-    
 
-    public static void PrintScopeSymbolStore(Dictionary<Scope, List<Declaration>> scopeSymbolStore, Scope currentScope, int scopeLevel) {
+
+    [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]
+    public static void PrintScopeSymbolStore(Dictionary<Scope, List<Symbol>> scopeSymbolStore, Scope currentScope, int scopeLevel) {
       string indent = "  ";
       for (int i = 0; i < scopeLevel; i++) indent += "  ";
 
@@ -87,11 +63,12 @@ namespace Sidl.Processor {
         Console.WriteLine(indent + declaration);
       }
 
-      foreach (var kvp in scopeSymbolStore.Where(x => x.Key.ParentScope == currentScope)) {
+      foreach (var kvp in scopeSymbolStore.Where(x => x.Key.Parent == currentScope)) {
         PrintScopeSymbolStore(scopeSymbolStore, kvp.Key, scopeLevel + 1);
       }
     }
 
+    [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]
     public static void PrintScopeSymbolStore(Dictionary<Scope, Dictionary<string, int>> scopeSymbolStore, Scope currentScope, int scopeLevel) {
       string indent = "  ";
       for (int i = 0; i < scopeLevel; i++) indent += "  ";
@@ -101,7 +78,7 @@ namespace Sidl.Processor {
         Console.WriteLine($"{indent}{declaration.Key}: {declaration.Value}");
       }
 
-      foreach (var kvp in scopeSymbolStore.Where(x => x.Key.ParentScope == currentScope)) {
+      foreach (var kvp in scopeSymbolStore.Where(x => x.Key.Parent == currentScope)) {
         PrintScopeSymbolStore(scopeSymbolStore, kvp.Key, scopeLevel + 1);
       }
     }

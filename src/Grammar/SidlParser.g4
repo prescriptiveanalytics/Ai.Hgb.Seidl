@@ -3,8 +3,12 @@ parser grammar SidlParser;
 options { tokenVocab=SidlLexer; }
 
 // TODO
+
+// meta and property definition actually not necessary?!
+// input/output messages (main dependency) vs input/output properties (ctr-channel) ... two-way comm. design feels superfluous
+// topic / filter keywords and functionality unclear
+
 // arrays + index operator
-// records/structs
 // newline issue
 // mathematic operators, string concat
 // pre-defined aggregation operators = function lib
@@ -20,18 +24,18 @@ set // = global scope
     ;
 
 statement
-    : terminator                                        #terminatorStatement         
-    | scope                                             #scopeStatement
-    | type variablelist terminator                      #declarationStatement
-    | variablelist '=' expressionlist terminator        #assignmentStatement
-    | type variablelist '=' expressionlist terminator   #definitionStatement    
-    | structdefinition                                  #structDefinitionStatement
-    | messagedefinition                                 #messageDefinitionStatement
-    | nodetypedefinition                                #nodetypeDefinitionStatement
-    | nodedefinition                                    #nodeDefinitionStatement
-    | metadefinition                                    #metaDefinitionStatement
-    | importstatement terminator                        #importStatement
-    | typedefstatement terminator                       #typedefStatement
+    : terminator                                            #terminatorStatement         
+    | scope                                                 #scopeStatement
+    | atomictype variablelist terminator                    #declarationStatement
+    | variablelist '=' expressionlist terminator            #assignmentStatement
+    | atomictype variablelist '=' expressionlist terminator #definitionStatement    
+    | structdefinition                                      #structDefinitionStatement
+    | messagedefinition                                     #messageDefinitionStatement
+    | nodetypedefinition                                    #nodetypeDefinitionStatement
+    | nodedefinition                                        #nodeDefinitionStatement
+    | metadefinition                                        #metaDefinitionStatement
+    | importstatement terminator                            #importStatement
+    | typedefstatement terminator                           #typedefStatement
 
     // not yet in use
     // | functiondefinition
@@ -76,15 +80,15 @@ variablelist
     ;
 
 typedvariablelist
-    : type variable (',' type variable)*
+    : atomictype variable (',' atomictype variable)*
     ;
 
 customtypedvariablelist
-    : ((typename | type) variable (',' (typename | type) variable)*)?
+    : (typename | atomictype) variable (',' (typename | atomictype) variable)*
     ;
 
 topiccustomtypedvariablelist
-    : (TOPIC? (typename | type) variable (',' TOPIC? (typename | type) variable)*)?
+    : TOPIC? (typename | atomictype) variable (',' TOPIC? (typename | atomictype) variable)*
     ;
 
 expressionlist
@@ -92,7 +96,8 @@ expressionlist
     ;
 
 expression
-    : NULL | TRUE | FALSE
+    : NULL
+    | boolean
     | number
     | string
     | variable
@@ -131,7 +136,7 @@ typedefstatement
     ;
 
 functiondefinition
-    : FUNCTION variable '=' '(' typedvariablelist? ')' '(' typedvariablelist? ')' functionbody
+    : FUNCTION variable '=' '(' customtypedvariablelist? ')' '(' customtypedvariablelist? ')' functionbody
     ;
 
 functionbody
@@ -168,13 +173,13 @@ messagetypename
 nodetypename
     : NAME
     ;
-    
+
 messagetypelist    
     : messagetypename variable (',' messagetypename variable)*
     ;
 
 messagedefinition    
-    : MESSAGE messagetypename '{' topiccustomtypedvariablelist '}'
+    : MESSAGE messagetypename '{' topiccustomtypedvariablelist? '}'
     ;
 
 nodetypedefinition
@@ -194,7 +199,7 @@ nodedefinition
 
 nodebody
     : (
-        (INPUT | OUTPUT) typedvariablelist? terminator
+        (INPUT | OUTPUT) customtypedvariablelist? terminator
         | INCLUDE variable terminator // include pre-defined meta properties
         | PROPERTY type variablelist terminator
     )*
@@ -215,6 +220,10 @@ number
 
 string
     : STRINGLITEARL //NORMALSTRING | CHARSTRING | LONGSTRING
+    ;
+
+boolean
+    : TRUE | FALSE
     ;
 
 terminator

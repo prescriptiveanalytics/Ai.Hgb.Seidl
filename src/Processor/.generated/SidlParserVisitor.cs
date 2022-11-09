@@ -339,6 +339,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitString([NotNull] SidlParser.StringContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.boolean"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBoolean([NotNull] SidlParser.BooleanContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.terminator"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
