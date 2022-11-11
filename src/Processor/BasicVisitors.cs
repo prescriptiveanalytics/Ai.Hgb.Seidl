@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 // https://stackoverflow.com/questions/887205/tutorial-for-walking-antlr-asts-in-c
+// https://tomassetti.me/best-practices-for-antlr-parsers/
+
 namespace Sidl.Processor {
   public class StatementPrintVisitor : SidlParserBaseVisitor<object> {
     public override object VisitSet([NotNull] SidlParser.SetContext context) {
@@ -58,12 +60,18 @@ namespace Sidl.Processor {
     }
 
     public override object VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) {
-      var typeString = context.atomictype().GetText();
-      
-      foreach (var variable in context.variablelist().variable()) {                
-        scopedSymbolTable.AddSymbol(variable.GetText(), Utils.CreateAtomicType(typeString), currentScope);
-      }
+      var typeCode = context.atomictype().Start.Type;
 
+      foreach (var variable in context.variablelist().variable()) {
+        IType type;
+        if (Utils.IsAtomicType(typeCode)) type = Utils.CreateAtomicType(typeCode, null);
+        else type = null; // TODO: search for symbol (i.e. struct or graph types)
+
+        scopedSymbolTable.AddSymbol(
+          variable.GetText(), 
+          type, 
+          currentScope);
+      }
       return null;
     }
 
@@ -72,28 +80,21 @@ namespace Sidl.Processor {
         throw new ArgumentException($"The number of expressions does not match the number of variables. Alternatively a single expression for all variables can be used.");
       }
       bool singleExp = context.expressionlist().ChildCount == 1;
-      var typeString = context.atomictype().GetText();
+      var typeCode = context.atomictype().Start.Type;
 
       for(int i = 0; i < context.variablelist().variable().Length; i++) {
         var variable = context.variablelist().variable(i);
         var expression = context.expressionlist().expression(singleExp ? 0 : i);
 
+        IType type;
+        if (Utils.IsAtomicType(typeCode)) type = Utils.CreateAtomicType(typeCode, expression);
+        else type = null; // TODO: search for symbol (i.e. struct or graph types)
+
         scopedSymbolTable.AddSymbol(
           variable.GetText(),
-          Utils.CreateAtomicType(typeString, expression),
+          type,
           currentScope);
       }
-
-      // note: initializations are currently not properly handled...
-      //foreach(var variable in context.variablelist().variable()) {
-      //  var exp = context.expressionlist().GetText();
-
-      //  scopedSymbolTable.AddSymbol(
-      //    variable.GetText(),
-      //    Utils.CreateAtomicType(typeString, exp),
-      //    currentScope);               
-      //}
-
       return null;
     }
 

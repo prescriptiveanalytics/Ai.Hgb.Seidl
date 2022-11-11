@@ -3,6 +3,7 @@
 string host = "127.0.0.1"
 int port = 15387
 string basetopic = "resinet"
+bool IsThisTheRealLife
 
 # Demo 1:
 nodes {    
@@ -17,6 +18,7 @@ nodes {
     # nodes 2
     {        
         string bar = "hola";
+        bool IsThisJustFantasy
     }
 
     string test = "v1";

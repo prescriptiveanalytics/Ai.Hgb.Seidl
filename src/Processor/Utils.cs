@@ -8,50 +8,68 @@ using System.Threading.Tasks;
 namespace Sidl.Processor {
   public class Utils {
 
-    public static IType CreateAtomicType(string typeString, string valueString = null) {
-      IType type = null;
-      bool initialize = valueString != null;
-
-      switch(typeString) {
-        case "string":
-          type = new String(initialize, valueString);
-          break;
-        case "int":
-          type = new Integer(initialize, valueString);
-          break;
-        case "float":
-          type = new Float(initialize, valueString);
-          break;
-        case "bool":
-          type = new Bool(initialize, valueString);
-          break;
-        default: throw new ArgumentException("The given type is unknown.");
-      }            
-      return type; // search for symbol
+    #region atomic type checks / helper
+    public static bool IsAtomicType(int typeCode) {
+      return typeCode.IsOneOf(SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL);
     }
 
-    public static IType CreateAtomicType(string typeString, SidlParser.ExpressionContext? exp) {
-      IType type = null;
-      bool initialize = !exp.IsEmpty;
-      int no = exp.getAltNumber();
-      if (no == SidlLexer.NULL) Console.WriteLine("NULL!!!");
+    private static bool CheckAtomicTypeValue(int typeCode, int valueCode) => typeCode switch {
+      SidlLexer.STRING  => valueCode == SidlLexer.STRINGLITEARL,
+      SidlLexer.INT     => valueCode == SidlLexer.INTEGER,
+      SidlLexer.FLOAT   => valueCode == SidlLexer.FLOAT,
+      SidlLexer.BOOL    => valueCode == SidlLexer.TRUE || valueCode == SidlLexer.FALSE,
+      _ => throw new ArgumentException("The given type is unknown.")
+    };
 
-      switch (typeString) {
-        case "string":          
-          type = new String(initialize, exp.GetText());
-          break;
-        case "int":          
-          type = new Integer(initialize, exp.number().INTEGER().GetText());
-          break;
-        case "float":
-          type = new Float(initialize, exp.number().FLOATINGPOINTNUMBER().GetText());
-          break;
-        case "bool":
-          type = new Bool(initialize, exp.boolean().GetText());
-          break;
-        default: throw new ArgumentException("The given type is unknown.");
+    private static string GetAtomicTypeValueText(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
+      SidlLexer.STRING => exp.GetText(),
+      SidlLexer.INT => exp.number().INTEGER().GetText(),
+      SidlLexer.FLOAT => exp.number().FLOATINGPOINTNUMBER().GetText(),
+      SidlLexer.BOOL => exp.boolean().GetText(),
+      _ => throw new ArgumentException("The given type is unknown.")
+    };
+
+    private static IType InstanceAtomicType(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
+      SidlLexer.STRING => new String(exp.GetText()),
+      SidlLexer.INT => new Integer(exp.number().INTEGER().GetText()),
+      SidlLexer.FLOAT => new Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
+      SidlLexer.BOOL => new Bool(exp.boolean().GetText()),
+      _ => throw new ArgumentException("The given type is unknown.")
+    };
+
+    private static IType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
+      SidlLexer.STRING => new String(valueText),
+      SidlLexer.INT => new Integer(valueText),
+      SidlLexer.FLOAT => new Float(valueText),
+      SidlLexer.BOOL => new Bool(valueText),
+      _ => throw new ArgumentException("The given type is unknown.")
+    };
+
+    private static IType DeclareAtomicType(int typeCode) => typeCode switch {
+      SidlLexer.STRING => new String(),
+      SidlLexer.INT => new Integer(),
+      SidlLexer.FLOAT => new Float(),
+      SidlLexer.BOOL => new Bool(),
+      _ => throw new ArgumentException("The given type is unknown.")
+    };
+
+    #endregion atomic type checks / helper
+
+    public static IType CreateAtomicType(int typeCode, SidlParser.ExpressionContext? exp) {
+      IType type;
+      bool initialize = exp != null && !exp.IsEmpty;
+
+      if (initialize) {
+        int valueCode = initialize ? exp.Start.Type : -1;
+        if (CheckAtomicTypeValue(typeCode, valueCode)) type = InstanceAtomicType(typeCode, exp);
+        else throw new ArgumentException("The stated expression does not match the specified type.");
+      } else {
+        type = DeclareAtomicType(typeCode);
       }
-      return type; // search for symbol
+
+      return type;
     }
+
+
   }
 }

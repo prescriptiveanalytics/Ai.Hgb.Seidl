@@ -52,7 +52,7 @@ namespace Sidl.Processor {
 
 
   public class String : Type, IAtomicType {
-    string _value;
+    string? _value;
     public string Value { 
       get => _value; 
       set {
@@ -61,12 +61,13 @@ namespace Sidl.Processor {
       } 
     }
 
-    public String(string value = null) {
-      Value = value;
+    public String() {
+      _initialized = false;
+      _value = null;
     }
 
-    public String(bool initialize, string value = null) {
-      _initialized = initialize;
+    public String(string value) {
+      _initialized = true;
       _value = value;
     }
 
@@ -93,13 +94,17 @@ namespace Sidl.Processor {
       }
     }
 
-    public Integer(int? value = null) {
-      Value = value;
+    public Integer() {
+      _initialized = false;
+      _value = null;
     }
 
-    public Integer(bool initialize, string value = null) {
-      _initialized = initialize;
+    public Integer(int? value) {
+      Value = value;
+      _initialized = true;
+    }
 
+    public Integer(string value) {     
       if (value != null) {
         int parsedValue;
         if (int.TryParse(value, out parsedValue)) {
@@ -124,15 +129,26 @@ namespace Sidl.Processor {
   }
 
   public class Float : Type, IAtomicType {
-    public float? Value { get; set; }
-
-    public Float(float? value = null) {
-      Value = value;
+    private float? _value;
+    public float? Value {
+      get => _value;
+      set {
+        _initialized = true;
+        _value = value;
+      }
     }
 
-    public Float(bool initialize, string value = null) {
-      _initialized = initialize;
+    public Float() {
+      _initialized = false;
+      _value = null;
+    }
 
+    public Float(float? value) {
+      _value = value;
+      _initialized = true;
+    }
+
+    public Float(string value) {
       if (value != null) {
         float parsedValue;
         if (float.TryParse(value, out parsedValue)) {
@@ -157,15 +173,26 @@ namespace Sidl.Processor {
   }
 
   public class Bool : Type, IAtomicType {
-    public bool? Value { get; set; }
-
-    public Bool(bool? value = null) {
-      Value = value;
+    private bool? _value;
+    public bool? Value {
+      get => _value;
+      set {
+        _initialized = true;
+        _value = value;
+      }
     }
 
-    public Bool(bool initialize, string value = null) {
-      _initialized = initialize;
+    public Bool() {
+      _initialized = false;
+      _value = null;
+    }
 
+    public Bool(bool? value) {
+      _value = value;
+      _initialized = true;
+    }
+
+    public Bool(string value) {
       if (value != null) {
         bool parsedValue;
         if (bool.TryParse(value, out parsedValue)) {
