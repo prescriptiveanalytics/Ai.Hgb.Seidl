@@ -33,7 +33,13 @@ namespace Sidl.Processor {
     }
 
     public override IType Clone() {
-      var s = new Symbol(Name, Type.Clone(), (IScope)Parent.Clone());
+      //var s = new Symbol(Name, Type.Clone(), (IScope)Parent.Clone());
+      var s = new Symbol(Name, Type.Clone(), Parent);
+      return s;
+    }
+
+    public override IType Copy() {      
+      var s = new Symbol(Name, Type.Copy(), Parent);
       return s;
     }
 
@@ -80,8 +86,17 @@ namespace Sidl.Processor {
 
     public override IType Clone() {
       var s = new Scope(Name, Parent);
+      s.Level = Level;      
       foreach (var cs in ChildScopes) s.ChildScopes.Add(cs.Key, (IScope)cs.Value.Clone());
       foreach (var sy in Symbols) s.Symbols.Add(sy.Key, (ISymbol)sy.Value.Clone());
+      return s;
+    }
+
+    public override IType Copy() {
+      var s = new Scope(Name, Parent);
+      s.Level = Level;
+      foreach (var cs in ChildScopes) s.ChildScopes.Add(cs.Key, (IScope)cs.Value.Copy());
+      foreach (var sy in Symbols) s.Symbols.Add(sy.Key, (ISymbol)sy.Value.Copy());
       return s;
     }
 
@@ -143,26 +158,6 @@ namespace Sidl.Processor {
       }
     }
 
-    //public Declaration AddDeclaration(Scope scope, Type type, string name) {
-    //  if (scope.Symbols.ContainsKey(name)) {
-    //    throw new Exception("The defined name is already present in this scope.");
-    //  } else {
-    //    var declaration = new Declaration(name, type, scope);
-    //    scope.Symbols.Add(name, declaration);
-    //    return declaration;
-    //  }
-    //}
-
-    //public Definition AddDefinition(Scope scope, Type type, string name, object value) {
-    //  if (scope.Symbols.ContainsKey(name)) {
-    //    throw new Exception("The defined name is already present in this scope.");
-    //  } else {
-    //    var definition = new Definition(name, type, scope, value);
-    //    scope.Symbols.Add(name, definition);
-    //    return definition;
-    //  }
-    //}
-
     public void Assign(string name, object value, Scope scope) {
       // TODO
     }
@@ -175,6 +170,33 @@ namespace Sidl.Processor {
 
     public IEnumerable<ISymbol> this[IScope scope] {
       get { return GetSymbolsUpstream(scope); }
+    }
+
+    public ISymbol GetSymbolAndCheckBaseType(IScope scope, string name) {
+      ISymbol symbol = GetSymbolsUpstream().Where(x => x.Name == name).First();
+      ISymbol drilldownSymbol = symbol;
+
+      while (drilldownSymbol != null
+        && drilldownSymbol.Type is not IBaseType
+        && drilldownSymbol.Type is not IGraphType) {
+        drilldownSymbol = GetSymbolsUpstream().Where(x => x.Name == drilldownSymbol.Name).First();
+      }
+          
+
+      return symbol;
+    }
+
+    public ISymbol ResolveBaseType(IScope scope, string name) {
+      ISymbol symbol;      
+
+      do {
+        symbol = GetSymbolsUpstream().Where(x => x.Name == name).First();
+        name = symbol.Name;
+      } while (symbol != null
+        && symbol.Type is not IBaseType
+        && symbol.Type is not IGraphType);
+
+      return symbol;
     }
 
     public IEnumerable<IScope> GetScopesUpstream(IScope scope = null) {

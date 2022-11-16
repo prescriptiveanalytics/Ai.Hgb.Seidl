@@ -12,6 +12,8 @@ namespace Sidl.Processor {
     bool Initialized { get; }
     IType Clone();
 
+    IType Copy();
+
     string GetIdentifier();
 
     string GetValueString(); 
@@ -19,6 +21,8 @@ namespace Sidl.Processor {
 
   public interface IBaseType : IType { 
     new IBaseType Clone();
+
+    new IBaseType Copy();
   }
 
   public interface IAtomicType : IBaseType { }
@@ -40,6 +44,8 @@ namespace Sidl.Processor {
     //public string Name { get { return name; } }
 
     public abstract IType Clone();
+
+    public abstract IType Copy();
 
     public virtual string GetIdentifier() {
       return "Type";
@@ -72,6 +78,10 @@ namespace Sidl.Processor {
     }
 
     public override IBaseType Clone() {
+      return new String();
+    }
+
+    public override IBaseType Copy() {
       return new String(Value);
     }
 
@@ -116,6 +126,10 @@ namespace Sidl.Processor {
     }
 
     public override IBaseType Clone() {
+      return new Integer();
+    }
+
+    public override IBaseType Copy() {
       return new Integer(Value);
     }
 
@@ -160,6 +174,10 @@ namespace Sidl.Processor {
     }
 
     public override IBaseType Clone() {
+      return new Float();
+    }
+
+    public override IBaseType Copy() {
       return new Float(Value);
     }
 
@@ -204,6 +222,10 @@ namespace Sidl.Processor {
     }
 
     public override IBaseType Clone() {
+      return new Bool();
+    }
+
+    public override IBaseType Copy() {
       return new Bool(Value);
     }
 
@@ -217,19 +239,25 @@ namespace Sidl.Processor {
   }
 
   public class Struct : Type, IComplexType { // TODO: idea: implement IScope and generalize using symbols
-    private Dictionary<string, IBaseType> Properties { get; set; } // TODO: allow ITypes (i.e. aliases) not only IBaseTypes 
+    private Dictionary<string, IType> Properties { get; set; } // TODO: allow ITypes (i.e. aliases) not only IBaseTypes 
 
     public Struct() {
-      Properties = new Dictionary<string, IBaseType>();      
+      Properties = new Dictionary<string, IType>();      
     }
 
-    public void AddProperty(string name, IBaseType type) {
+    public void AddProperty(string name, IType type) {
       Properties.Add(name, type);
     }
 
     public override IBaseType Clone() {
       var s = new Struct();
       foreach (var p in Properties) s.Properties.Add(p.Key, p.Value.Clone());
+      return s;
+    }
+
+    public override IBaseType Copy() {
+      var s = new Struct();
+      foreach (var p in Properties) s.Properties.Add(p.Key, p.Value.Copy());
       return s;
     }
 
@@ -243,14 +271,14 @@ namespace Sidl.Processor {
   }
 
   public class MessageParameter : Type, IType {
-    IBaseType Type { get; set; }
+    IType Type { get; set; }
 
     public string Name { get; set; }
     public bool Topic { get; set; }    
 
     public MessageParameter() { }
 
-    public MessageParameter(IBaseType type, string name, bool topic = false) {
+    public MessageParameter(IType type, string name, bool topic = false) {
       Type = type;
       Name = name;
       Topic = topic;
@@ -260,22 +288,32 @@ namespace Sidl.Processor {
       return new MessageParameter(Type.Clone(), Name, Topic);            
     }
 
+    public override IType Copy() {
+      return new MessageParameter(Type.Copy(), Name, Topic);
+    }
+
   }
 
   public class Message : Type, IGraphType {
     public Dictionary<string, MessageParameter> Parameters { get; set; }
 
     public Message() {
-      Parameters = new Dictionary<string, MessageParameter>();
+      Parameters = new Dictionary<string, MessageParameter>();      
     }
 
-    public void AddParameter(IBaseType type, string name, bool topic = false) {
+    public void AddParameter(IType type, string name, bool topic = false) {
       Parameters.Add(name, new MessageParameter(type, name, topic));
     }
 
     public override IType Clone() {
       var m = new Message();
       foreach(var p in Parameters) m.Parameters.Add(p.Key, (MessageParameter)p.Value.Clone());
+      return m;
+    }
+
+    public override IType Copy() {
+      var m = new Message();
+      foreach (var p in Parameters) m.Parameters.Add(p.Key, (MessageParameter)p.Value.Copy());
       return m;
     }
 
@@ -317,12 +355,21 @@ namespace Sidl.Processor {
       return n;
     }
 
+    public override IType Copy() {
+      var n = new Node();
+      foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.Copy());
+      foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.Copy());
+      foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.Copy());
+
+      return n;
+    }
+
     public override string GetIdentifier() {
       return "node";
     }
 
-    public override string GetValueString() {
-      return "";
+    public override string GetValueString() {      
+      return $"{string.Join(", ", Inputs.Keys)} --> {string.Join(", ", Outputs.Keys)}";
     }
   }
 
@@ -336,6 +383,12 @@ namespace Sidl.Processor {
     public override IType Clone() {
       var m = new Meta();
       foreach (var p in Properties) m.Properties.Add(p.Key, p.Value.Clone());
+      return m;
+    }
+
+    public override IType Copy() {
+      var m = new Meta();
+      foreach (var p in Properties) m.Properties.Add(p.Key, p.Value.Copy());
       return m;
     }
 

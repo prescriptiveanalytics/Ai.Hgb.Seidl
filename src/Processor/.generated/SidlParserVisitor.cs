@@ -171,6 +171,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTypename([NotNull] SidlParser.TypenameContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.atomictypeortypename"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAtomictypeortypename([NotNull] SidlParser.AtomictypeortypenameContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.variablelist"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -189,11 +195,17 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCustomtypedvariablelist([NotNull] SidlParser.CustomtypedvariablelistContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.topiccustomtypedvariablelist"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.messageparameterlist"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitTopiccustomtypedvariablelist([NotNull] SidlParser.TopiccustomtypedvariablelistContext context);
+	Result VisitMessageparameterlist([NotNull] SidlParser.MessageparameterlistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.messageparametersignature"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMessageparametersignature([NotNull] SidlParser.MessageparametersignatureContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.expressionlist"/>.
 	/// </summary>
@@ -266,6 +278,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFunctioncall([NotNull] SidlParser.FunctioncallContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.structpropertylist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStructpropertylist([NotNull] SidlParser.StructpropertylistContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.structdefinition"/>.
 	/// </summary>

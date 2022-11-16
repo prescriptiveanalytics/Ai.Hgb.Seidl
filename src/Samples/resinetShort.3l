@@ -3,29 +3,33 @@
 string host = "127.0.0.1"
 int port = 15387
 string basetopic = "resinet"
-bool IsThisTheRealLife
+
+struct position { float lat, float lng }
+typedef string datetime
+struct weatherData { float globalRadiation, float airTemperature, float humidity }
+struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
+
+message forecastRequest { position pos, datetime dt, int days }
+message weatherReport { weatherData rep, topic int zip }
 
 # Demo 1:
-nodes {    
-    string version = "v1"
-    string x = "asdf"   
+foo {    
+    string version = "v1"    
 
     # nodes 1
     {
-        int foo = 200;
+        int bar = 200;
     }
 
     # nodes 2
     {        
         string bar = "hola";
-        bool IsThisJustFantasy
     }
 
-    string test = "v1";
+    float testX = 4.2
+    
 }
 
-# struct position { float lat, float lng }
-# typedef string datetime
-# message forecastRequest { position pos, datetime dt }
+node weatherService1(forecastRequest fq --> weatherReport fr)
 
 

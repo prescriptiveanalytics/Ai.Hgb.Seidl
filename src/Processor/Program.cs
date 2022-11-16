@@ -23,8 +23,8 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
          
       var table = linter.CreateScopedSymbolTable();
 
-      var scopesX = table.Scopes;
-      Console.WriteLine(System.String.Join(' ', scopesX));
+      //var scopesX = table.Scopes;
+      //Console.WriteLine(System.String.Join(' ', scopesX));
 
       Console.WriteLine("\n\n");
 

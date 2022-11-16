@@ -24,18 +24,18 @@ set // = global scope
     ;
 
 statement
-    : terminator                                            #terminatorStatement         
-    | scope                                                 #scopeStatement
-    | atomictype variablelist terminator                    #declarationStatement
-    | variablelist '=' expressionlist terminator            #assignmentStatement
-    | atomictype variablelist '=' expressionlist terminator #definitionStatement    
-    | structdefinition                                      #structDefinitionStatement
-    | messagedefinition                                     #messageDefinitionStatement
-    | nodetypedefinition                                    #nodetypeDefinitionStatement
-    | nodedefinition                                        #nodeDefinitionStatement
-    | metadefinition                                        #metaDefinitionStatement
-    | importstatement terminator                            #importStatement
-    | typedefstatement terminator                           #typedefStatement
+    : terminator                                                #terminatorStatement         
+    | scope                                                     #scopeStatement
+    | (atomictype | typename) variablelist terminator           #declarationStatement
+    | variablelist '=' expressionlist terminator                #assignmentStatement
+    | (atomictype | typename) variablelist '=' expressionlist   terminator #definitionStatement    
+    | structdefinition                                          #structDefinitionStatement
+    | messagedefinition                                         #messageDefinitionStatement
+    | nodetypedefinition                                        #nodetypeDefinitionStatement
+    | nodedefinition                                            #nodeDefinitionStatement
+    | metadefinition                                            #metaDefinitionStatement
+    | importstatement terminator                                #importStatement
+    | typedefstatement terminator                               #typedefStatement
 
     // not yet in use
     // | functiondefinition
@@ -75,6 +75,10 @@ typename
     : NAME
     ;
 
+atomictypeortypename
+    : atomictype | typename
+    ;
+
 variablelist
     : variable (',' variable)*
     ;
@@ -87,9 +91,13 @@ customtypedvariablelist
     : (typename | atomictype) variable (',' (typename | atomictype) variable)*
     ;
 
-topiccustomtypedvariablelist
-    : TOPIC? (typename | atomictype) variable (',' TOPIC? (typename | atomictype) variable)*
+messageparameterlist
+    : messageparametersignature variable (',' messageparametersignature variable)*
     ;
+
+messageparametersignature
+    : TOPIC? (typename | atomictype)
+    ;    
 
 expressionlist
     : expression (',' expression)*
@@ -100,8 +108,7 @@ expression
     | boolean
     | number
     | string
-    | variable
-    | scope
+    | variable    
     | functiondefinition | functioncall
     | importstatement
     ;
@@ -132,7 +139,7 @@ importstatement
     ;
 
 typedefstatement
-    : TYPEDEF type variable
+    : TYPEDEF (atomictype | typename) variable
     ;
 
 functiondefinition
@@ -159,9 +166,13 @@ functioncall
     : variable '(' variablelist? ')'
     ;
 
+structpropertylist
+    : atomictypeortypename variable (',' atomictypeortypename variable)*
+    ;
+
 structdefinition
     : STRUCT variable '{'
-        (type variable terminator)*
+        structpropertylist?
     '}'
     ;
 
@@ -179,7 +190,7 @@ messagetypelist
     ;
 
 messagedefinition    
-    : MESSAGE messagetypename '{' topiccustomtypedvariablelist? '}'
+    : MESSAGE messagetypename '{' messageparameterlist? '}'
     ;
 
 nodetypedefinition
@@ -188,7 +199,7 @@ nodetypedefinition
     ;
 
 nodetypesignature
-    : '(' messagetypelist? '-->' messagetypelist? ')'
+    : '(' inputs=messagetypelist? '-->' outputs=messagetypelist? ')'
     ;
 
 nodedefinition

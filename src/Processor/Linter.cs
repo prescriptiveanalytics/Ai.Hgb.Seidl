@@ -21,7 +21,11 @@ namespace Sidl.Processor {
     public ScopedSymbolTable CreateScopedSymbolTable() {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
       SidlParser.RootContext rootContext = _parser.root();
-      scopedSymbolTableVisitor.Visit(rootContext);
+      try {
+        scopedSymbolTableVisitor.Visit(rootContext);
+      } catch (Exception e) {
+        Console.WriteLine("\n !!! Parser Exception: " + e.Message);
+      }
 
       var scopedSymbolTable = scopedSymbolTableVisitor.scopedSymbolTable;
       return scopedSymbolTable;

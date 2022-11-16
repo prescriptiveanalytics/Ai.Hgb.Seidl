@@ -16,7 +16,7 @@ namespace Sidl.Processor {
     private static bool CheckAtomicTypeValue(int typeCode, int valueCode) => typeCode switch {
       SidlLexer.STRING  => valueCode == SidlLexer.STRINGLITEARL,
       SidlLexer.INT     => valueCode == SidlLexer.INTEGER,
-      SidlLexer.FLOAT   => valueCode == SidlLexer.FLOAT,
+      SidlLexer.FLOAT   => valueCode == SidlLexer.FLOATINGPOINTNUMBER,
       SidlLexer.BOOL    => valueCode == SidlLexer.TRUE || valueCode == SidlLexer.FALSE,
       _ => throw new ArgumentException("The given type is unknown.")
     };
@@ -29,7 +29,7 @@ namespace Sidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    private static IType InstanceAtomicType(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
+    private static IAtomicType InstanceAtomicType(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
       SidlLexer.STRING => new String(exp.GetText()),
       SidlLexer.INT => new Integer(exp.number().INTEGER().GetText()),
       SidlLexer.FLOAT => new Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
@@ -37,7 +37,7 @@ namespace Sidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    private static IType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
+    private static IAtomicType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
       SidlLexer.STRING => new String(valueText),
       SidlLexer.INT => new Integer(valueText),
       SidlLexer.FLOAT => new Float(valueText),
@@ -45,7 +45,7 @@ namespace Sidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    private static IType DeclareAtomicType(int typeCode) => typeCode switch {
+    private static IAtomicType DeclareAtomicType(int typeCode) => typeCode switch {
       SidlLexer.STRING => new String(),
       SidlLexer.INT => new Integer(),
       SidlLexer.FLOAT => new Float(),
@@ -55,14 +55,14 @@ namespace Sidl.Processor {
 
     #endregion atomic type checks / helper
 
-    public static IType CreateAtomicType(int typeCode, SidlParser.ExpressionContext? exp) {
-      IType type;
+    public static IBaseType CreateAtomicType(int typeCode, SidlParser.ExpressionContext? exp) {
+      IBaseType type;
       bool initialize = exp != null && !exp.IsEmpty;
 
       if (initialize) {
-        int valueCode = initialize ? exp.Start.Type : -1;
+        int valueCode = initialize ? exp.Start.Type : -1;        
         if (CheckAtomicTypeValue(typeCode, valueCode)) type = InstanceAtomicType(typeCode, exp);
-        else throw new ArgumentException("The stated expression does not match the specified type.");
+        else throw new ArgumentException($"The stated expression ({SidlLexer.DefaultVocabulary.GetDisplayName(valueCode)}) does not match the specified type ({SidlLexer.DefaultVocabulary.GetDisplayName(typeCode)}).");
       } else {
         type = DeclareAtomicType(typeCode);
       }
