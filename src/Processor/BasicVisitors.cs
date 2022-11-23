@@ -61,16 +61,10 @@ namespace Sidl.Processor {
 
     public override object VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) {
       var typecode = context.atomictype()?.Start.Type;
-      var typename = context.typename();
+      var typename = context.typename()?.GetText();
 
       foreach (var variable in context.variablelist().variable()) {
-        IType type = null;
-        if (typecode != null && typecode.HasValue) {
-          if (Utils.IsAtomicType(typecode.Value)) type = Utils.CreateAtomicType(typecode.Value, null);
-          else throw new ArgumentException("The stated type is not a valid atomic type");
-        } else if (typename != null) {
-          type = scopedSymbolTable[currentScope, typename.GetText()]; // search for symbol (i.e. struct or graph types)
-        }
+        var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
         scopedSymbolTable.AddSymbol(
           variable.GetText(), 
@@ -86,19 +80,13 @@ namespace Sidl.Processor {
       }
       bool singleExp = context.expressionlist().ChildCount == 1;
       var typecode = context.atomictype()?.Start.Type;
-      var typename = context.typename();
+      var typename = context.typename()?.GetText();
 
       for(int i = 0; i < context.variablelist().variable().Length; i++) {
         var variable = context.variablelist().variable(i);
         var expression = context.expressionlist().expression(singleExp ? 0 : i);
-
-        IType type = null;
-        if (typecode.HasValue) {
-          if (Utils.IsAtomicType(typecode.Value)) type = Utils.CreateAtomicType(typecode.Value, expression);
-          else throw new ArgumentException("The stated type is not a valid atomic type");
-        } else if (typename != null) {
-          type = scopedSymbolTable[currentScope, typename.GetText()]; // search for symbol (i.e. struct or graph types)
-        }                
+        var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope, expression);
+        // TODO: assign expression to looked up type (if typecode = atomictype, all done)
 
         scopedSymbolTable.AddSymbol(
           variable.GetText(),
@@ -109,18 +97,17 @@ namespace Sidl.Processor {
     }
 
     public override object VisitTypedefStatement([NotNull] SidlParser.TypedefStatementContext context) {
-
       var def = context.typedefstatement();
-      IType type;
-      if (def.atomictype() != null) type = Utils.CreateAtomicType(def.atomictype().Start.Type, null);
-      else type = scopedSymbolTable[currentScope, def.typename().GetText()].Clone(); // TODO clone -> copy
-
       var name = def.variable().GetText();
+      var typecode = def.atomictype()?.Start.Type;
+      var typename = def.typename()?.GetText();
+      var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
       scopedSymbolTable.AddSymbol(
         name,
         type,
-        currentScope);
+        currentScope,
+        true);
 
       return null;
     }
@@ -134,14 +121,8 @@ namespace Sidl.Processor {
       foreach(var property in def.structpropertylist().variable().Zip(def.structpropertylist().atomictypeortypename(), Tuple.Create)) { 
 
         var typecode = property.Item2.atomictype()?.Start.Type;
-        var typename = property.Item2.typename();
-
-        IType type = null;
-        if(typecode.HasValue) {
-          if (Utils.IsAtomicType(typecode.Value)) type = Utils.CreateAtomicType(typecode.Value, null);
-          else type = scopedSymbolTable[currentScope, typename.GetText()].Clone(); // TODO clone -> copy
-
-        }        
+        var typename = property.Item2.typename()?.GetText();
+        var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
         data.AddProperty(property.Item1.GetText(), type);
       }
@@ -149,7 +130,8 @@ namespace Sidl.Processor {
       scopedSymbolTable.AddSymbol(
           name,
           data,
-          currentScope);
+          currentScope,
+          true);
 
       return null;
     }
@@ -173,7 +155,7 @@ namespace Sidl.Processor {
         if (atype != null) type = Utils.CreateAtomicType(atype.Start.Type, null);
         else {
           var t = scopedSymbolTable.GetSymbolAndCheckBaseType(currentScope, typename.GetText()); 
-          if (t != null) type = t.Clone();
+          if (t != null) type = t.ShallowCopy();
           else throw new ArgumentException($"The message parameter {typename} is not / derived from a base type and hence, not allowed.");
         }
         
@@ -183,18 +165,11 @@ namespace Sidl.Processor {
       scopedSymbolTable.AddSymbol(
         name,
         message,
-        currentScope);
+        currentScope,
+        true);
 
       return null;      
     }
-
-    private Message ParseMessage(string msgtypename) {
-      var symbol = scopedSymbolTable[currentScope, msgtypename];
-      if (symbol == null) throw new ArgumentException($"The specified message type {msgtypename} does not exist in this context.");
-      else if (symbol.Type is not Message) throw new ArgumentException($"The specified type {msgtypename} is not a message.");
-      return (Message)symbol.Type.Clone();
-    }
-
 
     public override object VisitNodeDefinitionStatement([NotNull] SidlParser.NodeDefinitionStatementContext context) {
 
@@ -209,17 +184,17 @@ namespace Sidl.Processor {
         for (int i = 0; i < signature.inputs.variable().Length; i++) {
           var msgname = signature.inputs.variable(i).GetText();
           var msgtypename = signature.inputs.messagetypename(i).GetText();
-          node.Inputs.Add(msgname, ParseMessage(msgtypename));
+          node.Inputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
         }
         for (int i = 0; i < signature.outputs.variable().Length; i++) {
           var msgname = signature.outputs.variable(i).GetText();
           var msgtypename = signature.outputs.messagetypename(i).GetText();
-          node.Outputs.Add(msgname, ParseMessage(msgtypename));
+          node.Outputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
         }
       }
 
       if(body != null) {
-
+        // TODO parse body statements
       }
       
 

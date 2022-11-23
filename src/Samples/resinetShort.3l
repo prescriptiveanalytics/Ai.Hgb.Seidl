@@ -32,4 +32,3 @@ foo {
 
 node weatherService1(forecastRequest fq --> weatherReport fr)
 
-

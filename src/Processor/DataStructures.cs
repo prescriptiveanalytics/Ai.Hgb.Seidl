@@ -10,9 +10,9 @@ namespace Sidl.Processor {
 
   public interface IType {
     bool Initialized { get; }
-    IType Clone();
+    IType ShallowCopy();
 
-    IType Copy();
+    IType DeepCopy();
 
     string GetIdentifier();
 
@@ -20,9 +20,9 @@ namespace Sidl.Processor {
   }
 
   public interface IBaseType : IType { 
-    new IBaseType Clone();
+    new IBaseType ShallowCopy();
 
-    new IBaseType Copy();
+    new IBaseType DeepCopy();
   }
 
   public interface IAtomicType : IBaseType { }
@@ -43,9 +43,9 @@ namespace Sidl.Processor {
 
     //public string Name { get { return name; } }
 
-    public abstract IType Clone();
+    public abstract IType ShallowCopy();
 
-    public abstract IType Copy();
+    public abstract IType DeepCopy();
 
     public virtual string GetIdentifier() {
       return "Type";
@@ -77,11 +77,11 @@ namespace Sidl.Processor {
       _value = value;
     }
 
-    public override IBaseType Clone() {
+    public override IBaseType ShallowCopy() {
       return new String();
     }
 
-    public override IBaseType Copy() {
+    public override IBaseType DeepCopy() {
       return new String(Value);
     }
 
@@ -125,11 +125,11 @@ namespace Sidl.Processor {
       }      
     }
 
-    public override IBaseType Clone() {
+    public override IBaseType ShallowCopy() {
       return new Integer();
     }
 
-    public override IBaseType Copy() {
+    public override IBaseType DeepCopy() {
       return new Integer(Value);
     }
 
@@ -173,11 +173,11 @@ namespace Sidl.Processor {
       }
     }
 
-    public override IBaseType Clone() {
+    public override IBaseType ShallowCopy() {
       return new Float();
     }
 
-    public override IBaseType Copy() {
+    public override IBaseType DeepCopy() {
       return new Float(Value);
     }
 
@@ -221,11 +221,11 @@ namespace Sidl.Processor {
       }
     }
 
-    public override IBaseType Clone() {
+    public override IBaseType ShallowCopy() {
       return new Bool();
     }
 
-    public override IBaseType Copy() {
+    public override IBaseType DeepCopy() {
       return new Bool(Value);
     }
 
@@ -249,15 +249,15 @@ namespace Sidl.Processor {
       Properties.Add(name, type);
     }
 
-    public override IBaseType Clone() {
+    public override IBaseType ShallowCopy() {
       var s = new Struct();
-      foreach (var p in Properties) s.Properties.Add(p.Key, p.Value.Clone());
+      foreach (var p in Properties) s.Properties.Add(p.Key, p.Value.ShallowCopy());
       return s;
     }
 
-    public override IBaseType Copy() {
+    public override IBaseType DeepCopy() {
       var s = new Struct();
-      foreach (var p in Properties) s.Properties.Add(p.Key, p.Value.Copy());
+      foreach (var p in Properties) s.Properties.Add(p.Key, p.Value.DeepCopy());
       return s;
     }
 
@@ -284,12 +284,12 @@ namespace Sidl.Processor {
       Topic = topic;
     }
 
-    public override IType Clone() {
-      return new MessageParameter(Type.Clone(), Name, Topic);            
+    public override IType ShallowCopy() {
+      return new MessageParameter(Type.ShallowCopy(), Name, Topic);            
     }
 
-    public override IType Copy() {
-      return new MessageParameter(Type.Copy(), Name, Topic);
+    public override IType DeepCopy() {
+      return new MessageParameter(Type.DeepCopy(), Name, Topic);
     }
 
   }
@@ -305,15 +305,15 @@ namespace Sidl.Processor {
       Parameters.Add(name, new MessageParameter(type, name, topic));
     }
 
-    public override IType Clone() {
+    public override IType ShallowCopy() {
       var m = new Message();
-      foreach(var p in Parameters) m.Parameters.Add(p.Key, (MessageParameter)p.Value.Clone());
+      foreach(var p in Parameters) m.Parameters.Add(p.Key, (MessageParameter)p.Value.ShallowCopy());
       return m;
     }
 
-    public override IType Copy() {
+    public override IType DeepCopy() {
       var m = new Message();
-      foreach (var p in Parameters) m.Parameters.Add(p.Key, (MessageParameter)p.Value.Copy());
+      foreach (var p in Parameters) m.Parameters.Add(p.Key, (MessageParameter)p.Value.DeepCopy());
       return m;
     }
 
@@ -346,20 +346,20 @@ namespace Sidl.Processor {
       Properties.Add("description", new String());
     }
 
-    public override IType Clone() {
+    public override IType ShallowCopy() {
       var n = new Node();
-      foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.Clone());
-      foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.Clone());
-      foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.Clone());
+      foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
+      foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
+      foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());
 
       return n;
     }
 
-    public override IType Copy() {
+    public override IType DeepCopy() {
       var n = new Node();
-      foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.Copy());
-      foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.Copy());
-      foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.Copy());
+      foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.DeepCopy());
+      foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.DeepCopy());
+      foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.DeepCopy());
 
       return n;
     }
@@ -380,15 +380,15 @@ namespace Sidl.Processor {
       Properties = new Dictionary<string, IBaseType>();
     }
 
-    public override IType Clone() {
+    public override IType ShallowCopy() {
       var m = new Meta();
-      foreach (var p in Properties) m.Properties.Add(p.Key, p.Value.Clone());
+      foreach (var p in Properties) m.Properties.Add(p.Key, p.Value.ShallowCopy());
       return m;
     }
 
-    public override IType Copy() {
+    public override IType DeepCopy() {
       var m = new Meta();
-      foreach (var p in Properties) m.Properties.Add(p.Key, p.Value.Copy());
+      foreach (var p in Properties) m.Properties.Add(p.Key, p.Value.DeepCopy());
       return m;
     }
 

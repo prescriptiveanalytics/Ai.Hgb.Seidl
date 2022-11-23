@@ -8,38 +8,41 @@ namespace Sidl.Processor {
 
   public interface ISymbol : IType {
     string Name { get; set; }
-    IScope Parent { get; set; }
     IType Type { get; set; }
+    IScope Parent { get; set; }
+    bool IsTypedef { get; }
   }
 
   public  interface IScope : ISymbol {
     Dictionary<string, IScope> ChildScopes { get; set; }
-    Dictionary<string, ISymbol> Symbols { get; set; }    
+    Dictionary<string, ISymbol> Symbols { get; set; }        
   }
 
-  public class Symbol : Type, ISymbol {
+  public class Symbol : Type, ISymbol {    
     public string Name { get; set; }
     public IType Type { get; set; }
-    public IScope Parent { get; set; }   
+    public IScope Parent { get; set; }
+    public bool IsTypedef { get; set; }
 
-    public Symbol(string name, IType type, IScope scope) {
+    public Symbol(string name, IType type, IScope scope, bool isTypedef = false) {
       Name = name;
       Type = type;
-      Parent = scope;      
+      Parent = scope;
+      IsTypedef = isTypedef;
     }
     
     public override string ToString() {
       return $"{Type.GetIdentifier()} {Name} = {Type.GetValueString()}";
     }
 
-    public override IType Clone() {
+    public override IType ShallowCopy() {
       //var s = new Symbol(Name, Type.Clone(), (IScope)Parent.Clone());
-      var s = new Symbol(Name, Type.Clone(), Parent);
+      var s = new Symbol(Name, Type.ShallowCopy(), Parent);
       return s;
     }
 
-    public override IType Copy() {      
-      var s = new Symbol(Name, Type.Copy(), Parent);
+    public override IType DeepCopy() {      
+      var s = new Symbol(Name, Type.DeepCopy(), Parent);
       return s;
     }
 
@@ -57,9 +60,10 @@ namespace Sidl.Processor {
 
     public IType Type { get; set; }
 
+    public IScope Parent { get; set; }
+    public bool IsTypedef { get; private set; }
     public int Level { get; set; }
 
-    public IScope Parent { get; set; }
 
     public Dictionary<string, IScope> ChildScopes { get; set; }
 
@@ -70,6 +74,7 @@ namespace Sidl.Processor {
       Type = this;
       ChildScopes = new Dictionary<string, IScope>();
       Symbols = new Dictionary<string, ISymbol>();
+      IsTypedef = false;
     }
 
     public Scope(string name, IScope scope) {
@@ -77,6 +82,7 @@ namespace Sidl.Processor {
       Symbols = new Dictionary<string, ISymbol>();
       Name = name;
       Parent = scope;
+      IsTypedef = false;
     }
 
     public override string ToString() {
@@ -84,19 +90,19 @@ namespace Sidl.Processor {
       return $"{Name} ({this.GetHashCode()}) child scopes: [{System.String.Join(", ", ChildScopes.Select(x => x.Value.GetHashCode()))}]";
     }
 
-    public override IType Clone() {
+    public override IType ShallowCopy() {
       var s = new Scope(Name, Parent);
       s.Level = Level;      
-      foreach (var cs in ChildScopes) s.ChildScopes.Add(cs.Key, (IScope)cs.Value.Clone());
-      foreach (var sy in Symbols) s.Symbols.Add(sy.Key, (ISymbol)sy.Value.Clone());
+      foreach (var cs in ChildScopes) s.ChildScopes.Add(cs.Key, (IScope)cs.Value.ShallowCopy());
+      foreach (var sy in Symbols) s.Symbols.Add(sy.Key, (ISymbol)sy.Value.ShallowCopy());
       return s;
     }
 
-    public override IType Copy() {
+    public override IType DeepCopy() {
       var s = new Scope(Name, Parent);
       s.Level = Level;
-      foreach (var cs in ChildScopes) s.ChildScopes.Add(cs.Key, (IScope)cs.Value.Copy());
-      foreach (var sy in Symbols) s.Symbols.Add(sy.Key, (ISymbol)sy.Value.Copy());
+      foreach (var cs in ChildScopes) s.ChildScopes.Add(cs.Key, (IScope)cs.Value.DeepCopy());
+      foreach (var sy in Symbols) s.Symbols.Add(sy.Key, (ISymbol)sy.Value.DeepCopy());
       return s;
     }
 
@@ -148,11 +154,11 @@ namespace Sidl.Processor {
       return newScope;
     }
 
-    public Symbol AddSymbol(string name, IType type, IScope parent) {
+    public Symbol AddSymbol(string name, IType type, IScope parent, bool isTypedef = false) {
       if (parent.Symbols.ContainsKey(name)) {
         throw new Exception("The defined name is already present in this scope.");
       } else {
-        var s = new Symbol(name, type, parent);
+        var s = new Symbol(name, type, parent, isTypedef);
         parent.Symbols.Add(name, s);
         return s;
       }
@@ -162,9 +168,9 @@ namespace Sidl.Processor {
       // TODO
     }
 
-    public ISymbol this[IScope scope, string name] {
+    public ISymbol? this[IScope scope, string name] {
       get {
-        return GetSymbolsUpstream().Where(x => x.Name == name).First();
+        return GetSymbolsUpstream().Where(x => x.Name == name).FirstOrDefault();
       }
     }
 

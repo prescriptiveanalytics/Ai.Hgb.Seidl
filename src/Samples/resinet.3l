@@ -96,7 +96,7 @@ string x = "foo";
 type datetime : string, "yyyy-MM-dd-hh-mm-ss"
 type datetime = string, "yyyy-MM-dd-hh-mm-ss"
 type datetime = (string, "yyyy-MM-dd-hh-mm-ss")
-typedef string datetime // TODO!
+typedef string datetime # TODO?
 
 
 
