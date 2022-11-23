@@ -25,7 +25,7 @@ namespace Sidl.Processor {
     new IBaseType DeepCopy();
   }
 
-  public interface IAtomicType : IBaseType { }
+  public interface IAtomicType : IBaseType {  }
   public interface IComplexType : IBaseType { }
   public interface IGraphType : IType { }
 
@@ -56,16 +56,26 @@ namespace Sidl.Processor {
     }
   }
 
-
-  public class String : Type, IAtomicType {
-    string? _value;
-    public string Value { 
-      get => _value; 
+  public abstract class AtomicType<T> : Type, IAtomicType {
+    protected T? _value;
+    public T? Value {
+      get => _value;
       set {
         _initialized = true;
         _value = value;
-      } 
+      }
     }
+
+    IBaseType IBaseType.DeepCopy() {
+      throw new NotImplementedException();
+    }
+
+    IBaseType IBaseType.ShallowCopy() {
+      throw new NotImplementedException();
+    }
+  }
+
+  public class String : AtomicType<string?> {
 
     public String() {
       _initialized = false;
@@ -94,15 +104,7 @@ namespace Sidl.Processor {
     }
   }
 
-  public class Integer : Type, IAtomicType {
-    private int? _value;
-    public int? Value {
-      get => _value;
-        set {
-        _initialized = true;
-        _value = value;
-      }
-    }
+  public class Integer : AtomicType<int?> {
 
     public Integer() {
       _initialized = false;
@@ -142,15 +144,7 @@ namespace Sidl.Processor {
     }
   }
 
-  public class Float : Type, IAtomicType {
-    private float? _value;
-    public float? Value {
-      get => _value;
-      set {
-        _initialized = true;
-        _value = value;
-      }
-    }
+  public class Float : AtomicType<float?> {
 
     public Float() {
       _initialized = false;
@@ -190,15 +184,7 @@ namespace Sidl.Processor {
     }
   }
 
-  public class Bool : Type, IAtomicType {
-    private bool? _value;
-    public bool? Value {
-      get => _value;
-      set {
-        _initialized = true;
-        _value = value;
-      }
-    }
+  public class Bool : AtomicType<bool?> {
 
     public Bool() {
       _initialized = false;

@@ -55,8 +55,8 @@ namespace Sidl.Processor {
 
     #endregion atomic type checks / helper
 
-    public static IBaseType CreateAtomicType(int typeCode, SidlParser.ExpressionContext? exp) {
-      IBaseType type;
+    public static IAtomicType CreateAtomicType(int typeCode, SidlParser.ExpressionContext? exp) {
+      IAtomicType type;
       bool initialize = exp != null && !exp.IsEmpty;
 
       if (initialize) {
