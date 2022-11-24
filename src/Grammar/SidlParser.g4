@@ -216,7 +216,7 @@ nodebody
     )*
     ;
 
-nodebodyinout : (INPUT | OUTPUT) messagetypelist? terminator;
+nodebodyinout : (INPUT | OUTPUT) messagetypelist terminator;
 nodebodyinclude: INCLUDE variable terminator;
 nodebodyproperty: PROPERTY (type | typename) variablelist terminator;
 
