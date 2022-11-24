@@ -339,6 +339,24 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodebody([NotNull] SidlParser.NodebodyContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyinout"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodebodyinout([NotNull] SidlParser.NodebodyinoutContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyinclude"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodebodyinclude([NotNull] SidlParser.NodebodyincludeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyproperty"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodebodyproperty([NotNull] SidlParser.NodebodypropertyContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.metadefinition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

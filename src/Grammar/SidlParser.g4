@@ -210,11 +210,16 @@ nodedefinition
 
 nodebody
     : (
-        (INPUT | OUTPUT) customtypedvariablelist? terminator
-        | INCLUDE variable terminator // include pre-defined meta properties
-        | PROPERTY type variablelist terminator
+        inout=nodebodyinout//(INPUT | OUTPUT) customtypedvariablelist? terminator
+        | include=nodebodyinclude// include pre-defined meta properties
+        | property=nodebodyproperty
     )*
     ;
+
+nodebodyinout : (INPUT | OUTPUT) messagetypelist? terminator;
+nodebodyinclude: INCLUDE variable terminator;
+nodebodyproperty: PROPERTY (type | typename) variablelist terminator;
+
 
 metadefinition
     : META variable '{'

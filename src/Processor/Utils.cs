@@ -94,5 +94,12 @@ namespace Sidl.Processor {
       return (Message)symbol.Type.ShallowCopy();
     }
 
+    public static Node GetNodeType(string nodetypename, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {
+      var symbol = scopedSymbolTable[currentScope, nodetypename];
+      if (symbol == null) throw new ArgumentException($"The specified node type {nodetypename} does not exist in this context.");
+      else if (symbol.Type is not Node) throw new ArgumentException($"The specified type {nodetypename} is not a node type.");
+      return (Node)symbol.Type.ShallowCopy();
+    }
+
   }
 }

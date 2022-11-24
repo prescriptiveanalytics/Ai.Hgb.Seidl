@@ -314,14 +314,14 @@ namespace Sidl.Processor {
 
   public class Node : Type, IGraphType {
     
-    public Dictionary<string, IBaseType> Properties { get; set; }
+    public Dictionary<string, IType> Properties { get; set; }
 
     public Dictionary<string, Message> Inputs { get; set; }
     public Dictionary<string, Message> Outputs { get; set; }
             
 
     public Node() {
-      Properties = new Dictionary<string, IBaseType>();
+      Properties = new Dictionary<string, IType>();
       Inputs = new Dictionary<string, Message>();
       Outputs = new Dictionary<string, Message>();
       AddDefaultMetaProperties();

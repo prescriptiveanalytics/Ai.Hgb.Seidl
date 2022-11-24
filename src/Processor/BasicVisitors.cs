@@ -177,10 +177,13 @@ namespace Sidl.Processor {
       var name = def.variable().GetText();
       var signature = def.nodetypesignature();
       var body = def.nodebody();
+      var typename = def.typename();
 
-      var node = new Node();      
+      var node = new Node();
 
-      if(signature != null) {        
+      if(body != null && signature == null) { // alternative 1
+        Readbody(body);
+      } else if(signature != null) { // alternative 2        
         for (int i = 0; i < signature.inputs.variable().Length; i++) {
           var msgname = signature.inputs.variable(i).GetText();
           var msgtypename = signature.inputs.messagetypename(i).GetText();
@@ -191,18 +194,44 @@ namespace Sidl.Processor {
           var msgtypename = signature.outputs.messagetypename(i).GetText();
           node.Outputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
         }
+
+        // optional body:
+        if (body != null) Readbody(body);
+
+      } else { // alternative 3         
+        node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
+
       }
 
-      if(body != null) {
-        // TODO parse body statements
+      // TODO properties: (1) do we need meta? (cf. structs).
+      // (2) properties = var declarations? or var definitions? (instances with values)
+      // in case of msg this is clear: messages are always just declarations, since they are instances by nodes, not statically
+      void Readbody(SidlParser.NodebodyContext b) {
+        if (b.inout != null) {
+          for(int i = 0; i < b.inout.messagetypelist().variable().Length; i++) {
+            var msgname = b.inout.messagetypelist().variable(i).GetText();
+            var msgtypename = b.inout.messagetypelist().messagetypename(i).GetText();
+            var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
+            if (b.inout.INPUT() != null) node.Inputs.Add(msgname, msgtype);
+            else node.Outputs.Add(msgname, msgtype);
+          }          
+        } else if (b.include != null) {
+          // TODO ?!
+        } else {
+          var typecode = b.property.type()?.Start.Type;
+          var typename = b.property.typename()?.GetText();
+          var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
+          foreach(var v in b.property.variablelist().variable()) {
+            node.Properties.Add(v.GetText(), type);
+          }
+        }
       }
-      
-
 
       scopedSymbolTable.AddSymbol(
         name,
         node,
-        currentScope);
+        currentScope,
+        false);
 
       return null;
     }
