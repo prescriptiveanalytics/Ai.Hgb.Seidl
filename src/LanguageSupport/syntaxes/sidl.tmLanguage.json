@@ -1,0 +1,56 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Sidl",
+	"patterns": [
+		{ "include": "#keywords" },
+		{ "include": "#types"},
+		{ "include": "#reservedvalues" },
+		{ "include": "#strings"	},
+		{ "include": "#comment" },
+		{ "include": "#graphoperator" }
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.sidl",
+				"match": "\\b(typedef|import|include|property|topic|input|output)\\b"
+			}]
+		},
+		"types": {
+			"patterns": [{
+				"name": "entity.name.type",
+				"match": "\\b(string|int|float|bool|struct|message|nodetype|node|meta)\\b"
+			}]
+		},
+		"reservedvalues": {
+			"patterns": [{
+				"name": "keyword.control.sidl",
+				"match": "\\b(null|true|false)\\b"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.sidl",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.sidl",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comment": {
+			"patterns": [{
+				"name": "comment.line.sidl",
+				"match": "#.*$\n?"
+			}]
+		},
+		"graphoperator": {
+			"patterns": [{
+				"name": "keyword.operator.sidl",
+				"match": "-->"				
+			}]
+		}
+	},
+	"scopeName": "source.sidl"
+}
