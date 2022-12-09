@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sidl.Processor {
+namespace Sidl.Data {
 
   #region data structure interfaces
 
@@ -225,7 +225,7 @@ namespace Sidl.Processor {
   }
 
   public class Struct : Type, IComplexType { // TODO: idea: implement IScope and generalize using symbols
-    private Dictionary<string, IType> Properties { get; set; } // TODO: allow ITypes (i.e. aliases) not only IBaseTypes 
+    private Dictionary<string, IType> Properties { get; set; } 
 
     public Struct() {
       Properties = new Dictionary<string, IType>();      
@@ -320,11 +320,11 @@ namespace Sidl.Processor {
     public Dictionary<string, Message> Outputs { get; set; }
             
 
-    public Node() {
+    public Node(bool addDefaultMetaProperties = true) {
       Properties = new Dictionary<string, IType>();
       Inputs = new Dictionary<string, Message>();
       Outputs = new Dictionary<string, Message>();
-      AddDefaultMetaProperties();
+      if(addDefaultMetaProperties) AddDefaultMetaProperties();
     }
 
     private void AddDefaultMetaProperties() {
@@ -333,7 +333,7 @@ namespace Sidl.Processor {
     }
 
     public override IType ShallowCopy() {
-      var n = new Node();
+      var n = new Node(false);
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());

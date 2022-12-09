@@ -13,13 +13,13 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.sidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|auxinput|auxoutput)\\b"
 			}]
 		},
 		"types": {
 			"patterns": [{
 				"name": "entity.name.type",
-				"match": "\\b(string|int|float|bool|struct|message|nodetype|node|meta)\\b"
+				"match": "\\b(string|int|float|bool|struct|message|nodetype|node)\\b"
 			}]
 		},
 		"reservedvalues": {

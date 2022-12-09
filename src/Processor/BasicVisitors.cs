@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
+using Sidl.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,10 +67,7 @@ namespace Sidl.Processor {
       foreach (var variable in context.variablelist().variable()) {
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
-        scopedSymbolTable.AddSymbol(
-          variable.GetText(), 
-          type, 
-          currentScope);
+        scopedSymbolTable.AddSymbol(variable.GetText(), type, currentScope);
       }
       return null;
     }
@@ -88,10 +86,7 @@ namespace Sidl.Processor {
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope, expression);
         // TODO: assign expression to looked up type (if typecode = atomictype, all done)
 
-        scopedSymbolTable.AddSymbol(
-          variable.GetText(),
-          type,
-          currentScope);
+        scopedSymbolTable.AddSymbol(variable.GetText(), type, currentScope);
       }
       return null;
     }
@@ -103,11 +98,7 @@ namespace Sidl.Processor {
       var typename = def.typename()?.GetText();
       var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
-      scopedSymbolTable.AddSymbol(
-        name,
-        type,
-        currentScope,
-        true);
+      scopedSymbolTable.AddSymbol(name,type, currentScope, true);
 
       return null;
     }
@@ -127,11 +118,7 @@ namespace Sidl.Processor {
         data.AddProperty(property.Item1.GetText(), type);
       }
 
-      scopedSymbolTable.AddSymbol(
-          name,
-          data,
-          currentScope,
-          true);
+      scopedSymbolTable.AddSymbol(name, data, currentScope, true);
 
       return null;
     }
@@ -162,11 +149,7 @@ namespace Sidl.Processor {
         message.AddParameter(type, parametername, topic);
       }
 
-      scopedSymbolTable.AddSymbol(
-        name,
-        message,
-        currentScope,
-        true);
+      scopedSymbolTable.AddSymbol(name, message, currentScope, true);
 
       return null;      
     }
@@ -179,61 +162,84 @@ namespace Sidl.Processor {
       var body = def.nodebody();
       var typename = def.typename();
 
-      var node = new Node();
+      Node node = null;
 
       if(body != null && signature == null) { // alternative 1
-        Readbody(body);
-      } else if(signature != null) { // alternative 2        
-        for (int i = 0; i < signature.inputs.variable().Length; i++) {
-          var msgname = signature.inputs.variable(i).GetText();
-          var msgtypename = signature.inputs.messagetypename(i).GetText();
-          node.Inputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
-        }
-        for (int i = 0; i < signature.outputs.variable().Length; i++) {
-          var msgname = signature.outputs.variable(i).GetText();
-          var msgtypename = signature.outputs.messagetypename(i).GetText();
-          node.Outputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
-        }
-
+        node = new Node();
+        ReadNodeBody(body, node);
+      } else if(signature != null) { // alternative 2
+        node = new Node();
+        ReadNodeSignature(signature, node);
         // optional body:
-        if (body != null) Readbody(body);
+        if (body != null) ReadNodeBody(body, node);
 
       } else { // alternative 3         
         node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
 
       }
 
-      // TODO properties: (1) do we need meta? (cf. structs).
-      // (2) properties = var declarations? or var definitions? (instances with values)
-      // in case of msg this is clear: messages are always just declarations, since they are instances by nodes, not statically
-      void Readbody(SidlParser.NodebodyContext b) {
-        if (b.inout != null) {
-          for(int i = 0; i < b.inout.messagetypelist().variable().Length; i++) {
-            var msgname = b.inout.messagetypelist().variable(i).GetText();
-            var msgtypename = b.inout.messagetypelist().messagetypename(i).GetText();
-            var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
-            if (b.inout.INPUT() != null) node.Inputs.Add(msgname, msgtype);
-            else node.Outputs.Add(msgname, msgtype);
-          }          
-        } else if (b.include != null) {
-          // TODO ?!
-        } else {
-          var typecode = b.property.type()?.Start.Type;
-          var typename = b.property.typename()?.GetText();
-          var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
-          foreach(var v in b.property.variablelist().variable()) {
-            node.Properties.Add(v.GetText(), type);
-          }
-        }
-      }
-
-      scopedSymbolTable.AddSymbol(
-        name,
-        node,
-        currentScope,
-        false);
+      scopedSymbolTable.AddSymbol(name, node, currentScope, false);
 
       return null;
+    }
+
+    public override object VisitNodetypeDefinitionStatement([NotNull] SidlParser.NodetypeDefinitionStatementContext context) {
+      var def = context.nodetypedefinition();
+
+      var name = def.nodetypename().GetText();
+      var signature = def.nodetypesignature();
+      var body = def.nodebody();
+
+      Node node = new Node();
+
+      if (signature == null && body != null) { // alternative 1
+        ReadNodeBody(body, node);
+      } else if(signature != null) { // alternative 2
+        ReadNodeSignature(signature, node);
+        // optional body:
+        if (body != null) ReadNodeBody(body, node);
+      }
+
+      scopedSymbolTable.AddSymbol(name, node, currentScope, true);
+
+      return null;
+    }
+
+    private void ReadNodeSignature(SidlParser.NodetypesignatureContext signature, Node node) {
+      for (int i = 0; i < signature.inputs.variable().Length; i++) {
+        var msgname = signature.inputs.variable(i).GetText();
+        var msgtypename = signature.inputs.messagetypename(i).GetText();
+        node.Inputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
+      }
+      for (int i = 0; i < signature.outputs.variable().Length; i++) {
+        var msgname = signature.outputs.variable(i).GetText();
+        var msgtypename = signature.outputs.messagetypename(i).GetText();
+        node.Outputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
+      }
+    }
+
+    private void ReadNodeBody(SidlParser.NodebodyContext body, Node node) {
+      // TODO properties: (1) do we need meta? (cf. structs).
+      // (2) properties = var declarations? or var definitions? (instances with values)
+      // in case of msg this is clear: messages are always just declarations, since they are instances by nodes, not statically      
+      if (body.inout != null) {
+        for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
+          var msgname = body.inout.messagetypelist().variable(i).GetText();
+          var msgtypename = body.inout.messagetypelist().messagetypename(i).GetText();
+          var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
+          if (body.inout.INPUT() != null) node.Inputs.Add(msgname, msgtype);
+          else node.Outputs.Add(msgname, msgtype);
+        }
+      } else if (body.include != null) {
+        // TODO ?!: only if meta-structures will be implemented.
+      } else {
+        var typecode = body.property.type()?.Start.Type;
+        var typename = body.property.typename()?.GetText();
+        var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
+        foreach (var v in body.property.variablelist().variable()) {
+          node.Properties.Add(v.GetText(), type);
+        }
+      }
     }
   }
 }

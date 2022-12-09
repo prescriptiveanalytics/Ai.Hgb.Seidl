@@ -6,7 +6,7 @@ using System.Text;
 namespace Sidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    public static string demoTextFilePath = @"../../../../Samples/resinetShort.3l";
+    public static string demoTextFilePath = @"../../../../Samples/resinetShortOld.3l";
 
     static void Main(string[] args) {
 

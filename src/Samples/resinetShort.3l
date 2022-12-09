@@ -1,4 +1,8 @@
-# import "./baseconfig.sdl"
+repository spa = "https://spa.resort"
+nodetype weatherServiceImage = spa/resinet/v1/weatherservice:1.1
+nodetype  = spa/methods/v1/gpservice:latest
+
+# import "./baseconfig.sdl" # global only - TODO
 
 string host = "127.0.0.1"
 int port = 15387
@@ -6,7 +10,15 @@ string basetopic = "resinet"
 
 struct position { float lat, float lng }
 typedef string datetime
-struct weatherData { float globalRadiation, float airTemperature, float humidity }
+
+struct weatherData { 
+
+    float globalRadiation,
+    float airTemperature
+    ,
+    float humidity
+}
+
 struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
 
 message forecastRequest { position pos, datetime dt, int days }
@@ -30,5 +42,57 @@ foo {
     
 }
 
-node weatherService1(forecastRequest fq --> weatherReport fr)
+node weatherService1(forecastRequest fq --> weatherReport fr) # TODO: trash that
 
+nodetype weatherService(forecastRequest fq --> weatherReport fr) { # remove construstor message injection
+     property int blabla
+     input forecastRequest fq2 # THIS!
+     output weatherReport fr
+     
+     # TODO: implement aux/auxiliary
+     aux input int controlKey
+     aux output int requestCount
+
+     # TODO: no meta tags
+}
+
+# explicit
+node weatherService ws1{loc:4020}
+node pvSystem pvs1
+ws1-->pvs1
+
+# implicit:
+(ws1: weatherServis {loc:4020})-[weatherReport]->(pvs1: pvSystem)
+
+
+
+
+
+
+node gpService weatherServiceSurrogate(weatherService)
+
+
+
+# dynamic surrogate modeling prototypes
+node gpService weatherServiceSurrogate(forecastRequest fq --> weatherReport fr) {
+
+}
+
+# v1
+node weatherServiceSurrogate(forecastRequest fq --> weatherReport fr) {
+
+}
+#v1
+(weatherServiceSurrogate)-[imitates]-(weatherService) # v1
+weatherServiceSurrogate-[replaces]-weatherService # v2
+
+# v2: implicit
+node methods.gpservice weatherServiceSurrogate for weatherService {
+
+}
+
+#v3: explicit
+nodetype methods.gpservice weatherServiceSurrogate for weatherService {
+
+}
+node weatherServiceSurrogate wss1

@@ -167,13 +167,14 @@ functioncall
     ;
 
 structpropertylist
-    : atomictypeortypename variable (',' atomictypeortypename variable)*
+    : (
+        atomictypeortypename variable (terminator* ',' terminator* atomictypeortypename variable)*    
+        | terminator
+    )*
     ;
 
 structdefinition
-    : STRUCT variable '{'
-        structpropertylist?
-    '}'
+    : STRUCT variable '{' structpropertylist '}'
     ;
 
 // move up/down
@@ -195,7 +196,7 @@ messagedefinition
 
 nodetypedefinition
     : NODETYPE nodetypename '{' nodebody '}' // parameter based definition
-    | NODETYPE nodetypename nodetypesignature ('{' nodebody '}')? // signature based definition
+    | NODETYPE nodetypename nodetypesignature '{' nodebody '}' // signature based definition
     ;
 
 nodetypesignature
@@ -210,15 +211,22 @@ nodedefinition
 
 nodebody
     : (
-        inout=nodebodyinout//(INPUT | OUTPUT) customtypedvariablelist? terminator
-        | include=nodebodyinclude// include pre-defined meta properties
+        inout=nodebodyinout 
+        | include=nodebodyinclude
         | property=nodebodyproperty
+        | terminator
     )*
     ;
 
-nodebodyinout : (INPUT | OUTPUT) messagetypelist terminator;
-nodebodyinclude: INCLUDE variable terminator;
-nodebodyproperty: PROPERTY (type | typename) variablelist terminator;
+nodebodyinout
+    : (INPUT | OUTPUT) messagetypelist
+    ;
+nodebodyinclude
+    : INCLUDE variable
+    ;
+nodebodyproperty
+    : PROPERTY (type | typename) variablelist
+    ;
 
 
 metadefinition

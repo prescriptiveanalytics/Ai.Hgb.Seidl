@@ -1,0 +1,49 @@
+# import "./baseconfig.sdl" # global only - TODO
+
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "resinet"
+
+struct position { float lat, float lng }
+typedef string datetime
+
+struct weatherData { 
+
+    float globalRadiation,
+    float airTemperature
+    ,
+    float humidity
+}
+
+struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
+
+message forecastRequest { position pos, datetime dt, int days }
+message weatherReport { weatherData rep, topic int zip }
+
+# Demo 1:
+foo {    
+    string version = "v1"    
+
+    # nodes 1
+    {
+        int bar = 200;
+    }
+
+    # nodes 2
+    {        
+        string bar = "hola";
+    }
+
+    float testX = 4.2
+    
+}
+
+node weatherService1(forecastRequest fq --> weatherReport fr) 
+
+nodetype weatherService(forecastRequest fq --> weatherReport fr) { 
+     property int blabla
+     input forecastRequest fq2 # some additional input
+     output weatherReport fr2
+}
+
+

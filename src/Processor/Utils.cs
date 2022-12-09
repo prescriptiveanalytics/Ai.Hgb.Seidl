@@ -1,4 +1,6 @@
 ﻿using Antlr4.Runtime.Misc;
+using Sidl.Data;
+using Sidl.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,26 +32,26 @@ namespace Sidl.Processor {
     };
 
     private static IAtomicType InstanceAtomicType(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
-      SidlLexer.STRING => new String(exp.GetText()),
-      SidlLexer.INT => new Integer(exp.number().INTEGER().GetText()),
-      SidlLexer.FLOAT => new Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
-      SidlLexer.BOOL => new Bool(exp.boolean().GetText()),
+      SidlLexer.STRING => new Data.String(exp.GetText()),
+      SidlLexer.INT => new Data.Integer(exp.number().INTEGER().GetText()),
+      SidlLexer.FLOAT => new Data.Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
+      SidlLexer.BOOL => new Data.Bool(exp.boolean().GetText()),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
     private static IAtomicType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
-      SidlLexer.STRING => new String(valueText),
-      SidlLexer.INT => new Integer(valueText),
-      SidlLexer.FLOAT => new Float(valueText),
-      SidlLexer.BOOL => new Bool(valueText),
+      SidlLexer.STRING => new Data.String(valueText),
+      SidlLexer.INT => new Data.Integer(valueText),
+      SidlLexer.FLOAT => new Data.Float(valueText),
+      SidlLexer.BOOL => new Data.Bool(valueText),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
     private static IAtomicType DeclareAtomicType(int typeCode) => typeCode switch {
-      SidlLexer.STRING => new String(),
-      SidlLexer.INT => new Integer(),
-      SidlLexer.FLOAT => new Float(),
-      SidlLexer.BOOL => new Bool(),
+      SidlLexer.STRING => new Data.String(),
+      SidlLexer.INT => new Data.Integer(),
+      SidlLexer.FLOAT => new Data.Float(),
+      SidlLexer.BOOL => new Data.Bool(),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 

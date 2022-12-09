@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sidl.Processor {
+namespace Sidl.Data {
 
   public interface ISymbol : IType {
     string Name { get; set; }
