@@ -48,12 +48,12 @@ namespace Sidl.Processor {
       var scopeVar = context.scope().variable();
       string scopeName = scopeVar?.GetText();
 
-      var newScope = scopedSymbolTable.AddScope(scopeName, currentScope);
+      var newScope = scopedSymbolTable.AddScope(scopeName, currentScope, context.Start.Line, context.Start.Column, context.Stop.Line, context.Stop.Column);
       var parentScope = currentScope;
 
       // step inside scope
       currentScope = newScope;
-      Visit(context.scope().set());
+      Visit(context.scope().set());            
 
       // step outside scope (i.e. reset scope)
       currentScope = parentScope;
@@ -156,11 +156,14 @@ namespace Sidl.Processor {
 
     public override object VisitNodeDefinitionStatement([NotNull] SidlParser.NodeDefinitionStatementContext context) {
 
+      
       var def = context.nodedefinition();
-      var name = def.variable().GetText();
+      var name = def.variable()?.GetText();
       var signature = def.nodetypesignature();
       var body = def.nodebody();
       var typename = def.typename();
+
+      if (name == null) return null;
 
       Node node = null;
 
@@ -178,7 +181,8 @@ namespace Sidl.Processor {
 
       }
 
-      scopedSymbolTable.AddSymbol(name, node, currentScope, false);
+      if(name != null && node != null)
+        scopedSymbolTable.AddSymbol(name, node, currentScope, false);
 
       return null;
     }
@@ -221,7 +225,7 @@ namespace Sidl.Processor {
     private void ReadNodeBody(SidlParser.NodebodyContext body, Node node) {
       // TODO properties: (1) do we need meta? (cf. structs).
       // (2) properties = var declarations? or var definitions? (instances with values)
-      // in case of msg this is clear: messages are always just declarations, since they are instances by nodes, not statically      
+      // in case of msg this is clear: messages are always just declarations, since they are instances by nodes, not statically            
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
           var msgname = body.inout.messagetypelist().variable(i).GetText();

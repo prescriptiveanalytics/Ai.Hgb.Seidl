@@ -9,5 +9,9 @@ namespace Sidl.Utils {
     public static bool IsOneOf<T>(this T @this, params T[] values) {
       return values.Contains(@this);
     }
+
+    //public static string TrimTick(this string @this) {
+    //  return @this.Replace('\'', ' ').Trim()
+    //}
   }
 }

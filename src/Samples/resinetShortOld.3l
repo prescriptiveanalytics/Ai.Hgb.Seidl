@@ -4,6 +4,24 @@ string host = "127.0.0.1"
 int port = 15387
 string basetopic = "resinet"
 
+# Demo 1:
+foo {    
+    string version = "v1"    
+
+    # nodes 1
+    {
+        int bar = 200
+    }
+
+    # nodes 2
+    {        
+        string bar = "hola"
+    }
+
+    float testX = 4.2
+    
+}
+
 struct position { float lat, float lng }
 typedef string datetime
 
@@ -20,30 +38,31 @@ struct inverterData { float pvPowerProduced, float powerConsumed, float batteryS
 message forecastRequest { position pos, datetime dt, int days }
 message weatherReport { weatherData rep, topic int zip }
 
-# Demo 1:
-foo {    
-    string version = "v1"    
 
-    # nodes 1
-    {
-        int bar = 200;
-    }
-
-    # nodes 2
-    {        
-        string bar = "hola";
-    }
-
-    float testX = 4.2
-    
-}
-
-node weatherService1(forecastRequest fq --> weatherReport fr) 
 
 nodetype weatherService(forecastRequest fq --> weatherReport fr) { 
-     property int blabla
-     input forecastRequest fq2 # some additional input
-     output weatherReport fr2
+    input forecastRequest fq2 # some additional input
+    output weatherReport fr2
+    property int blabla
 }
+
+node ws1(forecastRequest fq --> weatherReport fr) 
+
+node weatherService ws2
+
+defs {
+    
+    nodetype weatherServiceNew(forecastRequest fq --> weatherReport fr) { 
+        input forecastRequest fq2 # some additional input
+        output weatherReport fr2
+        property int blabla
+    }               
+
+    defs2 {
+        node weatherServiceNew ws2
+    }
+}
+
+node weatherService ws3
 
 

@@ -19,7 +19,7 @@ namespace Sidl.Processor {
       _parser = parser; 
     }
 
-    public ScopedSymbolTable CreateScopedSymbolTable() {
+    public ScopedSymbolTable CreateScopedSymbolTableSecured() {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
       SidlParser.RootContext rootContext = _parser.root();
       try {
@@ -32,6 +32,13 @@ namespace Sidl.Processor {
       return scopedSymbolTable;
     }
 
+    public ScopedSymbolTable CreateScopedSymbolTable() {
+      var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
+      SidlParser.RootContext rootContext = _parser.root();
+      scopedSymbolTableVisitor.Visit(rootContext);
+
+      return scopedSymbolTableVisitor.scopedSymbolTable;      
+    }
 
     [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]
     public void CompleteScopeSymbolDependencies(Dictionary<Scope, List<Symbol>> scopeSymbolStore) {

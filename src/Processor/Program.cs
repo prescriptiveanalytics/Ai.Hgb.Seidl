@@ -12,16 +12,16 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
 
       Console.WriteLine("DSL Processor Demo\n");
       Console.WriteLine(" - Reading file...");
-      string programText = ReadFile(demoTextFilePath);
+      string programText = Utils.ReadFile(demoTextFilePath);
 
       Console.WriteLine(" - Parsing program...");
-      SidlParser parser = TokenizeAndParse(programText);
+      SidlParser parser = Utils.TokenizeAndParse(programText);
 
 
       Console.WriteLine(" - Analyzing program...");
       Linter linter = new Linter(parser);
          
-      var table = linter.CreateScopedSymbolTable();
+      var table = linter.CreateScopedSymbolTableSecured();
 
       //var scopesX = table.Scopes;
       //Console.WriteLine(System.String.Join(' ', scopesX));
@@ -33,25 +33,7 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
 
       Console.WriteLine("\n\n\nEnd of processing.");
     }
-    
-    public static string ReadFile(string filePath) {
-      if (!File.Exists(demoTextFilePath)) throw new FileNotFoundException($"Warning: File could not be found.");      
-      StringBuilder text = new StringBuilder();
-      using (var sr = new StreamReader(demoTextFilePath)) {        
-        string input = "";        
-        while (!sr.EndOfStream) {
-          text.AppendLine(sr.ReadLine());
-        }
-      }
-      return text.ToString();
-    }
 
-    public static SidlParser TokenizeAndParse(string programText) {
-      var inputStream = new AntlrInputStream(programText.ToString());
-      SidlLexer lexer = new SidlLexer(inputStream);
-      var commonTokenStream = new CommonTokenStream(lexer);
-      return new SidlParser(commonTokenStream);
-    }
 
 
 

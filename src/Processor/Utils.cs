@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime.Misc;
+﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using Sidl.Data;
 using Sidl.Utils;
 using System;
@@ -10,9 +11,52 @@ using System.Threading.Tasks;
 namespace Sidl.Processor {
   public class Utils {
 
+    public static string ReadFile(string filePath) {
+      if (!File.Exists(filePath)) throw new FileNotFoundException($"Warning: File could not be found.");
+      StringBuilder text = new StringBuilder();
+      using (var sr = new StreamReader(filePath)) {
+        string input = "";
+        while (!sr.EndOfStream) {
+          text.AppendLine(sr.ReadLine());
+        }
+      }
+      return text.ToString();
+    }
+
+    public static SidlParser TokenizeAndParse(string programText) {
+      var inputStream = new AntlrInputStream(programText.ToString());
+      SidlLexer lexer = new SidlLexer(inputStream);
+      var commonTokenStream = new CommonTokenStream(lexer);
+      return new SidlParser(commonTokenStream);
+    }
+
     #region atomic type checks / helper
     public static bool IsAtomicType(int typeCode) {
       return typeCode.IsOneOf(SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL);
+    }
+
+    public static IEnumerable<string> GetAtomicTypeDisplayNames() {
+      var atomicTypeCodes = new List<int> { SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL };
+      foreach (var tc in atomicTypeCodes) {
+        yield return SidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
+      }
+    }
+
+    public static IEnumerable<string> GetBaseTypeDisplayNames() {
+      var typeCodes = new List<int> { SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL,
+        SidlLexer.STRUCT, SidlLexer.MESSAGE, SidlLexer.NODETYPE, SidlLexer.NODE };
+      foreach (var tc in typeCodes) {
+        yield return SidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
+      }
+    }
+
+    public static IEnumerable<string> GetKeywordDisplayNames() {
+      var typeCodes = new List<int> { SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL,
+        SidlLexer.STRUCT, SidlLexer.MESSAGE, SidlLexer.NODETYPE, SidlLexer.NODE,
+        SidlLexer.TYPEDEF, SidlLexer.TOPIC, SidlLexer.PROPERTY };
+      foreach (var tc in typeCodes) {
+        yield return SidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
+      }
     }
 
     private static bool CheckAtomicTypeValue(int typeCode, int valueCode) => typeCode switch {

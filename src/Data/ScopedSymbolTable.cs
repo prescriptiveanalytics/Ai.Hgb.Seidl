@@ -18,6 +18,21 @@ namespace Sidl.Data {
     Dictionary<string, ISymbol> Symbols { get; set; }        
   }
 
+  public struct TextPosition {
+    public int Line;
+    public int Character;
+  }
+
+  public struct ScopeLocation {
+    public TextPosition Start;
+    public TextPosition End;
+
+    public ScopeLocation(int startLine, int startCharacter, int endLine, int endCharacter) {
+      Start = new TextPosition { Line = startLine, Character = startCharacter };
+      End = new TextPosition { Line = endLine, Character = endCharacter };
+    }
+  }
+
   public class Symbol : Type, ISymbol {    
     public string Name { get; set; }
     public IType Type { get; set; }
@@ -64,6 +79,8 @@ namespace Sidl.Data {
     public bool IsTypedef { get; private set; }
     public int Level { get; set; }
 
+    public ScopeLocation Location { get; set; }
+
 
     public Dictionary<string, IScope> ChildScopes { get; set; }
 
@@ -75,14 +92,17 @@ namespace Sidl.Data {
       ChildScopes = new Dictionary<string, IScope>();
       Symbols = new Dictionary<string, ISymbol>();
       IsTypedef = false;
+      Location = new ScopeLocation();
     }
 
-    public Scope(string name, IScope scope) {
+    public Scope(string name, IScope scope, 
+      int startLine = 0, int startCharacter = 0, int endLine = int.MaxValue, int endCharacter = int.MaxValue) {
       ChildScopes = new Dictionary<string, IScope>();
       Symbols = new Dictionary<string, ISymbol>();
       Name = name;
       Parent = scope;
       IsTypedef = false;
+      Location = new ScopeLocation(startLine, startCharacter, endLine, endCharacter);
     }
 
     public override string ToString() {
@@ -138,7 +158,8 @@ namespace Sidl.Data {
       global = new Scope("global", null);
     }
 
-    public Scope AddScope(string name, IScope parent) {
+    public Scope AddScope(string name, IScope parent,
+      int startLine = 0, int startCharacter = 0, int endLine = int.MaxValue, int endCharacter = int.MaxValue) {
       string newScopeName = name, newScopeIdentifier = name;
       if(string.IsNullOrWhiteSpace(name)) {
         newScopeName = "anonymous";
@@ -149,7 +170,7 @@ namespace Sidl.Data {
         throw new Exception("The defined name is already present in this scope.");
       }
 
-      var newScope = new Scope(newScopeName, parent);
+      var newScope = new Scope(newScopeName, parent, startLine, startCharacter, endLine, endCharacter);
       if (parent != null) parent.ChildScopes.Add(newScopeIdentifier, newScope); // TODO
       return newScope;
     }
@@ -170,7 +191,7 @@ namespace Sidl.Data {
 
     public ISymbol? this[IScope scope, string name] {
       get {
-        return GetSymbolsUpstream().Where(x => x.Name == name).FirstOrDefault();
+        return GetSymbolsUpstream(scope).Where(x => x.Name == name).FirstOrDefault();
       }
     }
 
@@ -265,6 +286,29 @@ namespace Sidl.Data {
       return SymbolDFS(scope).SelectMany(x => x).Distinct();
     }
 
+    public Scope GetScope(int line, int character) {
+      Scope selected = global;      
+
+      // drill down from global to nested scopes
+      foreach(var s in GetScopesDownstream().Select(x => (Scope)x).ToList()) {       
+        if(
+          (
+            (line == s.Location.Start.Line && character > s.Location.Start.Character)
+            || (line > s.Location.Start.Line)
+          )
+          &&
+          (
+            (line == s.Location.End.Line && character < s.Location.End.Character)
+            || (line < s.Location.End.Line)
+          )
+          ) {
+          
+          selected = s;
+        }
+      }
+
+      return selected;
+    }
 
     public StringBuilder Print(IScope parent) {
       if (parent == null) {

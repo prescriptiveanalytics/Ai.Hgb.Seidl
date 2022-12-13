@@ -4,6 +4,7 @@
  * ------------------------------------------------------------------------------------------ */
 import * as fs from 'fs';
 import * as path from 'path';
+import * as https from 'https';
 
 import {
 	createConnection,
@@ -17,12 +18,18 @@ import {
 	CompletionItemKind,
 	TextDocumentPositionParams,
 	TextDocumentSyncKind,
-	InitializeResult
+	InitializeResult,
+	integer,
+	Position
 } from 'vscode-languageserver/node';
 
 import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
+
+import axios from 'axios';
+// DO NOT DO THIS IF SHARING PRIVATE DATA WITH SERVICE
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -84,6 +91,13 @@ connection.onInitialized(() => {
 	if (hasWorkspaceFolderCapability) {
 		connection.workspace.onDidChangeWorkspaceFolders(_event => {
 			connection.console.log('Workspace folder change event received.');
+		});
+	}
+
+	// custom:
+	if (basetypes.length == 0) {
+		loadBasetypeKeywordsAsync().then(bt => {
+			basetypes = basetypes.concat(bt);
 		});
 	}
 });
@@ -151,8 +165,52 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	const pattern = /\b[A-Z]{2,}\b/g;
 	let m: RegExpExecArray | null;
 
-	let problems = 0;
+	const problems = 0;	
 	const diagnostics: Diagnostic[] = [];
+
+	// new:
+	validateProgramText(text).then(result => {
+		if (result != null) {
+			if(result.data == "ok") {
+				const diagnostic: Diagnostic = {
+					severity: DiagnosticSeverity.Information,					
+					range: {
+						start: textDocument.positionAt(text.length),
+						end: textDocument.positionAt(text.length)
+					},
+					message: "All good. Have a Seidl, Prost!",
+					source: 'Sidl-Linter'
+				};
+				diagnostics.push(diagnostic);
+			} else if(result.status >= 200 && result.status < 300) {
+				const diagnostic: Diagnostic = {
+					severity: DiagnosticSeverity.Error,
+					range: {
+						start: textDocument.positionAt(text.length),
+						end: textDocument.positionAt(text.length)
+					},
+					message: `${result.data}`,
+					source: 'Sidl-Linter'
+				};
+				diagnostics.push(diagnostic);
+			} else if(result.status > 200) {
+				const diagnostic: Diagnostic = {
+					severity: DiagnosticSeverity.Warning,
+					range: {
+						start: textDocument.positionAt(0),
+						end: textDocument.positionAt(text.length)
+					},
+					message: `${result.data}`,
+					source: 'Sidl-Linter'
+				};
+				diagnostics.push(diagnostic);
+			} 			
+			connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
+		}
+	});
+
+	// old
+	/*
 	while ((m = pattern.exec(text)) && problems < settings.maxNumberOfProblems) {
 		problems++;
 		const diagnostic: Diagnostic = {
@@ -187,6 +245,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 
 	// Send the computed diagnostics to VSCode.
 	connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
+	*/
 }
 
 connection.onDidChangeWatchedFiles(_change => {
@@ -194,9 +253,56 @@ connection.onDidChangeWatchedFiles(_change => {
 	connection.console.log('We received an file change event');
 });
 
+
+connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<CompletionItem[]>) => {
+	const docu = documents.get(params.textDocument.uri);
+	const text = docu != null ? docu.getText() : "";	
+	const lines = text.split(/\r?\n/g);
+	const position = params.position;
+
+	const results = new Array<CompletionItem>();
+	let nodetypes = new Array<string>();
+
+	// loadNodetypesForContextAsync(text, position.line, position.character).then(nt => {
+	// 	nodetypes = nodetypes.concat(nt);
+		
+	// 	return results;
+	// });
+	const currentLine = lines[position.line];
+	const nodeKeywordPos = currentLine.indexOf("node");
+
+	// if word before is "node" do...
+	console.log("pos: " + nodeKeywordPos + " / :" + currentLine.substring(nodeKeywordPos+4, position.character).trim());
+	if(nodeKeywordPos >= 0 && currentLine.substring(nodeKeywordPos+4, position.character).trim() == "") {
+		const nt = await loadNodetypesForContextAsync(text, position.line, position.character);
+		nodetypes = nodetypes.concat(nt);	
+		for (let a = 0; a < nodetypes.length; a++) {
+			results.push({
+				label: nodetypes[a],
+				kind: CompletionItemKind.TypeParameter,
+				data: 'type-' + a
+			});
+		}
+
+		console.log(nodetypes);
+	} else {		
+		for (let a = 0; a < basetypes.length; a++) {
+			results.push({
+				label: basetypes[a],
+				kind: CompletionItemKind.TypeParameter,
+				data: 'type-' + a
+			});
+		}
+	}
+
+
+	return results;
+});
+
+
+/*
 // This handler provides the initial list of the completion items.
-connection.onCompletion(
-	(_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
+connection.onCompletion((_textDocumentPosition: TextDocumentPositionParams): CompletionItem[] => {
 		// The pass parameter contains the position of the text document in
 		// which code complete got requested. For the example we ignore this
 		// info and always provide the same completion items.
@@ -213,69 +319,82 @@ connection.onCompletion(
 		// 	}
 		// ];
 
-
+		
 		const docu = documents.get(_textDocumentPosition.textDocument.uri);
-        const text = docu != null ? docu.getText() : "";        
+		const text = docu != null ? docu.getText() : "";
 
-        const lines = text.split(/\r?\n/g);   
-        const position = _textDocumentPosition.position;       
-    
-        if(basetypes.length == 0)
-        basetypes=loadBasetypeKeywords();
-    
-        let start = 0;
-    
-        for (let i = position.character; i >= 0; i--) {
-            if(lines != null && lines[position.line][i] == '=')
-            {           
-                start = i;
-                i = 0;
-            }
-        }
-        
-        const results = new Array<CompletionItem>();
-		for(let a = 0; a < basetypes.length; a++)
-		{
-			results.push({ 
+		const lines = text.split(/\r?\n/g);
+		const position = _textDocumentPosition.position;
+
+
+
+		let start = 0;
+
+		for (let i = position.character; i >= 0; i--) {
+			if (lines != null && lines[position.line][i] == '=') {
+				start = i;
+				i = 0;
+			}
+		}
+
+		const results = new Array<CompletionItem>();
+
+
+
+		// TODO check if word before is "node", if no:
+		for (let a = 0; a < basetypes.length; a++) {
+			results.push({
 				label: basetypes[a],
 				kind: CompletionItemKind.TypeParameter,
 				data: 'type-' + a
 			});
 		}
-        // if(start >= 5
-        //     && lines[position.line].substr(start-5,5) == "color")
-        //      {
-                
-        //         for(let a = 0; a < basetypes.length; a++)
-        //         {
-        //             results.push({ 
-        //                 label: basetypes[a],
-        //                 kind: CompletionItemKind.TypeParameter,
-        //                 data: 'type-' + a
-        //             });
-        //         }
-                
-        //         // return results;
-        //     }        
 
-            // if(start >= 5
-            // && lines[position.line].substr(start-5,5) == "shape")
-            //  {
-            //     let results = new Array<CompletionItem>();
-            //     for(var a = 0; a < shapes.length; a++)
-            //     {
-            //         results.push({ 
-            //             label: shapes[a],
-            //             kind: CompletionItemKind.Text,
-            //             data: 'shape-' + a
-            //         })
-            //     }
-                
-            //     return results;
-            // }
-            return results;
+		// if yes:
+		let nodetypes = new Array<string>();
+		loadNodetypesForContextAsync(text, position.line, position.character).then(nt => {
+			nodetypes = nodetypes.concat(nt);
+			
+			return results;
+		});
+
+
+
+		// if(start >= 5
+		//     && lines[position.line].substr(start-5,5) == "color")
+		//      {
+
+		//         for(let a = 0; a < basetypes.length; a++)
+		//         {
+		//             results.push({ 
+		//                 label: basetypes[a],
+		//                 kind: CompletionItemKind.TypeParameter,
+		//                 data: 'type-' + a
+		//             });
+		//         }
+
+		//         // return results;
+		//     }        
+
+		// if(start >= 5
+		// && lines[position.line].substr(start-5,5) == "shape")
+		//  {
+		//     let results = new Array<CompletionItem>();
+		//     for(var a = 0; a < shapes.length; a++)
+		//     {
+		//         results.push({ 
+		//             label: shapes[a],
+		//             kind: CompletionItemKind.Text,
+		//             data: 'shape-' + a
+		//         })
+		//     }
+
+		//     return results;
+		// }
+		return results;
 	}
 );
+*/
 
 // This handler resolves additional information for the item selected in
 // the completion list.
@@ -306,10 +425,101 @@ connection.listen();
 
 // helper methods
 
-function loadBasetypeKeywords() : Array<string>
-{	
-	const btkeysFile = fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'basetypes')).toString();
-	const btkeys = btkeysFile.split(/\r?\n/g);		
+async function loadBasetypeKeywordsAsync() {
+	// const btkeysText = fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'basetypes')).toString();
+	// const btkeys = btkeysText.split(/\r?\n/g);			
+	// return btkeys;
+	try {
+		const { data, status } = await axios.get<Array<string>>(
+			'https://localhost:7059/sidl/lsp/basetypes',
+			{
+				httpsAgent,
+				headers: {
+					Accept: 'application/json',
+				},
+			},
+		);
+		//console.log(JSON.stringify(data, null, 4));
+		return data;
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			console.log('error message: ', error.message);
+			return error.message;
+		} else {
+			console.log('unexpected error: ', error);
+			return 'An unexpected error occurred';
+		}
 
-	return btkeys;
+	}
 }
+
+async function loadNodetypesForContextAsync(text: string, line: integer, character: integer) {
+	try {		
+		const { data, status } = await axios.post<Array<string>>(
+			'https://localhost:7059/sidl/lsp/nodetypes',
+			{ programText: text, line: line, character: character },
+			{
+				httpsAgent,
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+			},
+		);
+		console.log("load nodetypes: " + status + " / " + JSON.stringify(data, null, 4));		
+		return data;
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			console.log('error message: ', error.message);
+			return error.message;
+		} else {
+			console.log('unexpected error: ', error);
+			return 'An unexpected error occurred';
+		}
+	}
+}
+
+// https://dev.to/tuasegun/cleaner-and-better-way-for-calling-apis-with-axios-in-your-react-typescript-applications-3d3k
+async function validateProgramText(text: string) : Promise<{status:integer, data:string}> {
+
+	try {
+		const { data, status } = await axios.post<string>(
+			'https://localhost:7059/sidl/lsp/validate',
+			{ programText: text },
+			{
+				httpsAgent,
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+			},
+		);		
+		// console.log(status);
+		// console.log(JSON.stringify(data, null, 4));
+		return {status, data};
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			console.log('error message: ', error.message);					
+			return { status:500, data:error.message };
+		} else {
+			console.log('unexpected error: ', error);
+			return { status:500, data:'An unexpected error occurred' };
+		}
+	}
+}
+
+// const loadBasetypeKeywords = async() : Promise<Array<string>> => {
+// 	// const btkeysText = fs.readFileSync(path.join(__dirname, '..', '..', 'data', 'basetypes')).toString();
+// 	// const btkeys = btkeysText.split(/\r?\n/g);
+// 	// return btkeys;
+
+// 	const response = fetch('https://localhost:7059/atomictypes');
+// 	return response.then(res => res.json()).then(json => { return json as Array<string>;});
+
+// };
+
+// const validateText = async() : Promise<Array<string>> => {
+// 	const response = await fetch('https://localhost:7059/validate', {method: 'POST', body: 'a=1'});
+// 	const data = await response.json();
+// 	return data as Array<string>;
+// };
