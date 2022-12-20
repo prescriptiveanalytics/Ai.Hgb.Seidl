@@ -318,13 +318,22 @@ namespace Sidl.Data {
 
     public Dictionary<string, Message> Inputs { get; set; }
     public Dictionary<string, Message> Outputs { get; set; }
-            
+
+    public Dictionary<string, Message> AuxInputs { get; set; }
+    public Dictionary<string, Message> AuxOutputs { get; set; }
+
+    public List<string> Sources { get; set; }
+    public List<string> Sinks { get; set; }
 
     public Node(bool addDefaultMetaProperties = true) {
       Properties = new Dictionary<string, IType>();
       Inputs = new Dictionary<string, Message>();
       Outputs = new Dictionary<string, Message>();
-      if(addDefaultMetaProperties) AddDefaultMetaProperties();
+      AuxInputs = new Dictionary<string, Message>();
+      AuxOutputs = new Dictionary<string, Message>();
+      Sources = new List<string>();
+      Sinks = new List<string>();
+      if (addDefaultMetaProperties) AddDefaultMetaProperties();
     }
 
     private void AddDefaultMetaProperties() {
@@ -337,6 +346,10 @@ namespace Sidl.Data {
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());
+      foreach (var i in AuxInputs) n.AuxInputs.Add(i.Key, (Message)i.Value.ShallowCopy());
+      foreach (var i in AuxOutputs) n.AuxOutputs.Add(i.Key, (Message)i.Value.ShallowCopy());
+      foreach (var i in Sources) n.Sources.Add(i);
+      foreach (var i in Sinks) n.Sinks.Add(i);
 
       return n;
     }
@@ -346,6 +359,10 @@ namespace Sidl.Data {
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.DeepCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.DeepCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.DeepCopy());
+      foreach (var i in AuxInputs) n.AuxInputs.Add(i.Key, (Message)i.Value.DeepCopy());
+      foreach (var i in AuxOutputs) n.AuxOutputs.Add(i.Key, (Message)i.Value.DeepCopy());
+      foreach (var i in Sources) n.Sources.Add(i);
+      foreach (var i in Sinks) n.Sinks.Add(i);
 
       return n;
     }

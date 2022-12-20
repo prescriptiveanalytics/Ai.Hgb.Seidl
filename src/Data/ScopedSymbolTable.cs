@@ -310,6 +310,35 @@ namespace Sidl.Data {
       return selected;
     }
 
+    public GraphRecord GetGraph() {
+      var nodeRecs = new List<NodeRecord>();
+      var edgeRecs = new HashSet<EdgeRecord>();
+
+      var nodes = GetSymbolsDownstream()
+        .Where(x => x.Type is Node && !x.IsTypedef);        
+
+      foreach(var nodeSymbol in nodes) {
+        nodeRecs.Add(new NodeRecord(nodeSymbol.Name));
+        var nodeValue = (Node)nodeSymbol.Type;
+
+        foreach (var source in nodeValue.Sources) {
+          string id = $"{source}-->{nodeSymbol.Name}";
+          string payload = ""; // nodeValue.Inputs.Select(x => x.Value.GetValueString()).First()
+          edgeRecs.Add(new EdgeRecord(id, source, nodeSymbol.Name, payload));
+        }
+
+        foreach (var sink in nodeValue.Sinks) {
+          string id = $"{nodeSymbol.Name}-->{sink}";
+          string payload = ""; // nodeValue.Outputs.Select(x => x.Value.GetValueString()).First()
+          edgeRecs.Add(new EdgeRecord(id, nodeSymbol.Name, sink, payload));
+        }
+
+
+      }
+
+      return new GraphRecord(nodeRecs, edgeRecs);
+    }
+
     public StringBuilder Print(IScope parent) {
       if (parent == null) {
         var currentScope = Scopes.Where(x => x.Parent == parent).First();

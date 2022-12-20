@@ -209,6 +209,27 @@ namespace Sidl.Processor {
       return null;
     }
 
+    public override object VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context) {
+      var stmt = context.nodeconnectionstatement();
+      var sourceName = stmt.source.GetText();
+      var sinkName = stmt.sink.GetText();
+
+      Node source = null, sink = null;
+
+      if (!string.IsNullOrWhiteSpace(sourceName) && scopedSymbolTable[currentScope, sourceName]?.Type is Node)
+        source = (Node)scopedSymbolTable[currentScope, sourceName].Type;
+      if (!string.IsNullOrWhiteSpace(sourceName) && scopedSymbolTable[currentScope, sinkName]?.Type is Node)
+        sink = (Node)scopedSymbolTable[currentScope, sinkName].Type;
+
+      if(source != null && sink != null) {
+        source.Sinks.Add(sinkName);
+        sink.Sources.Add(sourceName);
+      }
+
+
+      return null;
+    }
+
     private void ReadNodeSignature(SidlParser.NodetypesignatureContext signature, Node node) {
       for (int i = 0; i < signature.inputs.variable().Length; i++) {
         var msgname = signature.inputs.variable(i).GetText();
@@ -222,17 +243,21 @@ namespace Sidl.Processor {
       }
     }
 
-    private void ReadNodeBody(SidlParser.NodebodyContext body, Node node) {
-      // TODO properties: (1) do we need meta? (cf. structs).
-      // (2) properties = var declarations? or var definitions? (instances with values)
-      // in case of msg this is clear: messages are always just declarations, since they are instances by nodes, not statically            
+    private void ReadNodeBody(SidlParser.NodebodyContext body, Node node) {             
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
+          var aux = body.inout.AUX();
+          var input = body.inout.INPUT();
+
           var msgname = body.inout.messagetypelist().variable(i).GetText();
           var msgtypename = body.inout.messagetypelist().messagetypename(i).GetText();
           var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
-          if (body.inout.INPUT() != null) node.Inputs.Add(msgname, msgtype);
-          else node.Outputs.Add(msgname, msgtype);
+
+
+          if (input != null && aux == null) node.Inputs.Add(msgname, msgtype);
+          else if (input != null && aux != null) node.AuxInputs.Add(msgname, msgtype);
+          else if (input == null && aux == null) node.Outputs.Add(msgname, msgtype);
+          else if (input == null && aux != null) node.AuxOutputs.Add(msgname, msgtype);
         }
       } else if (body.include != null) {
         // TODO ?!: only if meta-structures will be implemented.

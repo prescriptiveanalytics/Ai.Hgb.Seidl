@@ -13,7 +13,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.sidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|auxinput|auxoutput)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux input|aux output)\\b"
 			}]
 		},
 		"types": {

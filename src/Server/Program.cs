@@ -46,9 +46,6 @@ namespace Sidl.Server {
       app.Run();
     }
 
-    public record NodetypesRequest(string programText, int line, int character);
-    public record ValidationRequest(string programText);
-
     private static void MapRoutes(WebApplication app) {
 
       //SidlParser parser = Processor.Utils.TokenizeAndParse("");
@@ -69,7 +66,7 @@ namespace Sidl.Server {
         return Results.Ok(Processor.Utils.GetKeywordDisplayNames().OrderBy(x => x));
       });
 
-      app.MapPost("/validate", async (ValidationRequest req) => {
+      app.MapPost("/validate", async (ProgramRecord req) => {
         try {
           var sst = ParseSST(req.programText);
           return Results.Ok("ok");
@@ -79,19 +76,29 @@ namespace Sidl.Server {
       });
 
 
-      app.MapPost("/nodetypes", async (NodetypesRequest req) => {
-        
-        Console.WriteLine($"Request: {req.line} / {req.character}");          
-        var sst = ParseSST(req.programText);
-        Console.WriteLine("parsing");
+      app.MapPost("/nodetypes", async (NodetypesRequest req) => {        
+        //Console.WriteLine($"Request: {req.line} / {req.character}");          
+        var sst = ParseSST(req.programText);        
         var s = sst.GetScope(req.line, req.character);
         sst.Print(s);
-        Console.WriteLine($"Scope name: {s.Name}");
+        //Console.WriteLine($"Scope name: {s.Name}");
         var symbols = sst[s].Where(x => x.Type is Node && x.IsTypedef).Select(x => x.Name);
-        Console.WriteLine(string.Join(", ", symbols));
-        Console.WriteLine($"sending {symbols.Count()} nodetypes...");
+        //Console.WriteLine(string.Join(", ", symbols));
+        //Console.WriteLine($"sending {symbols.Count()} nodetypes...");
         return Results.Ok(symbols);
 
+      });
+
+      app.MapPost("/visualization/graph", async (ProgramRecord pr) => {
+        try {
+          var sst = ParseSST(pr.programText);
+          var gr = sst.GetGraph();
+          return Results.Ok(gr);
+          
+        }
+        catch (Exception exc) {
+          return Results.Problem(exc.Message);
+        }
       });
 
     } 

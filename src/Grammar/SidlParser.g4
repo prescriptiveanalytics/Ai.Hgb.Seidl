@@ -36,6 +36,7 @@ statement
     | metadefinition                                            #metaDefinitionStatement
     | importstatement terminator                                #importStatement
     | typedefstatement terminator                               #typedefStatement
+    | nodeconnectionstatement terminator                        #nodeConnectionStatement
 
     // not yet in use
     // | functiondefinition
@@ -142,6 +143,10 @@ typedefstatement
     : TYPEDEF (atomictype | typename) variable
     ;
 
+nodeconnectionstatement
+    : source=typename '-->' sink=typename
+    ;
+
 functiondefinition
     : FUNCTION variable '=' '(' customtypedvariablelist? ')' '(' customtypedvariablelist? ')' functionbody
     ;
@@ -219,13 +224,13 @@ nodebody
     ;
 
 nodebodyinout
-    : (INPUT | OUTPUT) messagetypelist
+    : AUX? (INPUT | OUTPUT) messagetypelist
     ;
 nodebodyinclude
     : INCLUDE variable
     ;
 nodebodyproperty
-    : PROPERTY (type | typename) variablelist
+    : PROPERTY (type | typename) variablelist    
     ;
 
 

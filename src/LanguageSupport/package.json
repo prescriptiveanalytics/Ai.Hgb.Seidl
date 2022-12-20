@@ -49,11 +49,16 @@
 			  "aliases": ["Sidl", "sidl", "Seidl", "seidl"],
 			  "extensions": [".3l",".sid",".sidl",".seidl"],
 			  "configuration": "./language-configuration.json" 
-			}],
+		}],
 		"grammars": [{
 			"language": "sidl",
 			"scopeName": "source.sidl",
 			"path": "./syntaxes/sidl.tmLanguage.json"
+		}],
+		"commands": [{
+			  "command": "sidl.visualization.graph.start",
+			  "title": "Graph",
+			  "category": "Sidl Visualizations"
 		}]
 	},
 	"scripts": {

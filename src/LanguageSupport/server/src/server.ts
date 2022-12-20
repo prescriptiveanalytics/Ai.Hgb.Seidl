@@ -154,6 +154,9 @@ documents.onDidClose(e => {
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
 	validateTextDocument(change.document);
+	// console.log("FILE: " + change.document.uri);
+	
+	// TODO: get GraphRecord, send to hange.document.uri-Topic
 });
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
@@ -294,8 +297,6 @@ connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<Com
 			});
 		}
 	}
-
-
 	return results;
 });
 

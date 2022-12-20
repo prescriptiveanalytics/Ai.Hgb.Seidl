@@ -34,35 +34,64 @@ struct weatherData {
 }
 
 struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
+struct gridStatistics { float sumProduction, float sumConsumption, float stabilityIndex }
 
+message simStartCmd { string code }
+message simControlCmd { string code }
 message forecastRequest { position pos, datetime dt, int days }
 message weatherReport { weatherData rep, topic int zip }
+message inverterReport { inverterData rep }
+message gridReport { datetime dt, gridStatistics statistics }
 
 
+nodetype simulationSetup {
+    input simStartCmd start
+    output forecastRequest fr
 
-nodetype weatherService(forecastRequest fq --> weatherReport fr) { 
-    input forecastRequest fq2 # some additional input
-    output weatherReport fr2
-    property int blabla
+    aux input simControlCmd cmd
 }
 
-node ws1(forecastRequest fq --> weatherReport fr) 
+nodetype weatherService {
+    input forecastRequest fr
+    output weatherReport wr
 
-node weatherService ws2
+    property string provider
+}
+# node weatherServiceImplicit(forecastRequest fq --> weatherReport fr) 
 
-defs {
-    
-    nodetype weatherServiceNew(forecastRequest fq --> weatherReport fr) { 
-        input forecastRequest fq2 # some additional input
-        output weatherReport fr2
-        property int blabla
-    }               
+nodetype inverter {
+    input weatherReport wr
+    output inverterReport ir
 
-    defs2 {
-        node weatherServiceNew ws2
-    }
+    property position pos
+    property int pvPeakProductionPower
+    property string housetype
+    property int area
+    property int residents
 }
 
-node weatherService ws3
+nodetype grid {
+    input inverterReport ir
+    output gridReport gr    
+}
+
+
+node simulationSetup sim
+node weatherService wsMain
+node inverter system1
+node inverter system2
+node inverter system3
+node grid trafo
+
+sim --> wsMain
+wsMain --> system1
+wsMain --> system2
+wsMain --> system3
+system1 --> trafo
+system2 --> trafo
+system3 --> trafo
+
+
+
 
 

@@ -129,6 +129,13 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTypedefStatement([NotNull] SidlParser.TypedefStatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>nodeConnectionStatement</c>
+	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.scope"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -254,6 +261,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitTypedefstatement([NotNull] SidlParser.TypedefstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodeconnectionstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodeconnectionstatement([NotNull] SidlParser.NodeconnectionstatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.functiondefinition"/>.
 	/// </summary>

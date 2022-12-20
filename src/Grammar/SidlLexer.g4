@@ -27,6 +27,7 @@ TYPEDEF             : 'typedef';
 IMPORT              : 'import';
 INCLUDE             : 'include';
 PROPERTY            : 'property';
+AUX                 : 'aux';
 TOPIC               : 'topic';
 INPUT               : 'input';
 OUTPUT              : 'output';
