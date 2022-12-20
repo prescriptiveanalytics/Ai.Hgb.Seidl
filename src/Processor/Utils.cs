@@ -60,7 +60,7 @@ namespace Sidl.Processor {
     }
 
     private static bool CheckAtomicTypeValue(int typeCode, int valueCode) => typeCode switch {
-      SidlLexer.STRING  => valueCode == SidlLexer.STRINGLITEARL,
+      SidlLexer.STRING  => valueCode == SidlLexer.STRINGLITERAL,
       SidlLexer.INT     => valueCode == SidlLexer.INTEGER,
       SidlLexer.FLOAT   => valueCode == SidlLexer.FLOATINGPOINTNUMBER,
       SidlLexer.BOOL    => valueCode == SidlLexer.TRUE || valueCode == SidlLexer.FALSE,

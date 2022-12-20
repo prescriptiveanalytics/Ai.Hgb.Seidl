@@ -1,4 +1,5 @@
-# import "./baseconfig.sdl" # global only - TODO
+import "https://spa.at/repository/resinet/nodetypes.3l" # global only - TODO!!!
+import "https://spa.at/repository/methods/base.sid" as methods # TODO: rule und keyword
 
 string host = "127.0.0.1"
 int port = 15387
@@ -15,7 +16,7 @@ foo {
 
     # nodes 2
     {        
-        string bar = "hola"
+        string bar = "bar"
     }
 
     float testX = 4.2
@@ -23,6 +24,12 @@ foo {
 }
 
 struct position { float lat, float lng }
+
+# ?????????????????????
+position system1Position = { lat=48.19302087495124, lng=14.478925546543083 } # 4470
+position system2Position = { lat=48.19196264796769, lng=14.478049650304536 } # 4481
+position system3Position = { lat=48.19188458637711, lng=14.479029731933009 } # 4020
+
 typedef string datetime
 
 struct weatherData { 
@@ -49,6 +56,8 @@ nodetype simulationSetup {
     output forecastRequest fr
 
     aux input simControlCmd cmd
+    property int updateFrequencySeconds
+    property position[] positions # TODO!!!
 }
 
 nodetype weatherService {
@@ -57,13 +66,13 @@ nodetype weatherService {
 
     property string provider
 }
-# node weatherServiceImplicit(forecastRequest fq --> weatherReport fr) 
 
 nodetype inverter {
     input weatherReport wr
     output inverterReport ir
 
     property position pos
+    property int zip
     property int pvPeakProductionPower
     property string housetype
     property int area
@@ -75,13 +84,22 @@ nodetype grid {
     output gridReport gr    
 }
 
+# node instantiations:
+# ====================================
 
-node simulationSetup sim
+node simulationSetup sim (updateFrequencySeconds=60, positions=[system1Position, system2Position, system3Position]) # !!! TODO !!!
+
 node weatherService wsMain
-node inverter system1
-node inverter system2
-node inverter system3
+
+node inverter system1 ( pos=system1Position, zip=4470, pvPeakProductionPower=6800, housetype="house", area=135, residents=2 )
+node inverter system2 ( pos=system2Position, zip=4481, pvPeakProductionPower=12000, housetype="house", area=230, residents=4 )
+node inverter system3 ( pos=system3Position, zip=4020, pvPeakProductionPower=3200, housetype="flat", area=120, residents=3 )
+
 node grid trafo
+
+
+# node connection:
+# ====================================
 
 sim --> wsMain
 wsMain --> system1

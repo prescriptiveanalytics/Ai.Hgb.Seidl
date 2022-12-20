@@ -179,6 +179,19 @@ namespace Sidl.Processor {
       } else { // alternative 3         
         node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
 
+        // alternative 3.1: with constructor
+        var constructor = def.nodeconstructor();
+        if (constructor != null) {
+          var asslist = constructor.assignmentlist();
+          for (int i = 0; i < asslist.assignment().Length; i++) {
+            var ass = asslist.assignment(i);
+            var varname = ass.variable().GetText();
+            var exp = ass.expression();
+
+            // TODO: evaluate expression, check compability, store value
+          }
+        }
+
       }
 
       if(name != null && node != null)

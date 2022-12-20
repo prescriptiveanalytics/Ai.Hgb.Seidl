@@ -178,6 +178,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTypename([NotNull] SidlParser.TypenameContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nestedvariable"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNestedvariable([NotNull] SidlParser.NestedvariableContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.atomictypeortypename"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -225,6 +231,18 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitExpression([NotNull] SidlParser.ExpressionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.assignmentlist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAssignmentlist([NotNull] SidlParser.AssignmentlistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.assignment"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAssignment([NotNull] SidlParser.AssignmentContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.arraydeclaration"/>.
 	/// </summary>
@@ -369,6 +387,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNodebodyproperty([NotNull] SidlParser.NodebodypropertyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodeconstructor"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodeconstructor([NotNull] SidlParser.NodeconstructorContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.metadefinition"/>.
 	/// </summary>

@@ -24,19 +24,20 @@ set // = global scope
     ;
 
 statement
-    : terminator                                                #terminatorStatement         
-    | scope                                                     #scopeStatement
-    | (atomictype | typename) variablelist terminator           #declarationStatement
-    | variablelist '=' expressionlist terminator                #assignmentStatement
-    | (atomictype | typename) variablelist '=' expressionlist   terminator #definitionStatement    
-    | structdefinition                                          #structDefinitionStatement
-    | messagedefinition                                         #messageDefinitionStatement
-    | nodetypedefinition                                        #nodetypeDefinitionStatement
-    | nodedefinition                                            #nodeDefinitionStatement
-    | metadefinition                                            #metaDefinitionStatement
-    | importstatement terminator                                #importStatement
-    | typedefstatement terminator                               #typedefStatement
-    | nodeconnectionstatement terminator                        #nodeConnectionStatement
+    : terminator                                                            #terminatorStatement         
+    | scope                                                                 #scopeStatement
+    | (atomictype | typename) variablelist terminator                       #declarationStatement
+    | variablelist '=' expressionlist terminator                            #assignmentStatement
+    | (atomictype | typename) variablelist '=' expressionlist               #definitionStatement    
+    | structdefinition                                                      #structDefinitionStatement
+    // | structinstantiation                                                   #structInstantiationStatement // not necessary: handled by expression-rule
+    | messagedefinition                                                     #messageDefinitionStatement
+    | nodetypedefinition                                                    #nodetypeDefinitionStatement
+    | nodedefinition                                                        #nodeDefinitionStatement
+    | metadefinition                                                        #metaDefinitionStatement
+    | importstatement                                                       #importStatement
+    | typedefstatement terminator                                           #typedefStatement
+    | nodeconnectionstatement terminator                                    #nodeConnectionStatement
 
     // not yet in use
     // | functiondefinition
@@ -54,6 +55,7 @@ scope // = block scope
 type
     : atomictype | complextype
     | atomictype '[]' | complextype '[]'
+    | typename '[]'
     ;
 
 atomictype
@@ -74,6 +76,10 @@ variable
 
 typename
     : NAME
+    ;
+
+nestedvariable
+    : NAME '.' NAME ('.' NAME)*
     ;
 
 atomictypeortypename
@@ -110,8 +116,21 @@ expression
     | number
     | string
     | variable    
+    | nestedvariable
     | functiondefinition | functioncall
     | importstatement
+    | assignmentlist
+    | '{' assignmentlist? '}'
+    | '[' variablelist?  ']'
+    ;
+
+assignmentlist
+    : assignment (',' assignment)*
+    ;
+
+assignment
+    : variable '=' expression
+    | nestedvariable '=' expression
     ;
 
 arraydeclaration
@@ -136,7 +155,9 @@ lefthandside
 
 importstatement
     : IMPORT variable
-    | IMPORT STRINGLITEARL
+    | IMPORT STRINGLITERAL
+    | IMPORT from=variable AS to=variable
+    | IMPORT STRINGLITERAL AS variable
     ;
 
 typedefstatement
@@ -182,6 +203,11 @@ structdefinition
     : STRUCT variable '{' structpropertylist '}'
     ;
 
+// not necessary: handled by expression-rule
+// structinstantiation
+//     : typename variable '=' '{' assignmentlist? '}'
+//     ;
+
 // move up/down
 messagetypename
     : NAME
@@ -212,6 +238,7 @@ nodedefinition
     : NODE variable '{' nodebody '}' // using implicit nodetype
     | NODE variable nodetypesignature ('{' nodebody '}')? // using implicit nodetype
     | NODE typename variable // using explicit nodetype
+    | NODE typename variable nodeconstructor // using explicit nodetype and constructor
     ;
 
 nodebody
@@ -233,6 +260,10 @@ nodebodyproperty
     : PROPERTY (type | typename) variablelist    
     ;
 
+nodeconstructor
+    : '(' assignmentlist? ')'
+    ;
+
 
 metadefinition
     : META variable '{'
@@ -248,7 +279,7 @@ number
     ;
 
 string
-    : STRINGLITEARL //NORMALSTRING | CHARSTRING | LONGSTRING
+    : STRINGLITERAL //NORMALSTRING | CHARSTRING | LONGSTRING
     ;
 
 boolean

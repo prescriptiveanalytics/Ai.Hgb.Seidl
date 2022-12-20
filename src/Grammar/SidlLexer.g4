@@ -41,6 +41,7 @@ FOR                 : 'for';
 IN                  : 'in';
 WHILE               : 'while';
 RETURN              : 'return';
+AS                  : 'as';
 
 // Operators
 
@@ -91,7 +92,7 @@ fragment NEWLINE
 
 NAME                  : [a-zA-Z_][a-zA-Z_0-9]*;
 WORD                  : (LOWERCASE | UPPERCASE)+;
-STRINGLITEARL            : '"'.*? '"'; // note: LITERAL postfix necessary due to already used keyword
+STRINGLITERAL            : '"'.*? '"'; // note: LITERAL postfix necessary due to already used keyword
 NORMALSTRING          : '"' ( ESCAPESEQUENCE | ~('\\'|'"') )* '"';
 CHARSTRING            : '\'' ( ESCAPESEQUENCE | ~('\''|'\\') )* '\'';
 LONGSTRING            : '[' NESTEDSTRING ']';
