@@ -1,0 +1,64 @@
+# struct and message type definitions
+
+struct position { float lat, float lng }
+
+position system1Position = { lat=48.19302087495124, lng=14.478925546543083 } # 4470
+position system2Position = { lat=48.19196264796769, lng=14.478049650304536 } # 4481
+position system3Position = { lat=48.19188458637711, lng=14.479029731933009 } # 4020
+
+typedef string datetime
+
+struct weatherData { 
+
+    float globalRadiation,
+    float airTemperature
+    ,
+    float humidity
+}
+
+struct inverterData { float pvPowerProduced, float powerConsumed, float batterySOC }
+struct gridStatistics { float sumProduction, float sumConsumption, float stabilityIndex }
+
+message simStartCmd { string code }
+message simControlCmd { string code }
+message forecastRequest { position pos, datetime dt, int days }
+message weatherReport { weatherData rep, topic int zip }
+message inverterReport { inverterData rep }
+message gridReport { datetime dt, gridStatistics statistics }
+
+
+
+# nodetype definitions
+
+nodetype simulationSetup {
+    input simStartCmd start
+    output forecastRequest fr
+
+    aux input simControlCmd cmd
+    property int updateFrequencySeconds
+    property position[] positions
+}
+
+nodetype weatherService {
+    input forecastRequest fr
+    output weatherReport wr
+
+    property string provider
+}
+
+nodetype inverter {
+    input weatherReport wr
+    output inverterReport ir
+
+    property position pos
+    property int zip
+    property int pvPeakProductionPower
+    property string housetype
+    property int area
+    property int residents
+}
+
+nodetype grid {
+    input inverterReport ir
+    output gridReport gr    
+}

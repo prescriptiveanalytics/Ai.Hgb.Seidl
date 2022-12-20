@@ -27,6 +27,7 @@ namespace Sidl.Processor {
 
   public class ScopedSymbolTableVisitor : SidlParserBaseVisitor<object?> {
 
+    public string programTextUrl;
     public ScopedSymbolTable scopedSymbolTable;
     private Scope currentScope;
 
@@ -239,6 +240,34 @@ namespace Sidl.Processor {
         sink.Sources.Add(sourceName);
       }
 
+
+      return null;
+    }
+
+    public override object VisitImportStatement([NotNull] SidlParser.ImportStatementContext context) {
+      var stmt = context.importstatement();
+      //var url = stmt.STRINGLITERAL().GetText();
+      var url = stmt.@string().GetText().Trim('\"');
+
+      if (!string.IsNullOrWhiteSpace(url)) {
+        string fp = url;
+        if(!File.Exists(fp)) {
+          string dir = Path.GetDirectoryName(Path.GetFullPath(programTextUrl));
+          fp = Path.Combine(dir, url);
+        }
+
+        var programText = Utils.ReadFile(fp);
+        var parser = Utils.TokenizeAndParse(programText);
+        var linter = new Linter(parser);
+        linter.ProgramTextUrl = fp;
+
+        var sst = linter.CreateScopedSymbolTable();
+        var readScope = sst.Global;
+
+        // integrate read scope to current one
+        foreach (var s in readScope.Symbols) currentScope.Symbols.Add(s.Key, s.Value);
+        foreach (var s in readScope.ChildScopes) currentScope.ChildScopes.Add(s.Key, s.Value); 
+      }
 
       return null;
     }

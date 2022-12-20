@@ -13,7 +13,13 @@ namespace Sidl.Processor {
       set { _parser = value; } 
     }
 
+    public string ProgramTextUrl {
+      get { return _programTextUrl; }
+      set { _programTextUrl = value; } 
+    }
+
     private SidlParser _parser;
+    private string _programTextUrl;
 
     public Linter(SidlParser parser) {
       _parser = parser; 
@@ -21,6 +27,8 @@ namespace Sidl.Processor {
 
     public ScopedSymbolTable CreateScopedSymbolTableSecured() {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
+      scopedSymbolTableVisitor.programTextUrl = _programTextUrl;
+
       SidlParser.RootContext rootContext = _parser.root();
       try {
         scopedSymbolTableVisitor.Visit(rootContext);

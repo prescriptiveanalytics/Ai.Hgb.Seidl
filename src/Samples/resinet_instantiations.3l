@@ -1,0 +1,44 @@
+import "C:\\dev\\workspaces\\spa\\Sidl\\src\\Samples\\resinet_definitions.3l" # importing pre-configured nodetypes
+
+
+
+# node instantiations
+
+node simulationSetup sim ( updateFrequencySeconds=60, positions=[system1Position, system2Position, system3Position])
+node weatherService wsMain
+node inverter system1 ( pos=system1Position, zip=4470, pvPeakProductionPower=6800, housetype="house", area=135, residents=2 )
+node inverter system2 ( pos=system2Position, zip=4481, pvPeakProductionPower=12000, housetype="house", area=230, residents=4 )
+node inverter system3 ( pos=system3Position, zip=4020, pvPeakProductionPower=3200, housetype="flat", area=120, residents=3 )
+node grid trafo
+
+
+
+# node connections
+
+sim --> wsMain
+wsMain --> system1
+wsMain --> system2
+wsMain --> system3
+system1 --> trafo
+system2 --> trafo
+system3 --> trafo
+
+
+
+# scope demo
+
+foo {    
+    string version = "v1"    
+
+    bar {
+        string meaning = "foo beyond all recognition"
+    }
+
+    # anonymous scope
+    {        
+        int answer = 42
+    }
+
+    float answerDivTen = 4.2
+    bool no = true
+}

@@ -6,13 +6,15 @@ using System.Text;
 namespace Sidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
+    //public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
+    public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";
 
     static void Main(string[] args) {
+      string fp =Path.GetFullPath(demoTextFilePath);
 
       Console.WriteLine("DSL Processor Demo\n");
       Console.WriteLine(" - Reading file...");
-      string programText = Utils.ReadFile(demoTextFilePath);
+      string programText = Utils.ReadFile(fp);
 
       Console.WriteLine(" - Parsing program...");
       SidlParser parser = Utils.TokenizeAndParse(programText);
@@ -20,6 +22,7 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
 
       Console.WriteLine(" - Analyzing program...");
       Linter linter = new Linter(parser);
+      linter.ProgramTextUrl = fp;
          
       var table = linter.CreateScopedSymbolTableSecured();
 

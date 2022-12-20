@@ -160,9 +160,9 @@ lefthandside
 
 importstatement
     : IMPORT variable
-    | IMPORT STRINGLITERAL
+    | IMPORT string
     | IMPORT from=variable AS to=variable
-    | IMPORT STRINGLITERAL AS variable
+    | IMPORT string AS variable
     ;
 
 typedefstatement
