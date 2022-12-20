@@ -42,6 +42,7 @@ IN                  : 'in';
 WHILE               : 'while';
 RETURN              : 'return';
 AS                  : 'as';
+IMITATES            : 'imitates';
 
 // Operators
 

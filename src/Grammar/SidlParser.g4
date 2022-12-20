@@ -38,6 +38,7 @@ statement
     | importstatement                                                       #importStatement
     | typedefstatement terminator                                           #typedefStatement
     | nodeconnectionstatement terminator                                    #nodeConnectionStatement
+    | surrogatedefinitionstatement terminator                               #surrogateDefinitionStatement
 
     // not yet in use
     // | functiondefinition
@@ -78,8 +79,12 @@ typename
     : NAME
     ;
 
-nestedvariable
+nestedtypename // TODO: update that
     : NAME '.' NAME ('.' NAME)*
+    ;
+
+propertyname
+    : NAME ('.' NAME)*
     ;
 
 atomictypeortypename
@@ -116,7 +121,7 @@ expression
     | number
     | string
     | variable    
-    | nestedvariable
+    | nestedtypename
     | functiondefinition | functioncall
     | importstatement
     | assignmentlist
@@ -130,7 +135,7 @@ assignmentlist
 
 assignment
     : variable '=' expression
-    | nestedvariable '=' expression
+    | nestedtypename '=' expression
     ;
 
 arraydeclaration
@@ -166,6 +171,11 @@ typedefstatement
 
 nodeconnectionstatement
     : source=typename '-->' sink=typename
+    ;
+
+surrogatedefinitionstatement
+    : propertyname typename IMITATES variable
+    | propertyname typename IMITATES variable '{' assignmentlist? '}'
     ;
 
 functiondefinition

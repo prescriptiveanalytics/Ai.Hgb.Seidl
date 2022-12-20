@@ -1,31 +1,40 @@
-import "https://spa.at/repository/resinet/nodetypes.3l" # global only - TODO!!!
-import "https://spa.at/repository/methods/base.sid" as methods # TODO: rule und keyword
+import "https://spa.at/repository/resinet/nodetypes.3l" # importing pre-configured nodetypes
+import "https://spa.at/repository/methods/base.sid:latest" as methods # importing ml methods to create surrogates later on
+
+
+
+# atomic-typed definitions
 
 string host = "127.0.0.1"
 int port = 15387
 string basetopic = "resinet"
 
-# Demo 1:
+
+
+# scope demo
+
 foo {    
     string version = "v1"    
 
-    # nodes 1
-    {
-        int bar = 200
+    bar {
+        string meaning = "f_u_ beyond all recognition"
     }
 
-    # nodes 2
+    # anonymous scope
     {        
-        string bar = "bar"
+        int answer = 42
     }
 
-    float testX = 4.2
-    
+    float answerDivTen = 4.2
+    bool no = true
 }
+
+
+
+# struct and message type definitions
 
 struct position { float lat, float lng }
 
-# ?????????????????????
 position system1Position = { lat=48.19302087495124, lng=14.478925546543083 } # 4470
 position system2Position = { lat=48.19196264796769, lng=14.478049650304536 } # 4481
 position system3Position = { lat=48.19188458637711, lng=14.479029731933009 } # 4020
@@ -51,13 +60,16 @@ message inverterReport { inverterData rep }
 message gridReport { datetime dt, gridStatistics statistics }
 
 
+
+# nodetype definitions
+
 nodetype simulationSetup {
     input simStartCmd start
     output forecastRequest fr
 
     aux input simControlCmd cmd
     property int updateFrequencySeconds
-    property position[] positions # TODO!!!
+    property position[] positions
 }
 
 nodetype weatherService {
@@ -84,22 +96,20 @@ nodetype grid {
     output gridReport gr    
 }
 
-# node instantiations:
-# ====================================
 
-node simulationSetup sim (updateFrequencySeconds=60, positions=[system1Position, system2Position, system3Position]) # !!! TODO !!!
 
+# node instantiations
+
+node simulationSetup sim ( updateFrequencySeconds=60, positions=[system1Position, system2Position, system3Position])
 node weatherService wsMain
-
 node inverter system1 ( pos=system1Position, zip=4470, pvPeakProductionPower=6800, housetype="house", area=135, residents=2 )
 node inverter system2 ( pos=system2Position, zip=4481, pvPeakProductionPower=12000, housetype="house", area=230, residents=4 )
 node inverter system3 ( pos=system3Position, zip=4020, pvPeakProductionPower=3200, housetype="flat", area=120, residents=3 )
-
 node grid trafo
+node 
 
 
-# node connection:
-# ====================================
+# node connections
 
 sim --> wsMain
 wsMain --> system1
@@ -111,5 +121,14 @@ system3 --> trafo
 
 
 
+# surrogate definitions
 
+methods.gpservice surrogate1 imitates system1
+methods.gpservice surrogate2 imitates system2 { treeSize = 50 }
+methods.privacypreservingRf surrogate3 imitates system3 {
+    m = 0.5,
+    r = 0.3,
+    trees = 100,
+    obfuscationRuns = 10
+}
 

@@ -181,7 +181,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
-					message: "All good. Have a Seidl, Prost!",
+					message: "All good!",
 					source: 'Sidl-Linter'
 				};
 				diagnostics.push(diagnostic);
@@ -200,7 +200,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 				const diagnostic: Diagnostic = {
 					severity: DiagnosticSeverity.Warning,
 					range: {
-						start: textDocument.positionAt(0),
+						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
 					message: `${result.data}`,

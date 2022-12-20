@@ -136,6 +136,13 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>surrogateDefinitionStatement</c>
+	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSurrogateDefinitionStatement([NotNull] SidlParser.SurrogateDefinitionStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.scope"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -178,11 +185,17 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTypename([NotNull] SidlParser.TypenameContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nestedvariable"/>.
+	/// Visit a parse tree produced by <see cref="SidlParser.nestedtypename"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitNestedvariable([NotNull] SidlParser.NestedvariableContext context);
+	Result VisitNestedtypename([NotNull] SidlParser.NestedtypenameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.propertyname"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPropertyname([NotNull] SidlParser.PropertynameContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.atomictypeortypename"/>.
 	/// </summary>
@@ -285,6 +298,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNodeconnectionstatement([NotNull] SidlParser.NodeconnectionstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.surrogatedefinitionstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSurrogatedefinitionstatement([NotNull] SidlParser.SurrogatedefinitionstatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.functiondefinition"/>.
 	/// </summary>
