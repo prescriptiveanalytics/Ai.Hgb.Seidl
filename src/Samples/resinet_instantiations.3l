@@ -25,6 +25,7 @@ system3 --> trafo
 
 
 
+
 # scope demo
 
 foo {    
@@ -39,6 +40,6 @@ foo {
         int answer = 42
     }
 
-    float answerDivTen = 4.2
+    #float answerDivTen = 4.2
     bool no = true
 }

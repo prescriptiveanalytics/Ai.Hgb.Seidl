@@ -1,0 +1,19 @@
+html,
+body {
+  font-family: Open-Sans, Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  line-height: 1.4;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  background-color: #FFFFFF;
+}
+
+
+
+#graph {
+	display: block;
+	height: 100%;
+}
+

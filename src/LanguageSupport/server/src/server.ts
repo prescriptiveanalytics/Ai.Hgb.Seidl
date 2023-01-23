@@ -5,6 +5,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
+import * as http from 'http';
+// import { Server } from "socket.io";
+import { Server } from "socket.io";
 
 import {
 	createConnection,
@@ -30,6 +33,45 @@ import {
 import axios from 'axios';
 // DO NOT DO THIS IF SHARING PRIVATE DATA WITH SERVICE
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+
+// socket.io
+
+// const httpsServer = https.createServer({
+// 	key: fs.readFileSync(path.join(__dirname, '..', '..', 'resources', 'cert', 'server.key')),
+// 	cert:  fs.readFileSync(path.join(__dirname, '..', '..', 'resources', 'cert', 'server.cert'))
+//  });
+
+const httpServer = http.createServer();
+const io = new  Server(httpServer, {
+	cors: {
+		origin: '*'
+	}
+});	
+httpServer.listen(3000);
+
+io.on("connection", (socket) => {	
+	console.log("client ", socket.id, " is connected");
+	
+	const query = socket.handshake.query;
+	const roomName = query.roomName;
+	if(!roomName) {
+		// handle this
+	} else {
+		socket.join(roomName.toString());
+		console.log("client ", socket.id, "joind room: ", roomName.toString());		
+
+		socket.on("initGraph", (data) => {			
+			getGraph(data.rootdoctext).then(result => {				
+				if(result != null) {
+					// panel.webview.postMessage({cmd: "init", text: rootDoc.getText(), graph:result.graph}); // comm v1
+					io.to(roomName).emit("msg", {cmd: "init", graph:result.graph});
+				}
+			});
+		});
+	}
+});
+
+
 
 // Create a connection for the server, using Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -154,9 +196,15 @@ documents.onDidClose(e => {
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
 	validateTextDocument(change.document);
-	// console.log("FILE: " + change.document.uri);
+	const room = change.document.uri;
 	
-	// TODO: get GraphRecord, send to hange.document.uri-Topic
+	// commu v2
+	getGraph(change.document.getText()).then(result => {		
+		if(result != null) {
+			// panel.webview.postMessage({cmd: "init", text: rootDoc.getText(), graph:result.graph}); // comm v1
+			io.to(room).emit("msg", {cmd: "egaaaal", graph:result.graph});
+		}
+	});
 });
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
@@ -524,3 +572,56 @@ async function validateProgramText(text: string) : Promise<{status:integer, data
 // 	const data = await response.json();
 // 	return data as Array<string>;
 // };
+
+
+
+
+
+
+
+// Webview "Graph": client-managed update
+
+type NodeRecord = {
+	name: string;
+}
+
+type EdgeRecord = {
+	name: string;
+	from: string;
+	to: string;
+	payload: string;
+}
+
+type GraphRecord = {
+	nodes: Array<NodeRecord>;
+	edges: Array<EdgeRecord>;
+}
+
+// https://dev.to/tuasegun/cleaner-and-better-way-for-calling-apis-with-axios-in-your-react-typescript-applications-3d3k
+async function getGraph(text: string) : Promise<{status:integer, graph:GraphRecord}> {
+
+	try {
+		const { data, status } = await axios.post<GraphRecord>(
+			'https://localhost:7059/sidl/lsp/visualization/graph',
+			{ programText: text },
+			{
+				httpsAgent,
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+			},
+		);		
+		// console.log(status);
+		// console.log(JSON.stringify(data, null, 4));
+		return {status, graph:data};
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			console.log('error message: ', error.message);					
+			return { status:500, graph:{nodes:[], edges:[]} };
+		} else {
+			console.log('unexpected error: ', error);
+			return { status:500, graph:{nodes:[], edges:[]} };
+		}
+	}
+}
