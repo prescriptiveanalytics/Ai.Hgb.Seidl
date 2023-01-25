@@ -17,8 +17,13 @@ import {
 	ServerOptions,
 	TransportKind
 } from 'vscode-languageclient/node';
-
 let client: LanguageClient;
+
+import { Config } from './interfaces/config';
+// // eslint-disable-next-line @typescript-eslint/no-var-requires
+// const config: Config = require('../config.json');
+import * as _config from './config.json';
+const config: Config = _config;
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
@@ -65,7 +70,8 @@ export function activate(context: ExtensionContext) {
 
 
 	// webview: graph viewer	
-	const webviewResources = "views/assets";
+	const webviewResources = config.webviewResourcesPath;
+	console.log(config.webviewResourcesPath);
 	// const webviewResources = "resources";
 	const panels = new Map<string, Array<vscode.WebviewPanel>>();	
 
@@ -90,7 +96,9 @@ export function activate(context: ExtensionContext) {
 				if(err) {console.error(err);}				
 				const res = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, webviewResources)));
 				const uri = rootDoc.uri.toString();
-				const filename = rootDoc.fileName;						
+				const filename = rootDoc.fileName;
+				const websocketaddress = config.websocketHost + ':' + config.websocketPort;								
+				const roomname = uri;			
 				panel.webview.html = eval("`" + data.toString() + "`");
 
 				if(!panels.has(rootDoc.fileName)) panels.set(rootDoc.fileName, new Array<vscode.WebviewPanel>());

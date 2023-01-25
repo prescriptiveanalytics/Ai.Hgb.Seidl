@@ -24,11 +24,8 @@ const graphobj = document.getElementById('graphobj');
 
 
 // comm v2: socket.io (lsp server)																				
-const websocketHost = "http://localhost:3000"; // TODO: extract to config file
-var roomName = uri;
-
-var socket = io(websocketHost, {
-	query: { roomName: roomName },
+var socket = io(websocketaddress, {
+	query: { roomName: roomname },
 	rejectUnauthorized: false
 });
 

@@ -22,7 +22,7 @@ module.exports = {
 		"window": true,
 		"io": true,
 		"vis": true,
-		"uri": true,
-		"filename": true
+		"websocketaddress": true,
+		"roomname": true
 	}
 };

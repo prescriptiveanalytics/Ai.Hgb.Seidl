@@ -1,0 +1,8 @@
+{
+	"websocketHost": "http://localhost",   
+    "websocketPort": 3000,	
+	"webviewResourcesPath": "views/assets",
+    "settings": {
+		"foo": "bar"		
+	}
+}

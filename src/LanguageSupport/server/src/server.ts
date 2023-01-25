@@ -30,6 +30,11 @@ import {
 	TextDocument
 } from 'vscode-languageserver-textdocument';
 
+
+import { Config } from './interfaces/config';
+import * as _config from './config.json';
+const config: Config = _config;
+
 import axios from 'axios';
 // DO NOT DO THIS IF SHARING PRIVATE DATA WITH SERVICE
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
@@ -47,7 +52,7 @@ const io = new  Server(httpServer, {
 		origin: '*'
 	}
 });	
-httpServer.listen(3000);
+httpServer.listen(config.websocketPort);
 
 io.on("connection", (socket) => {	
 	console.log("client ", socket.id, " is connected");
@@ -202,7 +207,7 @@ documents.onDidChangeContent(change => {
 	getGraph(change.document.getText()).then(result => {		
 		if(result != null) {
 			// panel.webview.postMessage({cmd: "init", text: rootDoc.getText(), graph:result.graph}); // comm v1
-			io.to(room).emit("msg", {cmd: "egaaaal", graph:result.graph});
+			io.to(room).emit("msg", {cmd: "update", graph:result.graph});
 		}
 	});
 });
@@ -229,7 +234,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
-					message: "All good!",
+					message: "Validation result: no errors detected.",
 					source: 'Sidl-Linter'
 				};
 				diagnostics.push(diagnostic);
@@ -240,7 +245,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
-					message: `${result.data}`,
+					message: "Validation result: " + `${result.data}`,
 					source: 'Sidl-Linter'
 				};
 				diagnostics.push(diagnostic);
@@ -251,7 +256,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
-					message: `${result.data}`,
+					message: "Validation result: " + `${result.data}`,
 					source: 'Sidl-Linter'
 				};
 				diagnostics.push(diagnostic);
@@ -480,7 +485,7 @@ async function loadBasetypeKeywordsAsync() {
 	// return btkeys;
 	try {
 		const { data, status } = await axios.get<Array<string>>(
-			'https://localhost:7059/sidl/lsp/basetypes',
+			config.languageServiceAddress + '/basetypes',
 			{
 				httpsAgent,
 				headers: {
@@ -505,7 +510,7 @@ async function loadBasetypeKeywordsAsync() {
 async function loadNodetypesForContextAsync(text: string, line: integer, character: integer) {
 	try {		
 		const { data, status } = await axios.post<Array<string>>(
-			'https://localhost:7059/sidl/lsp/nodetypes',
+			config.languageServiceAddress + '/nodetypes',
 			{ programText: text, line: line, character: character },
 			{
 				httpsAgent,
@@ -533,7 +538,7 @@ async function validateProgramText(text: string) : Promise<{status:integer, data
 
 	try {
 		const { data, status } = await axios.post<string>(
-			'https://localhost:7059/sidl/lsp/validate',
+			config.languageServiceAddress + '/validate',
 			{ programText: text },
 			{
 				httpsAgent,
@@ -602,7 +607,7 @@ async function getGraph(text: string) : Promise<{status:integer, graph:GraphReco
 
 	try {
 		const { data, status } = await axios.post<GraphRecord>(
-			'https://localhost:7059/sidl/lsp/visualization/graph',
+			config.languageServiceAddress + '/visualization/graph',
 			{ programText: text },
 			{
 				httpsAgent,

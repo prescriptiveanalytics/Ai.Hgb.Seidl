@@ -1,0 +1,8 @@
+{
+	"websocketHost": "http://localhost",   
+    "websocketPort": 3000,
+	"languageServiceAddress": "https://localhost:7059/sidl/lsp",	
+    "settings": {
+		"foo": "bar"		
+	}
+}
