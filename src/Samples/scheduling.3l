@@ -1,0 +1,103 @@
+##### messages / types
+typedef string Datetime
+
+# generic structs
+struct Range { Datetime start, Datetime end }
+
+# @FH: I always get errors when defining any arrays
+# Are arrays not supported in structs / message?
+# processingTimes / numberOfMachines should be an array
+struct TaillardProblem {int processingTimes, int order, int numberOfMachines, int numberOfJobs}
+struct Task {string machineId, string jobId, string operationId, int processingTime}
+struct SolutionCandidate {Task tasks}
+struct Objective {string name, float value}
+
+# MachineInformation/UnavailablePeriod should be a array
+struct UnavailablePeriod {Range range, string reason}
+struct MachineInformation {string machineId, UnavailablePeriod unavailablePeriods}
+struct ShopFloorInformation {string shopFloorId, MachineInformation machineInformation}
+
+message GenerateRequest {int time, int numberOfMachines, int numberOfJobs}
+message SchedulingRequest {TaillardProblem problem}
+message EvaluationRequest {SolutionCandidate sc, TaillardProblem problem}
+# objectives should be an array
+message EvaluationResponse {Objectives objectives, string source}
+message TrainingSample {EvaluationRequest request, EvaluationResponse response}
+message MachineInformationRequest {string shopFloorIdentifier}
+message MachineInformationResponse {string shopFloorIdentifier}
+
+
+
+##### nodes
+nodetype TimerService {
+    # generates scheduling problems - in the real world this can be replaced by other data sources
+    output GenerateRequest request
+
+    property int updateFrequencyInSeconds
+}
+nodetype ProblemGenerator {
+    # generates scheduling problems - in the real world this can be replaced by other data sources
+    input GenerateRequest request
+    output SchedulingRequest schedulingRequest
+}
+
+nodetype MachineInformationService {
+    # node knows about information of the machine (available times etc.)
+    input MachineInformationRequest request
+    input MachineInformationResponse response
+}
+
+nodetype OptimizationService {
+    input EvaluationRequest request
+    output EvaluationRequest response
+
+    property string[] objectives
+}
+
+
+# evaluation node which falls back to simulation / approximation with surrogate / ...
+nodetype FitnessEvaluationSimulation {
+    input EvaluationRequest request
+    output EvaluationResponse response
+
+    property string[] objectives
+}
+
+nodetype FitnessSurrogate {
+    # learns from the same request as the simulation
+    input EvaluationRequest request
+    output EvaluationResponse response
+}
+
+nodetype Sink {
+    # saves the candidate as the current best - for visualization / ...
+    input EvaluationRequest request
+    output EvaluationResponse response
+}
+
+# instantiations
+# @FH: when you find a surrogate we automatically need a service which takes (request + response) and does some normalization (for training)
+# Then when the targetPerformance is reached we need to add another service which actual acts as a surrogate
+# FitnessSurrogate surrogate imitates fitnessEvaluation {
+#     targetPerformance = 0.8
+#     performanceMeasure = "MAPE"
+# }
+
+# string[] objectives = ["c-max", "t-j"]
+objectives = "c-max"
+
+node TimerService timer(updateFrequencyInSeconds=600)
+node ProblemGenerator generator()
+node MachineInformationService machineInformation()
+node OptimizationService optimization(objectives=objectives)
+node FitnessEvaluationSimulation simulation(objectives=objectives)
+node FitnessSurrogate surrogate()
+node Sink sink()
+
+##### Graph
+# @FH: in some of those cases the communication is bidirectional - is a single arrow enough?
+timer --> generator
+generator --> machineInformation
+generator --> optimization
+optimization --> simulation
+optimization --> sink
