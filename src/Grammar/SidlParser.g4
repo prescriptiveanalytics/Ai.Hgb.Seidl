@@ -60,6 +60,12 @@ type
     ;
 
 atomictype
+    atomictype_end |
+    atomictype_end '[]'
+    // : INT | FLOAT | STRING | BOOL
+    ;
+atomictype_end
+    
     : INT | FLOAT | STRING | BOOL
     ;
 

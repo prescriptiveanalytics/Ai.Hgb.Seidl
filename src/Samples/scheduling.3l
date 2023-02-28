@@ -12,21 +12,26 @@ struct Task {string machineId, string jobId, string operationId, int processingT
 struct SolutionCandidate {Task tasks}
 struct Objective {string name, float value}
 
+
 # MachineInformation/UnavailablePeriod should be a array
-struct UnavailablePeriod {Range range, string reason}
+struct UnavailablePeriod {Range range, string reason} #@FH rethink the integration of ENUMS for e.g., reasons
 struct MachineInformation {string machineId, UnavailablePeriod unavailablePeriods}
 struct ShopFloorInformation {string shopFloorId, MachineInformation machineInformation}
 
 message GenerateRequest {int time, int numberOfMachines, int numberOfJobs}
 message SchedulingRequest {TaillardProblem problem}
 message EvaluationRequest {SolutionCandidate sc, TaillardProblem problem}
-# objectives should be an array
+# @FH objectives should be an array
+# message EvaluationResponse {Objective[] objectives, string source}
+# Alternative, but cumbersome:
+typedef Objective[] Objectives
 message EvaluationResponse {Objectives objectives, string source}
 message TrainingSample {EvaluationRequest request, EvaluationResponse response}
 message MachineInformationRequest {string shopFloorIdentifier}
 message MachineInformationResponse {string shopFloorIdentifier}
 
 
+# @FH  notetype declaration requires default values for properties
 
 ##### nodes
 nodetype TimerService {
@@ -73,29 +78,32 @@ nodetype Sink {
     # saves the candidate as the current best - for visualization / ...
     input EvaluationRequest request
     output EvaluationResponse response
+    property string storagelocationURL
 }
 
-# instantiations
-# @FH: when you find a surrogate we automatically need a service which takes (request + response) and does some normalization (for training)
-# Then when the targetPerformance is reached we need to add another service which actual acts as a surrogate
-# FitnessSurrogate surrogate imitates fitnessEvaluation {
-#     targetPerformance = 0.8
-#     performanceMeasure = "MAPE"
+
+
+# # string[] objectives = ["c-max", "t-j"]
+string objectives = "c-max"
+
+node TimerService timer
+node ProblemGenerator generator
+node MachineInformationService machineInformation
+node OptimizationService optimization
+node FitnessEvaluationSimulation simulation
+node FitnessSurrogate surrogate
+node Sink sink(storagelocationURL = "REST URL")
+
+# # instantiations
+# # @FH: when you find a surrogate we automatically need a service which takes (request + response) and does some normalization (for training)
+# # Then when the targetPerformance is reached we need to add another service which actual acts as a surrogate
+# FitnessSurrogate surrogate imitates simulation {
+#   targetPerformance = 0.8,
+#   performanceMeasure = "MAPE"
 # }
 
-# string[] objectives = ["c-max", "t-j"]
-objectives = "c-max"
-
-node TimerService timer(updateFrequencyInSeconds=600)
-node ProblemGenerator generator()
-node MachineInformationService machineInformation()
-node OptimizationService optimization(objectives=objectives)
-node FitnessEvaluationSimulation simulation(objectives=objectives)
-node FitnessSurrogate surrogate()
-node Sink sink()
-
-##### Graph
-# @FH: in some of those cases the communication is bidirectional - is a single arrow enough?
+# ##### Graph
+# # @FH: in some of those cases the communication is bidirectional - is a single arrow enough?
 timer --> generator
 generator --> machineInformation
 generator --> optimization
