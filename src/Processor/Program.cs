@@ -1,16 +1,23 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using System;
+using System.Diagnostics;
 using System.Text;
 
 namespace Sidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    //public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
-    public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";
+    public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
+    //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";    
 
     static void Main(string[] args) {
-      string fp =Path.GetFullPath(demoTextFilePath);
+      TestRun();
+      //new RuntimeTests().Run();
+    }
+
+
+    public static void TestRun() {
+      string fp = Path.GetFullPath(demoTextFilePath);
 
       Console.WriteLine("DSL Processor Demo\n");
       Console.WriteLine(" - Reading file...");
@@ -23,7 +30,7 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
       Console.WriteLine(" - Analyzing program...");
       Linter linter = new Linter(parser);
       linter.ProgramTextUrl = fp;
-         
+
       var table = linter.CreateScopedSymbolTableSecured();
 
       //var scopesX = table.Scopes;
@@ -36,8 +43,6 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
 
       Console.WriteLine("\n\n\nEnd of processing.");
     }
-
-
 
 
 

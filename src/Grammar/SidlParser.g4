@@ -171,6 +171,7 @@ typedefstatement
 
 nodeconnectionstatement
     : source=typename '-->' sink=typename
+    | sources=variablelist '-->' sinks=variablelist
     ;
 
 surrogatedefinitionstatement

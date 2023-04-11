@@ -12,7 +12,6 @@ node inverter system3 ( pos=system3Position, zip=4020, pvPeakProductionPower=320
 node grid trafo
 
 
-
 # node connections
 
 sim --> wsMain

@@ -225,21 +225,60 @@ namespace Sidl.Processor {
 
     public override object VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context) {
       var stmt = context.nodeconnectionstatement();
-      var sourceName = stmt.source.GetText();
-      var sinkName = stmt.sink.GetText();
+      var sourceNames = new List<string>();
+      var sinkNames = new List<string>();
 
-      Node source = null, sink = null;
-
-      if (!string.IsNullOrWhiteSpace(sourceName) && scopedSymbolTable[currentScope, sourceName]?.Type is Node)
-        source = (Node)scopedSymbolTable[currentScope, sourceName].Type;
-      if (!string.IsNullOrWhiteSpace(sourceName) && scopedSymbolTable[currentScope, sinkName]?.Type is Node)
-        sink = (Node)scopedSymbolTable[currentScope, sinkName].Type;
-
-      if(source != null && sink != null) {
-        source.Sinks.Add(sinkName);
-        sink.Sources.Add(sourceName);
+      if (stmt.sources != null) { // list of typenames
+        sourceNames.AddRange(stmt.sources.variable().Select(x => x.GetText()));
+        sinkNames.AddRange(stmt.sinks.variable().Select(x => x.GetText()));
+      }
+      else { // single typename
+        sourceNames.Add(stmt.source.GetText());
+        sinkNames.Add(stmt.sink.GetText());
       }
 
+      var sources = new List<Node>();
+      var sinks = new List<Node>();
+      var checkedSourceNames = new List<string>();
+      var checkedSinkNames = new List<string>();
+
+      // check and collect valid nodes
+      foreach (var sourceName in sourceNames) {
+        if (scopedSymbolTable[currentScope, sourceName]?.Type is Node) {
+          sources.Add((Node)scopedSymbolTable[currentScope, sourceName].Type);
+          checkedSourceNames.Add(sourceName);
+        }
+      }
+
+      foreach (var sinkName in sinkNames) {
+        if (scopedSymbolTable[currentScope, sinkName]?.Type is Node) {
+          sinks.Add((Node)scopedSymbolTable[currentScope, sinkName].Type);
+          checkedSinkNames.Add(sinkName);
+        }
+      }
+
+      // perform connection
+      foreach (var source in sources) source.Sinks.AddRange(checkedSinkNames);
+      foreach (var sink in sinks) sink.Sources.AddRange(checkedSourceNames);
+
+
+
+
+
+      //var sourceName = stmt.source.GetText();
+      //var sinkName = stmt.sink.GetText();
+
+      //Node source = null, sink = null;
+
+      //if (!string.IsNullOrWhiteSpace(sourceName) && scopedSymbolTable[currentScope, sourceName]?.Type is Node)
+      //  source = (Node)scopedSymbolTable[currentScope, sourceName].Type;
+      //if (!string.IsNullOrWhiteSpace(sourceName) && scopedSymbolTable[currentScope, sinkName]?.Type is Node)
+      //  sink = (Node)scopedSymbolTable[currentScope, sinkName].Type;
+
+      //if (source != null && sink != null) {
+      //  source.Sinks.Add(sinkName);
+      //  sink.Sources.Add(sourceName);
+      //}
 
       return null;
     }
