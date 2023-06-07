@@ -1,36 +1,3 @@
-#import "https://spa.at/repository/resinet/nodetypes.3l" # importing pre-configured nodetypes
-#import "https://spa.at/repository/methods/base.sid:latest" as methods # importing ml methods to create surrogates later on
-
-
-
-# atomic-typed definitions
-
-string host = "127.0.0.1"
-int port = 15387
-string basetopic = "resinet"
-
-
-
-# scope demo
-
-foo {    
-    string version = "v1"    
-
-    bar {
-        string meaning = "f_u_ beyond all recognition"
-    }
-
-    # anonymous scope
-    {        
-        int answer = 42
-    }
-
-    float answerDivTen = 4.2
-    bool no = true
-}
-
-
-
 # struct and message type definitions
 
 struct position { float lat, float lng }
@@ -97,7 +64,6 @@ nodetype grid {
 }
 
 
-
 # node instantiations
 
 node simulationSetup sim ( updateFrequencySeconds=60, positions=[system1Position, system2Position, system3Position])
@@ -107,26 +73,16 @@ node inverter system2 ( pos=system2Position, zip=4481, pvPeakProductionPower=120
 node inverter system3 ( pos=system3Position, zip=4020, pvPeakProductionPower=3200, housetype="flat", area=120, residents=3 )
 node grid trafo
 
+{}
+
+
 
 # node connections
 
-sim --> wsMain
-wsMain --> system1
-wsMain --> system2
-wsMain --> system3
-#system1,system2,system3 --> trafo
-system1,system2,system3 --> system1,system2,system3
-
-
-
-
-# surrogate definitions
-
-# methods.gpservice surrogate1 imitates system1
-# methods.gpservice surrogate2 imitates system2 { treeSize = 50 }
-# methods.privacypreservingRf surrogate3 imitates system3 {
-#     m = 0.5,
-#     r = 0.3,
-#     trees = 100,
-#     obfuscationRuns = 10
-# }
+# sim --> wsMain
+# wsMain --> system1
+# wsMain --> system2
+# wsMain --> system3
+# system1 --> trafo
+# system2 --> trafo
+# system3 --> trafo

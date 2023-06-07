@@ -11,8 +11,8 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
     //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";    
 
     static void Main(string[] args) {
-      TestRun();
-      //new RuntimeTests().Run();
+      //TestRun();
+      new RuntimeTests().Run();
     }
 
 

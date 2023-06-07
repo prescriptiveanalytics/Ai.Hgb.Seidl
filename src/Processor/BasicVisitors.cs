@@ -225,6 +225,7 @@ namespace Sidl.Processor {
 
     public override object VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context) {
       var stmt = context.nodeconnectionstatement();
+      // new:
       var sourceNames = new List<string>();
       var sinkNames = new List<string>();
 
@@ -237,10 +238,10 @@ namespace Sidl.Processor {
         sinkNames.Add(stmt.sink.GetText());
       }
 
-      var sources = new List<Node>();
-      var sinks = new List<Node>();
-      var checkedSourceNames = new List<string>();
-      var checkedSinkNames = new List<string>();
+      var sources = new List<Node>(sourceNames.Count);
+      var sinks = new List<Node>(sinkNames.Count);
+      var checkedSourceNames = new List<string>(sourceNames.Count);
+      var checkedSinkNames = new List<string>(sinkNames.Count);
 
       // check and collect valid nodes
       foreach (var sourceName in sourceNames) {
@@ -263,8 +264,7 @@ namespace Sidl.Processor {
 
 
 
-
-
+      // old
       //var sourceName = stmt.source.GetText();
       //var sinkName = stmt.sink.GetText();
 

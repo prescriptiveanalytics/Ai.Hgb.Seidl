@@ -1,0 +1,59 @@
+struct Position { float lat, float lng }
+
+message Command { string cmd }
+message StatusReport { float fillState }
+message StatusRequest { }
+message WeatherRequest { Position pos }
+message WeatherReport { float precipitation }
+
+
+nodetype SimulationClock {
+    output Command pulse
+    property int frequency
+}
+
+nodetype Vessel {    
+    # main data flow
+    input Command pulse 
+    output StatusReport status
+    # respond to neighbor vessels
+    aux input StatusRequest sreqIn 
+    aux output StatusReport srepOut
+    # request from neighbor vessels
+    aux output StatusRequest sreqOut 
+    aux input StatusReport srepIn 
+    # weather data
+    aux output WeatherRequest wreq 
+    aux input WeatherReport wrep
+
+    property float V, Vmax, A, Ao, Ac, d, 
+    property Position pos    
+}
+
+nodetype WeatherService {
+    input WeatherRequest wreq
+    output WeatherReport wrep
+    property string provider
+}
+
+nodetype Monitor {
+    input StatusReport rep
+}
+
+# import "https://<...>/comvesmon_definitions"
+
+node SimulationClock sim ( frequency=1000 )
+node Vessel v1 ( V=250.0, Vmax=750.0 A=75.0, Ao=1.0, Ac=5.0, b=0.05 )
+node Vessel v2 ( V=350.0, Vmax=850.0 A=50.0, Ao=1.5, Ac=3.5, b=0.10 )
+# ...
+node Vessel v6 ( V=125.0, Vmax=500.0 A=45.0, Ao=0.5, Ac=4.0, b=0.00 )
+node WeatherService ws (provider="GeoSphere")
+node Monitor mon ()
+
+sim --> v1, v2, ... v6
+v1 --> v6, v2
+v2 --> v1, v3
+# ... 
+v6 --> v5, v1
+v1, v2, ... v6 <--> ws
+v1, v2, ... v6 --> mon

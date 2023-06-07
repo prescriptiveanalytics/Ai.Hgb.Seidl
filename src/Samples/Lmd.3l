@@ -1,0 +1,74 @@
+struct LmdParameters { int laserPower, float velocity, float powderFlowRate }
+message LmdStatus {int layer, int pos, LmdParameters params }
+message Measurement {int pos, float dis }
+message Report {int layer, int pos, float dev}
+message CorrectionRequest { int layer }
+message Correction { int layer, int pos, LmdParameters params }
+
+nodetype LmdSystem {
+    output LmdStatus status
+    aux output CorrectionRequest creq
+    aux input Correction cor
+    
+    property LmdParameters params
+}
+nodetype Sensor { output Measurement distance }
+
+nodetype DataAnalysisService {
+    input LmdStatus status
+    input Measurement distance
+    output Report rep
+    aux input CorrectionRequest creq
+    aux output Correction cor
+}
+nodetype Monitor {
+    input Report rep
+    input LmdStatus lmdStatus # optional
+ }
+
+
+
+ # import "https://<...>/comvesmon_definitions"
+
+ # node instanciation
+ node Sensor sen (x=null)
+ node DataAnalysisService das ( x=null )
+ node Monitor mon ( x=null )
+ node LmdSystem lmd ( LmdParameters={ laserPower=1500, velocity=0.75, powderFlowRate=0.5} )
+
+
+
+# node connection
+lmd --> das
+sen --> das 
+lmd --> das
+das --> mon 
+das --> lm
+
+
+
+
+
+
+
+
+
+
+
+# scope demo
+
+foo {    
+    string version = "v1"    
+
+    bar {
+        string meaning = "foo beyond all recognition"
+    }
+
+    # anonymous scope
+    {        
+        int answer = 42
+    }
+
+    #float answerDivTen = 4.2
+    bool no = true
+}
