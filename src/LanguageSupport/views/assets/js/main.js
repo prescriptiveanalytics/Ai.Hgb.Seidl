@@ -39,6 +39,7 @@ socket.on("msg", (payload) => {
 
 	if (graphInitialized) {
 		processGraph(graph);
+		console.log(graph);
 	} else {
 		initGraph(graph);
 		graphInitialized = true;

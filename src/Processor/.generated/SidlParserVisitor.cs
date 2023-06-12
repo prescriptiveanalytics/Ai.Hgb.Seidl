@@ -94,6 +94,13 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitMessageDefinitionStatement([NotNull] SidlParser.MessageDefinitionStatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>edgetypeDefinitionStatement</c>
+	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEdgetypeDefinitionStatement([NotNull] SidlParser.EdgetypeDefinitionStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>nodetypeDefinitionStatement</c>
 	/// labeled alternative in <see cref="SidlParser.statement"/>.
 	/// </summary>
@@ -353,6 +360,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodetypename([NotNull] SidlParser.NodetypenameContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.edgetypename"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEdgetypename([NotNull] SidlParser.EdgetypenameContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.messagetypelist"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -364,6 +377,18 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMessagedefinition([NotNull] SidlParser.MessagedefinitionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.edgetypedefinition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEdgetypedefinition([NotNull] SidlParser.EdgetypedefinitionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.edgetypebody"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEdgetypebody([NotNull] SidlParser.EdgetypebodyContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.nodetypedefinition"/>.
 	/// </summary>
@@ -395,6 +420,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodebodyinout([NotNull] SidlParser.NodebodyinoutContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.inoutoption"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInoutoption([NotNull] SidlParser.InoutoptionContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyinclude"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -406,6 +437,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNodebodyproperty([NotNull] SidlParser.NodebodypropertyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyclientserver"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodebodyclientserver([NotNull] SidlParser.NodebodyclientserverContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.nodeconstructor"/>.
 	/// </summary>

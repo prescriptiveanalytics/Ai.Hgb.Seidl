@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -319,20 +320,19 @@ namespace Sidl.Data {
     public Dictionary<string, Message> Inputs { get; set; }
     public Dictionary<string, Message> Outputs { get; set; }
 
-    public Dictionary<string, Message> AuxInputs { get; set; }
-    public Dictionary<string, Message> AuxOutputs { get; set; }
-
     public List<string> Sources { get; set; }
     public List<string> Sinks { get; set; }
+
+    public List<Edge> Edges { get; set; }
+    
 
     public Node(bool addDefaultMetaProperties = true) {
       Properties = new Dictionary<string, IType>();
       Inputs = new Dictionary<string, Message>();
       Outputs = new Dictionary<string, Message>();
-      AuxInputs = new Dictionary<string, Message>();
-      AuxOutputs = new Dictionary<string, Message>();
       Sources = new List<string>();
       Sinks = new List<string>();
+      Edges = new List<Edge>();
       if (addDefaultMetaProperties) AddDefaultMetaProperties();
     }
 
@@ -346,8 +346,6 @@ namespace Sidl.Data {
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());
-      foreach (var i in AuxInputs) n.AuxInputs.Add(i.Key, (Message)i.Value.ShallowCopy());
-      foreach (var i in AuxOutputs) n.AuxOutputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Sources) n.Sources.Add(i);
       foreach (var i in Sinks) n.Sinks.Add(i);
 
@@ -359,8 +357,6 @@ namespace Sidl.Data {
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.DeepCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.DeepCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.DeepCopy());
-      foreach (var i in AuxInputs) n.AuxInputs.Add(i.Key, (Message)i.Value.DeepCopy());
-      foreach (var i in AuxOutputs) n.AuxOutputs.Add(i.Key, (Message)i.Value.DeepCopy());
       foreach (var i in Sources) n.Sources.Add(i);
       foreach (var i in Sinks) n.Sinks.Add(i);
 
@@ -374,6 +370,44 @@ namespace Sidl.Data {
     public override string GetValueString() {      
       return $"{string.Join(", ", Inputs.Keys)} --> {string.Join(", ", Outputs.Keys)}";
     }
+  }
+
+  public class Edge : Type, IGraphType {
+
+    public string From { get; set; }
+    public string To { get; set; }
+
+    public string Port { get; set; }
+
+    public string Type { get; set; }
+
+    public Edge(string from, string to, string port, string type) {
+      From = from;
+      To = to;
+      Port = port;
+      Type = type;
+    }
+
+    public override IType DeepCopy() {
+      return new Edge(this.From, this.To, this.Port, this.Type);
+    }
+
+    public override IType ShallowCopy() {
+      return new Edge(this.From, this.To, this.Port, this.Type);
+    }
+
+    public override string GetIdentifier() {
+      return "edge";
+    }
+
+    public override string GetValueString() {
+      return $"{Port}: {From}{Type}{To}";
+    }
+  }
+
+  public static class EdgeType {
+    public static readonly string PubSub = "-->";
+    public static readonly string ReqRes = "==>";
   }
 
   public class Meta : Type, IGraphType {
@@ -402,6 +436,47 @@ namespace Sidl.Data {
     public override string GetValueString() {
       return Properties != null && Properties.Keys.Count > 0 ? string.Join(", ", Properties.Keys) : "";
     }
+  }
+
+  //public class EdgeType : Enumeration {
+  //  public static EdgeType PubSub => new(1, "-->");
+  //  public static EdgeType ReqRes => new(2, "==>");
+
+  //  public EdgeType(int id, string name)
+  //      : base(id, name) {
+  //  }
+  //}
+
+  public abstract class Enumeration : IComparable {
+    public string Name { get; private set; }
+
+    public int Id { get; private set; }
+
+    protected Enumeration(int id, string name) => (Id, Name) = (id, name);
+
+    public override string ToString() => Name;
+
+    public static IEnumerable<T> GetAll<T>() where T : Enumeration =>
+        typeof(T).GetFields(BindingFlags.Public |
+                            BindingFlags.Static |
+                            BindingFlags.DeclaredOnly)
+                 .Select(f => f.GetValue(null))
+                 .Cast<T>();
+
+    public override bool Equals(object obj) {
+      if (obj is not Enumeration otherValue) {
+        return false;
+      }
+
+      var typeMatches = GetType().Equals(obj.GetType());
+      var valueMatches = Id.Equals(otherValue.Id);
+
+      return typeMatches && valueMatches;
+    }
+
+    public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
+
+    // Other utility methods ...
   }
 
   #endregion data structures

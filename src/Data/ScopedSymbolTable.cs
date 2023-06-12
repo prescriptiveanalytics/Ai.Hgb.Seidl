@@ -317,23 +317,33 @@ namespace Sidl.Data {
       var nodes = GetSymbolsDownstream()
         .Where(x => x.Type is Node && !x.IsTypedef);        
 
+      var edges = GetSymbolsDownstream()
+        .Where(x => x.Type is Edge && !x.IsTypedef);
+
+
       foreach(var nodeSymbol in nodes) {
         nodeRecs.Add(new NodeRecord(nodeSymbol.Name));
         var nodeValue = (Node)nodeSymbol.Type;
 
-        foreach (var source in nodeValue.Sources) {
-          string id = $"{source}-->{nodeSymbol.Name}";
-          string payload = ""; // nodeValue.Inputs.Select(x => x.Value.GetValueString()).First()
-          edgeRecs.Add(new EdgeRecord(id, source, nodeSymbol.Name, payload));
-        }
+        //foreach (var source in nodeValue.Sources) {
+        //  string id = $"{source}-->{nodeSymbol.Name}";
+        //  string payload = ""; // nodeValue.Inputs.Select(x => x.Value.GetValueString()).First()
+        //  edgeRecs.Add(new EdgeRecord(id, source, nodeSymbol.Name, payload));
+        //}
 
-        foreach (var sink in nodeValue.Sinks) {
-          string id = $"{nodeSymbol.Name}-->{sink}";
-          string payload = ""; // nodeValue.Outputs.Select(x => x.Value.GetValueString()).First()
-          edgeRecs.Add(new EdgeRecord(id, nodeSymbol.Name, sink, payload));
-        }
+        //foreach (var sink in nodeValue.Sinks) {
+        //  string id = $"{nodeSymbol.Name}-->{sink}";
+        //  string payload = ""; // nodeValue.Outputs.Select(x => x.Value.GetValueString()).First()
+        //  edgeRecs.Add(new EdgeRecord(id, nodeSymbol.Name, sink, payload));
+        //}
+      }
 
-
+      var edgesDist = edges.Distinct();
+      foreach (var edgeSymbol in edges.Distinct()) {
+        var edge = (Edge)edgeSymbol.Type;
+        string id = $"{edgeSymbol.Name}";
+        string payload = "";
+        edgeRecs.Add(new EdgeRecord(id, edge.From, edge.To, edge.Type, payload));
       }
 
       return new GraphRecord(nodeRecs, edgeRecs);

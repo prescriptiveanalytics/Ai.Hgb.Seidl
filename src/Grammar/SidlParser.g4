@@ -32,6 +32,7 @@ statement
     | structdefinition                                                      #structDefinitionStatement
     // | structinstantiation                                                   #structInstantiationStatement // not necessary: handled by expression-rule
     | messagedefinition                                                     #messageDefinitionStatement
+    | edgetypedefinition                                                    #edgetypeDefinitionStatement
     | nodetypedefinition                                                    #nodetypeDefinitionStatement
     | nodedefinition                                                        #nodeDefinitionStatement
     | metadefinition                                                        #metaDefinitionStatement
@@ -172,6 +173,8 @@ typedefstatement
 nodeconnectionstatement
     : source=typename '-->' sink=typename
     | sources=variablelist '-->' sinks=variablelist
+    | source=typename '==>' sink=typename
+    | sources=variablelist '==>' sinks=variablelist
     ;
 
 surrogatedefinitionstatement
@@ -228,12 +231,28 @@ nodetypename
     : NAME
     ;
 
+edgetypename
+    : NAME
+    ;
+
 messagetypelist    
     : messagetypename variable (',' messagetypename variable)*
     ;
 
 messagedefinition    
     : MESSAGE messagetypename '{' messageparameterlist? '}'
+    ;
+
+edgetypedefinition
+    : EDGETYPE edgetypename '{' edgetypebody '}'
+    ;
+
+edgetypebody
+    : (
+        REQUEST messagetypename
+        | RESPONSE messagetypename
+        | terminator
+        )*
     ;
 
 nodetypedefinition
@@ -255,6 +274,7 @@ nodedefinition
 nodebody
     : (
         inout=nodebodyinout 
+        | clientserver=nodebodyclientserver
         | include=nodebodyinclude
         | property=nodebodyproperty
         | terminator
@@ -262,13 +282,25 @@ nodebody
     ;
 
 nodebodyinout
-    : AUX? (INPUT | OUTPUT) messagetypelist
+    : INPUT messagetypelist
+    | OUTPUT messagetypelist
+    | INPUT '[' inoutoption ']' messagetypelist
+    | OUTPUT '[' inoutoption ']' messagetypelist
     ;
+
+inoutoption
+    : (AUX | REQ | RES | REQUEST | RESPONSE | PUB | SUB | PUBLISH | SUBSCRIBE) ':' NAME
+    ;
+
 nodebodyinclude
     : INCLUDE variable
     ;
 nodebodyproperty
     : PROPERTY (type | typename) variablelist    
+    ;
+
+nodebodyclientserver
+    : (CLIENT | SERVER) edgetypename NAME
     ;
 
 nodeconstructor

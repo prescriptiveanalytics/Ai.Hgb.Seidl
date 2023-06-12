@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 // https://stackoverflow.com/questions/887205/tutorial-for-walking-antlr-asts-in-c
 // https://tomassetti.me/best-practices-for-antlr-parsers/
@@ -184,12 +185,14 @@ namespace Sidl.Processor {
         var constructor = def.nodeconstructor();
         if (constructor != null) {
           var asslist = constructor.assignmentlist();
-          for (int i = 0; i < asslist.assignment().Length; i++) {
-            var ass = asslist.assignment(i);
-            var varname = ass.variable().GetText();
-            var exp = ass.expression();
+          if(asslist != null) {
+            for (int i = 0; i < asslist.assignment().Length; i++) {
+              var ass = asslist.assignment(i);
+              var varname = ass.variable().GetText();
+              var exp = ass.expression();
 
-            // TODO: evaluate expression, check compability, store value
+              // TODO: evaluate expression, check compability, store value
+            }
           }
         }
 
@@ -238,10 +241,13 @@ namespace Sidl.Processor {
         sinkNames.Add(stmt.sink.GetText());
       }
 
+      var etype = stmt.ARROW() != null ? EdgeType.PubSub : EdgeType.ReqRes;
+
       var sources = new List<Node>(sourceNames.Count);
       var sinks = new List<Node>(sinkNames.Count);
       var checkedSourceNames = new List<string>(sourceNames.Count);
-      var checkedSinkNames = new List<string>(sinkNames.Count);
+      var checkedSinkNames = new List<string>(sinkNames.Count);      
+      
 
       // check and collect valid nodes
       foreach (var sourceName in sourceNames) {
@@ -262,6 +268,16 @@ namespace Sidl.Processor {
       foreach (var source in sources) source.Sinks.AddRange(checkedSinkNames);
       foreach (var sink in sinks) sink.Sources.AddRange(checkedSourceNames);
 
+      // collect and persist edges
+      foreach(var sourceName in checkedSourceNames) {
+        foreach(var sinkName in checkedSinkNames) {
+          var edge =new Edge(sourceName, sinkName, "", etype);
+          ((Node)scopedSymbolTable[currentScope, sourceName].Type).Edges.Add(edge);
+          ((Node)scopedSymbolTable[currentScope, sinkName].Type).Edges.Add(edge);
+          var name = sourceName+ etype + sinkName; // todo: add port
+          scopedSymbolTable.AddSymbol(name, edge, currentScope, false);
+        }
+      }
 
 
       // old
@@ -327,7 +343,7 @@ namespace Sidl.Processor {
     private void ReadNodeBody(SidlParser.NodebodyContext body, Node node) {             
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
-          var aux = body.inout.AUX();
+          
           var input = body.inout.INPUT();
 
           var msgname = body.inout.messagetypelist().variable(i).GetText();
@@ -335,10 +351,8 @@ namespace Sidl.Processor {
           var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
 
 
-          if (input != null && aux == null) node.Inputs.Add(msgname, msgtype);
-          else if (input != null && aux != null) node.AuxInputs.Add(msgname, msgtype);
-          else if (input == null && aux == null) node.Outputs.Add(msgname, msgtype);
-          else if (input == null && aux != null) node.AuxOutputs.Add(msgname, msgtype);
+          if (input != null) node.Inputs.Add(msgname, msgtype);
+          else if (input == null) node.Outputs.Add(msgname, msgtype);
         }
       } else if (body.include != null) {
         // TODO ?!: only if meta-structures will be implemented.

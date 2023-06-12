@@ -7,19 +7,20 @@
 		{ "include": "#reservedvalues" },
 		{ "include": "#strings"	},
 		{ "include": "#comment" },
-		{ "include": "#graphoperator" }
+		{ "include": "#graphoperator" },
+		{ "include": "#reqresoperator" }
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.sidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|aux input|aux output|as|imitates)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate)\\b"
 			}]
 		},
 		"types": {
 			"patterns": [{
 				"name": "entity.name.type",
-				"match": "\\b(string|int|float|bool|struct|message|nodetype|node)\\b"
+				"match": "\\b(string|int|float|bool|struct|message|edgetype|nodetype|node)\\b"
 			}]
 		},
 		"reservedvalues": {
@@ -49,6 +50,12 @@
 			"patterns": [{
 				"name": "keyword.operator.sidl",
 				"match": "-->"				
+			}]
+		},
+		"reqresoperator": {
+			"patterns": [{
+				"name": "keyword.operator.sidl",
+				"match": "==>"				
 			}]
 		}
 	},

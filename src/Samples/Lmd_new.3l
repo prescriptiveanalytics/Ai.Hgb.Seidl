@@ -5,14 +5,32 @@ message Report {int layer, int pos, float dev}
 message CorrectionRequest { int layer }
 message CorrectionResponse { int layer, int pos, LmdParameters params }
 
+requestresponse Correction(req,res) {
+    CorrectionRequest-->CorrectionResponse
+}
+
 edgetype Correction {
-    request CorrectionRequest
+    request CorrectionRequest 
     response CorrectionResponse
 }
 
 nodetype LmdSystem {
     output LmdStatus status
+    # output[req:correction] CorrectionRequest creq
+    # input[res:correction] Correction cor
+
     client Correction cor
+    # request Correction corr(creq, cor)
+    publish LmdStatus status
+    
+    LmdStatus status()
+    CorrectionRequest correction(CorrectionResponse cres)
+    CorrectionRequest c2(CorrectionResponse c1)
+    
+    request correction {
+        output CorrectionRequest creq
+        input CorrectionResponse cor
+    }
     
     property LmdParameters params
 }
@@ -22,8 +40,19 @@ nodetype DataAnalysisService {
     input LmdStatus status
     input Measurement distance
     output Report rep
-    
+
+    subscribe status(LmdStatus)
+    status(LmdStatus)
+
     server Correction cor
+
+    response correction {
+        output CorrectionRequest creq
+        input CorrectionResponse cor
+    }
+
+    # input[req:foo] CorrectionRequest creq
+    # output[res:foo] Correction cor
 }
 nodetype Monitor {
     input Report rep
@@ -45,4 +74,33 @@ nodetype Monitor {
 # node connection
 lmd, sen --> das
 das --> mon 
-lmd ==> das
+lmd =[]=> das
+
+
+
+
+
+
+
+
+
+
+
+
+# scope demo
+
+foo {    
+    string version = "v1"    
+
+    bar {
+        string meaning = "foo beyond all recognition"
+    }
+
+    # anonymous scope
+    {        
+        int answer = 42
+    }
+
+    #float answerDivTen = 4.2
+    bool no = true
+}
