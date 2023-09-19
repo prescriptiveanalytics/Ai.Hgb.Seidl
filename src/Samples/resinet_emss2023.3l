@@ -1,0 +1,107 @@
+#import "https://spa.at/repository/resinet/nodetypes.3l" # importing pre-configured nodetypes
+#import "https://spa.at/repository/methods/base.sid:latest" as methods # importing ml methods to create surrogates later on
+
+# atomic-typed definitions
+
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "resinet"
+
+
+
+
+# struct and message type definitions
+
+struct Position { float lat, float lng }
+Position sys1Position = { lat=48.19302087495124, lng=14.478925546543083 } # 4470
+Position sys2Position = { lat=48.19196264796769, lng=14.478049650304536 } # 4481
+Position sys3Position = { lat=48.19188458637711, lng=14.479029731933009 } # 4020
+
+typedef string datetime
+struct GridStatistics { float sumProduction, float sumConsumption, float stabilityIndex }
+
+message Command { string cmd }
+message ForecastRequest { Position pos, datetime dt, int days }
+message WeatherReport { float globalRadiation, float airTemperature, float humidity }
+message InverterReport { float pvPowerProduced, float powerConsumed, float batterySOC }
+message GridReport { datetime dt, GridStatistics statistics }
+
+# node and edge type definitions
+nodetype SimulationClock {
+    output Command pulse
+    property int frequency }
+    
+edgetype Weather {
+    request ForecastRequest
+    response WeatherReport }
+nodetype WeatherService {
+    property string provider
+    server Weather w }
+
+nodetype Inverter {
+    input Command pulse
+    output InverterReport ir
+
+    # request weather {
+    #     output ForecastRequest fr
+    #     input WeatherReport wr
+    # }
+    output ForecastRequest fr
+    input WeatherReport wr
+
+    property position pos
+    property int zip
+    property int pvPeakProductionPower
+    property string housetype
+    property int area
+    property int residents
+}
+
+nodetype Grid {
+    input InverterReport ir
+    output GridReport gr    
+}
+
+
+
+# node instantiations
+node SimulationClock sim(updateFrequencySeconds=60, positions=[sys1Position, sys2Position, sys3Position])
+node WeatherService ws
+node Inverter sys1(pos=sys1Position, zip=4470, pvPeakProductionPower=6800, housetype="house", area=135, residents=2)
+node Inverter sys2(pos=sys2Position, zip=4481, pvPeakProductionPower=12000, housetype="house", area=230, residents=4)
+node Inverter sys3(pos=sys3Position, zip=4020, pvPeakProductionPower=3200, housetype="flat", area=120, residents=3)
+node Grid trafo
+
+
+
+
+
+# node connections
+sim --> sys1, sys2, sys3
+sys1, sys2, sys3  ==> ws
+sys1, sys2, sys3 --> trafo
+
+
+
+
+# surrogate definitions
+# methods.gpservice surrogate1 imitates sys3
+# methods.gpservice surrogate2 imitates sys3 { treeSize = 50 }
+methods.privacypreservingRf surrogate3 imitates sys3 {
+    m = 0.5,
+    r = 0.3,
+    trees = 100,
+    obfuscationRuns = 10
+}
+
+
+
+
+
+
+
+
+
+foo {
+    int x = 123
+}

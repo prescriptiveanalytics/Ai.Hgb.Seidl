@@ -46,3 +46,7 @@ nodetype Monitor {
 lmd, sen --> das
 das --> mon 
 lmd ==> das
+
+foo {
+    
+}
