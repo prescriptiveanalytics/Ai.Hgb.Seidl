@@ -46,8 +46,8 @@ nodetype Inverter {
     #     output ForecastRequest fr
     #     input WeatherReport wr
     # }
-    output ForecastRequest fr
-    input WeatherReport wr
+    output ForecastRequest fr # TODO: publish
+    input WeatherReport wr # TODO: consume
 
     property position pos
     property int zip
@@ -72,10 +72,6 @@ node Inverter sys2(pos=sys2Position, zip=4481, pvPeakProductionPower=12000, hous
 node Inverter sys3(pos=sys3Position, zip=4020, pvPeakProductionPower=3200, housetype="flat", area=120, residents=3)
 node Grid trafo
 
-
-
-
-
 # node connections
 sim --> sys1, sys2, sys3
 sys1, sys2, sys3  ==> ws
@@ -87,21 +83,22 @@ sys1, sys2, sys3 --> trafo
 # surrogate definitions
 # methods.gpservice surrogate1 imitates sys3
 # methods.gpservice surrogate2 imitates sys3 { treeSize = 50 }
-methods.privacypreservingRf surrogate3 imitates sys3 {
-    m = 0.5,
-    r = 0.3,
-    trees = 100,
-    obfuscationRuns = 10
-}
+# surrogate3 imitates sys3 {
+#     m = 0.5,
+#     r = 0.3,
+#     trees = 100,
+#     obfuscationRuns = 10
+# }
 
 
+# surrogate sur3 for sys3
+
+# surrogate sur3 {
+#     for = sys3.port1-->sys4.port1
+#     with = automl
+# }
 
 
-
-
-
-
-
-foo {
-    int x = 123
-}
+# foo {
+#     int x = 123
+# }

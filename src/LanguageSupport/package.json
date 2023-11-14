@@ -55,11 +55,18 @@
 			"scopeName": "source.sidl",
 			"path": "./syntaxes/sidl.tmLanguage.json"
 		}],
-		"commands": [{
+		"commands": [
+			{
 			  "command": "sidl.visualization.graph.start",
 			  "title": "Graph",
 			  "category": "Sidl Visualizations"
-		}]
+			},
+			{
+				"command": "sidl.visualization.datamonitor.start",
+				"title": "Data Monitor",
+				"category": "Sidl Visualizations"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

@@ -69,12 +69,13 @@ export function activate(context: ExtensionContext) {
 	client.start();	
 
 
-	// webview: graph viewer	
+	// webviews	
 	const webviewResources = config.webviewResourcesPath;
 	console.log(config.webviewResourcesPath);
 	// const webviewResources = "resources";
 	const panels = new Map<string, Array<vscode.WebviewPanel>>();	
 
+	// register graph view
 	context.subscriptions.push(
 		vscode.commands.registerCommand('sidl.visualization.graph.start', () => {
 			// Create and show a new webview
@@ -118,6 +119,44 @@ export function activate(context: ExtensionContext) {
 				panel.webview.postMessage({ cmd: "init", text: rootDoc.getText() });
 			});								
 		})		
+	);
+
+	// register data monitor view
+	context.subscriptions.push(
+		vscode.commands.registerCommand('sidl.visualization.datamonitor.start', () => {
+			// Create and show a new webview
+			const panel = vscode.window.createWebviewPanel(
+				'sidlDatamonitorVisualization', // Identifies the type of the webview. Used internally
+				'Sidl Data Monitor', // Title of the panel displayed to the user
+				vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
+				{ // Webview options. More on these later.
+					enableScripts: true,
+					retainContextWhenHidden: true,
+					// Only allow the webview to access resources in our extension's media directory
+					localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, webviewResources))]					
+				}
+			);
+
+			const rootDoc = vscode.window.activeTextEditor.document;						
+			// panel.webview.html = getWebviewContent(rootDoc.fileName, rootDoc.languageId, rootDoc.uri.toString());
+			fs.readFile(path.join(context.extensionPath,'views','datamonitor_webview.html'),(err,data) => {
+				if(err) {console.error(err);}				
+				const res = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, webviewResources)));
+				const uri = rootDoc.uri.toString();
+				const filename = rootDoc.fileName;
+				const websocketaddress = config.websocketHost + ':' + config.websocketPort;								
+				const roomname = uri;	
+				const topics = ["gae-run-**"];	
+				const mode = "";	
+				panel.webview.html = eval("`" + data.toString() + "`");
+
+				if(!panels.has(rootDoc.fileName)) panels.set(rootDoc.fileName, new Array<vscode.WebviewPanel>());
+				panels.get(rootDoc.fileName).push(panel);
+
+				// v3: use socket.io and init via postMessage(..)
+				panel.webview.postMessage({ cmd: "init", text: rootDoc.getText() });
+			});	
+		})
 	);
 
 	vscode.workspace.onDidChangeTextDocument(function(e) {

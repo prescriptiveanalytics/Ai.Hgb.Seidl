@@ -36,14 +36,17 @@ socket.on("connect", () => {
 socket.on("msg", (payload) => {
 	const cmd = payload.cmd;
 	const graph = payload.graph;
+	console.log(graph);
 
-	if (graphInitialized) {
-		processGraph(graph);
-		console.log(graph);
-	} else {
-		initGraph(graph);
-		graphInitialized = true;
-	}
+	initGraph(graph);
+	graphInitialized = true;
+
+	// if (graphInitialized) {
+	// 	processGraph(graph);		
+	// } else {
+	// 	initGraph(graph);		
+	// 	graphInitialized = true;
+	// }
 });
 
 // comm init
@@ -75,8 +78,13 @@ var nc0 = {
 // vis edgle styles
 // var ec0 = { length: 400, width: 1, color: { color: '#333333' }, dashes: true, arrows: { to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
 // var ec1 = { width: 1, color: { color: '#993333' }, dashes: false, arrows: { from: {enabled:true, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
-var ec0 = { width: 1, color: { color: '#333333' }, dashes: true, arrows: { to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
-var ec1 = { width: 1, color: { color: '333333' }, dashes: false, arrows: { from: {enabled:true, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, smooth: {type: "curvedCCW", roundness: 0.4}, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
+var ec0 = { width: 1, color: { color: '#333333' }, dashes: true, 
+	arrows: { to: { enabled: true, scaleFactor: 0.5 } }, 
+	chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
+var ec1 = { width: 1, color: { color: '333333' }, dashes: false, 
+	arrows: { from: {enabled: false, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, 
+	smooth: { type: "curvedCCW", roundness: 0.4 }, 
+	chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
 
 var cceOnClicked = function (values, id, selected, hovering) {
 	values.width = 2;
@@ -142,12 +150,14 @@ function initGraph(graphrec) {
 	};
 	options = {
 		layout: {
-			hierarchical: {
-				direction: "DU", // DU, LR, 
-				sortMethod: "directed",
-				parentCentralization: true,
-				levelSeparation: 100
-			}
+			improvedLayout: false
+			// hierarchical: {
+			// 	direction: "LR", // DU, LR, 
+			// 	sortMethod: "hubsize", // hubsize, directed
+			// 	parentCentralization: true, // true
+			// 	levelSeparation: 75 // 100
+			// 	// ,shakeTowards: "leaves"
+			// }
 		},
 		edges: {
 			smooth: true

@@ -1,0 +1,84 @@
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "eurocast2024"
+
+
+struct Individual {
+    float value
+    float fit
+}
+
+message ImmigrationRequest { int count }
+message Migrants { Individual population }
+message LocalSearchRequest { int budget, Individual candidate }
+message ImprovedCandidate { Individual candidate }
+
+edgetype Migration {
+    request ImmigrationRequest
+    response Migrants
+}
+
+edgetype Improvement {
+    request LocalSearchRequest
+    response ImprovedCandidate
+}
+
+nodetype PGA { # plugable genetic algorithm
+    property int populationSize
+    property int generations
+    property float maximumSelectionPressure
+    property int mutationRate
+    property float migrationRate
+    property float migrationEpochFailureRate
+    property int localSearchBudget
+
+    # migration client side
+    output ImmigrationRequest immigration
+    input Migrants immigrants
+
+    # migration server side
+    # input ImmigrationRequest inIr
+    # output Migrants outIm
+    server Migration migrationServer
+
+    # local search client side
+    output LocalSearchRequest localSearch
+    input ImprovedCandidate improvedCandidates
+
+    # result collection
+    output Migrants emigrants
+}
+
+nodetype PES { # plugable evolution strategy
+    property string strategy
+    property int mu
+    property int lambda
+
+    # local search server side
+    server Improvement localSearchServer
+}
+
+nodetype Aggregator {
+    property int populationSize
+    input Migrants immigrants
+}
+
+node PGA ga1 (populationSize = 1000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
+node PGA ga2 (populationSize = 5000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
+node PES es (mu = 1, lambda = 1)
+node Aggregator agg (populationSize = 100)
+
+ga1 ==> ga2         # req-res
+ga2 ==> ga1         # req-res
+ga1 ==> es          # req-res
+ga1, ga2 --> agg    # pub-sub
+
+
+
+
+
+
+
+foo {
+    int x = 123
+}
