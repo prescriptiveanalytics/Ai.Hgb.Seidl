@@ -18,6 +18,7 @@ MESSAGE             : 'message';
 EDGETYPE            : 'edgetype';
 NODETYPE            : 'nodetype';
 NODE                : 'node';
+SURROGATE           : 'surrogate';
 META                : 'meta';
 FUNCTION            : 'function';
 
@@ -54,6 +55,7 @@ WHILE               : 'while';
 RETURN              : 'return';
 AS                  : 'as';
 IMITATES            : 'imitates';
+WITH                : 'with';
 
 // Operators
 
@@ -68,6 +70,19 @@ MINUS               : '-';
 DIV                 : '/';
 ARROW               : '-->';
 HEAVYARROW          : '==>';
+QUERYARROW_BEGIN    : '-[';
+QUERYARROW_END      : ']->';
+QUERYHARROW_BEGIN   : '=[';
+QUERYHARROW_END     : ']=>';
+
+EQUAL               : '==';
+UNEQUAL             : '!=';
+GREATERTHAN         : '>';
+GREATEREQUALTHAN    : '>=';
+LESSTHAN            : '<';
+LESSEQUALTHAN       : '<=';
+AND                 : 'and';
+OR                  : 'or';
 
 OPEN_PAREN          : '(';
 CLOSE_PAREN         : ')';

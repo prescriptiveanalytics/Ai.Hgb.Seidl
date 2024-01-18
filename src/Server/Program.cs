@@ -71,6 +71,7 @@ namespace Sidl.Server {
           var sst = ParseSST(req.programText);
           return Results.Ok("ok");
         } catch(Exception exc) {
+          Console.WriteLine(exc.Message);
           return Results.Problem(exc.Message);
         }
       });

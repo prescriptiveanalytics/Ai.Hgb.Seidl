@@ -7,7 +7,8 @@ using System.Text;
 namespace Sidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    public static string demoTextFilePath = @"../../../../Samples/Lmd.3l";
+    public static string demoTextFilePath = @"../../../../Samples/DocPubSub.3l";
+    //public static string demoTextFilePath = @"../../../../Samples/Lmd.3l";
     //public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
     //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";    
 

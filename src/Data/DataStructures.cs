@@ -374,26 +374,28 @@ namespace Sidl.Data {
 
   public class Edge : Type, IGraphType {
 
-    public string From { get; set; }
-    public string To { get; set; }
-
-    public string Port { get; set; }
-
+    public string FromNode { get; set; }
+    public string FromPort { get; set; }
+    public string ToNode { get; set; }
+    public string ToPort { get; set; }
     public string Type { get; set; }
+    public string Query { get; set; }
 
-    public Edge(string from, string to, string port, string type) {
-      From = from;
-      To = to;
-      Port = port;
+    public Edge(string fromNode, string fromPort, string toNode, string toPort, string type, string query) {
+      FromNode = fromNode;
+      FromPort = fromPort;
+      ToNode = toNode;
+      ToPort = toPort;
       Type = type;
+      Query = query;
     }
 
     public override IType DeepCopy() {
-      return new Edge(this.From, this.To, this.Port, this.Type);
+      return new Edge(this.FromNode, this.FromPort, this.ToNode, this.ToPort, this.Type, this.Query);
     }
 
     public override IType ShallowCopy() {
-      return new Edge(this.From, this.To, this.Port, this.Type);
+      return new Edge(this.FromNode, this.FromPort, this.ToNode, this.ToPort, this.Type, this.Query);
     }
 
     public override string GetIdentifier() {
@@ -401,13 +403,15 @@ namespace Sidl.Data {
     }
 
     public override string GetValueString() {
-      return $"{Port}: {From}{Type}{To}";
+      return $"{FromNode}.{FromPort}{Type}{Query}{ToNode}.{ToPort}";
     }
   }
 
   public static class EdgeType {
     public static readonly string PubSub = "-->";
     public static readonly string ReqRes = "==>";
+    public static readonly string PubSubQuery = "-[]->";
+    public static readonly string ReqResQuery = "=[]=>";
   }
 
   public class Meta : Type, IGraphType {

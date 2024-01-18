@@ -68,6 +68,10 @@ complextype
     : STRUCT    
     ;
 
+atomictypeortypename
+    : atomictype | typename
+    ;
+
 graphtype
     : MESSAGE | NODETYPE | NODE | META
     ;
@@ -80,16 +84,12 @@ typename
     : NAME
     ;
 
-nestedtypename // TODO: update that
-    : NAME '.' NAME ('.' NAME)*
+field
+    : variable ('.' variable)*
     ;
 
-propertyname
-    : NAME ('.' NAME)*
-    ;
-
-atomictypeortypename
-    : atomictype | typename
+fieldlist
+    : field (',' field)*
     ;
 
 variablelist
@@ -121,8 +121,8 @@ expression
     | boolean
     | number
     | string
-    | variable    
-    | nestedtypename
+    | variable
+    | field      
     | functiondefinition | functioncall
     | importstatement
     | assignmentlist
@@ -136,7 +136,15 @@ assignmentlist
 
 assignment
     : variable '=' expression
-    | nestedtypename '=' expression
+    | field '=' expression
+    ;
+
+query
+    : field comparator expression
+    ;
+
+comparator
+    : EQUAL | UNEQUAL | GREATERTHAN | GREATEREQUALTHAN | LESSTHAN | LESSEQUALTHAN
     ;
 
 arraydeclaration
@@ -171,15 +179,22 @@ typedefstatement
     ;
 
 nodeconnectionstatement
-    : source=typename '-->' sink=typename
-    | sources=variablelist '-->' sinks=variablelist
-    | source=typename '==>' sink=typename
-    | sources=variablelist '==>' sinks=variablelist
+    : sources=fieldlist '-->' sinks=fieldlist    
+    | sources=fieldlist '==>' sinks=fieldlist    
+    | sources=fieldlist '-[' query ']->' sinks=fieldlist    
+    | sources=fieldlist '=[' query ']=>' sinks=fieldlist    
     ;
 
 surrogatedefinitionstatement
-    : propertyname typename IMITATES variable
-    | propertyname typename IMITATES variable '{' assignmentlist? '}'
+    : SURROGATE variable surrogatebody
+    ;
+
+surrogatebody
+    : '{' (
+        FOR field
+        | WITH field
+        )*
+    '}'
     ;
 
 functiondefinition

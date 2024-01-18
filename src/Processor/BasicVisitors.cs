@@ -228,53 +228,104 @@ namespace Sidl.Processor {
 
     public override object VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context) {
       var stmt = context.nodeconnectionstatement();
-      // new:
-      var sourceNames = new List<string>();
-      var sinkNames = new List<string>();
+      
+      // parse source and sink names (= nodes names with port names)
+      var sourceNames = new List<Tuple<string,string>>();
+      var sinkNames = new List<Tuple<string, string>>();
 
-      if (stmt.sources != null) { // list of typenames
-        sourceNames.AddRange(stmt.sources.variable().Select(x => x.GetText()));
-        sinkNames.AddRange(stmt.sinks.variable().Select(x => x.GetText()));
+      foreach(var from in stmt.sources.field()) {
+        if (from.variable().Length == 1) sourceNames.Add(Tuple.Create(from.variable(0).GetText(), ""));
+        else sourceNames.Add(Tuple.Create(from.variable(0).GetText(), from.variable(1).GetText()));
       }
-      else { // single typename
-        sourceNames.Add(stmt.source.GetText());
-        sinkNames.Add(stmt.sink.GetText());
+      foreach (var to in stmt.sinks.field()) {
+        if (to.variable().Length == 1) sinkNames.Add(Tuple.Create(to.variable(0).GetText(), ""));
+        else sinkNames.Add(Tuple.Create(to.variable(0).GetText(), to.variable(1).GetText()));
       }
 
-      var etype = stmt.ARROW() != null ? EdgeType.PubSub : EdgeType.ReqRes;
+
+
+
+      //if (stmt.sources != null) { // list of type or property names
+      //  sourceNames.AddRange(stmt.sources.variable().Select(x => x.GetText()));
+      //  sinkNames.AddRange(stmt.sinks.variable().Select(x => x.GetText()));
+      //}
+      //else { // single typename
+      //  sourceNames.Add(stmt.source.GetText());
+      //  sinkNames.Add(stmt.sink.GetText());
+      //}
+
+      // parse edge type
+      string edgeType = null;
+      if (stmt.ARROW != null) edgeType = EdgeType.PubSub;
+      else if (stmt.HEAVYARROW != null) edgeType = EdgeType.ReqRes;
+      else if (stmt.QUERYARROW_BEGIN != null) edgeType = EdgeType.PubSubQuery;
+      else if (stmt.QUERYHARROW_BEGIN != null) edgeType = EdgeType.ReqResQuery;
+
+      // parse query
+      string query = null;
+      if(edgeType == EdgeType.PubSubQuery || edgeType == EdgeType.ReqResQuery) {
+        query = stmt.query().Start.Text;
+      }
 
       var sources = new List<Node>(sourceNames.Count);
       var sinks = new List<Node>(sinkNames.Count);
-      var checkedSourceNames = new List<string>(sourceNames.Count);
-      var checkedSinkNames = new List<string>(sinkNames.Count);      
-      
+      var checkedSourceNames = new List<Tuple<string,string>>(sourceNames.Count);
+      var checkedSinkNames = new List<Tuple<string, string>>(sinkNames.Count);            
 
-      // check and collect valid nodes
+      // check and collect valid nodes and node fields
+      // sources
       foreach (var sourceName in sourceNames) {
-        if (scopedSymbolTable[currentScope, sourceName]?.Type is Node) {
-          sources.Add((Node)scopedSymbolTable[currentScope, sourceName].Type);
+        Node source = null;
+        bool checkOk = true;
+        var n = scopedSymbolTable[currentScope, sourceName.Item1];
+        if (n != null && n.Type is Node) source = (Node)n.Type;
+        else checkOk = false;
+
+        if (!string.IsNullOrEmpty(sourceName.Item2) && checkOk) {
+          if (!source.Outputs.Keys.Contains(sourceName.Item2)) checkOk = false;                    
+        }        
+
+        if(checkOk) {
+          sources.Add(source);
           checkedSourceNames.Add(sourceName);
         }
       }
-
+      // sinks
       foreach (var sinkName in sinkNames) {
-        if (scopedSymbolTable[currentScope, sinkName]?.Type is Node) {
-          sinks.Add((Node)scopedSymbolTable[currentScope, sinkName].Type);
+        Node sink = null;
+        bool checkOk = true;
+        var n = scopedSymbolTable[currentScope, sinkName.Item1];
+        if (n != null && n.Type is Node) sink = (Node)n.Type;
+        else checkOk = false;
+
+        if (!string.IsNullOrEmpty(sinkName.Item2) && checkOk) {
+          if (!sink.Inputs.Keys.Contains(sinkName.Item2)) checkOk = false;                    
+        }
+
+        if (checkOk) {
+          sinks.Add(sink);
           checkedSinkNames.Add(sinkName);
         }
       }
+      // old
+      //foreach (var sinkName in sinkNames) {
+      //  if (scopedSymbolTable[currentScope, sinkName]?.Type is Node) {
+      //    sinks.Add((Node)scopedSymbolTable[currentScope, sinkName].Type);
+      //    checkedSinkNames.Add(sinkName);
+      //  }
+      //}
 
       // perform connection
-      foreach (var source in sources) source.Sinks.AddRange(checkedSinkNames);
-      foreach (var sink in sinks) sink.Sources.AddRange(checkedSourceNames);
+      foreach (var source in sources) source.Sinks.AddRange(checkedSinkNames.Select(x => x.Item1));
+      foreach (var sink in sinks) sink.Sources.AddRange(checkedSourceNames.Select(x => x.Item1));
 
       // collect and persist edges
       foreach(var sourceName in checkedSourceNames) {
         foreach(var sinkName in checkedSinkNames) {
-          var edge =new Edge(sourceName, sinkName, "", etype);
-          ((Node)scopedSymbolTable[currentScope, sourceName].Type).Edges.Add(edge);
-          ((Node)scopedSymbolTable[currentScope, sinkName].Type).Edges.Add(edge);
-          var name = sourceName+ etype + sinkName; // todo: add port
+          var edge =new Edge(sourceName.Item1, sourceName.Item2, sinkName.Item1, sinkName.Item2, edgeType, query);
+          ((Node)scopedSymbolTable[currentScope, sourceName.Item1].Type).Edges.Add(edge);
+          ((Node)scopedSymbolTable[currentScope, sinkName.Item1].Type).Edges.Add(edge);
+          var name = sourceName.Item1 + "." + sourceName.Item2 + edgeType + sinkName.Item1 + "." + sinkName.Item2;
           scopedSymbolTable.AddSymbol(name, edge, currentScope, false);
         }
       }

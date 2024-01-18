@@ -9,7 +9,13 @@
     <RootNamespace>Sidl.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
+	<PropertyGroup>
+		<VersionPrefix>0.1.1</VersionPrefix>
+		<VersionSuffix>alpha</VersionSuffix>
+	</PropertyGroup>
+
+
+	<ItemGroup>
     <Compile Include=".generated\SidlLexer.cs" />
     <Compile Include=".generated\SidlParser.cs" />
     <Compile Include=".generated\SidlParserBaseVisitor.cs" />
@@ -22,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.9.2" />
+    <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
     <PackageReference Include="YamlDotNet" Version="13.0.2" />
   </ItemGroup>
 

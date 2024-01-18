@@ -1,0 +1,45 @@
+import "C:/dev/workspaces/spa/Sidl/src/Samples/ism2023_typedefinitions.3l"
+
+
+node EnterpriseRelationshipManagement erp (broker="hagsysb0042", systemcheck=true, frequency=0.5)
+node ManufacturingExecutionSystem mes (monitor=true, rate=0.75)
+node MaterialStore mat (location="loc2", delay=2.5)
+node Machinery m1 (vel=1.4, pres=0.75, queue=true)
+node Machinery m2 (vel=1.2, pres=0.90, queue=true)
+node Machinery m3 (vel=1.8, pres=0.45, queue=false)
+node QualityChecker qc (level=6)
+node Assembler ass (vel=4.2, queue=true)
+node ProductStore pro (location="loc1", dealy=5.5)
+
+# node 
+
+
+
+
+
+
+erp --> mes
+mes ==> mat
+mes --> m1, m2, m3
+m1, m2, m3 --> ass
+ass ==> qc
+ass --> pro
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# foo {
+# }

@@ -1,0 +1,112 @@
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "ism2023"
+
+struct Plan {
+    string name
+}
+struct Component {
+    string name
+}
+
+struct Product {
+    string name
+}
+
+struct Quality {
+    string name
+    float score
+}
+
+message MaterialRequest { string name, int amount }
+message Material { string name }
+message Order { string name, string type }
+message ManufacturingOrder { Plan plan  }
+message ManufacturingReport { Component component }
+message ProductReport { Product product }
+message CheckRequest { Component component }
+message CheckResponse { Quality quality }
+
+edgetype MaterialTransfer {
+    request MaterialRequest
+    response Material
+}
+
+edgetype Check {
+    request CheckRequest
+    response CheckResponse
+}
+
+nodetype EnterpriseRelationshipManagement {
+    property string broker
+    property bool systemcheck
+    property float frequency
+    output Order order    
+}
+
+nodetype ManufacturingExecutionSystem {
+    property bool monitor
+    property float rate
+    input Order order
+    client MaterialTransfer materialClient
+    output ManufacturingOrder order
+}
+
+nodetype MaterialStore {  
+    property string location
+    property float delay
+    server MaterialTransfer materialServer    
+}
+
+nodetype Machinery {   
+    property float vel
+    property float pres
+    property bool queue
+    input ManufacturingOrder order
+    output ManufacturingReport report
+}
+
+nodetype QualityChecker {
+    property int level
+    server Check checkServer
+}
+
+nodetype Assembler {
+    property float vel
+    property bool queue
+    input ManufacturingReport report
+    client Check checker
+    output ProductReport product
+}
+
+nodetype ProductStore {
+    property string location
+    property float delay
+    input ProductReport product
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+foo {
+}

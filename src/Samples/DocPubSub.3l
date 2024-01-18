@@ -1,0 +1,41 @@
+
+# document pub sub demo
+# #####################
+
+#import "https://127.0.0.1/base.3l:latest"
+#import "https://127.0.0.1/ceal/nodetypes.3l" # importing pre-configured nodetypes
+#import "https://127.0.0.1/methods/base.3l:latest" as mlmethods # importing ml methods to create surrogates later on
+
+string host = "127.0.0.1"
+int port = 1883
+string basetopic = "docs"
+
+struct Document {
+  string Id
+  string Author
+  string Text
+  float Value
+}
+
+message DocumentMessage { Document payload }
+
+nodetype Producer {
+  output DocumentMessage docs
+}
+
+nodetype Consumer {
+  input DocumentMessage docs
+}
+
+node Producer pro
+node Consumer con
+
+# pro --> con
+# pro -["Author == hola"]-> con
+# pro -[payload.Author == "jan"]-> con
+pro.docs -[payload.Author == "johndoe"]-> con.docs
+
+surrogate prosur {
+  for pro.docs.Value
+  with mlmethods.regression.mlr
+}

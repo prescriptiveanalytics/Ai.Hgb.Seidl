@@ -14,13 +14,13 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.sidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with)\\b"
 			}]
 		},
 		"types": {
 			"patterns": [{
 				"name": "entity.name.type",
-				"match": "\\b(string|int|float|bool|struct|message|edgetype|nodetype|node)\\b"
+				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate)\\b"
 			}]
 		},
 		"reservedvalues": {
@@ -46,7 +46,7 @@
 				"match": "#.*$\n?"
 			}]
 		},
-		"graphoperator": {
+		"pubsuboperator": {
 			"patterns": [{
 				"name": "keyword.operator.sidl",
 				"match": "-->"				
@@ -56,6 +56,30 @@
 			"patterns": [{
 				"name": "keyword.operator.sidl",
 				"match": "==>"				
+			}]
+		},
+		"pubsubquerybeginoperator": {
+			"patterns": [{
+				"name": "keyword.operator.sidl",
+				"match": "-["				
+			}]
+		},
+		"pubsubqueryendoperator": {
+			"patterns": [{
+				"name": "keyword.operator.sidl",
+				"match": "]->"				
+			}]
+		},
+		"reqresquerybeginoperator": {
+			"patterns": [{
+				"name": "keyword.operator.sidl",
+				"match": "=["				
+			}]
+		},
+		"reqresqueryendoperator": {
+			"patterns": [{
+				"name": "keyword.operator.sidl",
+				"match": "]=>"				
 			}]
 		}
 	},

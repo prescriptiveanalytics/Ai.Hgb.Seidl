@@ -343,7 +343,7 @@ namespace Sidl.Data {
         var edge = (Edge)edgeSymbol.Type;
         string id = $"{edgeSymbol.Name}";
         string payload = "";
-        edgeRecs.Add(new EdgeRecord(id, edge.From, edge.To, edge.Type, payload));
+        edgeRecs.Add(new EdgeRecord(id, edge.FromNode, edge.ToNode, edge.Type, payload));
       }
 
       return new GraphRecord(nodeRecs, edgeRecs);
