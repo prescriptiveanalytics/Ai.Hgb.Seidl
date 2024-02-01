@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>Sidl.$(MSBuildProjectName)</AssemblyName>
-    <RootNamespace>Sidl.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>Ai.Hgb.Seidl.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>Ai.Hgb.Seidl.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
 	<PropertyGroup>
@@ -16,25 +16,25 @@
 
 
 	<ItemGroup>
-    <Compile Include=".generated\SidlLexer.cs" />
-    <Compile Include=".generated\SidlParser.cs" />
-    <Compile Include=".generated\SidlParserBaseVisitor.cs" />
-    <Compile Include=".generated\SidlParserVisitor.cs" />
+    <Compile Include=".generated\SeidlLexer.cs" />
+    <Compile Include=".generated\SeidlParser.cs" />
+    <Compile Include=".generated\SeidlParserBaseVisitor.cs" />
+    <Compile Include=".generated\SeidlParserVisitor.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".generated\SidlLexer.tokens" />
-    <None Include=".generated\SidlParser.tokens" />
+    <None Include=".generated\SeidlLexer.tokens" />
+    <None Include=".generated\SeidlParser.tokens" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ai.Hgb.Common.Utils" Version="0.1.1-prerelease-g941c7c24f0" />
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
     <PackageReference Include="YamlDotNet" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>

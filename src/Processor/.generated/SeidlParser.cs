@@ -19,7 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
 using System;
 using System.IO;
 using System.Text;
@@ -33,7 +33,7 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.CLSCompliant(false)]
-public partial class SidlParser : Parser {
+public partial class SeidlParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
@@ -134,16 +134,16 @@ public partial class SidlParser : Parser {
 
 	public override int[] SerializedAtn { get { return _serializedATN; } }
 
-	static SidlParser() {
+	static SeidlParser() {
 		decisionToDFA = new DFA[_ATN.NumberOfDecisions];
 		for (int i = 0; i < _ATN.NumberOfDecisions; i++) {
 			decisionToDFA[i] = new DFA(_ATN.GetDecisionState(i), i);
 		}
 	}
 
-		public SidlParser(ITokenStream input) : this(input, Console.Out, Console.Error) { }
+		public SeidlParser(ITokenStream input) : this(input, Console.Out, Console.Error) { }
 
-		public SidlParser(ITokenStream input, TextWriter output, TextWriter errorOutput)
+		public SeidlParser(ITokenStream input, TextWriter output, TextWriter errorOutput)
 		: base(input, output, errorOutput)
 	{
 		Interpreter = new ParserATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
@@ -153,7 +153,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public SetContext set() {
 			return GetRuleContext<SetContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(SidlParser.Eof, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode Eof() { return GetToken(SeidlParser.Eof, 0); }
 		public RootContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -313,7 +313,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SeidlParser.ASSIGN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext expressionlist() {
 			return GetRuleContext<ExpressionlistContext>(0);
 		}
@@ -344,7 +344,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SeidlParser.ASSIGN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext expressionlist() {
 			return GetRuleContext<ExpressionlistContext>(0);
 		}
@@ -676,11 +676,11 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ScopeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public SetContext set() {
 			return GetRuleContext<SetContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
@@ -741,7 +741,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ComplextypeContext complextype() {
 			return GetRuleContext<ComplextypeContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARRAY() { return GetToken(SidlParser.ARRAY, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARRAY() { return GetToken(SeidlParser.ARRAY, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public TypenameContext typename() {
 			return GetRuleContext<TypenameContext>(0);
 		}
@@ -821,10 +821,10 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class AtomictypeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INT() { return GetToken(SidlParser.INT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(SidlParser.FLOAT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(SidlParser.STRING, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOL() { return GetToken(SidlParser.BOOL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INT() { return GetToken(SeidlParser.INT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOAT() { return GetToken(SeidlParser.FLOAT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRING() { return GetToken(SeidlParser.STRING, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode BOOL() { return GetToken(SeidlParser.BOOL, 0); }
 		public AtomictypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -869,7 +869,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ComplextypeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRUCT() { return GetToken(SidlParser.STRUCT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRUCT() { return GetToken(SeidlParser.STRUCT, 0); }
 		public ComplextypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -966,10 +966,10 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class GraphtypeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MESSAGE() { return GetToken(SidlParser.MESSAGE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODETYPE() { return GetToken(SidlParser.NODETYPE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODE() { return GetToken(SidlParser.NODE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode META() { return GetToken(SidlParser.META, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MESSAGE() { return GetToken(SeidlParser.MESSAGE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODETYPE() { return GetToken(SeidlParser.NODETYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODE() { return GetToken(SeidlParser.NODE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode META() { return GetToken(SeidlParser.META, 0); }
 		public GraphtypeContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1014,7 +1014,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class VariableContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
 		public VariableContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1051,7 +1051,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class TypenameContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
 		public TypenameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1094,9 +1094,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] DOT() { return GetTokens(SidlParser.DOT); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] DOT() { return GetTokens(SeidlParser.DOT); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOT(int i) {
-			return GetToken(SidlParser.DOT, i);
+			return GetToken(SeidlParser.DOT, i);
 		}
 		public FieldContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1157,9 +1157,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public FieldContext field(int i) {
 			return GetRuleContext<FieldContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public FieldlistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1220,9 +1220,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public VariablelistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1289,9 +1289,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public TypedvariablelistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1368,9 +1368,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public AtomictypeContext atomictype(int i) {
 			return GetRuleContext<AtomictypeContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public CustomtypedvariablelistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1479,9 +1479,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public MessageparameterlistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1546,7 +1546,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public AtomictypeContext atomictype() {
 			return GetRuleContext<AtomictypeContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TOPIC() { return GetToken(SidlParser.TOPIC, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TOPIC() { return GetToken(SeidlParser.TOPIC, 0); }
 		public MessageparametersignatureContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1619,9 +1619,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression(int i) {
 			return GetRuleContext<ExpressionContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public ExpressionlistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1678,7 +1678,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ExpressionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NULL() { return GetToken(SidlParser.NULL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NULL() { return GetToken(SeidlParser.NULL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public BooleanContext boolean() {
 			return GetRuleContext<BooleanContext>(0);
 		}
@@ -1706,10 +1706,10 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public AssignmentlistContext assignmentlist() {
 			return GetRuleContext<AssignmentlistContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SidlParser.OPEN_BRACKET, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SidlParser.CLOSE_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SeidlParser.OPEN_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SeidlParser.CLOSE_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
@@ -1863,9 +1863,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public AssignmentContext assignment(int i) {
 			return GetRuleContext<AssignmentContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public AssignmentlistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -1925,7 +1925,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SeidlParser.ASSIGN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
@@ -2038,12 +2038,12 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ComparatorContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUAL() { return GetToken(SidlParser.EQUAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode UNEQUAL() { return GetToken(SidlParser.UNEQUAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode GREATERTHAN() { return GetToken(SidlParser.GREATERTHAN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode GREATEREQUALTHAN() { return GetToken(SidlParser.GREATEREQUALTHAN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LESSTHAN() { return GetToken(SidlParser.LESSTHAN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LESSEQUALTHAN() { return GetToken(SidlParser.LESSEQUALTHAN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQUAL() { return GetToken(SeidlParser.EQUAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode UNEQUAL() { return GetToken(SeidlParser.UNEQUAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode GREATERTHAN() { return GetToken(SeidlParser.GREATERTHAN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode GREATEREQUALTHAN() { return GetToken(SeidlParser.GREATEREQUALTHAN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LESSTHAN() { return GetToken(SeidlParser.LESSTHAN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LESSEQUALTHAN() { return GetToken(SeidlParser.LESSEQUALTHAN, 0); }
 		public ComparatorContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2091,7 +2091,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TypeContext type() {
 			return GetRuleContext<TypeContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARRAY() { return GetToken(SidlParser.ARRAY, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARRAY() { return GetToken(SeidlParser.ARRAY, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
@@ -2138,11 +2138,11 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SidlParser.OPEN_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SeidlParser.OPEN_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SidlParser.CLOSE_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SeidlParser.CLOSE_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StringContext @string() {
 			return GetRuleContext<StringContext>(0);
 		}
@@ -2212,7 +2212,7 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOT() { return GetToken(SidlParser.DOT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DOT() { return GetToken(SeidlParser.DOT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public LefthandsideContext lefthandside() {
 			return GetRuleContext<LefthandsideContext>(0);
 		}
@@ -2341,7 +2341,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class TagContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRINGLITERAL() { return GetToken(SidlParser.STRINGLITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRINGLITERAL() { return GetToken(SeidlParser.STRINGLITERAL, 0); }
 		public TagContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2380,7 +2380,7 @@ public partial class SidlParser : Parser {
 	public partial class ImportstatementContext : ParserRuleContext {
 		public FieldContext from;
 		public FieldContext to;
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IMPORT() { return GetToken(SidlParser.IMPORT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IMPORT() { return GetToken(SeidlParser.IMPORT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public FieldContext[] field() {
 			return GetRuleContexts<FieldContext>();
 		}
@@ -2390,8 +2390,8 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public StringContext @string() {
 			return GetRuleContext<StringContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AS() { return GetToken(SidlParser.AS, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SidlParser.COLON, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AS() { return GetToken(SeidlParser.AS, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SeidlParser.COLON, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public TagContext tag() {
 			return GetRuleContext<TagContext>(0);
 		}
@@ -2534,7 +2534,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class TypedefstatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPEDEF() { return GetToken(SidlParser.TYPEDEF, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TYPEDEF() { return GetToken(SeidlParser.TYPEDEF, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
@@ -2605,21 +2605,21 @@ public partial class SidlParser : Parser {
 	public partial class NodeconnectionstatementContext : ParserRuleContext {
 		public FieldlistContext sources;
 		public FieldlistContext sinks;
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARROW() { return GetToken(SidlParser.ARROW, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARROW() { return GetToken(SeidlParser.ARROW, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public FieldlistContext[] fieldlist() {
 			return GetRuleContexts<FieldlistContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public FieldlistContext fieldlist(int i) {
 			return GetRuleContext<FieldlistContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode HEAVYARROW() { return GetToken(SidlParser.HEAVYARROW, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYARROW_BEGIN() { return GetToken(SidlParser.QUERYARROW_BEGIN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode HEAVYARROW() { return GetToken(SeidlParser.HEAVYARROW, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYARROW_BEGIN() { return GetToken(SeidlParser.QUERYARROW_BEGIN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public QueryContext query() {
 			return GetRuleContext<QueryContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYARROW_END() { return GetToken(SidlParser.QUERYARROW_END, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYHARROW_BEGIN() { return GetToken(SidlParser.QUERYHARROW_BEGIN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYHARROW_END() { return GetToken(SidlParser.QUERYHARROW_END, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYARROW_END() { return GetToken(SeidlParser.QUERYARROW_END, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYHARROW_BEGIN() { return GetToken(SeidlParser.QUERYHARROW_BEGIN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode QUERYHARROW_END() { return GetToken(SeidlParser.QUERYHARROW_END, 0); }
 		public NodeconnectionstatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -2707,7 +2707,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class SurrogatedefinitionstatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SURROGATE() { return GetToken(SidlParser.SURROGATE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SURROGATE() { return GetToken(SeidlParser.SURROGATE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
@@ -2754,11 +2754,11 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class SurrogatebodyContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] FOR() { return GetTokens(SidlParser.FOR); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] FOR() { return GetTokens(SeidlParser.FOR); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FOR(int i) {
-			return GetToken(SidlParser.FOR, i);
+			return GetToken(SeidlParser.FOR, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public FieldContext[] field() {
 			return GetRuleContexts<FieldContext>();
@@ -2766,9 +2766,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public FieldContext field(int i) {
 			return GetRuleContext<FieldContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] WITH() { return GetTokens(SidlParser.WITH); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] WITH() { return GetTokens(SeidlParser.WITH); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode WITH(int i) {
-			return GetToken(SidlParser.WITH, i);
+			return GetToken(SeidlParser.WITH, i);
 		}
 		public SurrogatebodyContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -2841,18 +2841,18 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class FunctiondefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FUNCTION() { return GetToken(SidlParser.FUNCTION, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FUNCTION() { return GetToken(SeidlParser.FUNCTION, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SidlParser.ASSIGN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] OPEN_PAREN() { return GetTokens(SidlParser.OPEN_PAREN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN() { return GetToken(SeidlParser.ASSIGN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] OPEN_PAREN() { return GetTokens(SeidlParser.OPEN_PAREN); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN(int i) {
-			return GetToken(SidlParser.OPEN_PAREN, i);
+			return GetToken(SeidlParser.OPEN_PAREN, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] CLOSE_PAREN() { return GetTokens(SidlParser.CLOSE_PAREN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] CLOSE_PAREN() { return GetTokens(SeidlParser.CLOSE_PAREN); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN(int i) {
-			return GetToken(SidlParser.CLOSE_PAREN, i);
+			return GetToken(SeidlParser.CLOSE_PAREN, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public FunctionbodyContext functionbody() {
 			return GetRuleContext<FunctionbodyContext>(0);
@@ -2934,17 +2934,17 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class FunctionbodyContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext[] statement() {
 			return GetRuleContexts<StatementContext>();
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public StatementContext statement(int i) {
 			return GetRuleContext<StatementContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IF() { return GetTokens(SidlParser.IF); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IF() { return GetTokens(SeidlParser.IF); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IF(int i) {
-			return GetToken(SidlParser.IF, i);
+			return GetToken(SeidlParser.IF, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionContext[] expression() {
 			return GetRuleContexts<ExpressionContext>();
@@ -2958,13 +2958,13 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ScopeContext scope(int i) {
 			return GetRuleContext<ScopeContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] WHILE() { return GetTokens(SidlParser.WHILE); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] WHILE() { return GetTokens(SeidlParser.WHILE); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode WHILE(int i) {
-			return GetToken(SidlParser.WHILE, i);
+			return GetToken(SeidlParser.WHILE, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] FOR() { return GetTokens(SidlParser.FOR); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] FOR() { return GetTokens(SeidlParser.FOR); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FOR(int i) {
-			return GetToken(SidlParser.FOR, i);
+			return GetToken(SeidlParser.FOR, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext[] variablelist() {
 			return GetRuleContexts<VariablelistContext>();
@@ -2972,9 +2972,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist(int i) {
 			return GetRuleContext<VariablelistContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ASSIGN() { return GetTokens(SidlParser.ASSIGN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ASSIGN() { return GetTokens(SeidlParser.ASSIGN); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ASSIGN(int i) {
-			return GetToken(SidlParser.ASSIGN, i);
+			return GetToken(SeidlParser.ASSIGN, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext[] expressionlist() {
 			return GetRuleContexts<ExpressionlistContext>();
@@ -2982,9 +2982,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExpressionlistContext expressionlist(int i) {
 			return GetRuleContext<ExpressionlistContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext[] variable() {
 			return GetRuleContexts<VariableContext>();
@@ -2992,9 +2992,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IN() { return GetTokens(SidlParser.IN); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] IN() { return GetTokens(SeidlParser.IN); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IN(int i) {
-			return GetToken(SidlParser.IN, i);
+			return GetToken(SeidlParser.IN, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ReturnstatementContext[] returnstatement() {
 			return GetRuleContexts<ReturnstatementContext>();
@@ -3002,13 +3002,13 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ReturnstatementContext returnstatement(int i) {
 			return GetRuleContext<ReturnstatementContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ELSEIF() { return GetTokens(SidlParser.ELSEIF); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ELSEIF() { return GetTokens(SeidlParser.ELSEIF); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ELSEIF(int i) {
-			return GetToken(SidlParser.ELSEIF, i);
+			return GetToken(SeidlParser.ELSEIF, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ELSE() { return GetTokens(SidlParser.ELSE); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] ELSE() { return GetTokens(SeidlParser.ELSE); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ELSE(int i) {
-			return GetToken(SidlParser.ELSE, i);
+			return GetToken(SeidlParser.ELSE, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
 			return GetRuleContexts<TypeContext>();
@@ -3195,7 +3195,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class ReturnstatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RETURN() { return GetToken(SidlParser.RETURN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RETURN() { return GetToken(SeidlParser.RETURN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
@@ -3248,8 +3248,8 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SidlParser.OPEN_PAREN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SidlParser.CLOSE_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SeidlParser.OPEN_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SeidlParser.CLOSE_PAREN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
@@ -3322,9 +3322,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
 			return GetRuleContext<TerminatorContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public StructpropertylistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -3444,15 +3444,15 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class StructdefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRUCT() { return GetToken(SidlParser.STRUCT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRUCT() { return GetToken(SeidlParser.STRUCT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public StructpropertylistContext structpropertylist() {
 			return GetRuleContext<StructpropertylistContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		public StructdefinitionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3497,7 +3497,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class MessagetypenameContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
 		public MessagetypenameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3534,7 +3534,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodetypenameContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
 		public NodetypenameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3571,7 +3571,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class EdgetypenameContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
 		public EdgetypenameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3620,9 +3620,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable(int i) {
 			return GetRuleContext<VariableContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SidlParser.COMMA); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] COMMA() { return GetTokens(SeidlParser.COMMA); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
-			return GetToken(SidlParser.COMMA, i);
+			return GetToken(SeidlParser.COMMA, i);
 		}
 		public MessagetypelistContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -3681,12 +3681,12 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class MessagedefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MESSAGE() { return GetToken(SidlParser.MESSAGE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MESSAGE() { return GetToken(SeidlParser.MESSAGE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public MessagetypenameContext messagetypename() {
 			return GetRuleContext<MessagetypenameContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public MessageparameterlistContext messageparameterlist() {
 			return GetRuleContext<MessageparameterlistContext>(0);
 		}
@@ -3743,15 +3743,15 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class EdgetypedefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGETYPE() { return GetToken(SidlParser.EDGETYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EDGETYPE() { return GetToken(SeidlParser.EDGETYPE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public EdgetypenameContext edgetypename() {
 			return GetRuleContext<EdgetypenameContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public EdgetypebodyContext edgetypebody() {
 			return GetRuleContext<EdgetypebodyContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		public EdgetypedefinitionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -3796,9 +3796,9 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class EdgetypebodyContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] REQUEST() { return GetTokens(SidlParser.REQUEST); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] REQUEST() { return GetTokens(SeidlParser.REQUEST); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode REQUEST(int i) {
-			return GetToken(SidlParser.REQUEST, i);
+			return GetToken(SeidlParser.REQUEST, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public MessagetypenameContext[] messagetypename() {
 			return GetRuleContexts<MessagetypenameContext>();
@@ -3806,9 +3806,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public MessagetypenameContext messagetypename(int i) {
 			return GetRuleContext<MessagetypenameContext>(i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] RESPONSE() { return GetTokens(SidlParser.RESPONSE); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] RESPONSE() { return GetTokens(SeidlParser.RESPONSE); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RESPONSE(int i) {
-			return GetToken(SidlParser.RESPONSE, i);
+			return GetToken(SeidlParser.RESPONSE, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext[] terminator() {
 			return GetRuleContexts<TerminatorContext>();
@@ -3889,15 +3889,15 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodetypedefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODETYPE() { return GetToken(SidlParser.NODETYPE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODETYPE() { return GetToken(SeidlParser.NODETYPE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NodetypenameContext nodetypename() {
 			return GetRuleContext<NodetypenameContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NodebodyContext nodebody() {
 			return GetRuleContext<NodebodyContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NodetypesignatureContext nodetypesignature() {
 			return GetRuleContext<NodetypesignatureContext>(0);
 		}
@@ -3970,9 +3970,9 @@ public partial class SidlParser : Parser {
 	public partial class NodetypesignatureContext : ParserRuleContext {
 		public MessagetypelistContext inputs;
 		public MessagetypelistContext outputs;
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SidlParser.OPEN_PAREN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARROW() { return GetToken(SidlParser.ARROW, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SidlParser.CLOSE_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SeidlParser.OPEN_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ARROW() { return GetToken(SeidlParser.ARROW, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SeidlParser.CLOSE_PAREN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public MessagetypelistContext[] messagetypelist() {
 			return GetRuleContexts<MessagetypelistContext>();
 		}
@@ -4040,15 +4040,15 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodedefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODE() { return GetToken(SidlParser.NODE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NODE() { return GetToken(SeidlParser.NODE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NodebodyContext nodebody() {
 			return GetRuleContext<NodebodyContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public NodetypesignatureContext nodetypesignature() {
 			return GetRuleContext<NodetypesignatureContext>(0);
 		}
@@ -4274,16 +4274,16 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodebodyinoutContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INPUT() { return GetToken(SidlParser.INPUT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INPUT() { return GetToken(SeidlParser.INPUT, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public MessagetypelistContext messagetypelist() {
 			return GetRuleContext<MessagetypelistContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OUTPUT() { return GetToken(SidlParser.OUTPUT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SidlParser.OPEN_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OUTPUT() { return GetToken(SeidlParser.OUTPUT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACKET() { return GetToken(SeidlParser.OPEN_BRACKET, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public InoutoptionContext inoutoption() {
 			return GetRuleContext<InoutoptionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SidlParser.CLOSE_BRACKET, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACKET() { return GetToken(SeidlParser.CLOSE_BRACKET, 0); }
 		public NodebodyinoutContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -4367,17 +4367,17 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class InoutoptionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SidlParser.COLON, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AUX() { return GetToken(SidlParser.AUX, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode REQ() { return GetToken(SidlParser.REQ, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RES() { return GetToken(SidlParser.RES, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode REQUEST() { return GetToken(SidlParser.REQUEST, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RESPONSE() { return GetToken(SidlParser.RESPONSE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUB() { return GetToken(SidlParser.PUB, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SUB() { return GetToken(SidlParser.SUB, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUBLISH() { return GetToken(SidlParser.PUBLISH, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SUBSCRIBE() { return GetToken(SidlParser.SUBSCRIBE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SeidlParser.COLON, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode AUX() { return GetToken(SeidlParser.AUX, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode REQ() { return GetToken(SeidlParser.REQ, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RES() { return GetToken(SeidlParser.RES, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode REQUEST() { return GetToken(SeidlParser.REQUEST, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode RESPONSE() { return GetToken(SeidlParser.RESPONSE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUB() { return GetToken(SeidlParser.PUB, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SUB() { return GetToken(SeidlParser.SUB, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PUBLISH() { return GetToken(SeidlParser.PUBLISH, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SUBSCRIBE() { return GetToken(SeidlParser.SUBSCRIBE, 0); }
 		public InoutoptionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -4426,7 +4426,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodebodyincludeContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INCLUDE() { return GetToken(SidlParser.INCLUDE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INCLUDE() { return GetToken(SeidlParser.INCLUDE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
@@ -4468,7 +4468,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodebodypropertyContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PROPERTY() { return GetToken(SidlParser.PROPERTY, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PROPERTY() { return GetToken(SeidlParser.PROPERTY, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariablelistContext variablelist() {
 			return GetRuleContext<VariablelistContext>(0);
 		}
@@ -4535,9 +4535,9 @@ public partial class SidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public EdgetypenameContext edgetypename() {
 			return GetRuleContext<EdgetypenameContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SidlParser.NAME, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLIENT() { return GetToken(SidlParser.CLIENT, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SERVER() { return GetToken(SidlParser.SERVER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLIENT() { return GetToken(SeidlParser.CLIENT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SERVER() { return GetToken(SeidlParser.SERVER, 0); }
 		public NodebodyclientserverContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -4586,8 +4586,8 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NodeconstructorContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SidlParser.OPEN_PAREN, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SidlParser.CLOSE_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SeidlParser.OPEN_PAREN, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_PAREN() { return GetToken(SeidlParser.CLOSE_PAREN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public AssignmentlistContext assignmentlist() {
 			return GetRuleContext<AssignmentlistContext>(0);
 		}
@@ -4640,15 +4640,15 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class MetadefinitionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode META() { return GetToken(SidlParser.META, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode META() { return GetToken(SeidlParser.META, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public VariableContext variable() {
 			return GetRuleContext<VariableContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SidlParser.OPEN_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SidlParser.CLOSE_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] PROPERTY() { return GetTokens(SidlParser.PROPERTY); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] PROPERTY() { return GetTokens(SeidlParser.PROPERTY); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PROPERTY(int i) {
-			return GetToken(SidlParser.PROPERTY, i);
+			return GetToken(SeidlParser.PROPERTY, i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TypeContext[] type() {
 			return GetRuleContexts<TypeContext>();
@@ -4731,8 +4731,8 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class NumberContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INTEGER() { return GetToken(SidlParser.INTEGER, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOATINGPOINTNUMBER() { return GetToken(SidlParser.FLOATINGPOINTNUMBER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INTEGER() { return GetToken(SeidlParser.INTEGER, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FLOATINGPOINTNUMBER() { return GetToken(SeidlParser.FLOATINGPOINTNUMBER, 0); }
 		public NumberContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -4777,7 +4777,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class StringContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRINGLITERAL() { return GetToken(SidlParser.STRINGLITERAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STRINGLITERAL() { return GetToken(SeidlParser.STRINGLITERAL, 0); }
 		public StringContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -4814,8 +4814,8 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class BooleanContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TRUE() { return GetToken(SidlParser.TRUE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FALSE() { return GetToken(SidlParser.FALSE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode TRUE() { return GetToken(SeidlParser.TRUE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode FALSE() { return GetToken(SeidlParser.FALSE, 0); }
 		public BooleanContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -4860,7 +4860,7 @@ public partial class SidlParser : Parser {
 	}
 
 	public partial class TerminatorContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STMEND() { return GetToken(SidlParser.STMEND, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode STMEND() { return GetToken(SeidlParser.STMEND, 0); }
 		public TerminatorContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{

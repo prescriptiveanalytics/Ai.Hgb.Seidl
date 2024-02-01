@@ -1,4 +1,4 @@
-﻿using Sidl.Utils;
+﻿using Ai.Hgb.Common.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
   public class RuntimeTests {
 
     public string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
@@ -67,7 +67,7 @@ namespace Sidl.Processor {
           swatch.Restart();
 
           // do work
-          SidlParser parser = Utils.TokenizeAndParse(programText);
+          SeidlParser parser = Utils.TokenizeAndParse(programText);
           Linter linter = new Linter(parser);
           linter.ProgramTextUrl = fp;
           var table = linter.CreateScopedSymbolTableSecured();

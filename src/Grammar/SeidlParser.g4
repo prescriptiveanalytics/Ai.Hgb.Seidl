@@ -1,6 +1,6 @@
-parser grammar SidlParser;
+parser grammar SeidlParser;
 
-options { tokenVocab=SidlLexer; }
+options { tokenVocab=SeidlLexer; }
 
 // TODO
 

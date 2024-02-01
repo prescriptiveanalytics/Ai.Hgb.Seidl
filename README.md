@@ -1,2 +1,2 @@
-# Sidl
-Structured Interaction Description Language (SIDL)
+# Seidl
+Structured Entity Interaction Description Language (SEIDL)

@@ -50,7 +50,7 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	const clientOptions: LanguageClientOptions = {
 		// Register the server for plain text documents
-		documentSelector: [{ scheme: 'file', language: 'sidl' }], //plaintext
+		documentSelector: [{ scheme: 'file', language: 'seidl' }], //plaintext
 		synchronize: {
 			// Notify the server about file changes to '.clientrc files contained in the workspace
 			fileEvents: workspace.createFileSystemWatcher('**/.clientrc')
@@ -59,8 +59,8 @@ export function activate(context: ExtensionContext) {
 
 	// Create the language client and start the client.
 	client = new LanguageClient(
-		'sidlLanguageServer',
-		'Sidl Language Server',
+		'seidlLanguageServer',
+		'Seidl Language Server',
 		serverOptions,
 		clientOptions
 	);
@@ -77,11 +77,11 @@ export function activate(context: ExtensionContext) {
 
 	// register graph view
 	context.subscriptions.push(
-		vscode.commands.registerCommand('sidl.visualization.graph.start', () => {
+		vscode.commands.registerCommand('seidl.visualization.graph.start', () => {
 			// Create and show a new webview
 			const panel = vscode.window.createWebviewPanel(
-				'sidlGraphVisualization', // Identifies the type of the webview. Used internally
-				'Sidl Graph', // Title of the panel displayed to the user
+				'seidlGraphVisualization', // Identifies the type of the webview. Used internally
+				'Seidl Graph', // Title of the panel displayed to the user
 				vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
 				{ // Webview options. More on these later.
 					enableScripts: true,
@@ -123,11 +123,11 @@ export function activate(context: ExtensionContext) {
 
 	// register data monitor view
 	context.subscriptions.push(
-		vscode.commands.registerCommand('sidl.visualization.datamonitor.start', () => {
+		vscode.commands.registerCommand('seidl.visualization.datamonitor.start', () => {
 			// Create and show a new webview
 			const panel = vscode.window.createWebviewPanel(
-				'sidlDatamonitorVisualization', // Identifies the type of the webview. Used internally
-				'Sidl Data Monitor', // Title of the panel displayed to the user
+				'seidlDatamonitorVisualization', // Identifies the type of the webview. Used internally
+				'Seidl Data Monitor', // Title of the panel displayed to the user
 				vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
 				{ // Webview options. More on these later.
 					enableScripts: true,

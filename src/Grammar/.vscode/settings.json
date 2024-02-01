@@ -4,7 +4,7 @@
         "language": "CSharp",
         "listeners": false,
         "visitors": true,
-        "package": "Sidl.Processor",        
+        "package": "Ai.Hgb.Seidl.Processor",        
         "outputDir": "../Processor/.generated",
     }
 }

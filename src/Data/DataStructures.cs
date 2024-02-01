@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sidl.Data {
+namespace Ai.Hgb.Seidl.Data {
 
   #region data structure interfaces
 

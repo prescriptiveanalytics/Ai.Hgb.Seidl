@@ -1,7 +1,7 @@
 {
 	"websocketHost": "http://localhost",   
     "websocketPort": 3000,
-	"languageServiceAddress": "https://localhost:7059/sidl/lsp",	
+	"languageServiceAddress": "https://localhost:7059/seidl/lsp",	
     "settings": {
 		"foo": "bar"		
 	}

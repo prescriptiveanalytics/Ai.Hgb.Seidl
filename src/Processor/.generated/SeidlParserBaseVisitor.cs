@@ -19,7 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using IToken = Antlr4.Runtime.IToken;
@@ -34,9 +34,9 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.Diagnostics.DebuggerNonUserCode]
 [System.CLSCompliant(false)]
-public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ISidlParserVisitor<Result> {
+public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ISidlParserVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.root"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.root"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -44,9 +44,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitRoot([NotNull] SidlParser.RootContext context) { return VisitChildren(context); }
+	public virtual Result VisitRoot([NotNull] SeidlParser.RootContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.set"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.set"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -54,10 +54,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSet([NotNull] SidlParser.SetContext context) { return VisitChildren(context); }
+	public virtual Result VisitSet([NotNull] SeidlParser.SetContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>terminatorStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -65,10 +65,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTerminatorStatement([NotNull] SidlParser.TerminatorStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitTerminatorStatement([NotNull] SeidlParser.TerminatorStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>scopeStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -76,10 +76,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitScopeStatement([NotNull] SidlParser.ScopeStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitScopeStatement([NotNull] SeidlParser.ScopeStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>declarationStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -87,10 +87,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitDeclarationStatement([NotNull] SeidlParser.DeclarationStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>assignmentStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -98,10 +98,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAssignmentStatement([NotNull] SidlParser.AssignmentStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitAssignmentStatement([NotNull] SeidlParser.AssignmentStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>definitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -109,10 +109,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitDefinitionStatement([NotNull] SidlParser.DefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitDefinitionStatement([NotNull] SeidlParser.DefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>structDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -120,10 +120,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStructDefinitionStatement([NotNull] SidlParser.StructDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitStructDefinitionStatement([NotNull] SeidlParser.StructDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>messageDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -131,10 +131,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMessageDefinitionStatement([NotNull] SidlParser.MessageDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitMessageDefinitionStatement([NotNull] SeidlParser.MessageDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>edgetypeDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -142,10 +142,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEdgetypeDefinitionStatement([NotNull] SidlParser.EdgetypeDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitEdgetypeDefinitionStatement([NotNull] SeidlParser.EdgetypeDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>nodetypeDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -153,10 +153,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodetypeDefinitionStatement([NotNull] SidlParser.NodetypeDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodetypeDefinitionStatement([NotNull] SeidlParser.NodetypeDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>nodeDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -164,10 +164,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodeDefinitionStatement([NotNull] SidlParser.NodeDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodeDefinitionStatement([NotNull] SeidlParser.NodeDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>metaDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -175,10 +175,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMetaDefinitionStatement([NotNull] SidlParser.MetaDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitMetaDefinitionStatement([NotNull] SeidlParser.MetaDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>importStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -186,10 +186,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitImportStatement([NotNull] SidlParser.ImportStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitImportStatement([NotNull] SeidlParser.ImportStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>typedefStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -197,10 +197,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypedefStatement([NotNull] SidlParser.TypedefStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitTypedefStatement([NotNull] SeidlParser.TypedefStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>nodeConnectionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -208,10 +208,10 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodeConnectionStatement([NotNull] SeidlParser.NodeConnectionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>surrogateDefinitionStatement</c>
-	/// labeled alternative in <see cref="SidlParser.statement"/>.
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -219,9 +219,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSurrogateDefinitionStatement([NotNull] SidlParser.SurrogateDefinitionStatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitSurrogateDefinitionStatement([NotNull] SeidlParser.SurrogateDefinitionStatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.scope"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.scope"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -229,9 +229,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitScope([NotNull] SidlParser.ScopeContext context) { return VisitChildren(context); }
+	public virtual Result VisitScope([NotNull] SeidlParser.ScopeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.type"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.type"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -239,9 +239,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitType([NotNull] SidlParser.TypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitType([NotNull] SeidlParser.TypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.atomictype"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.atomictype"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -249,9 +249,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAtomictype([NotNull] SidlParser.AtomictypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitAtomictype([NotNull] SeidlParser.AtomictypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.complextype"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.complextype"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -259,9 +259,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitComplextype([NotNull] SidlParser.ComplextypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitComplextype([NotNull] SeidlParser.ComplextypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.atomictypeortypename"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.atomictypeortypename"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -269,9 +269,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAtomictypeortypename([NotNull] SidlParser.AtomictypeortypenameContext context) { return VisitChildren(context); }
+	public virtual Result VisitAtomictypeortypename([NotNull] SeidlParser.AtomictypeortypenameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.graphtype"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.graphtype"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -279,9 +279,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitGraphtype([NotNull] SidlParser.GraphtypeContext context) { return VisitChildren(context); }
+	public virtual Result VisitGraphtype([NotNull] SeidlParser.GraphtypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.variable"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.variable"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -289,9 +289,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariable([NotNull] SidlParser.VariableContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariable([NotNull] SeidlParser.VariableContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.typename"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.typename"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -299,9 +299,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypename([NotNull] SidlParser.TypenameContext context) { return VisitChildren(context); }
+	public virtual Result VisitTypename([NotNull] SeidlParser.TypenameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.field"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.field"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -309,9 +309,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitField([NotNull] SidlParser.FieldContext context) { return VisitChildren(context); }
+	public virtual Result VisitField([NotNull] SeidlParser.FieldContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.fieldlist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.fieldlist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -319,9 +319,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFieldlist([NotNull] SidlParser.FieldlistContext context) { return VisitChildren(context); }
+	public virtual Result VisitFieldlist([NotNull] SeidlParser.FieldlistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.variablelist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.variablelist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -329,9 +329,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitVariablelist([NotNull] SidlParser.VariablelistContext context) { return VisitChildren(context); }
+	public virtual Result VisitVariablelist([NotNull] SeidlParser.VariablelistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.typedvariablelist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.typedvariablelist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -339,9 +339,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypedvariablelist([NotNull] SidlParser.TypedvariablelistContext context) { return VisitChildren(context); }
+	public virtual Result VisitTypedvariablelist([NotNull] SeidlParser.TypedvariablelistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.customtypedvariablelist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.customtypedvariablelist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -349,9 +349,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitCustomtypedvariablelist([NotNull] SidlParser.CustomtypedvariablelistContext context) { return VisitChildren(context); }
+	public virtual Result VisitCustomtypedvariablelist([NotNull] SeidlParser.CustomtypedvariablelistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.messageparameterlist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.messageparameterlist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -359,9 +359,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMessageparameterlist([NotNull] SidlParser.MessageparameterlistContext context) { return VisitChildren(context); }
+	public virtual Result VisitMessageparameterlist([NotNull] SeidlParser.MessageparameterlistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.messageparametersignature"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.messageparametersignature"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -369,9 +369,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMessageparametersignature([NotNull] SidlParser.MessageparametersignatureContext context) { return VisitChildren(context); }
+	public virtual Result VisitMessageparametersignature([NotNull] SeidlParser.MessageparametersignatureContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.expressionlist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.expressionlist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -379,9 +379,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExpressionlist([NotNull] SidlParser.ExpressionlistContext context) { return VisitChildren(context); }
+	public virtual Result VisitExpressionlist([NotNull] SeidlParser.ExpressionlistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.expression"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.expression"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -389,9 +389,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitExpression([NotNull] SidlParser.ExpressionContext context) { return VisitChildren(context); }
+	public virtual Result VisitExpression([NotNull] SeidlParser.ExpressionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.assignmentlist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.assignmentlist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -399,9 +399,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAssignmentlist([NotNull] SidlParser.AssignmentlistContext context) { return VisitChildren(context); }
+	public virtual Result VisitAssignmentlist([NotNull] SeidlParser.AssignmentlistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.assignment"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.assignment"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -409,9 +409,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitAssignment([NotNull] SidlParser.AssignmentContext context) { return VisitChildren(context); }
+	public virtual Result VisitAssignment([NotNull] SeidlParser.AssignmentContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.query"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.query"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -419,9 +419,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitQuery([NotNull] SidlParser.QueryContext context) { return VisitChildren(context); }
+	public virtual Result VisitQuery([NotNull] SeidlParser.QueryContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.comparator"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.comparator"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -429,9 +429,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitComparator([NotNull] SidlParser.ComparatorContext context) { return VisitChildren(context); }
+	public virtual Result VisitComparator([NotNull] SeidlParser.ComparatorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.arraydeclaration"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.arraydeclaration"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -439,9 +439,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArraydeclaration([NotNull] SidlParser.ArraydeclarationContext context) { return VisitChildren(context); }
+	public virtual Result VisitArraydeclaration([NotNull] SeidlParser.ArraydeclarationContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.arrayaccess"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.arrayaccess"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -449,9 +449,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitArrayaccess([NotNull] SidlParser.ArrayaccessContext context) { return VisitChildren(context); }
+	public virtual Result VisitArrayaccess([NotNull] SeidlParser.ArrayaccessContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.fieldaccess"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.fieldaccess"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -459,9 +459,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFieldaccess([NotNull] SidlParser.FieldaccessContext context) { return VisitChildren(context); }
+	public virtual Result VisitFieldaccess([NotNull] SeidlParser.FieldaccessContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.lefthandside"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.lefthandside"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -469,9 +469,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitLefthandside([NotNull] SidlParser.LefthandsideContext context) { return VisitChildren(context); }
+	public virtual Result VisitLefthandside([NotNull] SeidlParser.LefthandsideContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.tag"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.tag"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -479,9 +479,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTag([NotNull] SidlParser.TagContext context) { return VisitChildren(context); }
+	public virtual Result VisitTag([NotNull] SeidlParser.TagContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.importstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.importstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -489,9 +489,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitImportstatement([NotNull] SidlParser.ImportstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitImportstatement([NotNull] SeidlParser.ImportstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.typedefstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.typedefstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -499,9 +499,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTypedefstatement([NotNull] SidlParser.TypedefstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitTypedefstatement([NotNull] SeidlParser.TypedefstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodeconnectionstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodeconnectionstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -509,9 +509,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodeconnectionstatement([NotNull] SidlParser.NodeconnectionstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodeconnectionstatement([NotNull] SeidlParser.NodeconnectionstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.surrogatedefinitionstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.surrogatedefinitionstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -519,9 +519,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSurrogatedefinitionstatement([NotNull] SidlParser.SurrogatedefinitionstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitSurrogatedefinitionstatement([NotNull] SeidlParser.SurrogatedefinitionstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.surrogatebody"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.surrogatebody"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -529,9 +529,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitSurrogatebody([NotNull] SidlParser.SurrogatebodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitSurrogatebody([NotNull] SeidlParser.SurrogatebodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.functiondefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.functiondefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -539,9 +539,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFunctiondefinition([NotNull] SidlParser.FunctiondefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitFunctiondefinition([NotNull] SeidlParser.FunctiondefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.functionbody"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.functionbody"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -549,9 +549,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFunctionbody([NotNull] SidlParser.FunctionbodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitFunctionbody([NotNull] SeidlParser.FunctionbodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.returnstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.returnstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -559,9 +559,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitReturnstatement([NotNull] SidlParser.ReturnstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitReturnstatement([NotNull] SeidlParser.ReturnstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.functioncall"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.functioncall"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -569,9 +569,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitFunctioncall([NotNull] SidlParser.FunctioncallContext context) { return VisitChildren(context); }
+	public virtual Result VisitFunctioncall([NotNull] SeidlParser.FunctioncallContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.structpropertylist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.structpropertylist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -579,9 +579,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStructpropertylist([NotNull] SidlParser.StructpropertylistContext context) { return VisitChildren(context); }
+	public virtual Result VisitStructpropertylist([NotNull] SeidlParser.StructpropertylistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.structdefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.structdefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -589,9 +589,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitStructdefinition([NotNull] SidlParser.StructdefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitStructdefinition([NotNull] SeidlParser.StructdefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.messagetypename"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.messagetypename"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -599,9 +599,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMessagetypename([NotNull] SidlParser.MessagetypenameContext context) { return VisitChildren(context); }
+	public virtual Result VisitMessagetypename([NotNull] SeidlParser.MessagetypenameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodetypename"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodetypename"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -609,9 +609,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodetypename([NotNull] SidlParser.NodetypenameContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodetypename([NotNull] SeidlParser.NodetypenameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.edgetypename"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.edgetypename"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -619,9 +619,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEdgetypename([NotNull] SidlParser.EdgetypenameContext context) { return VisitChildren(context); }
+	public virtual Result VisitEdgetypename([NotNull] SeidlParser.EdgetypenameContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.messagetypelist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.messagetypelist"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -629,9 +629,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMessagetypelist([NotNull] SidlParser.MessagetypelistContext context) { return VisitChildren(context); }
+	public virtual Result VisitMessagetypelist([NotNull] SeidlParser.MessagetypelistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.messagedefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.messagedefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -639,9 +639,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMessagedefinition([NotNull] SidlParser.MessagedefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitMessagedefinition([NotNull] SeidlParser.MessagedefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.edgetypedefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.edgetypedefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -649,9 +649,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEdgetypedefinition([NotNull] SidlParser.EdgetypedefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitEdgetypedefinition([NotNull] SeidlParser.EdgetypedefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.edgetypebody"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.edgetypebody"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -659,9 +659,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitEdgetypebody([NotNull] SidlParser.EdgetypebodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitEdgetypebody([NotNull] SeidlParser.EdgetypebodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodetypedefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodetypedefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -669,9 +669,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodetypedefinition([NotNull] SidlParser.NodetypedefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodetypedefinition([NotNull] SeidlParser.NodetypedefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodetypesignature"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodetypesignature"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -679,9 +679,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodetypesignature([NotNull] SidlParser.NodetypesignatureContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodetypesignature([NotNull] SeidlParser.NodetypesignatureContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodedefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodedefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -689,9 +689,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodedefinition([NotNull] SidlParser.NodedefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodedefinition([NotNull] SeidlParser.NodedefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodebody"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebody"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -699,9 +699,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodebody([NotNull] SidlParser.NodebodyContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodebody([NotNull] SeidlParser.NodebodyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyinout"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyinout"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -709,9 +709,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodebodyinout([NotNull] SidlParser.NodebodyinoutContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodebodyinout([NotNull] SeidlParser.NodebodyinoutContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.inoutoption"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.inoutoption"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -719,9 +719,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitInoutoption([NotNull] SidlParser.InoutoptionContext context) { return VisitChildren(context); }
+	public virtual Result VisitInoutoption([NotNull] SeidlParser.InoutoptionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyinclude"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyinclude"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -729,9 +729,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodebodyinclude([NotNull] SidlParser.NodebodyincludeContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodebodyinclude([NotNull] SeidlParser.NodebodyincludeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyproperty"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyproperty"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -739,9 +739,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodebodyproperty([NotNull] SidlParser.NodebodypropertyContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodebodyproperty([NotNull] SeidlParser.NodebodypropertyContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodebodyclientserver"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyclientserver"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -749,9 +749,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodebodyclientserver([NotNull] SidlParser.NodebodyclientserverContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodebodyclientserver([NotNull] SeidlParser.NodebodyclientserverContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.nodeconstructor"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodeconstructor"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -759,9 +759,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNodeconstructor([NotNull] SidlParser.NodeconstructorContext context) { return VisitChildren(context); }
+	public virtual Result VisitNodeconstructor([NotNull] SeidlParser.NodeconstructorContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.metadefinition"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.metadefinition"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -769,9 +769,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMetadefinition([NotNull] SidlParser.MetadefinitionContext context) { return VisitChildren(context); }
+	public virtual Result VisitMetadefinition([NotNull] SeidlParser.MetadefinitionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.number"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.number"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -779,9 +779,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNumber([NotNull] SidlParser.NumberContext context) { return VisitChildren(context); }
+	public virtual Result VisitNumber([NotNull] SeidlParser.NumberContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.string"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.string"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -789,9 +789,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitString([NotNull] SidlParser.StringContext context) { return VisitChildren(context); }
+	public virtual Result VisitString([NotNull] SeidlParser.StringContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.boolean"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.boolean"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -799,9 +799,9 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitBoolean([NotNull] SidlParser.BooleanContext context) { return VisitChildren(context); }
+	public virtual Result VisitBoolean([NotNull] SeidlParser.BooleanContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SidlParser.terminator"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.terminator"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -809,6 +809,6 @@ public partial class SidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitTerminator([NotNull] SidlParser.TerminatorContext context) { return VisitChildren(context); }
+	public virtual Result VisitTerminator([NotNull] SeidlParser.TerminatorContext context) { return VisitChildren(context); }
 }
 } // namespace Sidl.Processor

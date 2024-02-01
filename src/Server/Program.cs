@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using Sidl.Data;
-using Sidl.Processor;
+using Ai.Hgb.Seidl.Data;
+using Ai.Hgb.Seidl.Processor;
 using System;
 
-namespace Sidl.Server {
+namespace Ai.Hgb.Seidl.Server {
   public class Program {
     public static void Main(string[] args) {
 
@@ -105,7 +105,7 @@ namespace Sidl.Server {
     } 
     
     private static ScopedSymbolTable ParseSST(string programText) {
-      SidlParser parser = Processor.Utils.TokenizeAndParse(programText);
+      SeidlParser parser = Processor.Utils.TokenizeAndParse(programText);
       Linter linter = new Linter(parser);
       return linter.CreateScopedSymbolTable();
     }

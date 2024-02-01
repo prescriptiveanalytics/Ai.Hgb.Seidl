@@ -17,7 +17,7 @@
 		"vscode": "^1.63.0"
 	},
 	"activationEvents": [
-		"onLanguage:sidl"
+		"onLanguage:seidl"
 	],
 	"main": "./client/out/extension",
 	"contributes": {
@@ -25,13 +25,13 @@
 			"type": "object",
 			"title": "Example configuration",
 			"properties": {
-				"sidlLanguageServer.maxNumberOfProblems": {
+				"seidlLanguageServer.maxNumberOfProblems": {
 					"scope": "resource",
 					"type": "number",
 					"default": 100,
 					"description": "Controls the maximum number of problems produced by the server."
 				},
-				"sidlLanguageServer.trace.server": {
+				"seidlLanguageServer.trace.server": {
 					"scope": "window",
 					"type": "string",
 					"enum": [
@@ -45,26 +45,26 @@
 			}
 		},
 		"languages": [{
-			  "id": "sidl",        
-			  "aliases": ["Sidl", "sidl", "Seidl", "seidl"],
-			  "extensions": [".3l",".sid",".sidl",".seidl"],
+			  "id": "seidl",        
+			  "aliases": ["Seidl", "seidl", "Seidl", "seidl"],
+			  "extensions": [".3l",".sid",".seidl",".seidl"],
 			  "configuration": "./language-configuration.json" 
 		}],
 		"grammars": [{
-			"language": "sidl",
-			"scopeName": "source.sidl",
-			"path": "./syntaxes/sidl.tmLanguage.json"
+			"language": "seidl",
+			"scopeName": "source.seidl",
+			"path": "./syntaxes/seidl.tmLanguage.json"
 		}],
 		"commands": [
 			{
-			  "command": "sidl.visualization.graph.start",
+			  "command": "seidl.visualization.graph.start",
 			  "title": "Graph",
-			  "category": "Sidl Visualizations"
+			  "category": "Seidl Visualizations"
 			},
 			{
-				"command": "sidl.visualization.datamonitor.start",
+				"command": "seidl.visualization.datamonitor.start",
 				"title": "Data Monitor",
-				"category": "Sidl Visualizations"
+				"category": "Seidl Visualizations"
 			}
 		]
 	},

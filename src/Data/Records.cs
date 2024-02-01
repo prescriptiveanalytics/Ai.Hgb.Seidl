@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sidl.Data {
+namespace Ai.Hgb.Seidl.Data {
 
   public record NodetypesRequest(string programText, int line, int character);
   public record ProgramRecord(string programText);

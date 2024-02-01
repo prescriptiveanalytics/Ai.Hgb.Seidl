@@ -1,5 +1,5 @@
 ﻿using Antlr4.Runtime.Misc;
-using Sidl.Data;
+using Ai.Hgb.Seidl.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ using System.Xml.Linq;
 // https://stackoverflow.com/questions/887205/tutorial-for-walking-antlr-asts-in-c
 // https://tomassetti.me/best-practices-for-antlr-parsers/
 
-namespace Sidl.Processor {
-  public class StatementPrintVisitor : SidlParserBaseVisitor<object> {
-    public override object VisitSet([NotNull] SidlParser.SetContext context) {
+namespace Ai.Hgb.Seidl.Processor {
+  public class StatementPrintVisitor : SeidlParserBaseVisitor<object> {
+    public override object VisitSet([NotNull] SeidlParser.SetContext context) {
       var x = context.ChildCount;
 
       var statements = context.statement();
@@ -26,7 +26,7 @@ namespace Sidl.Processor {
     }
   }
 
-  public class ScopedSymbolTableVisitor : SidlParserBaseVisitor<object?> {
+  public class ScopedSymbolTableVisitor : SeidlParserBaseVisitor<object?> {
 
     public string programTextUrl;
     public ScopedSymbolTable scopedSymbolTable;
@@ -38,7 +38,7 @@ namespace Sidl.Processor {
       currentScope = scopedSymbolTable.Global;
     }
 
-    public override object? VisitSet([NotNull] SidlParser.SetContext context) {
+    public override object? VisitSet([NotNull] SeidlParser.SetContext context) {
       var statements = context.statement();
       foreach (var statement in statements) {
         Visit(statement);
@@ -46,7 +46,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object? VisitScopeStatement([NotNull] SidlParser.ScopeStatementContext context) {
+    public override object? VisitScopeStatement([NotNull] SeidlParser.ScopeStatementContext context) {
       var scopeVar = context.scope().variable();
       string scopeName = scopeVar?.GetText();
 
@@ -62,7 +62,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitDeclarationStatement([NotNull] SidlParser.DeclarationStatementContext context) {
+    public override object VisitDeclarationStatement([NotNull] SeidlParser.DeclarationStatementContext context) {
       var typecode = context.atomictype()?.Start.Type;
       var typename = context.typename()?.GetText();
 
@@ -74,7 +74,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitDefinitionStatement([NotNull] SidlParser.DefinitionStatementContext context) {
+    public override object VisitDefinitionStatement([NotNull] SeidlParser.DefinitionStatementContext context) {
       if(context.variablelist().ChildCount != context.expressionlist().ChildCount && context.expressionlist().ChildCount != 1) {
         throw new ArgumentException($"The number of expressions does not match the number of variables. Alternatively a single expression for all variables can be used.");
       }
@@ -93,7 +93,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitTypedefStatement([NotNull] SidlParser.TypedefStatementContext context) {
+    public override object VisitTypedefStatement([NotNull] SeidlParser.TypedefStatementContext context) {
       var def = context.typedefstatement();
       var name = def.variable().GetText();
       var typecode = def.atomictype()?.Start.Type;
@@ -105,7 +105,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitStructDefinitionStatement([NotNull] SidlParser.StructDefinitionStatementContext context) {
+    public override object VisitStructDefinitionStatement([NotNull] SeidlParser.StructDefinitionStatementContext context) {
 
       var def = context.structdefinition();
       var name = def.variable().GetText();
@@ -125,7 +125,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitMessageDefinitionStatement([NotNull] SidlParser.MessageDefinitionStatementContext context) {
+    public override object VisitMessageDefinitionStatement([NotNull] SeidlParser.MessageDefinitionStatementContext context) {
 
       var def = context.messagedefinition();
       var name = def.messagetypename().GetText();
@@ -156,7 +156,7 @@ namespace Sidl.Processor {
       return null;      
     }
 
-    public override object VisitNodeDefinitionStatement([NotNull] SidlParser.NodeDefinitionStatementContext context) {
+    public override object VisitNodeDefinitionStatement([NotNull] SeidlParser.NodeDefinitionStatementContext context) {
 
       
       var def = context.nodedefinition();
@@ -204,7 +204,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitNodetypeDefinitionStatement([NotNull] SidlParser.NodetypeDefinitionStatementContext context) {
+    public override object VisitNodetypeDefinitionStatement([NotNull] SeidlParser.NodetypeDefinitionStatementContext context) {
       var def = context.nodetypedefinition();
 
       var name = def.nodetypename().GetText();
@@ -226,7 +226,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitNodeConnectionStatement([NotNull] SidlParser.NodeConnectionStatementContext context) {
+    public override object VisitNodeConnectionStatement([NotNull] SeidlParser.NodeConnectionStatementContext context) {
       var stmt = context.nodeconnectionstatement();
       
       // parse source and sink names (= nodes names with port names)
@@ -350,7 +350,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    public override object VisitImportStatement([NotNull] SidlParser.ImportStatementContext context) {
+    public override object VisitImportStatement([NotNull] SeidlParser.ImportStatementContext context) {
       var stmt = context.importstatement();
       //var url = stmt.STRINGLITERAL().GetText();
       var url = stmt.@string().GetText().Trim('\"');
@@ -378,7 +378,7 @@ namespace Sidl.Processor {
       return null;
     }
 
-    private void ReadNodeSignature(SidlParser.NodetypesignatureContext signature, Node node) {
+    private void ReadNodeSignature(SeidlParser.NodetypesignatureContext signature, Node node) {
       for (int i = 0; i < signature.inputs.variable().Length; i++) {
         var msgname = signature.inputs.variable(i).GetText();
         var msgtypename = signature.inputs.messagetypename(i).GetText();
@@ -391,7 +391,7 @@ namespace Sidl.Processor {
       }
     }
 
-    private void ReadNodeBody(SidlParser.NodebodyContext body, Node node) {             
+    private void ReadNodeBody(SeidlParser.NodebodyContext body, Node node) {             
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
           

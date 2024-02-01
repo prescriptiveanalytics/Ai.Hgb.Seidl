@@ -1,6 +1,6 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Sidl",
+	"name": "Seidl",
 	"patterns": [
 		{ "include": "#keywords" },
 		{ "include": "#types"},
@@ -13,7 +13,7 @@
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control.sidl",
+				"name": "keyword.control.seidl",
 				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|latest)\\b"
 			}]
 		},
@@ -25,63 +25,63 @@
 		},
 		"reservedvalues": {
 			"patterns": [{
-				"name": "keyword.control.sidl",
+				"name": "keyword.control.seidl",
 				"match": "\\b(null|true|false)\\b"
 			}]
 		},
 		"strings": {
-			"name": "string.quoted.double.sidl",
+			"name": "string.quoted.double.seidl",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.sidl",
+					"name": "constant.character.escape.seidl",
 					"match": "\\\\."
 				}
 			]
 		},
 		"comment": {
 			"patterns": [{
-				"name": "comment.line.sidl",
+				"name": "comment.line.seidl",
 				"match": "#.*$\n?"
 			}]
 		},
 		"pubsuboperator": {
 			"patterns": [{
-				"name": "keyword.operator.sidl",
+				"name": "keyword.operator.seidl",
 				"match": "-->"				
 			}]
 		},
 		"reqresoperator": {
 			"patterns": [{
-				"name": "keyword.operator.sidl",
+				"name": "keyword.operator.seidl",
 				"match": "==>"				
 			}]
 		},
 		"pubsubquerybeginoperator": {
 			"patterns": [{
-				"name": "keyword.operator.sidl",
+				"name": "keyword.operator.seidl",
 				"match": "-["				
 			}]
 		},
 		"pubsubqueryendoperator": {
 			"patterns": [{
-				"name": "keyword.operator.sidl",
+				"name": "keyword.operator.seidl",
 				"match": "]->"				
 			}]
 		},
 		"reqresquerybeginoperator": {
 			"patterns": [{
-				"name": "keyword.operator.sidl",
+				"name": "keyword.operator.seidl",
 				"match": "=["				
 			}]
 		},
 		"reqresqueryendoperator": {
 			"patterns": [{
-				"name": "keyword.operator.sidl",
+				"name": "keyword.operator.seidl",
 				"match": "]=>"				
 			}]
 		}
 	},
-	"scopeName": "source.sidl"
+	"scopeName": "source.seidl"
 }

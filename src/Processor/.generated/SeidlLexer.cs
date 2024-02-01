@@ -19,7 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
 using System;
 using System.IO;
 using System.Text;
@@ -30,7 +30,7 @@ using DFA = Antlr4.Runtime.Dfa.DFA;
 
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.CLSCompliant(false)]
-public partial class SidlLexer : Lexer {
+public partial class SeidlLexer : Lexer {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
@@ -74,10 +74,10 @@ public partial class SidlLexer : Lexer {
 	};
 
 
-	public SidlLexer(ICharStream input)
+	public SeidlLexer(ICharStream input)
 	: this(input, Console.Out, Console.Error) { }
 
-	public SidlLexer(ICharStream input, TextWriter output, TextWriter errorOutput)
+	public SeidlLexer(ICharStream input, TextWriter output, TextWriter errorOutput)
 	: base(input, output, errorOutput)
 	{
 		Interpreter = new LexerATNSimulator(this, _ATN, decisionToDFA, sharedContextCache);
@@ -132,7 +132,7 @@ public partial class SidlLexer : Lexer {
 
 	public override int[] SerializedAtn { get { return _serializedATN; } }
 
-	static SidlLexer() {
+	static SeidlLexer() {
 		decisionToDFA = new DFA[_ATN.NumberOfDecisions];
 		for (int i = 0; i < _ATN.NumberOfDecisions; i++) {
 			decisionToDFA[i] = new DFA(_ATN.GetDecisionState(i), i);

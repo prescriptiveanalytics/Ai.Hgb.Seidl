@@ -1,14 +1,14 @@
-﻿using Sidl.Data;
+﻿using Ai.Hgb.Seidl.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
   public class Linter {
 
-    public SidlParser Parser { 
+    public SeidlParser Parser { 
       get { return _parser; } 
       set { _parser = value; } 
     }
@@ -18,10 +18,10 @@ namespace Sidl.Processor {
       set { _programTextUrl = value; } 
     }
 
-    private SidlParser _parser;
+    private SeidlParser _parser;
     private string _programTextUrl;
 
-    public Linter(SidlParser parser) {
+    public Linter(SeidlParser parser) {
       _parser = parser; 
     }
 
@@ -29,7 +29,7 @@ namespace Sidl.Processor {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
       scopedSymbolTableVisitor.programTextUrl = _programTextUrl;
 
-      SidlParser.RootContext rootContext = _parser.root();
+      SeidlParser.RootContext rootContext = _parser.root();
       try {
         scopedSymbolTableVisitor.Visit(rootContext);
       } catch (Exception e) {
@@ -43,7 +43,7 @@ namespace Sidl.Processor {
     
     public ScopedSymbolTable CreateScopedSymbolTable() {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
-      SidlParser.RootContext rootContext = _parser.root();
+      SeidlParser.RootContext rootContext = _parser.root();
       scopedSymbolTableVisitor.Visit(rootContext);
 
       return scopedSymbolTableVisitor.scopedSymbolTable;      

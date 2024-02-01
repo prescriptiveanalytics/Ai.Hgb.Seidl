@@ -1,7 +1,7 @@
 ﻿using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
-using Sidl.Data;
-using Sidl.Utils;
+using Ai.Hgb.Seidl.Data;
+using Ai.Hgb.Common.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
   public class Utils {
 
     public static string ReadFile(string filePath) {
@@ -24,92 +24,92 @@ namespace Sidl.Processor {
       return text.ToString();
     }
 
-    public static SidlParser TokenizeAndParse(string programText) {
+    public static SeidlParser TokenizeAndParse(string programText) {
       var inputStream = new AntlrInputStream(programText.ToString());
-      SidlLexer lexer = new SidlLexer(inputStream);
+      SeidlLexer lexer = new SeidlLexer(inputStream);
       var commonTokenStream = new CommonTokenStream(lexer);
-      return new SidlParser(commonTokenStream);
+      return new SeidlParser(commonTokenStream);
     }
 
     #region atomic type checks / helper
     public static bool IsAtomicType(int typeCode) {
-      return typeCode.IsOneOf(SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL);
+      return typeCode.IsOneOf(SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL);
     }
 
     public static IEnumerable<string> GetAtomicTypeDisplayNames() {
-      var atomicTypeCodes = new List<int> { SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL };
+      var atomicTypeCodes = new List<int> { SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL };
       foreach (var tc in atomicTypeCodes) {
-        yield return SidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
+        yield return SeidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
       }
     }
 
     public static IEnumerable<string> GetBaseTypeDisplayNames() {
-      var typeCodes = new List<int> { SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL,
-        SidlLexer.STRUCT, SidlLexer.MESSAGE, SidlLexer.NODETYPE, SidlLexer.NODE };
+      var typeCodes = new List<int> { SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL,
+        SeidlLexer.STRUCT, SeidlLexer.MESSAGE, SeidlLexer.NODETYPE, SeidlLexer.NODE };
       foreach (var tc in typeCodes) {
-        yield return SidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
+        yield return SeidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
       }
     }
 
     public static IEnumerable<string> GetKeywordDisplayNames() {
-      var typeCodes = new List<int> { SidlLexer.STRING, SidlLexer.INT, SidlLexer.FLOAT, SidlLexer.BOOL,
-        SidlLexer.STRUCT, SidlLexer.MESSAGE, SidlLexer.NODETYPE, SidlLexer.NODE,
-        SidlLexer.TYPEDEF, SidlLexer.TOPIC, SidlLexer.PROPERTY };
+      var typeCodes = new List<int> { SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL,
+        SeidlLexer.STRUCT, SeidlLexer.MESSAGE, SeidlLexer.NODETYPE, SeidlLexer.NODE,
+        SeidlLexer.TYPEDEF, SeidlLexer.TOPIC, SeidlLexer.PROPERTY };
       foreach (var tc in typeCodes) {
-        yield return SidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
+        yield return SeidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
       }
     }
 
     private static bool CheckAtomicTypeValue(int typeCode, int valueCode) => typeCode switch {
-      SidlLexer.STRING  => valueCode == SidlLexer.STRINGLITERAL,
-      SidlLexer.INT     => valueCode == SidlLexer.INTEGER,
-      SidlLexer.FLOAT   => valueCode == SidlLexer.FLOATINGPOINTNUMBER,
-      SidlLexer.BOOL    => valueCode == SidlLexer.TRUE || valueCode == SidlLexer.FALSE,
+      SeidlLexer.STRING  => valueCode == SeidlLexer.STRINGLITERAL,
+      SeidlLexer.INT     => valueCode == SeidlLexer.INTEGER,
+      SeidlLexer.FLOAT   => valueCode == SeidlLexer.FLOATINGPOINTNUMBER,
+      SeidlLexer.BOOL    => valueCode == SeidlLexer.TRUE || valueCode == SeidlLexer.FALSE,
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    private static string GetAtomicTypeValueText(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
-      SidlLexer.STRING => exp.GetText(),
-      SidlLexer.INT => exp.number().INTEGER().GetText(),
-      SidlLexer.FLOAT => exp.number().FLOATINGPOINTNUMBER().GetText(),
-      SidlLexer.BOOL => exp.boolean().GetText(),
+    private static string GetAtomicTypeValueText(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
+      SeidlLexer.STRING => exp.GetText(),
+      SeidlLexer.INT => exp.number().INTEGER().GetText(),
+      SeidlLexer.FLOAT => exp.number().FLOATINGPOINTNUMBER().GetText(),
+      SeidlLexer.BOOL => exp.boolean().GetText(),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    private static IAtomicType InstanceAtomicType(int typeCode, SidlParser.ExpressionContext? exp) => typeCode switch {
-      SidlLexer.STRING => new Data.String(exp.GetText()),
-      SidlLexer.INT => new Data.Integer(exp.number().INTEGER().GetText()),
-      SidlLexer.FLOAT => new Data.Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
-      SidlLexer.BOOL => new Data.Bool(exp.boolean().GetText()),
+    private static IAtomicType InstanceAtomicType(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
+      SeidlLexer.STRING => new Data.String(exp.GetText()),
+      SeidlLexer.INT => new Data.Integer(exp.number().INTEGER().GetText()),
+      SeidlLexer.FLOAT => new Data.Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
+      SeidlLexer.BOOL => new Data.Bool(exp.boolean().GetText()),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
     private static IAtomicType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
-      SidlLexer.STRING => new Data.String(valueText),
-      SidlLexer.INT => new Data.Integer(valueText),
-      SidlLexer.FLOAT => new Data.Float(valueText),
-      SidlLexer.BOOL => new Data.Bool(valueText),
+      SeidlLexer.STRING => new Data.String(valueText),
+      SeidlLexer.INT => new Data.Integer(valueText),
+      SeidlLexer.FLOAT => new Data.Float(valueText),
+      SeidlLexer.BOOL => new Data.Bool(valueText),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
     private static IAtomicType DeclareAtomicType(int typeCode) => typeCode switch {
-      SidlLexer.STRING => new Data.String(),
-      SidlLexer.INT => new Data.Integer(),
-      SidlLexer.FLOAT => new Data.Float(),
-      SidlLexer.BOOL => new Data.Bool(),
+      SeidlLexer.STRING => new Data.String(),
+      SeidlLexer.INT => new Data.Integer(),
+      SeidlLexer.FLOAT => new Data.Float(),
+      SeidlLexer.BOOL => new Data.Bool(),
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
     #endregion atomic type checks / helper
 
-    public static IAtomicType CreateAtomicType(int typeCode, SidlParser.ExpressionContext? exp) {
+    public static IAtomicType CreateAtomicType(int typeCode, SeidlParser.ExpressionContext? exp) {
       IAtomicType type;
       bool initialize = exp != null && !exp.IsEmpty;
 
       if (initialize) {
         int valueCode = initialize ? exp.Start.Type : -1;        
         if (CheckAtomicTypeValue(typeCode, valueCode)) type = InstanceAtomicType(typeCode, exp);
-        else throw new ArgumentException($"The stated expression ({SidlLexer.DefaultVocabulary.GetDisplayName(valueCode)}) does not match the specified type ({SidlLexer.DefaultVocabulary.GetDisplayName(typeCode)}).");
+        else throw new ArgumentException($"The stated expression ({SeidlLexer.DefaultVocabulary.GetDisplayName(valueCode)}) does not match the specified type ({SeidlLexer.DefaultVocabulary.GetDisplayName(typeCode)}).");
       } else {
         type = DeclareAtomicType(typeCode);
       }
@@ -117,7 +117,7 @@ namespace Sidl.Processor {
       return type;
     }
 
-    public static IType CreateType(int? typecode, string? typename, ScopedSymbolTable scopedSymbolTable, Scope currentScope, SidlParser.ExpressionContext? expression = null) {
+    public static IType CreateType(int? typecode, string? typename, ScopedSymbolTable scopedSymbolTable, Scope currentScope, SeidlParser.ExpressionContext? expression = null) {
       IType type = null;
       if (typecode != null && typecode.HasValue) {
         if (Utils.IsAtomicType(typecode.Value)) type = Utils.CreateAtomicType(typecode.Value, expression);

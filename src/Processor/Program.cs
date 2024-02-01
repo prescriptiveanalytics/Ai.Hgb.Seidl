@@ -4,7 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace Sidl.Processor // Note: actual namespace depends on the project name.
+namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
     public static string demoTextFilePath = @"../../../../Samples/DocPubSub.3l";
@@ -26,7 +26,7 @@ namespace Sidl.Processor // Note: actual namespace depends on the project name.
       string programText = Utils.ReadFile(fp);
 
       Console.WriteLine(" - Parsing program...");
-      SidlParser parser = Utils.TokenizeAndParse(programText);
+      SeidlParser parser = Utils.TokenizeAndParse(programText);
 
 
       Console.WriteLine(" - Analyzing program...");

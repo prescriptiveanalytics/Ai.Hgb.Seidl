@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Sidl.ProcessorTests;
+namespace Ai.Hgb.Seidl.ProcessorTests;
 
 [TestClass]
 public class UnitTest1

@@ -8,7 +8,7 @@ using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization;
 using System.Text.Json;
 
-namespace Sidl.Processor {
+namespace Ai.Hgb.Seidl.Processor {
 
   public class YamlParser {
 
