@@ -40,6 +40,7 @@ namespace Sidl.Processor {
       return scopedSymbolTable;
     }
 
+    
     public ScopedSymbolTable CreateScopedSymbolTable() {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
       SidlParser.RootContext rootContext = _parser.root();

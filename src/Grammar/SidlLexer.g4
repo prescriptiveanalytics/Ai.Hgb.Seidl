@@ -56,6 +56,7 @@ RETURN              : 'return';
 AS                  : 'as';
 IMITATES            : 'imitates';
 WITH                : 'with';
+LATEST              : 'latest';
 
 // Operators
 

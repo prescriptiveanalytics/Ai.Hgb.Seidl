@@ -300,6 +300,12 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitLefthandside([NotNull] SidlParser.LefthandsideContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SidlParser.tag"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTag([NotNull] SidlParser.TagContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SidlParser.importstatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

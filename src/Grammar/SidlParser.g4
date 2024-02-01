@@ -167,12 +167,22 @@ lefthandside
 	|	arrayaccess
 	;
 
-importstatement
-    : IMPORT variable
-    | IMPORT string
-    | IMPORT from=variable AS to=variable
-    | IMPORT string AS variable
+tag
+    : STRINGLITERAL
     ;
+
+importstatement
+    : IMPORT field
+    | IMPORT string
+    | IMPORT from=field AS to=field
+    | IMPORT string AS field
+    | IMPORT field COLON tag
+    | IMPORT string COLON tag
+    | IMPORT from=field COLON tag AS to=field
+    | IMPORT string COLON tag AS field
+    ;
+
+
 
 typedefstatement
     : TYPEDEF (atomictype | typename) variable

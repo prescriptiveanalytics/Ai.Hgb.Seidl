@@ -6,9 +6,11 @@
 #import "https://127.0.0.1/ceal/nodetypes.3l" # importing pre-configured nodetypes
 #import "https://127.0.0.1/methods/base.3l:latest" as mlmethods # importing ml methods to create surrogates later on
 
-string host = "127.0.0.1"
-int port = 1883
-string basetopic = "docs"
+import base.network:latest
+
+host = "127.0.0.1"
+port = 1883
+basetopic = "docs"
 
 struct Document {
   string Id
