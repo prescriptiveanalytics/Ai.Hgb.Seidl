@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SidlParser.g4 by ANTLR 4.13.1
+// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SeidlParser.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -26,7 +26,7 @@ using IToken = Antlr4.Runtime.IToken;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 /// <summary>
-/// This class provides an empty implementation of <see cref="ISidlParserVisitor{Result}"/>,
+/// This class provides an empty implementation of <see cref="ISeidlParserVisitor{Result}"/>,
 /// which can be extended to create a visitor which only needs to handle a subset
 /// of the available methods.
 /// </summary>
@@ -34,7 +34,7 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.Diagnostics.DebuggerNonUserCode]
 [System.CLSCompliant(false)]
-public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ISidlParserVisitor<Result> {
+public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ISeidlParserVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.root"/>.
 	/// <para>
@@ -811,4 +811,4 @@ public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitTerminator([NotNull] SeidlParser.TerminatorContext context) { return VisitChildren(context); }
 }
-} // namespace Sidl.Processor
+} // namespace Ai.Hgb.Seidl.Processor

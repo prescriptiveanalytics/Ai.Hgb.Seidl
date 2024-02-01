@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SidlParser.g4 by ANTLR 4.13.1
+// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SeidlParser.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -31,7 +31,7 @@ using IToken = Antlr4.Runtime.IToken;
 /// <typeparam name="Result">The return type of the visit operation.</typeparam>
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.CLSCompliant(false)]
-public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
+public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.root"/>.
 	/// </summary>
@@ -504,4 +504,4 @@ public interface ISidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTerminator([NotNull] SeidlParser.TerminatorContext context);
 }
-} // namespace Sidl.Processor
+} // namespace Ai.Hgb.Seidl.Processor

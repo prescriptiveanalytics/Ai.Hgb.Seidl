@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SidlParser.g4 by ANTLR 4.13.1
+// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SeidlParser.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -128,7 +128,7 @@ public partial class SeidlParser : Parser {
 		}
 	}
 
-	public override string GrammarFileName { get { return "SidlParser.g4"; } }
+	public override string GrammarFileName { get { return "SeidlParser.g4"; } }
 
 	public override string[] RuleNames { get { return ruleNames; } }
 
@@ -161,7 +161,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_root; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitRoot(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -205,7 +205,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_set; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSet(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -265,7 +265,7 @@ public partial class SeidlParser : Parser {
 		public StructDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitStructDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -277,7 +277,7 @@ public partial class SeidlParser : Parser {
 		public MessageDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMessageDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -289,7 +289,7 @@ public partial class SeidlParser : Parser {
 		public ImportStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitImportStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -304,7 +304,7 @@ public partial class SeidlParser : Parser {
 		public SurrogateDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSurrogateDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -323,7 +323,7 @@ public partial class SeidlParser : Parser {
 		public AssignmentStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAssignmentStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -335,7 +335,7 @@ public partial class SeidlParser : Parser {
 		public MetaDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMetaDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -357,7 +357,7 @@ public partial class SeidlParser : Parser {
 		public DefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -369,7 +369,7 @@ public partial class SeidlParser : Parser {
 		public EdgetypeDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitEdgetypeDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -381,7 +381,7 @@ public partial class SeidlParser : Parser {
 		public NodetypeDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodetypeDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -393,7 +393,7 @@ public partial class SeidlParser : Parser {
 		public NodeDefinitionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodeDefinitionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -414,7 +414,7 @@ public partial class SeidlParser : Parser {
 		public DeclarationStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitDeclarationStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -426,7 +426,7 @@ public partial class SeidlParser : Parser {
 		public TerminatorStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTerminatorStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -441,7 +441,7 @@ public partial class SeidlParser : Parser {
 		public NodeConnectionStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodeConnectionStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -456,7 +456,7 @@ public partial class SeidlParser : Parser {
 		public TypedefStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTypedefStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -468,7 +468,7 @@ public partial class SeidlParser : Parser {
 		public ScopeStatementContext(StatementContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitScopeStatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -691,7 +691,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_scope; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitScope(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -752,7 +752,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_type; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitType(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -832,7 +832,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_atomictype; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAtomictype(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -877,7 +877,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_complextype; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitComplextype(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -919,7 +919,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_atomictypeortypename; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAtomictypeortypename(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -977,7 +977,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_graphtype; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitGraphtype(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1022,7 +1022,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_variable; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitVariable(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1059,7 +1059,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_typename; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTypename(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1105,7 +1105,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_field; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitField(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1168,7 +1168,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_fieldlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFieldlist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1231,7 +1231,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_variablelist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitVariablelist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1300,7 +1300,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_typedvariablelist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTypedvariablelist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1379,7 +1379,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_customtypedvariablelist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitCustomtypedvariablelist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1490,7 +1490,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_messageparameterlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMessageparameterlist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1554,7 +1554,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_messageparametersignature; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMessageparametersignature(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1630,7 +1630,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_expressionlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpressionlist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1720,7 +1720,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_expression; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1874,7 +1874,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_assignmentlist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAssignmentlist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -1939,7 +1939,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_assignment; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitAssignment(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2005,7 +2005,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_query; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitQuery(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2051,7 +2051,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_comparator; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitComparator(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2102,7 +2102,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_arraydeclaration; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArraydeclaration(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2153,7 +2153,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_arrayaccess; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitArrayaccess(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2226,7 +2226,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_fieldaccess; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFieldaccess(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2292,7 +2292,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_lefthandside; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitLefthandside(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2349,7 +2349,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_tag; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTag(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2402,7 +2402,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_importstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitImportstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2551,7 +2551,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_typedefstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTypedefstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2627,7 +2627,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodeconnectionstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodeconnectionstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2721,7 +2721,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_surrogatedefinitionstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSurrogatedefinitionstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2777,7 +2777,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_surrogatebody; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSurrogatebody(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -2870,7 +2870,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_functiondefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFunctiondefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3023,7 +3023,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_functionbody; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFunctionbody(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3206,7 +3206,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_returnstatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitReturnstatement(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3260,7 +3260,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_functioncall; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitFunctioncall(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3333,7 +3333,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_structpropertylist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitStructpropertylist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3460,7 +3460,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_structdefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitStructdefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3505,7 +3505,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_messagetypename; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMessagetypename(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3542,7 +3542,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodetypename; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodetypename(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3579,7 +3579,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_edgetypename; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitEdgetypename(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3631,7 +3631,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_messagetypelist; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMessagetypelist(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3697,7 +3697,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_messagedefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMessagedefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3759,7 +3759,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_edgetypedefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitEdgetypedefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3823,7 +3823,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_edgetypebody; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitEdgetypebody(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3908,7 +3908,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodetypedefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodetypedefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -3986,7 +3986,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodetypesignature; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodetypesignature(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4065,7 +4065,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodedefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodedefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4198,7 +4198,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodebody; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodebody(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4291,7 +4291,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodebodyinout; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodebodyinout(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4385,7 +4385,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_inoutoption; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitInoutoption(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4437,7 +4437,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodebodyinclude; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodebodyinclude(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4485,7 +4485,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodebodyproperty; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodebodyproperty(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4545,7 +4545,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodebodyclientserver; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodebodyclientserver(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4598,7 +4598,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_nodeconstructor; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNodeconstructor(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4675,7 +4675,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_metadefinition; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitMetadefinition(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4740,7 +4740,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_number; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitNumber(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4785,7 +4785,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_string; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitString(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4823,7 +4823,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_boolean; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitBoolean(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -4868,7 +4868,7 @@ public partial class SeidlParser : Parser {
 		public override int RuleIndex { get { return RULE_terminator; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			ISidlParserVisitor<TResult> typedVisitor = visitor as ISidlParserVisitor<TResult>;
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitTerminator(this);
 			else return visitor.VisitChildren(this);
 		}
@@ -5148,4 +5148,4 @@ public partial class SeidlParser : Parser {
 
 
 }
-} // namespace Sidl.Processor
+} // namespace Ai.Hgb.Seidl.Processor

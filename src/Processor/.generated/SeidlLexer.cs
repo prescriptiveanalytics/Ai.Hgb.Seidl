@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SidlLexer.g4 by ANTLR 4.13.1
+// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SeidlLexer.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -122,7 +122,7 @@ public partial class SeidlLexer : Lexer {
 		}
 	}
 
-	public override string GrammarFileName { get { return "SidlLexer.g4"; } }
+	public override string GrammarFileName { get { return "SeidlLexer.g4"; } }
 
 	public override string[] RuleNames { get { return ruleNames; } }
 
@@ -386,4 +386,4 @@ public partial class SeidlLexer : Lexer {
 
 
 }
-} // namespace Sidl.Processor
+} // namespace Ai.Hgb.Seidl.Processor
