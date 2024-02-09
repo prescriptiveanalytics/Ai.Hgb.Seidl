@@ -7,10 +7,11 @@ using System.Text;
 namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    public static string demoTextFilePath = @"../../../../Samples/DocPubSub.3l";
+    //public static string demoTextFilePath = @"../../../../Samples/DocPubSub.3l";
     //public static string demoTextFilePath = @"../../../../Samples/Lmd.3l";
     //public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
-    //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";    
+    //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";
+    public static string demoTextFilePath = @"../../../packages/base/ai.hgb.packages.base.network.3l";
 
     static void Main(string[] args) {
       TestRun();

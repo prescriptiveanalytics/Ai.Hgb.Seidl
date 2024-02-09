@@ -1,0 +1,8 @@
+name = "ai.hgb.packages.base.network"
+tag = "latest"
+
+import ai.hgb.packages.base:latest
+
+string host = "localhost"
+int port = 1111
+string basetopic = ""

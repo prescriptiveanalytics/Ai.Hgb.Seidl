@@ -154,8 +154,25 @@ namespace Ai.Hgb.Seidl.Data {
       }
     }
 
+    // import info (TODO: move this to scope)
+    public string Name { get; set; }
+    public string Tag { get; set; }
+
+    private List<Common.Entities.Package> packages;
+    public IEnumerable<Common.Entities.Package> Packages {
+      get {
+        return packages;
+      }
+    }
+
+
     public ScopedSymbolTable() {
       global = new Scope("global", null);
+
+      // import info
+      Name = Guid.NewGuid().ToString();
+      Tag = "latest";
+      packages = new List<Common.Entities.Package>();
     }
 
     public Scope AddScope(string name, IScope parent,
@@ -183,6 +200,10 @@ namespace Ai.Hgb.Seidl.Data {
         parent.Symbols.Add(name, s);
         return s;
       }
+    }
+
+    public void AddPackage(Common.Entities.Package package) {
+      packages.Add(package);
     }
 
     public void Assign(string name, object value, Scope scope) {

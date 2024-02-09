@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Runtime.Intrinsics.X86;
+using System.Net.Http.Json;
 
 // https://stackoverflow.com/questions/887205/tutorial-for-walking-antlr-asts-in-c
 // https://tomassetti.me/best-practices-for-antlr-parsers/
@@ -31,11 +33,18 @@ namespace Ai.Hgb.Seidl.Processor {
     public string programTextUrl;
     public ScopedSymbolTable scopedSymbolTable;
     private Scope currentScope;
+    public Uri RepositoryUri;
+    private HttpClient repositoryClient;
+    private Dictionary<string, Tuple<Common.Entities.Package, List<ScopedSymbolTable>>> repositoryCache;
 
     public ScopedSymbolTableVisitor() {
       scopedSymbolTable = new ScopedSymbolTable();
       //currentScope = scopedSymbolTable.AddScope("gobal", null);
       currentScope = scopedSymbolTable.Global;
+
+      repositoryClient = null;
+      if (RepositoryUri != null) SetupRepositoryClient();
+      repositoryCache = new Dictionary<string, Tuple<Common.Entities.Package, List<ScopedSymbolTable>>>();
     }
 
     public override object? VisitSet([NotNull] SeidlParser.SetContext context) {
@@ -350,12 +359,30 @@ namespace Ai.Hgb.Seidl.Processor {
       return null;
     }
 
-    public override object VisitImportStatement([NotNull] SeidlParser.ImportStatementContext context) {
-      var stmt = context.importstatement();
-      //var url = stmt.STRINGLITERAL().GetText();
-      var url = stmt.@string().GetText().Trim('\"');
+    public override object VisitNameDefinitionStatement([NotNull] SeidlParser.NameDefinitionStatementContext context) {
+      var stmt = context.namedefstatement();
+      string descName = stmt.@string().GetText();
+      scopedSymbolTable.Name = descName;
+      return null;
+    }
 
-      if (!string.IsNullOrWhiteSpace(url)) {
+    public override object VisitTagDefinitionStatement([NotNull] SeidlParser.TagDefinitionStatementContext context) {
+      var stmt = context.tagdefstatement();
+      string descTag = stmt.tag().GetText();
+      scopedSymbolTable.Tag = descTag;
+      return null;
+    }
+
+    public override object VisitImportStatement([NotNull] SeidlParser.ImportStatementContext context) {      
+      var stmt = context.importstatement();
+
+      // read url
+      var urlString = stmt.@string();
+      //var url = stmt.STRINGLITERAL().GetText();                        
+
+      // Option 1: url string      
+      if (urlString != null) {
+        var url = urlString.GetText().Trim('\"');
         string fp = url;
         if(!File.Exists(fp)) {
           string dir = Path.GetDirectoryName(Path.GetFullPath(programTextUrl));
@@ -368,13 +395,54 @@ namespace Ai.Hgb.Seidl.Processor {
         linter.ProgramTextUrl = fp;
 
         var sst = linter.CreateScopedSymbolTable();
-        var readScope = sst.Global;
+        ProcessImportedScopedSymbolTable(sst);
 
-        // integrate read scope to current one
-        foreach (var s in readScope.Symbols) currentScope.Symbols.Add(s.Key, s.Value);
-        foreach (var s in readScope.ChildScopes) currentScope.ChildScopes.Add(s.Key, s.Value); 
+      } else {
+        // Option 2: name + tag
+
+        // parse name and tag
+        string packageName = "", packageTag = "latest";
+        packageName = string.Join('.', stmt.field().variable().Select(x => x.GetText()));                       
+        var tag = stmt.tag();
+        if (tag != null) packageTag = tag.GetText();
+        string packageId = $"{packageName}:{packageTag}";
+        
+        // check repository cache
+        if(repositoryCache.ContainsKey(packageId)) {
+          var hit = repositoryCache[packageId];
+          var pkg = hit.Item1;
+          var sstList = hit.Item2;
+          scopedSymbolTable.AddPackage(pkg);
+          foreach (var sst in sstList) ProcessImportedScopedSymbolTable(sst);
+
+        } else {
+          // ensure repository client is available
+          if (repositoryClient == null && RepositoryUri != null) SetupRepositoryClient();
+          // request stored package
+          var getResponse = repositoryClient.GetAsync($"packages/find/{packageName}/{packageTag}").Result;
+          if(getResponse.IsSuccessStatusCode) {
+            Common.Entities.Package pkg = getResponse.Content.ReadFromJsonAsync<Common.Entities.Package>().Result;
+            scopedSymbolTable.AddPackage(pkg);
+
+            // process package
+            repositoryCache.Add(packageId, Tuple.Create(pkg, new List<ScopedSymbolTable>()));
+            foreach (var desc in pkg.Descriptions) {
+              var descNameTag = $"{desc.Name}:{desc.Tag}";
+              var parser = Utils.TokenizeAndParse(desc.Text);
+              var linter = new Linter(parser);
+              linter.ProgramTextUrl = desc.Id;
+
+              var sst = linter.CreateScopedSymbolTable();
+              ProcessImportedScopedSymbolTable(sst);
+
+              // add import to repository cache
+              repositoryCache[packageId].Item2.Add(sst);
+
+            }
+          }          
+        }        
       }
-
+      
       return null;
     }
 
@@ -415,6 +483,22 @@ namespace Ai.Hgb.Seidl.Processor {
           node.Properties.Add(v.GetText(), type);
         }
       }
+    }
+
+    private void SetupRepositoryClient() {
+      HttpClientHandler clientHandler = new HttpClientHandler();
+      clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+      repositoryClient = new HttpClient(clientHandler);
+      repositoryClient.BaseAddress = RepositoryUri;
+    }
+
+    private void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst) {
+      var readScope = sst.Global;
+
+      // integrate read scope to current one
+      foreach (var s in readScope.Symbols) currentScope.Symbols.Add(s.Key, s.Value);
+      foreach (var s in readScope.ChildScopes) currentScope.ChildScopes.Add(s.Key, s.Value);
     }
   }
 }

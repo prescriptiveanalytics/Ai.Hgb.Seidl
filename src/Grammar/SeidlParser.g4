@@ -40,6 +40,8 @@ statement
     | typedefstatement terminator                                           #typedefStatement
     | nodeconnectionstatement terminator                                    #nodeConnectionStatement
     | surrogatedefinitionstatement terminator                               #surrogateDefinitionStatement
+    | namedefstatement                                                      #nameDefinitionStatement
+    | tagdefstatement                                                       #tagDefinitionStatement
 
     // not yet in use
     // | functiondefinition
@@ -167,19 +169,26 @@ lefthandside
 	|	arrayaccess
 	;
 
+namedefstatement
+    : NAMEDEF '=' string
+    ;
+
+tagdefstatement
+    : TAGDEF '=' tag
+    ;
+
 tag
-    : STRINGLITERAL
+    : LATEST
+    | string
     ;
 
 importstatement
-    : IMPORT field
-    | IMPORT string
-    | IMPORT from=field AS to=field
-    | IMPORT string AS field
+    : IMPORT string
+    | IMPORT field
     | IMPORT field COLON tag
-    | IMPORT string COLON tag
-    | IMPORT from=field COLON tag AS to=field
-    | IMPORT string COLON tag AS field
+    // | IMPORT from=field AS to=field
+    // | IMPORT string AS field
+    // | IMPORT from=field COLON tag AS to=field
     ;
 
 

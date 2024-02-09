@@ -57,6 +57,8 @@ AS                  : 'as';
 IMITATES            : 'imitates';
 WITH                : 'with';
 LATEST              : 'latest';
+NAMEDEF             : 'name';
+TAGDEF              : 'tag';
 
 // Operators
 

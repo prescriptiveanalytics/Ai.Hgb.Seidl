@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/dev/workspaces/spa/Sidl/src/Grammar/SeidlParser.g4 by ANTLR 4.13.1
+// Generated from c:/dev/workspaces/spa/Ai.Hgb.Seidl/src/Grammar/SeidlParser.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -149,6 +149,20 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitSurrogateDefinitionStatement([NotNull] SeidlParser.SurrogateDefinitionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>nameDefinitionStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNameDefinitionStatement([NotNull] SeidlParser.NameDefinitionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>tagDefinitionStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTagDefinitionStatement([NotNull] SeidlParser.TagDefinitionStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.scope"/>.
 	/// </summary>
@@ -299,6 +313,18 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitLefthandside([NotNull] SeidlParser.LefthandsideContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.namedefstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNamedefstatement([NotNull] SeidlParser.NamedefstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.tagdefstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitTagdefstatement([NotNull] SeidlParser.TagdefstatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.tag"/>.
 	/// </summary>
