@@ -35,7 +35,6 @@ namespace Ai.Hgb.Seidl.Processor {
     private Scope currentScope;
     public Uri RepositoryUri;
     private HttpClient repositoryClient;
-    private Dictionary<string, Tuple<Common.Entities.Package, List<ScopedSymbolTable>>> repositoryCache;
 
     public ScopedSymbolTableVisitor() {
       scopedSymbolTable = new ScopedSymbolTable();
@@ -44,7 +43,6 @@ namespace Ai.Hgb.Seidl.Processor {
 
       repositoryClient = null;
       if (RepositoryUri != null) SetupRepositoryClient();
-      repositoryCache = new Dictionary<string, Tuple<Common.Entities.Package, List<ScopedSymbolTable>>>();
     }
 
     public override object? VisitSet([NotNull] SeidlParser.SetContext context) {
@@ -64,7 +62,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
       // step inside scope
       currentScope = newScope;
-      Visit(context.scope().set());            
+      Visit(context.scope().set());
 
       // step outside scope (i.e. reset scope)
       currentScope = parentScope;
@@ -84,14 +82,14 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitDefinitionStatement([NotNull] SeidlParser.DefinitionStatementContext context) {
-      if(context.variablelist().ChildCount != context.expressionlist().ChildCount && context.expressionlist().ChildCount != 1) {
+      if (context.variablelist().ChildCount != context.expressionlist().ChildCount && context.expressionlist().ChildCount != 1) {
         throw new ArgumentException($"The number of expressions does not match the number of variables. Alternatively a single expression for all variables can be used.");
       }
       bool singleExp = context.expressionlist().ChildCount == 1;
       var typecode = context.atomictype()?.Start.Type;
       var typename = context.typename()?.GetText();
 
-      for(int i = 0; i < context.variablelist().variable().Length; i++) {
+      for (int i = 0; i < context.variablelist().variable().Length; i++) {
         var variable = context.variablelist().variable(i);
         var expression = context.expressionlist().expression(singleExp ? 0 : i);
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope, expression);
@@ -109,7 +107,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var typename = def.typename()?.GetText();
       var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
-      scopedSymbolTable.AddSymbol(name,type, currentScope, true);
+      scopedSymbolTable.AddSymbol(name, type, currentScope, true);
 
       return null;
     }
@@ -120,7 +118,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var name = def.variable().GetText();
       var data = new Struct();
 
-      foreach(var property in def.structpropertylist().variable().Zip(def.structpropertylist().atomictypeortypename(), Tuple.Create)) { 
+      foreach (var property in def.structpropertylist().variable().Zip(def.structpropertylist().atomictypeortypename(), Tuple.Create)) {
 
         var typecode = property.Item2.atomictype()?.Start.Type;
         var typename = property.Item2.typename()?.GetText();
@@ -141,7 +139,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var message = new Message();
 
       // parse message parameters
-      var  mplist = def.messageparameterlist();
+      var mplist = def.messageparameterlist();
       for (int i = 0; i < mplist.variable().Length; i++) {
         var mpsignature = mplist.messageparametersignature(i);
         var topic = mpsignature.TOPIC() != null;
@@ -152,22 +150,22 @@ namespace Ai.Hgb.Seidl.Processor {
         IType type;
         if (atype != null) type = Utils.CreateAtomicType(atype.Start.Type, null);
         else {
-          var t = scopedSymbolTable.GetSymbolAndCheckBaseType(currentScope, typename.GetText()); 
+          var t = scopedSymbolTable.GetSymbolAndCheckBaseType(currentScope, typename.GetText());
           if (t != null) type = t.ShallowCopy();
           else throw new ArgumentException($"The message parameter {typename} is not / derived from a base type and hence, not allowed.");
         }
-        
+
         message.AddParameter(type, parametername, topic);
       }
 
       scopedSymbolTable.AddSymbol(name, message, currentScope, true);
 
-      return null;      
+      return null;
     }
 
     public override object VisitNodeDefinitionStatement([NotNull] SeidlParser.NodeDefinitionStatementContext context) {
 
-      
+
       var def = context.nodedefinition();
       var name = def.variable()?.GetText();
       var signature = def.nodetypesignature();
@@ -178,23 +176,25 @@ namespace Ai.Hgb.Seidl.Processor {
 
       Node node = null;
 
-      if(body != null && signature == null) { // alternative 1
+      if (body != null && signature == null) { // alternative 1
         node = new Node();
         ReadNodeBody(body, node);
-      } else if(signature != null) { // alternative 2
+      }
+      else if (signature != null) { // alternative 2
         node = new Node();
         ReadNodeSignature(signature, node);
         // optional body:
         if (body != null) ReadNodeBody(body, node);
 
-      } else { // alternative 3         
+      }
+      else { // alternative 3         
         node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
 
         // alternative 3.1: with constructor
         var constructor = def.nodeconstructor();
         if (constructor != null) {
           var asslist = constructor.assignmentlist();
-          if(asslist != null) {
+          if (asslist != null) {
             for (int i = 0; i < asslist.assignment().Length; i++) {
               var ass = asslist.assignment(i);
               var varname = ass.variable().GetText();
@@ -207,7 +207,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
       }
 
-      if(name != null && node != null)
+      if (name != null && node != null)
         scopedSymbolTable.AddSymbol(name, node, currentScope, false);
 
       return null;
@@ -224,7 +224,8 @@ namespace Ai.Hgb.Seidl.Processor {
 
       if (signature == null && body != null) { // alternative 1
         ReadNodeBody(body, node);
-      } else if(signature != null) { // alternative 2
+      }
+      else if (signature != null) { // alternative 2
         ReadNodeSignature(signature, node);
         // optional body:
         if (body != null) ReadNodeBody(body, node);
@@ -237,12 +238,12 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public override object VisitNodeConnectionStatement([NotNull] SeidlParser.NodeConnectionStatementContext context) {
       var stmt = context.nodeconnectionstatement();
-      
+
       // parse source and sink names (= nodes names with port names)
-      var sourceNames = new List<Tuple<string,string>>();
+      var sourceNames = new List<Tuple<string, string>>();
       var sinkNames = new List<Tuple<string, string>>();
 
-      foreach(var from in stmt.sources.field()) {
+      foreach (var from in stmt.sources.field()) {
         if (from.variable().Length == 1) sourceNames.Add(Tuple.Create(from.variable(0).GetText(), ""));
         else sourceNames.Add(Tuple.Create(from.variable(0).GetText(), from.variable(1).GetText()));
       }
@@ -272,14 +273,14 @@ namespace Ai.Hgb.Seidl.Processor {
 
       // parse query
       string query = null;
-      if(edgeType == EdgeType.PubSubQuery || edgeType == EdgeType.ReqResQuery) {
+      if (edgeType == EdgeType.PubSubQuery || edgeType == EdgeType.ReqResQuery) {
         query = stmt.query().Start.Text;
       }
 
       var sources = new List<Node>(sourceNames.Count);
       var sinks = new List<Node>(sinkNames.Count);
-      var checkedSourceNames = new List<Tuple<string,string>>(sourceNames.Count);
-      var checkedSinkNames = new List<Tuple<string, string>>(sinkNames.Count);            
+      var checkedSourceNames = new List<Tuple<string, string>>(sourceNames.Count);
+      var checkedSinkNames = new List<Tuple<string, string>>(sinkNames.Count);
 
       // check and collect valid nodes and node fields
       // sources
@@ -291,10 +292,10 @@ namespace Ai.Hgb.Seidl.Processor {
         else checkOk = false;
 
         if (!string.IsNullOrEmpty(sourceName.Item2) && checkOk) {
-          if (!source.Outputs.Keys.Contains(sourceName.Item2)) checkOk = false;                    
-        }        
+          if (!source.Outputs.Keys.Contains(sourceName.Item2)) checkOk = false;
+        }
 
-        if(checkOk) {
+        if (checkOk) {
           sources.Add(source);
           checkedSourceNames.Add(sourceName);
         }
@@ -308,7 +309,7 @@ namespace Ai.Hgb.Seidl.Processor {
         else checkOk = false;
 
         if (!string.IsNullOrEmpty(sinkName.Item2) && checkOk) {
-          if (!sink.Inputs.Keys.Contains(sinkName.Item2)) checkOk = false;                    
+          if (!sink.Inputs.Keys.Contains(sinkName.Item2)) checkOk = false;
         }
 
         if (checkOk) {
@@ -329,9 +330,9 @@ namespace Ai.Hgb.Seidl.Processor {
       foreach (var sink in sinks) sink.Sources.AddRange(checkedSourceNames.Select(x => x.Item1));
 
       // collect and persist edges
-      foreach(var sourceName in checkedSourceNames) {
-        foreach(var sinkName in checkedSinkNames) {
-          var edge =new Edge(sourceName.Item1, sourceName.Item2, sinkName.Item1, sinkName.Item2, edgeType, query);
+      foreach (var sourceName in checkedSourceNames) {
+        foreach (var sinkName in checkedSinkNames) {
+          var edge = new Edge(sourceName.Item1, sourceName.Item2, sinkName.Item1, sinkName.Item2, edgeType, query);
           ((Node)scopedSymbolTable[currentScope, sourceName.Item1].Type).Edges.Add(edge);
           ((Node)scopedSymbolTable[currentScope, sinkName.Item1].Type).Edges.Add(edge);
           var name = sourceName.Item1 + "." + sourceName.Item2 + edgeType + sinkName.Item1 + "." + sinkName.Item2;
@@ -373,7 +374,7 @@ namespace Ai.Hgb.Seidl.Processor {
       return null;
     }
 
-    public override object VisitImportStatement([NotNull] SeidlParser.ImportStatementContext context) {      
+    public override object VisitImportStatement([NotNull] SeidlParser.ImportStatementContext context) {
       var stmt = context.importstatement();
 
       // read url
@@ -384,7 +385,7 @@ namespace Ai.Hgb.Seidl.Processor {
       if (urlString != null) {
         var url = urlString.GetText().Trim('\"');
         string fp = url;
-        if(!File.Exists(fp)) {
+        if (!File.Exists(fp)) {
           string dir = Path.GetDirectoryName(Path.GetFullPath(programTextUrl));
           fp = Path.Combine(dir, url);
         }
@@ -397,52 +398,38 @@ namespace Ai.Hgb.Seidl.Processor {
         var sst = linter.CreateScopedSymbolTable();
         ProcessImportedScopedSymbolTable(sst);
 
-      } else {
+      }
+      else {
         // Option 2: name + tag
 
         // parse name and tag
         string packageName = "", packageTag = "latest";
-        packageName = string.Join('.', stmt.field().variable().Select(x => x.GetText()));                       
+        packageName = string.Join('.', stmt.field().variable().Select(x => x.GetText()));
         var tag = stmt.tag();
         if (tag != null) packageTag = tag.GetText();
         string packageId = $"{packageName}:{packageTag}";
-        
-        // check repository cache
-        if(repositoryCache.ContainsKey(packageId)) {
-          var hit = repositoryCache[packageId];
-          var pkg = hit.Item1;
-          var sstList = hit.Item2;
+
+        // ensure repository client is available
+        if (repositoryClient == null && RepositoryUri != null) SetupRepositoryClient();
+        // request stored package
+        var getResponse = repositoryClient.GetAsync($"packages/find/{packageName}/{packageTag}").Result;
+        if (getResponse.IsSuccessStatusCode) {
+          Common.Entities.Package pkg = getResponse.Content.ReadFromJsonAsync<Common.Entities.Package>().Result;
           scopedSymbolTable.AddPackage(pkg);
-          foreach (var sst in sstList) ProcessImportedScopedSymbolTable(sst);
 
-        } else {
-          // ensure repository client is available
-          if (repositoryClient == null && RepositoryUri != null) SetupRepositoryClient();
-          // request stored package
-          var getResponse = repositoryClient.GetAsync($"packages/find/{packageName}/{packageTag}").Result;
-          if(getResponse.IsSuccessStatusCode) {
-            Common.Entities.Package pkg = getResponse.Content.ReadFromJsonAsync<Common.Entities.Package>().Result;
-            scopedSymbolTable.AddPackage(pkg);
+          // process package
+          foreach (var desc in pkg.Descriptions) {
+            var descNameTag = $"{desc.Name}:{desc.Tag}";
+            var parser = Utils.TokenizeAndParse(desc.Text);
+            var linter = new Linter(parser);
+            linter.ProgramTextUrl = desc.Id;
 
-            // process package
-            repositoryCache.Add(packageId, Tuple.Create(pkg, new List<ScopedSymbolTable>()));
-            foreach (var desc in pkg.Descriptions) {
-              var descNameTag = $"{desc.Name}:{desc.Tag}";
-              var parser = Utils.TokenizeAndParse(desc.Text);
-              var linter = new Linter(parser);
-              linter.ProgramTextUrl = desc.Id;
-
-              var sst = linter.CreateScopedSymbolTable();
-              ProcessImportedScopedSymbolTable(sst);
-
-              // add import to repository cache
-              repositoryCache[packageId].Item2.Add(sst);
-
-            }
-          }          
-        }        
+            var sst = linter.CreateScopedSymbolTable();
+            ProcessImportedScopedSymbolTable(sst);
+          }
+        }
       }
-      
+
       return null;
     }
 
@@ -459,10 +446,10 @@ namespace Ai.Hgb.Seidl.Processor {
       }
     }
 
-    private void ReadNodeBody(SeidlParser.NodebodyContext body, Node node) {             
+    private void ReadNodeBody(SeidlParser.NodebodyContext body, Node node) {
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
-          
+
           var input = body.inout.INPUT();
 
           var msgname = body.inout.messagetypelist().variable(i).GetText();
@@ -473,9 +460,11 @@ namespace Ai.Hgb.Seidl.Processor {
           if (input != null) node.Inputs.Add(msgname, msgtype);
           else if (input == null) node.Outputs.Add(msgname, msgtype);
         }
-      } else if (body.include != null) {
+      }
+      else if (body.include != null) {
         // TODO ?!: only if meta-structures will be implemented.
-      } else {
+      }
+      else {
         var typecode = body.property.type()?.Start.Type;
         var typename = body.property.typename()?.GetText();
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
