@@ -18,16 +18,24 @@ namespace Ai.Hgb.Seidl.Processor {
       set { _programTextUrl = value; } 
     }
 
+    public HttpClient RepositoryClient {
+      get { return _repositoryClient; }
+      set { _repositoryClient = value; }
+    }
+
+
     private SeidlParser _parser;
     private string _programTextUrl;
+    private HttpClient _repositoryClient;
 
     public Linter(SeidlParser parser) {
       _parser = parser; 
     }
 
     public ScopedSymbolTable CreateScopedSymbolTableSecured() {
-      var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
+      var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();      
       scopedSymbolTableVisitor.programTextUrl = _programTextUrl;
+      scopedSymbolTableVisitor.RepositoryClient = _repositoryClient;
 
       SeidlParser.RootContext rootContext = _parser.root();
       try {

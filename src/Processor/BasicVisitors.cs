@@ -32,17 +32,13 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public string programTextUrl;
     public ScopedSymbolTable scopedSymbolTable;
-    private Scope currentScope;
-    public Uri RepositoryUri;
-    private HttpClient repositoryClient;
+    private Scope currentScope;    
+    public HttpClient RepositoryClient;
 
     public ScopedSymbolTableVisitor() {
       scopedSymbolTable = new ScopedSymbolTable();
       //currentScope = scopedSymbolTable.AddScope("gobal", null);
       currentScope = scopedSymbolTable.Global;
-
-      repositoryClient = null;
-      if (RepositoryUri != null) SetupRepositoryClient();
     }
 
     public override object? VisitSet([NotNull] SeidlParser.SetContext context) {
@@ -410,9 +406,9 @@ namespace Ai.Hgb.Seidl.Processor {
         string packageId = $"{packageName}:{packageTag}";
 
         // ensure repository client is available
-        if (repositoryClient == null && RepositoryUri != null) SetupRepositoryClient();
+        if (RepositoryClient == null) return null;
         // request stored package
-        var getResponse = repositoryClient.GetAsync($"packages/find/{packageName}/{packageTag}").Result;
+        var getResponse = RepositoryClient.GetAsync($"packages/find/{packageName}/{packageTag}").Result;
         if (getResponse.IsSuccessStatusCode) {
           Common.Entities.Package pkg = getResponse.Content.ReadFromJsonAsync<Common.Entities.Package>().Result;
           scopedSymbolTable.AddPackage(pkg);
@@ -472,14 +468,6 @@ namespace Ai.Hgb.Seidl.Processor {
           node.Properties.Add(v.GetText(), type);
         }
       }
-    }
-
-    private void SetupRepositoryClient() {
-      HttpClientHandler clientHandler = new HttpClientHandler();
-      clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-      repositoryClient = new HttpClient(clientHandler);
-      repositoryClient.BaseAddress = RepositoryUri;
     }
 
     private void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst) {
