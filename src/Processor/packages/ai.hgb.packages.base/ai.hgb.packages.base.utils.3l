@@ -1,0 +1,3 @@
+ai.hgb.packages.base.utils:latest
+
+int seed = 42

@@ -59,6 +59,8 @@ WITH                : 'with';
 LATEST              : 'latest';
 NAMEDEF             : 'name';
 TAGDEF              : 'tag';
+PACKAGE             : 'package';
+IMAGE               : 'image';
 
 // Operators
 

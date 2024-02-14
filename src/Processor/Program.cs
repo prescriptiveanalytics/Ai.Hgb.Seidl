@@ -11,7 +11,7 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
     //public static string demoTextFilePath = @"../../../../Samples/Lmd.3l";
     //public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
     //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";
-    public static string demoTextFilePath = @"../../../packages/base/ai.hgb.packages.base.network.3l";
+    public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.index.3l";
 
     static void Main(string[] args) {
       TestRun();
@@ -33,6 +33,7 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       Console.WriteLine(" - Analyzing program...");
       Linter linter = new Linter(parser);
       linter.ProgramTextUrl = fp;
+      
 
       var table = linter.CreateScopedSymbolTableSecured();
 

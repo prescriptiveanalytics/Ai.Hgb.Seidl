@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -315,6 +316,9 @@ namespace Ai.Hgb.Seidl.Data {
 
   public class Node : Type, IGraphType {
     
+    public string ImageName { get; set; }
+    public string ImageTag { get; set; }
+
     public Dictionary<string, IType> Properties { get; set; }
 
     public Dictionary<string, Message> Inputs { get; set; }
@@ -343,6 +347,8 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override IType ShallowCopy() {
       var n = new Node(false);
+      n.ImageName = ImageName;
+      n.ImageTag = ImageTag;
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());
@@ -354,6 +360,8 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override IType DeepCopy() {
       var n = new Node();
+      n.ImageName = ImageName;
+      n.ImageTag = ImageTag;
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.DeepCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.DeepCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.DeepCopy());
@@ -442,6 +450,50 @@ namespace Ai.Hgb.Seidl.Data {
     }
   }
 
+  public class PackageInformation : Type { 
+
+    public VersionIdentifier Identifier { get; set; }
+
+    public List<VersionIdentifier> DescriptionIdentifiers { get; set; }
+
+    public PackageInformation() {
+      DescriptionIdentifiers = new List<VersionIdentifier>();
+    }
+
+    public PackageInformation(string name, string tag) {
+      Identifier = new VersionIdentifier() { Name = name, Tag = tag };
+      DescriptionIdentifiers = new List<VersionIdentifier>();
+    }
+
+    public PackageInformation(VersionIdentifier identifier) {
+      Identifier = identifier;
+      DescriptionIdentifiers = new List<VersionIdentifier>();
+    }
+
+    public PackageInformation(VersionIdentifier identifier, List<VersionIdentifier> descriptionIdentifiers) : this(identifier) {
+      DescriptionIdentifiers = descriptionIdentifiers;
+    }
+
+    public override IType DeepCopy() {
+      var pi = new PackageInformation();
+      pi.Identifier = Identifier;
+      foreach(var di in DescriptionIdentifiers) pi.DescriptionIdentifiers.Add(di);
+      return pi;
+    }
+
+    public override IType ShallowCopy() {
+      return new PackageInformation(Identifier);
+    }
+
+    public override string GetIdentifier() {
+      return $"{Identifier.Name}:{Identifier.Tag}";
+    }
+
+    public override string GetValueString() {
+      return $"{Identifier.Name}:{Identifier.Tag}";
+    }
+  }
+
   //public class EdgeType : Enumeration {
   //  public static EdgeType PubSub => new(1, "-->");
   //  public static EdgeType ReqRes => new(2, "==>");
@@ -481,6 +533,11 @@ namespace Ai.Hgb.Seidl.Data {
     public int CompareTo(object other) => Id.CompareTo(((Enumeration)other).Id);
 
     // Other utility methods ...
+  }
+
+  public struct VersionIdentifier {
+    public string Name { get; set; }
+    public string Tag { get; set; }
   }
 
   #endregion data structures

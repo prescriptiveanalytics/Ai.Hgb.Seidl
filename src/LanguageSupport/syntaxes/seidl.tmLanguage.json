@@ -14,13 +14,13 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.seidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|latest)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|latest|name|tag|image)\\b"
 			}]
 		},
 		"types": {
 			"patterns": [{
 				"name": "entity.name.type",
-				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate)\\b"
+				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate|package)\\b"
 			}]
 		},
 		"reservedvalues": {

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Net.Http.Json;
+using static Ai.Hgb.Seidl.Processor.SeidlParser;
 
 // https://stackoverflow.com/questions/887205/tutorial-for-walking-antlr-asts-in-c
 // https://tomassetti.me/best-practices-for-antlr-parsers/
@@ -32,7 +33,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public string programTextUrl;
     public ScopedSymbolTable scopedSymbolTable;
-    private Scope currentScope;    
+    private Scope currentScope;
     public HttpClient RepositoryClient;
 
     public ScopedSymbolTableVisitor() {
@@ -161,47 +162,32 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public override object VisitNodeDefinitionStatement([NotNull] SeidlParser.NodeDefinitionStatementContext context) {
 
-
       var def = context.nodedefinition();
       var name = def.variable()?.GetText();
-      var signature = def.nodetypesignature();
-      var body = def.nodebody();
+      var constructor = def.nodeconstructor();
       var typename = def.typename();
 
       if (name == null) return null;
 
       Node node = null;
 
-      if (body != null && signature == null) { // alternative 1
-        node = new Node();
-        ReadNodeBody(body, node);
-      }
-      else if (signature != null) { // alternative 2
-        node = new Node();
-        ReadNodeSignature(signature, node);
-        // optional body:
-        if (body != null) ReadNodeBody(body, node);
 
-      }
-      else { // alternative 3         
-        node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
+      node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
 
-        // alternative 3.1: with constructor
-        var constructor = def.nodeconstructor();
-        if (constructor != null) {
-          var asslist = constructor.assignmentlist();
-          if (asslist != null) {
-            for (int i = 0; i < asslist.assignment().Length; i++) {
-              var ass = asslist.assignment(i);
-              var varname = ass.variable().GetText();
-              var exp = ass.expression();
+      // alternative 3.1: with constructor        
+      if (constructor != null) {
+        var asslist = constructor.assignmentlist();
+        if (asslist != null) {
+          for (int i = 0; i < asslist.assignment().Length; i++) {
+            var ass = asslist.assignment(i);
+            var varname = ass.variable().GetText();
+            var exp = ass.expression();
 
-              // TODO: evaluate expression, check compability, store value
-            }
+            // TODO: evaluate expression, check compability, store value
           }
         }
-
       }
+
 
       if (name != null && node != null)
         scopedSymbolTable.AddSymbol(name, node, currentScope, false);
@@ -212,19 +198,13 @@ namespace Ai.Hgb.Seidl.Processor {
     public override object VisitNodetypeDefinitionStatement([NotNull] SeidlParser.NodetypeDefinitionStatementContext context) {
       var def = context.nodetypedefinition();
 
-      var name = def.nodetypename().GetText();
-      var signature = def.nodetypesignature();
+      var name = def.nodetypename().GetText();      
       var body = def.nodebody();
 
       Node node = new Node();
 
-      if (signature == null && body != null) { // alternative 1
+      if (body != null) {
         ReadNodeBody(body, node);
-      }
-      else if (signature != null) { // alternative 2
-        ReadNodeSignature(signature, node);
-        // optional body:
-        if (body != null) ReadNodeBody(body, node);
       }
 
       scopedSymbolTable.AddSymbol(name, node, currentScope, true);
@@ -357,16 +337,28 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitNameDefinitionStatement([NotNull] SeidlParser.NameDefinitionStatementContext context) {
-      var stmt = context.namedefstatement();
-      string descName = stmt.@string().GetText();
-      scopedSymbolTable.Name = descName;
+      var stmt = context.namedefstatement();      
+      string name = string.Join('.', stmt.field().variable().Select(x => x.GetText()));      
+      scopedSymbolTable.Name = name;
       return null;
     }
 
     public override object VisitTagDefinitionStatement([NotNull] SeidlParser.TagDefinitionStatementContext context) {
       var stmt = context.tagdefstatement();
-      string descTag = stmt.tag().GetText();
-      scopedSymbolTable.Tag = descTag;
+      string tag = "latest";
+
+      if (stmt.tag().versionnumber() != null) tag = string.Join('.', stmt.tag().versionnumber().number().Select(x => x.GetText()));
+      else if(string.IsNullOrEmpty(stmt.tag().GetText())) tag = stmt.tag().GetText();
+
+      scopedSymbolTable.Tag = tag;
+      return null;
+    }
+
+    public override object VisitNametagDefinitionStatement([NotNull] SeidlParser.NametagDefinitionStatementContext context) {
+      var nameTag = ProcessNameTagDefinitionStatement(context.nametagdefstatement());
+
+      scopedSymbolTable.Name = nameTag.Item1;
+      scopedSymbolTable.Tag = nameTag.Item2;
       return null;
     }
 
@@ -429,17 +421,22 @@ namespace Ai.Hgb.Seidl.Processor {
       return null;
     }
 
-    private void ReadNodeSignature(SeidlParser.NodetypesignatureContext signature, Node node) {
-      for (int i = 0; i < signature.inputs.variable().Length; i++) {
-        var msgname = signature.inputs.variable(i).GetText();
-        var msgtypename = signature.inputs.messagetypename(i).GetText();
-        node.Inputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
+    public override object VisitPackageDefinitionStatement([NotNull] PackageDefinitionStatementContext context) {
+      var stmt = context.packagedefstatement();
+
+      var pkgIdentifier = ProcessNameTagDefinitionStatement(stmt.packageidentifier);
+      var pkgContent = stmt.packagecontent.nametagdefstatement();
+
+      var pkg = new PackageInformation(new VersionIdentifier() { Name = pkgIdentifier.Item1, Tag = pkgIdentifier.Item2 });
+
+      foreach(var identifierCtx in pkgContent) {
+        var identifier = ProcessNameTagDefinitionStatement(identifierCtx);
+        pkg.DescriptionIdentifiers.Add(new VersionIdentifier() { Name = identifier.Item1, Tag = identifier.Item2 });
       }
-      for (int i = 0; i < signature.outputs.variable().Length; i++) {
-        var msgname = signature.outputs.variable(i).GetText();
-        var msgtypename = signature.outputs.messagetypename(i).GetText();
-        node.Outputs.Add(msgname, Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope));
-      }
+
+      scopedSymbolTable.AddSymbol(pkg.GetIdentifier(), pkg, currentScope, false);
+
+      return null;
     }
 
     private void ReadNodeBody(SeidlParser.NodebodyContext body, Node node) {
@@ -457,16 +454,21 @@ namespace Ai.Hgb.Seidl.Processor {
           else if (input == null) node.Outputs.Add(msgname, msgtype);
         }
       }
-      else if (body.include != null) {
-        // TODO ?!: only if meta-structures will be implemented.
-      }
-      else {
+
+      if(body.property != null) {
         var typecode = body.property.type()?.Start.Type;
         var typename = body.property.typename()?.GetText();
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
         foreach (var v in body.property.variablelist().variable()) {
           node.Properties.Add(v.GetText(), type);
         }
+      }
+
+      var imageCtx = body.nodebodyimage()?.Last();
+      if(imageCtx != null) {
+        var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
+        node.ImageName = nameTag.Item1;
+        node.ImageTag = nameTag.Item2;
       }
     }
 
@@ -476,6 +478,18 @@ namespace Ai.Hgb.Seidl.Processor {
       // integrate read scope to current one
       foreach (var s in readScope.Symbols) currentScope.Symbols.Add(s.Key, s.Value);
       foreach (var s in readScope.ChildScopes) currentScope.ChildScopes.Add(s.Key, s.Value);
+    }
+
+    private Tuple<string,string> ProcessNameTagDefinitionStatement(NametagdefstatementContext ctx) {
+      string name = "", tag = "latest";
+
+      name = string.Join('.', ctx.field().variable().Select(x => x.GetText()));
+      if (ctx.tag() != null) {
+        if (ctx.tag().versionnumber() != null) tag = string.Join('.', ctx.tag().versionnumber().number().Select(x => x.GetText()));
+        else if (string.IsNullOrEmpty(ctx.tag().GetText())) tag = ctx.tag().GetText();
+      }
+
+      return Tuple.Create(name, tag);
     }
   }
 }

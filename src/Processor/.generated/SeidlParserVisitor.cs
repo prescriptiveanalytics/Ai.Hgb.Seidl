@@ -164,6 +164,20 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTagDefinitionStatement([NotNull] SeidlParser.TagDefinitionStatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>nametagDefinitionStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNametagDefinitionStatement([NotNull] SeidlParser.NametagDefinitionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>packageDefinitionStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPackageDefinitionStatement([NotNull] SeidlParser.PackageDefinitionStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.scope"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -314,6 +328,18 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitLefthandside([NotNull] SeidlParser.LefthandsideContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.nametagdefstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNametagdefstatement([NotNull] SeidlParser.NametagdefstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.nametaglistdefstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNametaglistdefstatement([NotNull] SeidlParser.NametaglistdefstatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.namedefstatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -331,6 +357,18 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitTag([NotNull] SeidlParser.TagContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.versionnumber"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVersionnumber([NotNull] SeidlParser.VersionnumberContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.packagedefstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPackagedefstatement([NotNull] SeidlParser.PackagedefstatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.importstatement"/>.
 	/// </summary>
@@ -446,12 +484,6 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodetypedefinition([NotNull] SeidlParser.NodetypedefinitionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.nodetypesignature"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNodetypesignature([NotNull] SeidlParser.NodetypesignatureContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.nodedefinition"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -476,17 +508,17 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInoutoption([NotNull] SeidlParser.InoutoptionContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyinclude"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNodebodyinclude([NotNull] SeidlParser.NodebodyincludeContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyproperty"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNodebodyproperty([NotNull] SeidlParser.NodebodypropertyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyimage"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodebodyimage([NotNull] SeidlParser.NodebodyimageContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyclientserver"/>.
 	/// </summary>

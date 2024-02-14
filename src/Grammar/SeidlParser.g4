@@ -36,12 +36,14 @@ statement
     | nodetypedefinition                                                    #nodetypeDefinitionStatement
     | nodedefinition                                                        #nodeDefinitionStatement
     | metadefinition                                                        #metaDefinitionStatement
-    | importstatement                                                       #importStatement
+    | importstatement                                                       #importStatement    
     | typedefstatement terminator                                           #typedefStatement
     | nodeconnectionstatement terminator                                    #nodeConnectionStatement
     | surrogatedefinitionstatement terminator                               #surrogateDefinitionStatement
     | namedefstatement                                                      #nameDefinitionStatement
     | tagdefstatement                                                       #tagDefinitionStatement
+    | nametagdefstatement                                                   #nametagDefinitionStatement
+    | packagedefstatement                                                   #packageDefinitionStatement
 
     // not yet in use
     // | functiondefinition
@@ -169,8 +171,18 @@ lefthandside
 	|	arrayaccess
 	;
 
+nametagdefstatement
+    : field COLON tag
+    | field
+    ;
+
+nametaglistdefstatement
+    : nametagdefstatement*
+    ;
+
+
 namedefstatement
-    : NAMEDEF '=' string
+    : NAMEDEF '=' field    
     ;
 
 tagdefstatement
@@ -180,6 +192,15 @@ tagdefstatement
 tag
     : LATEST
     | string
+    | versionnumber
+    ;
+
+versionnumber
+    : number ('.' number)*
+    ;
+
+packagedefstatement
+    : PACKAGE packageidentifier=nametagdefstatement '{' packagecontent=nametaglistdefstatement '}'
     ;
 
 importstatement
@@ -290,27 +311,21 @@ edgetypebody
     ;
 
 nodetypedefinition
-    : NODETYPE nodetypename '{' nodebody '}' // parameter based definition
-    | NODETYPE nodetypename nodetypesignature '{' nodebody '}' // signature based definition
-    ;
-
-nodetypesignature
-    : '(' inputs=messagetypelist? '-->' outputs=messagetypelist? ')'
+    : NODETYPE nodetypename '{' nodebody '}' // parameter based definition    
     ;
 
 nodedefinition
-    : NODE variable '{' nodebody '}' // using implicit nodetype
-    | NODE variable nodetypesignature ('{' nodebody '}')? // using implicit nodetype
-    | NODE typename variable // using explicit nodetype
+    : NODE typename variable // using explicit nodetype
     | NODE typename variable nodeconstructor // using explicit nodetype and constructor
+    // | NODE variable '{' nodebody '}' // using implicit nodetype     
     ;
 
 nodebody
     : (
         inout=nodebodyinout 
         | clientserver=nodebodyclientserver
-        | include=nodebodyinclude
         | property=nodebodyproperty
+        | image=nodebodyimage        
         | terminator
     )*
     ;
@@ -326,11 +341,12 @@ inoutoption
     : (AUX | REQ | RES | REQUEST | RESPONSE | PUB | SUB | PUBLISH | SUBSCRIBE) ':' NAME
     ;
 
-nodebodyinclude
-    : INCLUDE variable
-    ;
 nodebodyproperty
     : PROPERTY (type | typename) variablelist    
+    ;
+
+nodebodyimage
+    : IMAGE nametagdefstatement
     ;
 
 nodebodyclientserver
