@@ -65,6 +65,23 @@ namespace Ai.Hgb.Seidl.Processor {
       return null;
     }
 
+    public override object VisitPackageDefinitionStatement([NotNull] PackageDefinitionStatementContext context) {
+      var stmt = context.packagedefstatement();
+
+      var pkgIdentifier = VisitorUtils.ProcessNameTagDefinitionStatement(stmt.packageidentifier);
+      var pkgContent = stmt.packagecontent.nametagdefstatement();
+
+      var pkg = new PackageInformation(new VersionIdentifier() { Name = pkgIdentifier.Item1, Tag = pkgIdentifier.Item2 });
+
+      foreach (var identifierCtx in pkgContent) {
+        var identifier = VisitorUtils.ProcessNameTagDefinitionStatement(identifierCtx);
+        pkg.DescriptionIdentifiers.Add(new VersionIdentifier() { Name = identifier.Item1, Tag = identifier.Item2 });
+      }
+
+      scopedSymbolTable.AddSymbol(pkg.GetIdentifier(), pkg, currentScope, false);
+
+      return null;
+    }
   }
 
   public class ScopedSymbolTableVisitor : SeidlParserBaseVisitor<object?> {
