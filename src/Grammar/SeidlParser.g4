@@ -177,7 +177,10 @@ nametagdefstatement
     ;
 
 nametaglistdefstatement
-    : nametagdefstatement*
+    : (
+        nametagdefstatement
+        | terminator
+    )*
     ;
 
 

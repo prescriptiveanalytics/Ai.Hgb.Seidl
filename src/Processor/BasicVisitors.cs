@@ -29,6 +29,44 @@ namespace Ai.Hgb.Seidl.Processor {
     }
   }
 
+  public class IdentifierVisitor : SeidlParserBaseVisitor<object?> {
+    public string programTextUrl;
+    public ScopedSymbolTable scopedSymbolTable;
+    private Scope currentScope;
+
+    public IdentifierVisitor() {
+      scopedSymbolTable = new ScopedSymbolTable();
+      currentScope = scopedSymbolTable.Global;
+    }
+
+    public override object VisitNameDefinitionStatement([NotNull] SeidlParser.NameDefinitionStatementContext context) {
+      var stmt = context.namedefstatement();
+      string name = string.Join('.', stmt.field().variable().Select(x => x.GetText()));
+      scopedSymbolTable.Name = name;
+      return null;
+    }
+
+    public override object VisitTagDefinitionStatement([NotNull] SeidlParser.TagDefinitionStatementContext context) {
+      var stmt = context.tagdefstatement();
+      string tag = "latest";
+
+      if (stmt.tag().versionnumber() != null) tag = string.Join('.', stmt.tag().versionnumber().number().Select(x => x.GetText()));
+      else if (string.IsNullOrEmpty(stmt.tag().GetText())) tag = stmt.tag().GetText();
+
+      scopedSymbolTable.Tag = tag;
+      return null;
+    }
+
+    public override object VisitNametagDefinitionStatement([NotNull] SeidlParser.NametagDefinitionStatementContext context) {
+      var nameTag = VisitorUtils.ProcessNameTagDefinitionStatement(context.nametagdefstatement());
+
+      scopedSymbolTable.Name = nameTag.Item1;
+      scopedSymbolTable.Tag = nameTag.Item2;
+      return null;
+    }
+
+  }
+
   public class ScopedSymbolTableVisitor : SeidlParserBaseVisitor<object?> {
 
     public string programTextUrl;
@@ -170,8 +208,6 @@ namespace Ai.Hgb.Seidl.Processor {
       if (name == null) return null;
 
       Node node = null;
-
-
       node = Utils.GetNodeType(typename.GetText(), scopedSymbolTable, currentScope);
 
       // alternative 3.1: with constructor        
@@ -180,18 +216,65 @@ namespace Ai.Hgb.Seidl.Processor {
         if (asslist != null) {
           for (int i = 0; i < asslist.assignment().Length; i++) {
             var ass = asslist.assignment(i);
-            var varname = ass.variable().GetText();
-            var exp = ass.expression();
+            var propertyName = ass.variable().GetText();
+            var exp = ass.expression();            
 
-            // TODO: evaluate expression, check compability, store value
+            // evaluate expression
+            // skip incompatible options
+            if (exp.functiondefinition() != null
+              | exp.functioncall() != null
+              | exp.importstatement() != null
+              | exp.assignmentlist() != null
+              | exp.variablelist() != null) continue;
+
+            if(node.Properties.ContainsKey(propertyName)) {              
+              if(exp.variable() != null) {
+                var variableName = exp.variable().GetText();
+                var variableSymbol = scopedSymbolTable[currentScope, variableName];
+                if(variableSymbol != null) node.Properties[propertyName] = variableSymbol.Type;
+              } else {
+                ProcessAssignment(node.Properties[propertyName], exp);
+              }              
+            }
           }
         }
       }
 
-
       if (name != null && node != null)
         scopedSymbolTable.AddSymbol(name, node, currentScope, false);
 
+      return null;
+    }
+
+    private void ProcessAssignment(IType target, ExpressionContext exp) {
+      if(Utils.IsAtomicType(target)) {
+          Utils.TryAssignExpression(target, exp);        
+      }
+    }
+
+    public override object VisitAssignmentStatement([NotNull] AssignmentStatementContext context) {
+      var varList = context.variablelist();
+      var expList = context.expressionlist();
+      var varListLength = varList.variable().Length;
+      var expListLength = expList.expression().Length;      
+
+      if(varListLength == expListLength) {
+        for(int i = 0; i < varListLength; i++) {
+          var variableName = varList.variable(i).GetText();
+          var expression = expList.expression(i);
+          var persistedVariable = scopedSymbolTable[currentScope, variableName];
+          if(persistedVariable != null && expression != null) ProcessAssignment(persistedVariable, expression);
+
+        }
+      } else {
+        var expression = expList.expression().First();
+        foreach (var variable in varList.variable()) {
+          var variableName = variable.GetText();
+          var persistedVariable = scopedSymbolTable[currentScope, variableName];
+          if(persistedVariable != null) ProcessAssignment(persistedVariable, expression);
+        }
+      }
+      
       return null;
     }
 
@@ -204,7 +287,7 @@ namespace Ai.Hgb.Seidl.Processor {
       Node node = new Node();
 
       if (body != null) {
-        ReadNodeBody(body, node);
+        VisitorUtils.ReadNodeBody(body, node, scopedSymbolTable, currentScope);
       }
 
       scopedSymbolTable.AddSymbol(name, node, currentScope, true);
@@ -355,7 +438,7 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitNametagDefinitionStatement([NotNull] SeidlParser.NametagDefinitionStatementContext context) {
-      var nameTag = ProcessNameTagDefinitionStatement(context.nametagdefstatement());
+      var nameTag = VisitorUtils.ProcessNameTagDefinitionStatement(context.nametagdefstatement());
 
       scopedSymbolTable.Name = nameTag.Item1;
       scopedSymbolTable.Tag = nameTag.Item2;
@@ -384,7 +467,7 @@ namespace Ai.Hgb.Seidl.Processor {
         linter.ProgramTextUrl = fp;
 
         var sst = linter.CreateScopedSymbolTable();
-        ProcessImportedScopedSymbolTable(sst);
+        VisitorUtils.ProcessImportedScopedSymbolTable(sst, currentScope);
 
       }
       else {
@@ -413,7 +496,7 @@ namespace Ai.Hgb.Seidl.Processor {
             linter.ProgramTextUrl = desc.Id;
 
             var sst = linter.CreateScopedSymbolTable();
-            ProcessImportedScopedSymbolTable(sst);
+            VisitorUtils.ProcessImportedScopedSymbolTable(sst, currentScope);
           }
         }
       }
@@ -424,13 +507,13 @@ namespace Ai.Hgb.Seidl.Processor {
     public override object VisitPackageDefinitionStatement([NotNull] PackageDefinitionStatementContext context) {
       var stmt = context.packagedefstatement();
 
-      var pkgIdentifier = ProcessNameTagDefinitionStatement(stmt.packageidentifier);
+      var pkgIdentifier = VisitorUtils.ProcessNameTagDefinitionStatement(stmt.packageidentifier);
       var pkgContent = stmt.packagecontent.nametagdefstatement();
 
       var pkg = new PackageInformation(new VersionIdentifier() { Name = pkgIdentifier.Item1, Tag = pkgIdentifier.Item2 });
 
       foreach(var identifierCtx in pkgContent) {
-        var identifier = ProcessNameTagDefinitionStatement(identifierCtx);
+        var identifier = VisitorUtils.ProcessNameTagDefinitionStatement(identifierCtx);
         pkg.DescriptionIdentifiers.Add(new VersionIdentifier() { Name = identifier.Item1, Tag = identifier.Item2 });
       }
 
@@ -438,8 +521,10 @@ namespace Ai.Hgb.Seidl.Processor {
 
       return null;
     }
+  }
 
-    private void ReadNodeBody(SeidlParser.NodebodyContext body, Node node) {
+  public static class VisitorUtils {
+    public static void ReadNodeBody(SeidlParser.NodebodyContext body, Node node, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
 
@@ -455,7 +540,7 @@ namespace Ai.Hgb.Seidl.Processor {
         }
       }
 
-      if(body.property != null) {
+      if (body.property != null) {
         var typecode = body.property.type()?.Start.Type;
         var typename = body.property.typename()?.GetText();
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
@@ -465,14 +550,14 @@ namespace Ai.Hgb.Seidl.Processor {
       }
 
       var imageCtx = body.nodebodyimage()?.Last();
-      if(imageCtx != null) {
+      if (imageCtx != null) {
         var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
         node.ImageName = nameTag.Item1;
         node.ImageTag = nameTag.Item2;
       }
     }
 
-    private void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst) {
+    public static void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst, Scope currentScope) {
       var readScope = sst.Global;
 
       // integrate read scope to current one
@@ -480,7 +565,7 @@ namespace Ai.Hgb.Seidl.Processor {
       foreach (var s in readScope.ChildScopes) currentScope.ChildScopes.Add(s.Key, s.Value);
     }
 
-    private Tuple<string,string> ProcessNameTagDefinitionStatement(NametagdefstatementContext ctx) {
+    public static Tuple<string, string> ProcessNameTagDefinitionStatement(NametagdefstatementContext ctx) {
       string name = "", tag = "latest";
 
       name = string.Join('.', ctx.field().variable().Select(x => x.GetText()));

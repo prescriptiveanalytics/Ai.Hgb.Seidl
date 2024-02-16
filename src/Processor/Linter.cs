@@ -57,6 +57,14 @@ namespace Ai.Hgb.Seidl.Processor {
       return scopedSymbolTableVisitor.scopedSymbolTable;      
     }
 
+    public ScopedSymbolTable IdentifyScopedSymbolTable() {
+      var identifierVisitor = new IdentifierVisitor();
+      SeidlParser.RootContext rootContext = _parser.root();
+      identifierVisitor.Visit(rootContext);
+
+      return identifierVisitor.scopedSymbolTable;
+    }
+
     [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]
     public void CompleteScopeSymbolDependencies(Dictionary<Scope, List<Symbol>> scopeSymbolStore) {
       foreach (var scope in scopeSymbolStore.Keys.Where(x => x.Parent != null)) {

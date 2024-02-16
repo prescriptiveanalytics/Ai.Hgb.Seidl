@@ -371,11 +371,13 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public StringBuilder Print(IScope parent) {
+
       if (parent == null) {
         var currentScope = Scopes.Where(x => x.Parent == parent).First();
         return Print(currentScope, 0);
       } else {
         var sb = new StringBuilder();
+        if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Tag)) sb.AppendLine($"{Name}:{Tag}\n");
         foreach (var scope in Scopes.Where(x => x.Parent == parent)) {
           sb.Append(Print(scope, 0));
         }
@@ -386,6 +388,8 @@ namespace Ai.Hgb.Seidl.Data {
 
     public StringBuilder Print(IScope currentScope, int scopeLevel) {
       var sb = new StringBuilder();
+      if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Tag)) sb.AppendLine($"{Name}:{Tag}");
+
       string indent = "  ";
       for (int i = 0; i < scopeLevel; i++) indent += "  ";
 

@@ -36,6 +36,11 @@ namespace Ai.Hgb.Seidl.Processor {
       return typeCode.IsOneOf(SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL);
     }
 
+    public static bool IsAtomicType(IType type) {
+      //return type is IAtomicType;      
+      return type is Data.String || type is Integer || type is Float || type is Bool;
+    }
+
     public static IEnumerable<string> GetAtomicTypeDisplayNames() {
       var atomicTypeCodes = new List<int> { SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL };
       foreach (var tc in atomicTypeCodes) {
@@ -54,7 +59,9 @@ namespace Ai.Hgb.Seidl.Processor {
     public static IEnumerable<string> GetKeywordDisplayNames() {
       var typeCodes = new List<int> { SeidlLexer.STRING, SeidlLexer.INT, SeidlLexer.FLOAT, SeidlLexer.BOOL,
         SeidlLexer.STRUCT, SeidlLexer.MESSAGE, SeidlLexer.NODETYPE, SeidlLexer.NODE,
-        SeidlLexer.TYPEDEF, SeidlLexer.TOPIC, SeidlLexer.PROPERTY };
+        SeidlLexer.TYPEDEF, SeidlLexer.TOPIC, SeidlLexer.PROPERTY,
+        SeidlLexer.IMPORT, SeidlLexer.PACKAGE
+      };
       foreach (var tc in typeCodes) {
         yield return SeidlLexer.DefaultVocabulary.GetDisplayName(tc).Trim('\'');
       }
@@ -100,6 +107,17 @@ namespace Ai.Hgb.Seidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
+    private static int GetExpressionTypeCode(SeidlParser.ExpressionContext? exp) {
+      int typeCode = int.MaxValue;
+
+      if (exp.GetText() != null) typeCode = SeidlLexer.STRING;
+      if (exp.number() != null && exp.number().INTEGER() != null) typeCode = SeidlLexer.INT;
+      if (exp.number() != null && exp.number().FLOATINGPOINTNUMBER() != null) typeCode = SeidlLexer.FLOAT;
+      if (exp.boolean() != null) typeCode = SeidlLexer.BOOL;
+
+      return typeCode;
+    }
+
     #endregion atomic type checks / helper
 
     public static IAtomicType CreateAtomicType(int typeCode, SeidlParser.ExpressionContext? exp) {
@@ -132,6 +150,16 @@ namespace Ai.Hgb.Seidl.Processor {
         }
       }
       return type;
+    }
+
+    public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
+      try {
+        if (target is Data.String) (target as IAtomicType).Assign(exp.GetText());
+        else if (target is Data.Integer) (target as IAtomicType).Assign(exp.number().INTEGER().GetText());
+        else if (target is Data.Float) (target as IAtomicType).Assign(exp.number().FLOATINGPOINTNUMBER().GetText());
+        else if (target is Data.Bool) (target as IAtomicType).Assign(exp.boolean().GetText());
+      }
+      catch { }
     }
 
     public static Message GetMessageType(string msgtypename, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {

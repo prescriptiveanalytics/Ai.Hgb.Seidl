@@ -27,8 +27,12 @@ namespace Ai.Hgb.Seidl.Data {
     new IBaseType DeepCopy();
   }
 
-  public interface IAtomicType : IBaseType {  }
-  public interface IComplexType : IBaseType { }
+  public interface IAtomicType : IBaseType {
+    public void Assign(string value);
+  }
+  public interface IComplexType : IBaseType {
+    public void Assign(string value);
+  }
   public interface IGraphType : IType { }
 
   #endregion data structure interfaces
@@ -43,7 +47,7 @@ namespace Ai.Hgb.Seidl.Data {
 
     public bool Initialized { get { return _initialized; } }
 
-    //public string Name { get { return name; } }
+    //public string Name { get { return name; } }    
 
     public abstract IType ShallowCopy();
 
@@ -55,7 +59,7 @@ namespace Ai.Hgb.Seidl.Data {
 
     public virtual string GetValueString() {
       return "";
-    }
+    }    
   }
 
   public abstract class AtomicType<T> : Type, IAtomicType {
@@ -75,6 +79,8 @@ namespace Ai.Hgb.Seidl.Data {
     IBaseType IBaseType.ShallowCopy() {
       throw new NotImplementedException();
     }
+
+    public abstract void Assign(string value);
   }
 
   public class String : AtomicType<string?> {
@@ -103,6 +109,11 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetValueString() {
       return Initialized ? (Value != null ? Value : "null") : "";
+    }
+
+    public override void Assign(string value) {
+      _initialized = true;
+      _value = value;
     }
   }
 
@@ -144,6 +155,18 @@ namespace Ai.Hgb.Seidl.Data {
     public override string GetValueString() {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
+
+    public override void Assign(string value) {
+      if (value != null) {
+        int parsedValue;
+        if (int.TryParse(value, out parsedValue)) {
+          Value = parsedValue;
+        }
+        else {
+          throw new ArgumentException("The given value can not be converted to an integer.");
+        }
+      }
+    }
   }
 
   public class Float : AtomicType<float?> {
@@ -183,6 +206,18 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetValueString() {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
+    }
+
+    public override void Assign(string value) {
+      if (value != null) {
+        float parsedValue;
+        if (float.TryParse(value, out parsedValue)) {
+          Value = parsedValue;
+        }
+        else {
+          throw new ArgumentException("The given value can not be converted to a float.");
+        }
+      }
     }
   }
 
@@ -224,6 +259,18 @@ namespace Ai.Hgb.Seidl.Data {
     public override string GetValueString() {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
+
+    public override void Assign(string value) {
+      if (value != null) {
+        bool parsedValue;
+        if (bool.TryParse(value, out parsedValue)) {
+          Value = parsedValue;
+        }
+        else {
+          throw new ArgumentException("The given value can not be converted to a bool.");
+        }
+      }
+    }
   }
 
   public class Struct : Type, IComplexType { // TODO: idea: implement IScope and generalize using symbols
@@ -255,6 +302,10 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetValueString() {
       return Properties != null && Properties.Keys.Count > 0 ? string.Join(", ", Properties.Keys) : "";
+    }
+
+    public void Assign(string value) {
+      throw new NotImplementedException();
     }
   }
 

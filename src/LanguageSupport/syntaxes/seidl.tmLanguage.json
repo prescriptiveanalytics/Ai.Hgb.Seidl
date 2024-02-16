@@ -8,13 +8,17 @@
 		{ "include": "#strings"	},
 		{ "include": "#comment" },
 		{ "include": "#graphoperator" },
-		{ "include": "#reqresoperator" }
+		{ "include": "#pubsuboperator" },
+		{ "include": "#reqresoperator" },
+		{ "include": "#pubsubquerybeginoperator"},
+		{ "include": "#pubsubqueryendoperator" }
+
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.seidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|latest|name|tag|image)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|name|tag|image)\\b"
 			}]
 		},
 		"types": {
@@ -25,8 +29,8 @@
 		},
 		"reservedvalues": {
 			"patterns": [{
-				"name": "keyword.control.seidl",
-				"match": "\\b(null|true|false)\\b"
+				"name": "markup.italic",
+				"match": "\\b(null|true|false|latest)\\b"
 			}]
 		},
 		"strings": {
@@ -48,38 +52,38 @@
 		},
 		"pubsuboperator": {
 			"patterns": [{
-				"name": "keyword.operator.seidl",
+				"name": "keyword.other.unit.seidl",
 				"match": "-->"				
 			}]
 		},
 		"reqresoperator": {
 			"patterns": [{
-				"name": "keyword.operator.seidl",
+				"name": "keyword.other.unit.seidl",
 				"match": "==>"				
 			}]
 		},
 		"pubsubquerybeginoperator": {
 			"patterns": [{
-				"name": "keyword.operator.seidl",
-				"match": "-["				
+				"name": "keyword.other.unit.seidl",
+				"match": "--"				
 			}]
 		},
 		"pubsubqueryendoperator": {
 			"patterns": [{
-				"name": "keyword.operator.seidl",
-				"match": "]->"				
+				"name": "keyword.other.unit.seidl",
+				"match": "-->"				
 			}]
 		},
 		"reqresquerybeginoperator": {
 			"patterns": [{
-				"name": "keyword.operator.seidl",
-				"match": "=["				
+				"name": "keyword.other.unit.seidl",
+				"match": "="				
 			}]
 		},
 		"reqresqueryendoperator": {
 			"patterns": [{
-				"name": "keyword.operator.seidl",
-				"match": "]=>"				
+				"name": "keyword.other.unit.seidl",
+				"match": "=>"				
 			}]
 		}
 	},
