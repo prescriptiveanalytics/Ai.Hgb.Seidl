@@ -39,6 +39,31 @@ namespace Ai.Hgb.Seidl.Processor {
       currentScope = scopedSymbolTable.Global;
     }
 
+    public override object? VisitSet([NotNull] SeidlParser.SetContext context) {
+      var statements = context.statement();
+      foreach (var statement in statements) {
+        Visit(statement);
+      }
+      return null;
+    }
+
+    public override object? VisitScopeStatement([NotNull] SeidlParser.ScopeStatementContext context) {
+      var scopeVar = context.scope().variable();
+      string scopeName = scopeVar?.GetText();
+
+      var newScope = scopedSymbolTable.AddScope(scopeName, currentScope, context.Start.Line, context.Start.Column, context.Stop.Line, context.Stop.Column);
+      var parentScope = currentScope;
+
+      // step inside scope
+      currentScope = newScope;
+      Visit(context.scope().set());
+
+      // step outside scope (i.e. reset scope)
+      currentScope = parentScope;
+      return null;
+    }
+
+
     public override object VisitNameDefinitionStatement([NotNull] SeidlParser.NameDefinitionStatementContext context) {
       var stmt = context.namedefstatement();
       string name = string.Join('.', stmt.field().variable().Select(x => x.GetText()));

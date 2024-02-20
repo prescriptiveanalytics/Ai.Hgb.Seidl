@@ -274,7 +274,7 @@ namespace Ai.Hgb.Seidl.Data {
   }
 
   public class Struct : Type, IComplexType { // TODO: idea: implement IScope and generalize using symbols
-    private Dictionary<string, IType> Properties { get; set; } 
+    public Dictionary<string, IType> Properties { get; set; } 
 
     public Struct() {
       Properties = new Dictionary<string, IType>();      
@@ -514,15 +514,18 @@ namespace Ai.Hgb.Seidl.Data {
     public PackageInformation(string name, string tag) {
       Identifier = new VersionIdentifier() { Name = name, Tag = tag };
       DescriptionIdentifiers = new List<VersionIdentifier>();
+      _initialized = true;
     }
 
     public PackageInformation(VersionIdentifier identifier) {
       Identifier = identifier;
       DescriptionIdentifiers = new List<VersionIdentifier>();
+      _initialized = true;
     }
 
     public PackageInformation(VersionIdentifier identifier, List<VersionIdentifier> descriptionIdentifiers) : this(identifier) {
       DescriptionIdentifiers = descriptionIdentifiers;
+      _initialized = true;
     }
 
     public override IType DeepCopy() {

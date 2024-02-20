@@ -1,8 +1,11 @@
-﻿using Antlr4.Runtime;
+﻿using Ai.Hgb.Seidl.Data;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using System;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
@@ -40,11 +43,11 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 
 
       //var table = linter.CreateScopedSymbolTableSecured();
-      var table = linter.IdentifyScopedSymbolTable();
+      var table = linter.IdentifyScopedSymbolTable();            
 
-
-      //var scopesX = table.Scopes;
-      //Console.WriteLine(System.String.Join(' ', scopesX));
+      //var pkgIs = table[null].Where(x => x.Type is PackageInformation);
+      var pkgIs = table[null].Where(x => x.Type is PackageInformation).Select(x => x.Type as PackageInformation).ToList();      
+      Console.WriteLine(string.Join(", ", pkgIs.Select(x => x.Identifier.Name)));
 
       Console.WriteLine("\n\n");
 
