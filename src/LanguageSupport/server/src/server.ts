@@ -318,6 +318,7 @@ connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<Com
 
 	const results = new Array<CompletionItem>();
 	let nodetypes = new Array<string>();
+	let packages = new Array<string>();
 
 	// loadNodetypesForContextAsync(text, position.line, position.character).then(nt => {
 	// 	nodetypes = nodetypes.concat(nt);
@@ -326,6 +327,7 @@ connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<Com
 	// });
 	const currentLine = lines[position.line];
 	const nodeKeywordPos = currentLine.indexOf("node");
+	const importKeywordPos = currentLine.indexOf("import");
 
 	// if word before is "node" do...
 	console.log("pos: " + nodeKeywordPos + " / :" + currentLine.substring(nodeKeywordPos+4, position.character).trim());
@@ -339,8 +341,30 @@ connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<Com
 				data: 'type-' + a
 			});
 		}
-
 		console.log(nodetypes);
+	} else if(importKeywordPos >= 0 && currentLine.substring(importKeywordPos+6, position.character).trim() == "") {
+		const pkgs = await loadPackagesAsync(text, position.line, position.character);
+		for(let a = 0; a < pkgs.length; a++) {
+			results.push({
+				label: pkgs[a],
+				kind: CompletionItemKind.Module,
+				data: 'type-' + a
+			});
+		}
+		console.log(pkgs);
+	} else if(currentLine[position.character] == ".") {		
+		const currentLinePart = currentLine.substring(0, position.character);
+		const currentSymbolStartIdx = currentLinePart.lastIndexOf(" ") + 1;
+		const currentSymbol = currentLinePart.substring(currentSymbolStartIdx);
+		const fields = await loadFieldsForContext(text, currentSymbol, position.line, position.character);
+		for(let a = 0; a < fields.length; a++) {
+			results.push({
+				label: fields[a],
+				kind: CompletionItemKind.Field,
+				data: 'type-' + a
+			});
+		}
+		console.log(fields);
 	} else {		
 		for (let a = 0; a < basetypes.length; a++) {
 			results.push({
@@ -521,6 +545,59 @@ async function loadNodetypesForContextAsync(text: string, line: integer, charact
 			},
 		);
 		console.log("load nodetypes: " + status + " / " + JSON.stringify(data, null, 4));		
+		return data;
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			console.log('error message: ', error.message);
+			return error.message;
+		} else {
+			console.log('unexpected error: ', error);
+			return 'An unexpected error occurred';
+		}
+	}
+}
+
+async function loadPackagesAsync(text: string, line: integer, character: integer) {
+	try {		
+		const { data, status } = await axios.post<Array<string>>(
+			config.languageServiceAddress + '/packages',
+			{ programText: text, line: line, character: character },
+			{
+				httpsAgent,
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+			},
+		);
+		console.log("load packages: " + status + " / " + JSON.stringify(data, null, 4));		
+		return data;
+	} catch (error) {
+		if (axios.isAxiosError(error)) {
+			console.log('error message: ', error.message);
+			return error.message;
+		} else {
+			console.log('unexpected error: ', error);
+			return 'An unexpected error occurred';
+		}
+	}
+}
+
+
+async function loadFieldsForContext(text: string, symbolName: string, line: integer, character: integer) {
+	try {		
+		const { data, status } = await axios.post<Array<string>>(
+			config.languageServiceAddress + '/fields',
+			{ programText: text, symbolName: symbolName, line: line, character: character },
+			{
+				httpsAgent,
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+				},
+			},
+		);
+		console.log("load fields: " + status + " / " + JSON.stringify(data, null, 4));		
 		return data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {

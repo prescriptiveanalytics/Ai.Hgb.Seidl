@@ -65,13 +65,13 @@
 		"pubsubquerybeginoperator": {
 			"patterns": [{
 				"name": "keyword.other.unit.seidl",
-				"match": "--"				
+				"match": "--<"				
 			}]
 		},
 		"pubsubqueryendoperator": {
 			"patterns": [{
 				"name": "keyword.other.unit.seidl",
-				"match": "-->"				
+				"match": ">-->"				
 			}]
 		},
 		"reqresquerybeginoperator": {

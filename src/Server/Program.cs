@@ -77,7 +77,7 @@ namespace Ai.Hgb.Seidl.Server {
       });
 
 
-      app.MapPost("/nodetypes", async (NodetypesRequest req) => {        
+      app.MapPost("/nodetypes", async (LintRequest req) => {        
         //Console.WriteLine($"Request: {req.line} / {req.character}");          
         var sst = ParseSST(req.programText);        
         var s = sst.GetScope(req.line, req.character);

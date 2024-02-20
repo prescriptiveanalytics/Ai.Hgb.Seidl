@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ai.Hgb.Seidl.Data {
 
-  public record NodetypesRequest(string programText, int line, int character);
+  public record LintRequest(string programText, int line, int character);
+  public record LintLineRequest(string programText, string lineText, int line, int character);
+  public record LintSymbolRequest(string programText, string symbolName, int line, int character);
   public record ProgramRecord(string programText);
   public record NodeRecord(string name);
   public record EdgeRecord(string name, string from, string to, string type, string payload);
