@@ -591,12 +591,13 @@ namespace Ai.Hgb.Seidl.Processor {
         }
       }
 
-      var imageCtx = body.nodebodyimage()?.Last();
-      if (imageCtx != null) {
-        var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
-        node.ImageName = nameTag.Item1;
-        node.ImageTag = nameTag.Item2;
-      }
+      // TODO
+      //var imageCtx = body.nodebodyimage()?.First();
+      //if (imageCtx != null) {
+      //  var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
+      //  node.ImageName = nameTag.Item1;
+      //  node.ImageTag = nameTag.Item2;
+      //}
     }
 
     public static void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst, Scope currentScope) {

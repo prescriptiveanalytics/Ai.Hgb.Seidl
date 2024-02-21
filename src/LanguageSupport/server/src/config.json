@@ -1,7 +1,7 @@
 {
 	"websocketHost": "http://localhost",   
     "websocketPort": 3000,
-	"languageServiceAddress": "https://localhost:8003",	
+	"languageServiceAddress": "http://127.0.0.1:8003",	
     "settings": {
 		"foo": "bar"		
 	}

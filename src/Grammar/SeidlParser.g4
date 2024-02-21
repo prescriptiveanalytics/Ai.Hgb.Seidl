@@ -328,6 +328,7 @@ nodebody
         inout=nodebodyinout 
         | clientserver=nodebodyclientserver
         | property=nodebodyproperty
+        // | IMAGE field COLON tag
         | image=nodebodyimage        
         | terminator
     )*

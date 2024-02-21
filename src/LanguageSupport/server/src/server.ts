@@ -38,6 +38,7 @@ const config: Config = _config;
 import axios from 'axios';
 // DO NOT DO THIS IF SHARING PRIVATE DATA WITH SERVICE
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+const httpAgent = new http.Agent();
 
 // socket.io
 
@@ -330,7 +331,8 @@ connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<Com
 	const importKeywordPos = currentLine.indexOf("import");
 
 	// if word before is "node" do...
-	console.log("pos: " + nodeKeywordPos + " / :" + currentLine.substring(nodeKeywordPos+4, position.character).trim());
+	console.log("pos: " + importKeywordPos + " / :" + currentLine.substring(importKeywordPos+6, position.character).trim());
+
 	if(nodeKeywordPos >= 0 && currentLine.substring(nodeKeywordPos+4, position.character).trim() == "") {
 		const nt = await loadNodetypesForContextAsync(text, position.line, position.character);
 		nodetypes = nodetypes.concat(nt);	
@@ -343,8 +345,9 @@ connection.onCompletion(async (params: TextDocumentPositionParams): (Promise<Com
 		}
 		console.log(nodetypes);
 	} else if(importKeywordPos >= 0 && currentLine.substring(importKeywordPos+6, position.character).trim() == "") {
-		const pkgs = await loadPackagesAsync(text, position.line, position.character);
+		const pkgs = await loadPackagesAsync(text, position.line, position.character);		
 		for(let a = 0; a < pkgs.length; a++) {
+			console.log(pkgs[a]);
 			results.push({
 				label: pkgs[a],
 				kind: CompletionItemKind.Module,
@@ -511,7 +514,7 @@ async function loadBasetypeKeywordsAsync() {
 		const { data, status } = await axios.get<Array<string>>(
 			config.languageServiceAddress + '/basetypes',
 			{
-				httpsAgent,
+				httpAgent,
 				headers: {
 					Accept: 'application/json',
 				},
@@ -537,7 +540,7 @@ async function loadNodetypesForContextAsync(text: string, line: integer, charact
 			config.languageServiceAddress + '/nodetypes',
 			{ programText: text, line: line, character: character },
 			{
-				httpsAgent,
+				httpAgent,
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
@@ -559,19 +562,24 @@ async function loadNodetypesForContextAsync(text: string, line: integer, charact
 
 async function loadPackagesAsync(text: string, line: integer, character: integer) {
 	try {		
-		const { data, status } = await axios.post<Array<string>>(
-			config.languageServiceAddress + '/packages',
-			{ programText: text, line: line, character: character },
+		const { data, status } = await axios.get<Array<string>>(
+			config.languageServiceAddress + '/packages',			
 			{
-				httpsAgent,
+				httpAgent,
 				headers: {
-					'Content-Type': 'application/json',
 					Accept: 'application/json',
 				},
 			},
 		);
-		console.log("load packages: " + status + " / " + JSON.stringify(data, null, 4));		
+		console.log("load packages: " + status + " / " + JSON.stringify(data, null, 4));
+		
+		// let pkgs = [];
+		// data.forEach(function (value){
+		// 	pkgs.concat(value.)
+		// });
+		// return pkgs;
 		return data;
+		// return ["pkg1:latest", "pkg2:latest"];
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
 			console.log('error message: ', error.message);
@@ -590,7 +598,7 @@ async function loadFieldsForContext(text: string, symbolName: string, line: inte
 			config.languageServiceAddress + '/fields',
 			{ programText: text, symbolName: symbolName, line: line, character: character },
 			{
-				httpsAgent,
+				httpAgent,
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
@@ -618,7 +626,7 @@ async function validateProgramText(text: string) : Promise<{status:integer, data
 			config.languageServiceAddress + '/validate',
 			{ programText: text },
 			{
-				httpsAgent,
+				httpAgent,
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
@@ -688,7 +696,7 @@ async function getGraph(text: string) : Promise<{status:integer, graph:GraphReco
 			config.languageServiceAddress + '/visualization/graph',
 			{ programText: text },
 			{
-				httpsAgent,
+				httpAgent,
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
