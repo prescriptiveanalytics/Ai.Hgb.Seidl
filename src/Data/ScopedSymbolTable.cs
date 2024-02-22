@@ -335,10 +335,10 @@ namespace Ai.Hgb.Seidl.Data {
       var nodeRecs = new List<NodeRecord>();
       var edgeRecs = new HashSet<EdgeRecord>();
 
-      var nodes = GetSymbolsDownstream()
+      var nodes = GetSymbolsUpstream() // GetSymbolsDownstream
         .Where(x => x.Type is Node && !x.IsTypedef);        
 
-      var edges = GetSymbolsDownstream()
+      var edges = GetSymbolsUpstream() // GetSymbolsDownstream
         .Where(x => x.Type is Edge && !x.IsTypedef);
 
 

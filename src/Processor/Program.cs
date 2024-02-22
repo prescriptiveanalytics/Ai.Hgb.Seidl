@@ -17,7 +17,8 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.index.3l";
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.network.3l";
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.utils.3l";
-    public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.demoapps/ai.hgb.packages.demoapps.procon.3l";
+    //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.demoapps/ai.hgb.packages.demoapps.procon.3l";
+    public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024.3l";
 
 
 
@@ -44,6 +45,8 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 
 
       var table = linter.CreateScopedSymbolTableSecured();
+      var gr = table.GetGraph();
+      Console.WriteLine(string.Join(", ", gr.nodes));
       //var table = linter.IdentifyScopedSymbolTable();                  
       //var pkgIs = table[null].Where(x => x.Type is PackageInformation).Select(x => x.Type as PackageInformation).ToList();      
       //Console.WriteLine(string.Join(", ", pkgIs.Select(x => x.Identifier.Name)));
