@@ -536,6 +536,7 @@ namespace Ai.Hgb.Seidl.Processor {
             var parser = Utils.TokenizeAndParse(desc.Text);
             var linter = new Linter(parser);
             linter.ProgramTextUrl = desc.Id;
+            linter.RepositoryClient = this.RepositoryClient;
 
             var sst = linter.CreateScopedSymbolTable();
             VisitorUtils.ProcessImportedScopedSymbolTable(sst, currentScope);

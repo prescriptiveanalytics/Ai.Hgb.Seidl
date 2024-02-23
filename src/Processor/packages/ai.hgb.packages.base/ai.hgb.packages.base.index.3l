@@ -1,4 +1,4 @@
  package ai.hgb.packages.base:latest {
-	ai.hgb.packages.base.utils:3.1.4
+	ai.hgb.packages.base.utils:latest
 	ai.hgb.packages.base.network:latest
- } 
+ }

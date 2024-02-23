@@ -14,6 +14,12 @@
 		<VersionSuffix>alpha</VersionSuffix>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<Content Include="packages\*\*.*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
 
 	<ItemGroup>
     <Compile Include=".generated\SeidlLexer.cs" />

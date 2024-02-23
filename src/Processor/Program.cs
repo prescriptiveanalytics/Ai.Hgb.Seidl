@@ -1,11 +1,7 @@
-﻿using Ai.Hgb.Seidl.Data;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Tree;
-using System;
-using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using static System.Formats.Asn1.AsnWriter;
+﻿using Ai.Hgb.Common.Entities;
+using Ai.Hgb.Seidl.Data;
+using System.Net.Http.Json;
+using System.Reflection;
 
 namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
@@ -18,9 +14,13 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.network.3l";
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.utils.3l";
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.demoapps/ai.hgb.packages.demoapps.procon.3l";
-    public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024.3l";
+    public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024_instances.3l";
 
 
+    public static string repositoryHost = "127.0.0.1";
+    public static int repositoryPort = 8001;
+    public static Uri repositoryUri = new Uri($"http://{repositoryHost}:{repositoryPort}");
+    public static HttpClient repositoryClient = null;
 
     static void Main(string[] args) {
       TestRun();
@@ -29,6 +29,13 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 
 
     public static void TestRun() {
+      // setup repository client
+      HttpClientHandler clientHandler = new HttpClientHandler();
+      clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+      repositoryClient = new HttpClient(clientHandler);
+      repositoryClient.BaseAddress = repositoryUri;
+      SetupPackages().Wait();
+
       string fp = Path.GetFullPath(demoTextFilePath);
 
       Console.WriteLine("DSL Processor Demo\n");
@@ -42,7 +49,8 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       Console.WriteLine(" - Analyzing program...");
       Linter linter = new Linter(parser);
       linter.ProgramTextUrl = fp;
-
+      linter.RepositoryClient = repositoryClient;
+      
 
       var table = linter.CreateScopedSymbolTableSecured();
       var gr = table.GetGraph();
@@ -60,6 +68,77 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
     }
 
 
+
+
+    public static async Task SetupPackages() {
+      try {
+
+        string currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string packagesDir = Path.Join(currentPath, "packages");
+
+        var packageInformations = new List<PackageInformation>();
+
+        foreach (var dir in Directory.GetDirectories(packagesDir)) {
+          foreach (var file in Directory.GetFiles(dir, "*.3l")) {
+            var descName = Path.GetFileNameWithoutExtension(file);
+            var descTag = "latest";
+
+            var programText = Utils.ReadFile(file);
+            var sst = IdentifySST(programText);
+            if (!string.IsNullOrEmpty(sst.Name)) descName = sst.Name;
+            if (!string.IsNullOrEmpty(sst.Tag)) descTag = sst.Tag;
+
+            var desc = new Description() { Name = sst.Name, Tag = sst.Tag };
+            desc.Text = programText;
+
+            // check if description = package description
+            var pkgIs = sst[null].Where(x => x.Type is PackageInformation).Select(x => x.Type as PackageInformation);
+
+            if (pkgIs != null && pkgIs.Any()) {
+              packageInformations.AddRange(pkgIs);
+            }
+            //else {
+            // persist description
+            var postResponse = await repositoryClient.PostAsJsonAsync("descriptions", desc);
+            if (postResponse.IsSuccessStatusCode) Console.WriteLine("Persisted description.");
+            else Console.WriteLine(postResponse.ReasonPhrase);
+            //}
+          }
+        }
+
+        // persist package(s)
+        foreach (var pkgi in packageInformations) {
+          var pkg = new Package() { Name = pkgi.Identifier.Name, Tag = pkgi.Identifier.Tag };
+          var postResponse = await repositoryClient.PostAsJsonAsync("packages", pkg);
+          if (postResponse.IsSuccessStatusCode) {
+            Console.WriteLine("Persisted package.");
+            var pkgId = await postResponse.Content.ReadFromJsonAsync<string>();
+
+            // add descriptions
+            var descNameTags = pkgi.DescriptionIdentifiers.Select(x => Tuple.Create(x.Name, x.Tag));
+            var postResponse2 = await repositoryClient.PostAsJsonAsync($"packages/{pkgId}/descriptions", descNameTags);
+            if (postResponse2.IsSuccessStatusCode) Console.WriteLine("Added descriptions to package.");
+            else Console.WriteLine(postResponse2.ReasonPhrase);
+          }
+        }
+      }
+      catch (Exception exc) {        
+        Console.WriteLine(exc.Message);
+      }
+    }
+
+    public static ScopedSymbolTable ParseSST(string programText) {
+      SeidlParser parser = Utils.TokenizeAndParse(programText);
+      Linter linter = new Linter(parser);
+      linter.RepositoryClient = repositoryClient;
+      return linter.CreateScopedSymbolTable();
+    }
+
+    public static ScopedSymbolTable IdentifySST(string programText) {
+      SeidlParser parser = Utils.TokenizeAndParse(programText);
+      Linter linter = new Linter(parser);
+      return linter.IdentifyScopedSymbolTable();
+    }
 
     // TODO:
     // ========================================================    

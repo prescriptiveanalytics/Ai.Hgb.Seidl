@@ -1,0 +1,72 @@
+ai.hgb.packages.ceal.typedefinitions:latest
+
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "eurocast2024"
+
+
+struct Individual {
+    float value
+    float fit
+}
+
+message ImmigrationRequest { int count }
+message Migrants { Individual population }
+message LocalSearchRequest { int budget, Individual candidate }
+message ImprovedCandidate { Individual candidate }
+
+edgetype Migration {
+    request ImmigrationRequest
+    response Migrants
+}
+
+edgetype Improvement {
+    request LocalSearchRequest
+    response ImprovedCandidate
+}
+
+nodetype Aggregator {
+    image ai.hgb.packages.ceal.aggregator:latest
+
+    property int populationSize
+    input Migrants immigrants
+}
+
+nodetype PES { # plugable evolution strategy
+    image ai.hgb.packages.ceal.pes:latest
+
+    property string strategy
+    property int mu
+    property int lambda
+
+    # local search server side
+    server Improvement localSearchServer
+}
+
+nodetype PGA { # plugable genetic algorithm
+    image ai.hgb.packages.ceal.pga:latest
+
+    property int populationSize
+    property int generations
+    property float maximumSelectionPressure
+    property int mutationRate
+    property float migrationRate
+    property float migrationEpochFailureRate
+    property int localSearchBudget
+
+    # migration client side
+    output ImmigrationRequest immigration
+    input Migrants immigrants
+
+    # migration server side
+    # input ImmigrationRequest inIr
+    # output Migrants outIm
+    server Migration migrationServer
+
+    # local search client side
+    output LocalSearchRequest localSearch
+    input ImprovedCandidate improvedCandidates
+
+    # result collection
+    output Migrants emigrants
+}

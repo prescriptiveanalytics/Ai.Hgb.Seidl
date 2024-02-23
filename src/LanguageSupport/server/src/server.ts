@@ -246,7 +246,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
-					message: "Validation result: " + `${result.data}`,
+					message: "Validation result: " + result.data,
 					source: 'Seidl-Linter'
 				};
 				diagnostics.push(diagnostic);
@@ -257,7 +257,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 						start: textDocument.positionAt(text.length),
 						end: textDocument.positionAt(text.length)
 					},
-					message: "Validation result: " + `${result.data}`,
+					message: "Validation result: " + result.data,
 					source: 'Seidl-Linter'
 				};
 				diagnostics.push(diagnostic);

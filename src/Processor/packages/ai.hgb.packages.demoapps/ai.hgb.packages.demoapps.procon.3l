@@ -4,11 +4,11 @@
 ai.hgb.packages.demoapps.procon
 
 
-# import ai.hgb.packages.base:latest
+import ai.hgb.packages.base:latest
 
-string host = "127.0.0.1"
-int port = 1883
-string basetopic = "docs"
+host = "127.0.0.1"
+port = 1883
+basetopic = "docs"
 
 struct Document {
   string Id
