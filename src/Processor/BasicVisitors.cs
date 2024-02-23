@@ -367,11 +367,11 @@ namespace Ai.Hgb.Seidl.Processor {
 
       // parse edge type
       string edgeType = null;
-      if (stmt.ARROW != null) edgeType = EdgeType.PubSub;
-      else if (stmt.HEAVYARROW != null) edgeType = EdgeType.ReqRes;
-      else if (stmt.QUERYARROW_BEGIN != null) edgeType = EdgeType.PubSubQuery;
-      else if (stmt.QUERYHARROW_BEGIN != null) edgeType = EdgeType.ReqResQuery;
-
+      if (stmt.ARROW() != null) edgeType = EdgeType.PubSub;
+      else if (stmt.HEAVYARROW() != null) edgeType = EdgeType.ReqRes;
+      else if (stmt.QUERYARROW_BEGIN() != null) edgeType = EdgeType.PubSubQuery;
+      else if (stmt.QUERYHARROW_BEGIN() != null) edgeType = EdgeType.ReqResQuery;
+      
       // parse query
       string query = null;
       if (edgeType == EdgeType.PubSubQuery || edgeType == EdgeType.ReqResQuery) {

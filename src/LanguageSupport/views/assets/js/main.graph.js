@@ -78,10 +78,10 @@ var nc0 = {
 // vis edgle styles
 // var ec0 = { length: 400, width: 1, color: { color: '#333333' }, dashes: true, arrows: { to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
 // var ec1 = { width: 1, color: { color: '#993333' }, dashes: false, arrows: { from: {enabled:true, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
-var ec0 = { width: 1, color: { color: '#333333' }, dashes: true, 
+var ec0 = { width: 1, color: { color: '#333333' }, dashes: false, 
 	arrows: { to: { enabled: true, scaleFactor: 0.5 } }, 
 	chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
-var ec1 = { width: 1, color: { color: '333333' }, dashes: false, 
+var ec1 = { width: 1, color: { color: '333333' }, dashes: true, 
 	arrows: { from: {enabled: false, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, 
 	smooth: { type: "curvedCCW", roundness: 0.4 }, 
 	chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
@@ -150,14 +150,14 @@ function initGraph(graphrec) {
 	};
 	options = {
 		layout: {
-			improvedLayout: false,
-			hierarchical: {
-				direction: "LR", // DU, LR, 
-				sortMethod: "directed", // hubsize, directed
-				parentCentralization: true, // true
-				levelSeparation: 100 // 100
-				// ,shakeTowards: "leaves"
-			}
+			improvedLayout: true,
+			// hierarchical: {
+			// 	direction: "LR", // DU, LR, 
+			// 	sortMethod: "hubsize", // hubsize, directed
+			// 	parentCentralization: true, // true
+			// 	levelSeparation: 100 // 100
+			// 	// ,shakeTowards: "leaves"
+			// }
 		},
 		edges: {
 			smooth: true
@@ -205,6 +205,7 @@ function processGraph(graphrec) {
 		if (e.type == "-->") Object.assign(obj, ec0);
 		else Object.assign(obj, ec1);		
 		// obj.id = e.from + "-->" + e.to;
+		console.log(obj.id = e.from + "-->" + e.to);
 		obj.id = e.id;
 		obj.label = e.payload;
 		obj.from = e.from;

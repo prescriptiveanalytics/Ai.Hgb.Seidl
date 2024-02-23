@@ -145,6 +145,7 @@ assignment
 
 query
     : field comparator expression
+    | QUEUE
     ;
 
 comparator
@@ -224,8 +225,8 @@ typedefstatement
 nodeconnectionstatement
     : sources=fieldlist '-->' sinks=fieldlist    
     | sources=fieldlist '==>' sinks=fieldlist    
-    | sources=fieldlist '-[' query ']->' sinks=fieldlist    
-    | sources=fieldlist '=[' query ']=>' sinks=fieldlist    
+    | sources=fieldlist '-:' query '->' sinks=fieldlist    
+    | sources=fieldlist '=:' query '=>' sinks=fieldlist       
     ;
 
 surrogatedefinitionstatement

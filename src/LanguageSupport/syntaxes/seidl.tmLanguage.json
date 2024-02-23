@@ -11,7 +11,9 @@
 		{ "include": "#pubsuboperator" },
 		{ "include": "#reqresoperator" },
 		{ "include": "#pubsubquerybeginoperator"},
-		{ "include": "#pubsubqueryendoperator" }
+		{ "include": "#pubsubqueryendoperator" },
+		{ "include": "#reqresquerybeginoperator" },
+		{ "include": "#reqresqueryendoperator" }
 
 	],
 	"repository": {
@@ -30,7 +32,7 @@
 		"reservedvalues": {
 			"patterns": [{
 				"name": "markup.italic",
-				"match": "\\b(null|true|false|latest)\\b"
+				"match": "\\b(null|true|false|latest|queue)\\b"
 			}]
 		},
 		"strings": {
@@ -52,37 +54,37 @@
 		},
 		"pubsuboperator": {
 			"patterns": [{
-				"name": "keyword.other.unit.seidl",
+				"name": "markup.bold",
 				"match": "-->"				
 			}]
 		},
 		"reqresoperator": {
 			"patterns": [{
-				"name": "keyword.other.unit.seidl",
+				"name": "markup.bold",
 				"match": "==>"				
 			}]
 		},
 		"pubsubquerybeginoperator": {
 			"patterns": [{
-				"name": "keyword.other.unit.seidl",
-				"match": "--<"				
+				"name": "markup.bold",
+				"match": "-:"				
 			}]
 		},
 		"pubsubqueryendoperator": {
 			"patterns": [{
-				"name": "keyword.other.unit.seidl",
-				"match": ">-->"				
+				"name": "markup.bold",
+				"match": "->"				
 			}]
 		},
 		"reqresquerybeginoperator": {
 			"patterns": [{
-				"name": "keyword.other.unit.seidl",
-				"match": "="				
+				"name": "markup.bold",
+				"match": "=:"				
 			}]
 		},
 		"reqresqueryendoperator": {
 			"patterns": [{
-				"name": "keyword.other.unit.seidl",
+				"name": "markup.bold",
 				"match": "=>"				
 			}]
 		}

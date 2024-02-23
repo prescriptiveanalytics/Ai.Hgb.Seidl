@@ -61,6 +61,7 @@ NAMEDEF             : 'name';
 TAGDEF              : 'tag';
 PACKAGE             : 'package';
 IMAGE               : 'image';
+QUEUE               : 'queue';
 
 // Operators
 
@@ -75,10 +76,10 @@ MINUS               : '-';
 DIV                 : '/';
 ARROW               : '-->';
 HEAVYARROW          : '==>';
-QUERYARROW_BEGIN    : '-[';
-QUERYARROW_END      : ']->';
-QUERYHARROW_BEGIN   : '=[';
-QUERYHARROW_END     : ']=>';
+QUERYARROW_BEGIN    : '-:';
+QUERYHARROW_BEGIN   : '=:';
+QUERYARROW_END      : '->';
+QUERYHARROW_END     : '=>';
 
 EQUAL               : '==';
 UNEQUAL             : '!=';
