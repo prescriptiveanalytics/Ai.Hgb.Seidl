@@ -33,6 +33,7 @@ namespace Ai.Hgb.Seidl.Processor {
     public string programTextUrl;
     public ScopedSymbolTable scopedSymbolTable;
     private Scope currentScope;
+    public HttpClient RepositoryClient;
 
     public IdentifierVisitor() {
       scopedSymbolTable = new ScopedSymbolTable();

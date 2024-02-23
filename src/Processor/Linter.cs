@@ -43,14 +43,16 @@ namespace Ai.Hgb.Seidl.Processor {
       } catch (Exception e) {
         Console.WriteLine("\n !!! Parser Exception: " + e.Message);
       }
-
-      var scopedSymbolTable = scopedSymbolTableVisitor.scopedSymbolTable;
-      return scopedSymbolTable;
+      
+      return scopedSymbolTableVisitor.scopedSymbolTable;
     }
 
     
     public ScopedSymbolTable CreateScopedSymbolTable() {
       var scopedSymbolTableVisitor = new ScopedSymbolTableVisitor();
+      scopedSymbolTableVisitor.programTextUrl = _programTextUrl;
+      scopedSymbolTableVisitor.RepositoryClient = _repositoryClient;
+
       SeidlParser.RootContext rootContext = _parser.root();
       scopedSymbolTableVisitor.Visit(rootContext);
 
@@ -59,6 +61,9 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public ScopedSymbolTable IdentifyScopedSymbolTable() {
       var identifierVisitor = new IdentifierVisitor();
+      identifierVisitor.programTextUrl = _programTextUrl;
+      identifierVisitor.RepositoryClient = _repositoryClient;
+
       SeidlParser.RootContext rootContext = _parser.root();
       identifierVisitor.Visit(rootContext);
 

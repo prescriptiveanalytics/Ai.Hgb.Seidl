@@ -78,10 +78,10 @@ var nc0 = {
 // vis edgle styles
 // var ec0 = { length: 400, width: 1, color: { color: '#333333' }, dashes: true, arrows: { to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
 // var ec1 = { width: 1, color: { color: '#993333' }, dashes: false, arrows: { from: {enabled:true, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
-var ec0 = { width: 1, color: { color: '#333333' }, dashes: false, 
+var ec0 = { width: 1, color: { color: '#333333' }, dashes: true, 
 	arrows: { to: { enabled: true, scaleFactor: 0.5 } }, 
 	chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
-var ec1 = { width: 1, color: { color: '333333' }, dashes: true, 
+var ec1 = { width: 1, color: { color: '333333' }, dashes: false, 
 	arrows: { from: {enabled: false, scaleFactor: 0.5}, to: { enabled: true, scaleFactor: 0.5 } }, 
 	smooth: { type: "curvedCCW", roundness: 0.4 }, 
 	chosen: { label: ccelOnClicked, edge: cceOnClicked } }; // default
