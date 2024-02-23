@@ -462,15 +462,15 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override string GetValueString() {
-      return $"{FromNode}.{FromPort}{Type}{Query}{ToNode}.{ToPort}";
+      return $"{FromNode}.{FromPort} {Type} {Query} {ToNode}.{ToPort}";
     }
   }
 
   public static class EdgeType {
     public static readonly string PubSub = "-->";
     public static readonly string ReqRes = "==>";
-    public static readonly string PubSubQuery = "-[]->";
-    public static readonly string ReqResQuery = "=[]=>";
+    public static readonly string PubSubQuery = "-:->";
+    public static readonly string ReqResQuery = "=:=>";
   }
 
   public class Meta : Type, IGraphType {

@@ -375,7 +375,7 @@ namespace Ai.Hgb.Seidl.Processor {
       // parse query
       string query = null;
       if (edgeType == EdgeType.PubSubQuery || edgeType == EdgeType.ReqResQuery) {
-        query = stmt.query().Start.Text;
+        query = stmt.query().GetText();
       }
 
       var sources = new List<Node>(sourceNames.Count);
@@ -393,7 +393,7 @@ namespace Ai.Hgb.Seidl.Processor {
         else checkOk = false;
 
         if (!string.IsNullOrEmpty(sourceName.Item2) && checkOk) {
-          if (!source.Outputs.Keys.Contains(sourceName.Item2)) checkOk = false;
+          //if (!source.Outputs.Keys.Contains(sourceName.Item2)) checkOk = false;
         }
 
         if (checkOk) {
@@ -410,7 +410,7 @@ namespace Ai.Hgb.Seidl.Processor {
         else checkOk = false;
 
         if (!string.IsNullOrEmpty(sinkName.Item2) && checkOk) {
-          if (!sink.Inputs.Keys.Contains(sinkName.Item2)) checkOk = false;
+          //if (!sink.Inputs.Keys.Contains(sinkName.Item2)) checkOk = false;
         }
 
         if (checkOk) {

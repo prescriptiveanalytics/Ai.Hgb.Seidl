@@ -14,7 +14,8 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.network.3l";
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.utils.3l";
     //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.demoapps/ai.hgb.packages.demoapps.procon.3l";
-    public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024_instances.3l";
+    //public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024_instances.3l";
+    public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024.3l";
 
 
     public static string repositoryHost = "127.0.0.1";
@@ -34,7 +35,7 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
       repositoryClient = new HttpClient(clientHandler);
       repositoryClient.BaseAddress = repositoryUri;
-      SetupPackages().Wait();
+      //SetupPackages().Wait();
 
       string fp = Path.GetFullPath(demoTextFilePath);
 
