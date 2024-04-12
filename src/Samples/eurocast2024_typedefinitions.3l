@@ -1,4 +1,4 @@
-ai.hgb.packages.ceal.typedefs:latest
+ai.hgb.packages.ceal.typedefinitions:latest
 
 string host = "127.0.0.1"
 int port = 15387
@@ -55,11 +55,13 @@ nodetype PGA { # plugable genetic algorithm
     property int localSearchBudget
 
     # migration client side
-    output ImmigrationRequest emi
-    input Migrants imi
+    output ImmigrationRequest immigration
+    input Migrants immigrants
 
     # migration server side
-    server Migration migratationServer
+    # input ImmigrationRequest inIr
+    # output Migrants outIm
+    server Migration migrationServer
 
     # local search client side
     output LocalSearchRequest localSearch
@@ -68,28 +70,3 @@ nodetype PGA { # plugable genetic algorithm
     # result collection
     output Migrants emigrants
 }
-
-node PGA ga1 (populationSize = 1000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
-node PGA ga2 (populationSize = 5000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
-node PES es (mu = 1, lambda = 1)
-node Aggregator agg (populationSize = 100)
-
-# v0
-# ga1 ==> ga2
-# ga2 ==> ga1
-# ga1 ==> es
-# ga1, ga2 --> agg
-
-# v1
-# ga1.mig ==> ga2.mig
-# ga2.mig ==> ga1.mig
-# ga1.imp ==> es
-# ga1, ga2 --> agg
-
-ga1.mig   ==>             ga2.mig
-ga2.mig   -: fit < 0.05-> ga1.mig
-ga1.imp   -: queue->      es
-ga1, ga2  -->             agg
-
-
-

@@ -1,0 +1,22 @@
+ai.hgb.packages.ceal.eurocast2024.experiment:v1
+
+
+import ai.hgb.packages.ceal.eurocast2024:latest
+
+node PGA ga1 (populationSize = 1000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
+node PGA ga2 (populationSize = 5000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
+node PES es (mu = 1, lambda = 1)
+node Aggregator agg (populationSize = 100)
+       
+ga1.mig   ==>               ga2.mig
+ga2.mig   -: fit < 0.05 ->  ga1.mig
+ga1.imp   -: queue ->       es
+ga1, ga2  -->               agg
+
+
+# grid search example:
+# for i in [1..10]: node PGA ga$i (populationSize = 1000, generations = 1000, maximumSelectionPressure = 1000.0, mutationRate = 0.1, migrationRate = 0.01, migrationEpochFailureRate = 0.1, localSearchBudget = 100 )
+
+
+
+

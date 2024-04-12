@@ -1,23 +1,17 @@
-import "C:/dev/workspaces/spa/Sidl/src/Samples/ism2023_typedefinitions.3l"
-
+ai.hgb.packages.samples.assemblylines.instances:latest
+import "C:/dev/workspaces/spa/Ai.Hgb.Seidl/src/Samples/ism2023_typedefinitions.3l"
 
 node EnterpriseRelationshipManagement erp (broker="hagsysb0042", systemcheck=true, frequency=0.5)
 node ManufacturingExecutionSystem mes (monitor=true, rate=0.75)
 node MaterialStore mat (location="loc2", delay=2.5)
-node Machinery m1 (vel=1.4, pres=0.75, queue=true)
-node Machinery m2 (vel=1.2, pres=0.90, queue=true)
-node Machinery m3 (vel=1.8, pres=0.45, queue=false)
+node Machinery m1 (vel=1.4, pres=0.75, queueJobs=true)
+node Machinery m2 (vel=1.2, pres=0.90, queueJobs=true)
+node Machinery m3 (vel=1.8, pres=0.45, queueJobs=false)
 node QualityChecker qc (level=6)
-node Assembler ass (vel=4.2, queue=true)
+node Assembler ass (vel=4.2, queueJobs=true)
 node ProductStore pro (location="loc1", dealy=5.5)
 
-# node 
-
-
-
-
-
-
+# create graph (i.e., connect nodes)
 erp --> mes
 mes ==> mat
 mes --> m1, m2, m3
@@ -25,21 +19,46 @@ m1, m2, m3 --> ass
 ass ==> qc
 ass --> pro
 
+# define optimization tasks
+import ai.hgb.packages.optimizers:latest as opt
+
+optimizer opt1 {
+    input mes.schedule
+    output qc.quality
+    with opt.geneticalgorithm (
+        openEnded = true,
+        populationSize = 1000,
+        mutationRate = 0.25
+    )
+}
 
 
 
 
 
+import ai.hgb.packages.methods.symreg:latest as symreg
+import ai.hgb.packages.methods.ppml:latest as ppml
+
+# machinery 1: shape constraint symbolic regression
+surrogate m1_surrogate {
+    input m1.order, m1.vel, m1.pres
+    output m1.component.measurement1 as x1
+    with symreg (
+        constraints = [
+            df/dx1 > 0    # monotonic increasing
+        ]
+    ) 
+}
+
+# machinery 2: privacy preserving machine learning
+surrogate m2_surrogate {
+    input m2.order, m2.vel, m2.pres
+    output qc.quality
+    with ppml.randomforest (
+        m = 0.5, r = 0.3, trees = 100,
+        obfuscationRuns = 10
+    )
+}
 
 
 
-
-
-
-
-
-
-
-
-# foo {
-# }

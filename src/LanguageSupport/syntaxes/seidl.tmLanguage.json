@@ -26,7 +26,7 @@
 		"types": {
 			"patterns": [{
 				"name": "entity.name.type",
-				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate|package)\\b"
+				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate|package|optimizer)\\b"
 			}]
 		},
 		"reservedvalues": {

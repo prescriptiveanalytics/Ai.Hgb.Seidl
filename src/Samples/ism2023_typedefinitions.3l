@@ -1,26 +1,29 @@
+ai.hgb.packages.samples.assemblylines.types:latest
+
 string host = "127.0.0.1"
 int port = 15387
 string basetopic = "ism2023"
 
 struct Plan {
-    string name
+    string label
 }
+
 struct Component {
-    string name
+    string label
 }
 
 struct Product {
-    string name
+    string label
 }
 
 struct Quality {
-    string name
+    string label
     float score
 }
 
-message MaterialRequest { string name, int amount }
-message Material { string name }
-message Order { string name, string type }
+message MaterialRequest { string label, int amount }
+message Material { string label }
+message Order { string label, string type }
 message ManufacturingOrder { Plan plan  }
 message ManufacturingReport { Component component }
 message ProductReport { Product product }
@@ -38,6 +41,8 @@ edgetype Check {
 }
 
 nodetype EnterpriseRelationshipManagement {
+    image ai.hgb.packages.samples.assemblylines.erp:latest
+
     property string broker
     property bool systemcheck
     property float frequency
@@ -45,68 +50,55 @@ nodetype EnterpriseRelationshipManagement {
 }
 
 nodetype ManufacturingExecutionSystem {
+    image ai.hgb.packages.samples.assemblylines.mes:latest
+
     property bool monitor
     property float rate
     input Order order
     client MaterialTransfer materialClient
-    output ManufacturingOrder order
+    output ManufacturingOrder task
 }
 
-nodetype MaterialStore {  
+nodetype MaterialStore {
+    image ai.hgb.packages.samples.assemblylines.materialstore:latest
+
     property string location
     property float delay
     server MaterialTransfer materialServer    
 }
 
-nodetype Machinery {   
+nodetype Machinery { 
+    image ai.hgb.packages.samples.assemblylines.machinery:latest
+
     property float vel
     property float pres
-    property bool queue
+    property bool queueJobs
     input ManufacturingOrder order
     output ManufacturingReport report
 }
 
 nodetype QualityChecker {
+    image ai.hgb.packages.samples.assemblylines.qchecker:latest
+
     property int level
     server Check checkServer
 }
 
 nodetype Assembler {
+    image ai.hgb.packages.samples.assemblylines.assembler:latest
+
     property float vel
-    property bool queue
+    property bool queueJobs
     input ManufacturingReport report
     client Check checker
     output ProductReport product
 }
 
 nodetype ProductStore {
+    image ai.hgb.packages.samples.assemblylines.productstore:latest
+
     property string location
     property float delay
     input ProductReport product
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-foo {
-}
