@@ -564,7 +564,7 @@ namespace Ai.Hgb.Seidl.Processor {
       scopedSymbolTable.AddSymbol(pkg.GetIdentifier(), pkg, currentScope, false);
 
       return null;
-    }
+    }    
   }
 
   public static class VisitorUtils {
@@ -584,22 +584,31 @@ namespace Ai.Hgb.Seidl.Processor {
         }
       }
 
-      if (body.property != null) {
-        var typecode = body.property.type()?.Start.Type;
-        var typename = body.property.typename()?.GetText();
+      foreach(var propertyCtx in body.nodebodyproperty()) {
+        var typecode = propertyCtx.type()?.Start.Type;
+        var typename = propertyCtx.typename()?.GetText();
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
-        foreach (var v in body.property.variablelist().variable()) {
+        foreach (var v in propertyCtx.variablelist().variable()) {
           node.Properties.Add(v.GetText(), type);
         }
       }
 
-      // TODO
-      //var imageCtx = body.nodebodyimage()?.First();
-      //if (imageCtx != null) {
-      //  var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
-      //  node.ImageName = nameTag.Item1;
-      //  node.ImageTag = nameTag.Item2;
+      // depr:
+      //if (body.property != null) {
+      //  var typecode = body.property.type()?.Start.Type;
+      //  var typename = body.property.typename()?.GetText();
+      //  var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
+      //  foreach (var v in body.property.variablelist().variable()) {
+      //    node.Properties.Add(v.GetText(), type);
+      //  }
       //}
+      
+      var imageCtx = body.nodebodyimage()?.Last();
+      if (imageCtx != null) {
+        var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
+        node.ImageName = nameTag.Item1;
+        node.ImageTag = nameTag.Item2;
+      }
     }
 
     public static void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst, Scope currentScope) {
