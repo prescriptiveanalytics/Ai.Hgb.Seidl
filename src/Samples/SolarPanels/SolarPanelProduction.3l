@@ -1,0 +1,220 @@
+ai.hgb.packages.ceal.typedefs:latest
+
+string host = "127.0.0.1"
+int port = 15387
+string basetopic = "eurocast2024"
+
+##################################################
+# Energy Consumption, Production, and Monitoring #
+##################################################
+message EnergyConsumption { string MachineId, float consumption }
+message EnergyProduction { string ProducerId, float production }
+message EnergyGridDemand { float demand }
+# struct Location {
+#   float latitude,
+#   float longitude,
+#   float orientation,
+#   float tilt
+# } 
+message RadiationForecastRequest { string date, float duration, float resolutionStep }
+message RadiationForecastResponse { float[] forecast }
+
+
+nodetype PhotoVoltaic {
+  property string ProducerId
+  property float pvPeak
+  # property Location placement
+
+  output EnergyProduction production
+
+  input RadiationForecastResponse forecastResponse
+  output RadiationForecastRequest forecastRequest
+}
+
+nodetype EnergyMonitor {
+  input EnergyProduction production
+  input EnergyConsumption consumption
+  output EnergyGridDemand demand
+}
+
+nodetype PVGISService {
+  input RadiationForecastRequest forecastRequest
+  output RadiationForecastResponse forecastResponse
+} 
+
+
+
+
+######################################
+# Explainable AI and Drift Detection #
+######################################
+struct vector {
+  float[] values
+} 
+
+message StreamAnalysis { string MachineId, float value }
+message StatusRequest { string MachineId}
+message StatusResponse { string MachineId, vector[] values, string[] features }
+
+nodetype XAIPitsa {
+  input StreamAnalysis status
+
+  input StatusRequest explainRequest
+  output StatusResponse explainResponse
+} 
+
+
+#########################
+# Products and Machines #
+#########################
+struct ProductionTimings {
+  string machineId, 
+  string startTime, 
+  float duration
+}
+
+struct ProductionSchedule {
+  int OrderId,
+  ProductionTimings[] timings 
+}
+
+message Order { int orderId, float amount }
+
+message MaterialFlow_Raw { int typeId, float amount }
+message MaterialFlow_Wafer { int partId, float amount }
+message MaterialFlow_Module { int partId, float amount }
+message MaterialFlow_Panel { int partId, float amount }
+message MaterialFlow_Product { int productId, float amount }
+
+# Stage 1: from storage to laminated wood ##
+nodetype WaferProduction {
+  property string machineId
+  property float energyConsumption
+  property float workDuration
+
+  input MaterialFlow_Raw rawMaterial
+  output MaterialFlow_Wafer wafer
+
+  input ProductionSchedule schedule
+  output ProductionSchedule schedule
+
+  output EnergyConsumption consumption
+}
+
+node WaferProduction WP1(machineId="WaferProduction1", workDuration=100, energyConsumption=3000)
+node WaferProduction WP2(machineId="WaferProduction2", workDuration=150, energyConsumption=2800)
+node WaferProduction WP3(machineId="WaferProduction3", workDuration=130, energyConsumption=3200)
+node WaferProduction WP4(machineId="WaferProduction4", workDuration=160, energyConsumption=3300)
+
+# Stage 2: laminated wood to cut part ##
+nodetype WaferConnectorAndLaminator {
+  property string machineId
+  property float energyConsumption
+  property float workDuration
+
+  input MaterialFlow_Wafer wafer
+  output MaterialFlow_Module module
+
+  input ProductionSchedule
+  output ProductionSchedule
+
+  output EnergyConsumption consumption
+}
+
+node WaferConnectorAndLaminator WCL1(machineId="WafterConnectorAndLaminator1", workDuration=100, energyConsumption=3000)
+node WaferConnectorAndLaminator WCL2(machineId="WafterConnectorAndLaminator2", workDuration=150, energyConsumption=2800)
+node WaferConnectorAndLaminator WCL3(machineId="WafterConnectorAndLaminator3", workDuration=130, energyConsumption=3200)
+node WaferConnectorAndLaminator WCL4(machineId="WafterConnectorAndLaminator4", workDuration=160, energyConsumption=3300)
+
+## Stage 3: cut part to partial assembly ##
+nodetype PanelAssembler {
+  property string machineId
+  property float energyConsumption
+  property float workDuration
+
+  input MaterialFlow_Module module
+  output MaterialFlow_Panel panel
+
+  input ProductionSchedule
+  output ProductionSchedule
+
+  output EnergyConsumption consumption
+}
+
+node PanelAssembler PA1(machineId="PanelAssembler1", workDuration=100, energyConsumption=3000)
+node PanelAssembler PA2(machineId="PanelAssembler2", workDuration=150, energyConsumption=2800)
+node PanelAssembler PA3(machineId="PanelAssembler3", workDuration=130, energyConsumption=3200)
+node PanelAssembler PA4(machineId="PanelAssembler4", workDuration=160, energyConsumption=3300)
+
+## Stage 4: partial assembly to finished product##
+nodetype PackagingStation {
+  property string machineId
+  property float energyConsumption
+  property float workDuration
+
+  input MaterialFlow_Panel panel
+  output MaterialFlow_Product product
+
+  input ProductionSchedule
+
+  output EnergyConsumption consumption
+}
+
+node PackagingStation PS1(machineId="PackagingStation1", workDuration=100, energyConsumption=3000)
+node PackagingStation PS2(machineId="PackagingStation2", workDuration=150, energyConsumption=2800)
+node PackagingStation PS3(machineId="PackagingStation3", workDuration=130, energyConsumption=3200)
+node PackagingStation PS4(machineId="PackagingStation4", workDuration=160, energyConsumption=3300)
+
+## Stage 5: intermediary storage for logistics and delivery ##
+nodetype LogisticWarehouse {
+  property string id
+  input MaterialFlow_Product product
+}
+
+
+###########################
+# Connections and Messages #
+###########################
+
+# Stage 1 --> Stage 2
+WP1, WP2, WP3, WP4      ==>  WCL1
+WP1, WP2, WP3, WP4      ==>  WCL2
+WP1, WP2, WP3, WP4      ==>  WCL3
+WP1, WP2, WP3, WP4      ==>  WCL4
+
+# Stage 2 --> Stage 3
+WCL1, WCL2, WCL3, WCL4      ==>  PA1
+WCL1, WCL2, WCL3, WCL4      ==>  PA2
+WCL1, WCL2, WCL3, WCL4      ==>  PA3
+WCL1, WCL2, WCL3, WCL4      ==>  PA4
+
+# Stage 3 --> Stage 4
+PA1, PA2, PA3, PA4  ==>  PS1
+PA1, PA2, PA3, PA4  ==>  PS2
+PA1, PA2, PA3, PA4  ==>  PS3
+PA1, PA2, PA3, PA4  ==>  PS4
+
+node LogisticWarehouse LW1()
+
+PS1, PS2, PS3, PS4 ==> LW1
+
+node XAIPitsa XAI ( )
+node PhotoVoltaic PV1 ( ProducerId = "PV1",  pvPeak = 5000,  placement = (48.371963, 14.516132, 10.0, 22) )
+node EnergyMonitor EM ()
+node PVGISService PVGIS()
+
+# Energy Production
+PVGIS                   --> PV1
+PV1                     --> EM
+
+# Energy Consumption
+WP1, WP2, WP3, WP4      -->  EM
+WCL1, WCL2, WCL3, WCL4  -->  EM
+PA1, PA2, PA3, PA4      -->  EM
+PS1, PS2, PS3, PS4      -->  EM
+
+# Explainable AI Analysis
+WP1, WP2, WP3, WP4      -->  XAI
+WCL1, WCL2, WCL3, WCL4  -->  XAI
+PA1, PA2, PA3, PA4      -->  XAI
+PS1, PS2, PS3, PS4      -->  XAI
