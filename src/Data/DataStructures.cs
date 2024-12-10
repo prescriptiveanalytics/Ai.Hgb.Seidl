@@ -19,6 +19,8 @@ namespace Ai.Hgb.Seidl.Data {
     string GetIdentifier();
 
     string GetValueString(); 
+
+    object GetValue();
   }
 
   public interface IBaseType : IType { 
@@ -59,7 +61,11 @@ namespace Ai.Hgb.Seidl.Data {
 
     public virtual string GetValueString() {
       return "";
-    }    
+    }
+    
+    public virtual object GetValue() {
+      return null;
+    }
   }
 
   public abstract class AtomicType<T> : Type, IAtomicType {
@@ -111,6 +117,10 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value != null ? Value : "null") : "";
     }
 
+    public override object GetValue() {
+      return Initialized ? (Value != null ? Value : null) : null;
+    }
+
     public override void Assign(string value) {
       _initialized = true;
       _value = value;
@@ -154,6 +164,10 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetValueString() {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
+    }
+
+    public override object GetValue() {
+      return Initialized ? (Value != null ? Value : null) : null;
     }
 
     public override void Assign(string value) {
@@ -208,6 +222,10 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
 
+    public override object GetValue() {
+      return Initialized ? (Value != null ? Value : null) : null;
+    }
+
     public override void Assign(string value) {
       if (value != null) {
         float parsedValue;
@@ -260,6 +278,10 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
 
+    public override object GetValue() {
+      return Initialized ? (Value != null ? Value : null) : null;
+    }
+
     public override void Assign(string value) {
       if (value != null) {
         bool parsedValue;
@@ -304,6 +326,10 @@ namespace Ai.Hgb.Seidl.Data {
       return Properties != null && Properties.Keys.Count > 0 ? string.Join(", ", Properties.Keys) : "";
     }
 
+    public override object GetValue() {
+      return Properties.Select(x => new KeyValuePair<string, object>(x.Key, x.Value.GetValue()));
+    }
+
     public void Assign(string value) {
       throw new NotImplementedException();
     }
@@ -329,6 +355,10 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override IType DeepCopy() {
       return new MessageParameter(Type.DeepCopy(), Name, Topic);
+    }
+
+    public override object GetValue() {
+      return Type.GetValue();
     }
 
   }
@@ -362,6 +392,10 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetValueString() {
       return Parameters != null && Parameters.Keys.Count > 0 ? string.Join(", ", Parameters.Keys) : "";
+    }
+
+    public override object GetValue() {
+      return Parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value.GetValue()));
     }
   }  
 
