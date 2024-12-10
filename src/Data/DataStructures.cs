@@ -118,7 +118,7 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override object GetValue() {
-      return Initialized ? (Value != null ? Value : null) : null;
+      return Initialized ? (Value != null ? _value.ToString() : null) : null;
     }
 
     public override void Assign(string value) {
