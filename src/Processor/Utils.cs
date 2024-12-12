@@ -76,7 +76,7 @@ namespace Ai.Hgb.Seidl.Processor {
     };
 
     private static string GetAtomicTypeValueText(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
-      SeidlLexer.STRING => UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()),
+      SeidlLexer.STRING => UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()), // CHECK
       SeidlLexer.INT => exp.number().INTEGER().GetText(),
       SeidlLexer.FLOAT => exp.number().FLOATINGPOINTNUMBER().GetText(),
       SeidlLexer.BOOL => exp.boolean().GetText(),
@@ -84,7 +84,7 @@ namespace Ai.Hgb.Seidl.Processor {
     };
 
     private static IAtomicType InstanceAtomicType(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
-      SeidlLexer.STRING => new Data.String(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText())),
+      SeidlLexer.STRING => new Data.String(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText())), // CHECK
       SeidlLexer.INT => new Data.Integer(exp.number().INTEGER().GetText()),
       SeidlLexer.FLOAT => new Data.Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
       SeidlLexer.BOOL => new Data.Bool(exp.boolean().GetText()),
@@ -154,7 +154,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
       try {
-        if (target is Data.String) (target as IAtomicType).Assign(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()));        
+        if (target is Data.String) (target as IAtomicType).Assign(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText())); // CHECK        
         else if (target is Data.Integer) (target as IAtomicType).Assign(exp.number().INTEGER().GetText());
         else if (target is Data.Float) (target as IAtomicType).Assign(exp.number().FLOATINGPOINTNUMBER().GetText());
         else if (target is Data.Bool) (target as IAtomicType).Assign(exp.boolean().GetText());
