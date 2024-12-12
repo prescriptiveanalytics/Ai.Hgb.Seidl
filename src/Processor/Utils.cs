@@ -76,7 +76,7 @@ namespace Ai.Hgb.Seidl.Processor {
     };
 
     private static string GetAtomicTypeValueText(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
-      SeidlLexer.STRING => exp.@string().STRINGLITERAL().GetText(), // CHECK
+      SeidlLexer.STRING => UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()),
       SeidlLexer.INT => exp.number().INTEGER().GetText(),
       SeidlLexer.FLOAT => exp.number().FLOATINGPOINTNUMBER().GetText(),
       SeidlLexer.BOOL => exp.boolean().GetText(),
@@ -84,7 +84,7 @@ namespace Ai.Hgb.Seidl.Processor {
     };
 
     private static IAtomicType InstanceAtomicType(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
-      SeidlLexer.STRING => new Data.String(exp.@string().STRINGLITERAL().GetText()), // CHECK
+      SeidlLexer.STRING => new Data.String(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText())),
       SeidlLexer.INT => new Data.Integer(exp.number().INTEGER().GetText()),
       SeidlLexer.FLOAT => new Data.Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
       SeidlLexer.BOOL => new Data.Bool(exp.boolean().GetText()),
@@ -110,7 +110,7 @@ namespace Ai.Hgb.Seidl.Processor {
     private static int GetExpressionTypeCode(SeidlParser.ExpressionContext? exp) {
       int typeCode = int.MaxValue;
 
-      if (exp.GetText() != null) typeCode = SeidlLexer.STRING; // CHECK
+      if (exp.GetText() != null) typeCode = SeidlLexer.STRING;
       if (exp.number() != null && exp.number().INTEGER() != null) typeCode = SeidlLexer.INT;
       if (exp.number() != null && exp.number().FLOATINGPOINTNUMBER() != null) typeCode = SeidlLexer.FLOAT;
       if (exp.boolean() != null) typeCode = SeidlLexer.BOOL;
@@ -154,7 +154,9 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
       try {
-        if (target is Data.String) (target as IAtomicType).Assign(exp.@string().STRINGLITERAL().GetText()); // CHECK
+        if (target is Data.String) {          
+          (target as IAtomicType).Assign(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()));
+        }
         else if (target is Data.Integer) (target as IAtomicType).Assign(exp.number().INTEGER().GetText());
         else if (target is Data.Float) (target as IAtomicType).Assign(exp.number().FLOATINGPOINTNUMBER().GetText());
         else if (target is Data.Bool) (target as IAtomicType).Assign(exp.boolean().GetText());
@@ -174,6 +176,15 @@ namespace Ai.Hgb.Seidl.Processor {
       if (symbol == null) throw new ArgumentException($"The specified node type {nodetypename} does not exist in this context.");
       else if (symbol.Type is not Node) throw new ArgumentException($"The specified type {nodetypename} is not a node type.");
       return (Node)symbol.Type.ShallowCopy();
+    }
+
+    // Unwrapping stringbody from leading and trailing quote and unescaping characters from the body
+    // Should be done here in the visitor due to performance, not in the lexer or parser, source:
+    // https://stackoverflow.com/questions/29372067/ignoring-leading-and-tailing-quotes-in-a-string-literal-match
+    public static string UnwrapStringbody(string str) {
+      var body = System.Text.RegularExpressions.Regex.Unescape(str);
+      var result = body.Substring(1, body.Length - 2);
+      return result;
     }
 
   }
