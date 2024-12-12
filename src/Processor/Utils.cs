@@ -154,9 +154,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
       try {
-        if (target is Data.String) {          
-          (target as IAtomicType).Assign(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()));
-        }
+        if (target is Data.String) (target as IAtomicType).Assign(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText()));        
         else if (target is Data.Integer) (target as IAtomicType).Assign(exp.number().INTEGER().GetText());
         else if (target is Data.Float) (target as IAtomicType).Assign(exp.number().FLOATINGPOINTNUMBER().GetText());
         else if (target is Data.Bool) (target as IAtomicType).Assign(exp.boolean().GetText());
