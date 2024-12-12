@@ -406,11 +406,11 @@ namespace Ai.Hgb.Seidl.Data {
 
     public Dictionary<string, IType> Properties { get; set; }
 
-    public Dictionary<string, Message> Inputs { get; set; }
-    public Dictionary<string, Message> Outputs { get; set; }
+    public Dictionary<string, Message> Inputs { get; set; } // input port names and types
+    public Dictionary<string, Message> Outputs { get; set; } // output port names and types
 
-    public List<string> Sources { get; set; }
-    public List<string> Sinks { get; set; }
+    public List<string> Sources { get; set; } // input node names (incoming messages)
+    public List<string> Sinks { get; set; } // output node names (outgoing messages)
 
     public List<Edge> Edges { get; set; }
     

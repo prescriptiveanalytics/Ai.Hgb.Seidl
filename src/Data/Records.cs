@@ -14,8 +14,5 @@ namespace Ai.Hgb.Seidl.Data {
   public record NodeRecord(string name);
   public record EdgeRecord(string name, string from, string to, string type, string payload);
   public record GraphRecord(IEnumerable<NodeRecord> nodes, IEnumerable<EdgeRecord> edges);
-
-  public record InitializationRecordOld(string name, string typeImageName, string typeImageTag, string parameterJson, RoutingTable routing);
-
   public record InitializationRecord(string name, string typeImageName, string typeImageTag, Dictionary<string, object> parameters, RoutingTable routing);
 }

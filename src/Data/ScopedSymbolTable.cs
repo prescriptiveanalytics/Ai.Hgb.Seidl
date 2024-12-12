@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Ai.Hgb.Common.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -370,7 +372,33 @@ namespace Ai.Hgb.Seidl.Data {
       return new GraphRecord(nodeRecs, edgeRecs);
     }
 
-    public StringBuilder Print(IScope parent) {
+    public RoutingTable GetRoutingTable() {
+      var rt = new RoutingTable();      
+      // loop over all node instances
+      foreach (ISymbol s in GetSymbolsUpstream().Where(x => x.Type is Node && !x.IsTypedef)) {
+        var nt = (Ai.Hgb.Seidl.Data.Node)s.Type;
+        var ports = new List<Port>();
+        //foreach(var source in nt.Sources) ports.Add(new Port() { Id = source, Type = PortType.Out });
+        //foreach (var sink in nt.Sinks) ports.Add(new Port() { Id = sink, Type = PortType.In });
+        foreach (var p in nt.Inputs) ports.Add(new Port() { Id = p.Key, Type = PortType.In });
+        foreach (var p in nt.Outputs) ports.Add(new Port() { Id = p.Key, Type = PortType.Out });
+        rt.AddPoint(new Point(s.Name, nt.GetIdentifier(), nt.ImageName + ":" + nt.ImageTag, ports));
+      }
+
+      // loop over all edges
+      foreach (ISymbol s in GetSymbolsUpstream().Where(x => x.Type is Edge)) {
+        var e = (Edge)s.Type;
+        var fromPoint = rt.Points.Find(x => x.Id == e.FromNode);
+        var fromPort = fromPoint.Ports.Find(x => x.Id == e.FromPort);
+        var toPoint = rt.Points.Find(x => x.Id == e.ToNode);
+        var toPort = toPoint.Ports.Find(x => x.Id == e.ToPort);
+
+        rt.AddRoute(new Ai.Hgb.Common.Entities.Route(s.Name, fromPoint, fromPort, toPoint, toPort));
+      }
+      return rt;
+    }
+
+      public StringBuilder Print(IScope parent) {
 
       if (parent == null) {
         var currentScope = Scopes.Where(x => x.Parent == parent).First();
