@@ -76,7 +76,7 @@ namespace Ai.Hgb.Seidl.Processor {
     };
 
     private static string GetAtomicTypeValueText(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
-      SeidlLexer.STRING => exp.GetText(),
+      SeidlLexer.STRING => exp.@string().STRINGLITERAL().GetText(), // CHECK
       SeidlLexer.INT => exp.number().INTEGER().GetText(),
       SeidlLexer.FLOAT => exp.number().FLOATINGPOINTNUMBER().GetText(),
       SeidlLexer.BOOL => exp.boolean().GetText(),
@@ -84,7 +84,7 @@ namespace Ai.Hgb.Seidl.Processor {
     };
 
     private static IAtomicType InstanceAtomicType(int typeCode, SeidlParser.ExpressionContext? exp) => typeCode switch {
-      SeidlLexer.STRING => new Data.String(exp.GetText()),
+      SeidlLexer.STRING => new Data.String(exp.@string().STRINGLITERAL().GetText()), // CHECK
       SeidlLexer.INT => new Data.Integer(exp.number().INTEGER().GetText()),
       SeidlLexer.FLOAT => new Data.Float(exp.number().FLOATINGPOINTNUMBER().GetText()),
       SeidlLexer.BOOL => new Data.Bool(exp.boolean().GetText()),
@@ -110,7 +110,7 @@ namespace Ai.Hgb.Seidl.Processor {
     private static int GetExpressionTypeCode(SeidlParser.ExpressionContext? exp) {
       int typeCode = int.MaxValue;
 
-      if (exp.GetText() != null) typeCode = SeidlLexer.STRING;
+      if (exp.GetText() != null) typeCode = SeidlLexer.STRING; // CHECK
       if (exp.number() != null && exp.number().INTEGER() != null) typeCode = SeidlLexer.INT;
       if (exp.number() != null && exp.number().FLOATINGPOINTNUMBER() != null) typeCode = SeidlLexer.FLOAT;
       if (exp.boolean() != null) typeCode = SeidlLexer.BOOL;
@@ -154,7 +154,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
       try {
-        if (target is Data.String) (target as IAtomicType).Assign(exp.@string().STRINGLITERAL().GetText());
+        if (target is Data.String) (target as IAtomicType).Assign(exp.@string().STRINGLITERAL().GetText()); // CHECK
         else if (target is Data.Integer) (target as IAtomicType).Assign(exp.number().INTEGER().GetText());
         else if (target is Data.Float) (target as IAtomicType).Assign(exp.number().FLOATINGPOINTNUMBER().GetText());
         else if (target is Data.Bool) (target as IAtomicType).Assign(exp.boolean().GetText());
