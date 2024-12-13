@@ -2,6 +2,7 @@
 using Ai.Hgb.Seidl.Data;
 using System.Net.Http.Json;
 using System.Reflection;
+using System.Text.Json;
 
 namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
@@ -83,7 +84,16 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       // routing table:
       Console.WriteLine("Routing Table:");
       var rt = table.GetRoutingTable();
+      Console.WriteLine("points: " + string.Join(' ', rt.Points.Select(x => x.Id)));
+      Console.WriteLine("routes: " + string.Join(' ', rt.Routes.Select(x => x.Id)));
       Console.WriteLine("\n");
+      var rtText = JsonSerializer.Serialize(rt);
+      Console.WriteLine(rtText);
+      Console.WriteLine("\n");
+      
+      var rtNew = JsonSerializer.Deserialize<RoutingTable>(rtText);
+      Console.WriteLine("points: " + string.Join(' ', rtNew.Points.Select(x => x.Id)));
+      Console.WriteLine("routes: " + string.Join(' ', rtNew.Routes.Select(x => x.Id)));
 
 
       Console.WriteLine("\n\n\nEnd of processing.");
