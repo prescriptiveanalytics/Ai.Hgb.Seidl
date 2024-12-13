@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.6-prerelease-g456e1e6e67" />
+    <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.7-prerelease-g133b5bc496" />
     <PackageReference Include="Ai.Hgb.Common.Utils" Version="0.1.2-prerelease-g745b231a4e" />
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
     <PackageReference Include="YamlDotNet" Version="13.0.2" />
