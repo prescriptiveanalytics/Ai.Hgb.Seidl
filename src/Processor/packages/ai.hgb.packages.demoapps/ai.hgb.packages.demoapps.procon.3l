@@ -22,15 +22,21 @@ message DocumentMessage { Document payload }
 nodetype Producer {
   image ai.hgb.application.demoapps.producer.img:latest
   output DocumentMessage docs
+  property int docCount
+  property string docPrefix
 }
 
 nodetype Consumer {
   image ai.hgb.application.demoapps.consumer.img:latest
   input DocumentMessage docs
+  property int docCount
 }
 
-# node Producer pro
-# node Consumer con
+nodetype Prosumer {
+  image ai.hgb.application.demoapps.prosumer.img:latest
+  input DocumentMessage docparts
+  output DocumentMessage docs
+  property int docCount
+}
 
-# pro.docs --> con.docs
 

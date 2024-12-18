@@ -20,13 +20,13 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.seidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|name|tag|image)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|name|tag|image|in|to)\\b"
 			}]
 		},
 		"types": {
 			"patterns": [{
 				"name": "entity.name.type",
-				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate|package|optimizer)\\b"
+				"match": "\\b(string|int|float|bool|struct|message|edgetype|edge|nodetype|node|surrogate|package|optimizer|var)\\b"
 			}]
 		},
 		"reservedvalues": {
