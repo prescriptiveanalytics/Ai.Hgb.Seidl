@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Formats.Tar;
 
 namespace Ai.Hgb.Seidl.Processor {
   public class Utils {
@@ -91,7 +92,7 @@ namespace Ai.Hgb.Seidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    private static IAtomicType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
+    public static IAtomicType InstanceAtomicType(int typeCode, string valueText = null) => typeCode switch {
       SeidlLexer.STRING => new Data.String(valueText),
       SeidlLexer.INT => new Data.Integer(valueText),
       SeidlLexer.FLOAT => new Data.Float(valueText),
@@ -153,13 +154,19 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
-      try {
+      try {                
         if (target is Data.String) (target as IAtomicType).Assign(UnwrapStringbody(exp.@string().STRINGLITERAL().GetText())); // CHECK        
         else if (target is Data.Integer) (target as IAtomicType).Assign(exp.number().INTEGER().GetText());
         else if (target is Data.Float) (target as IAtomicType).Assign(exp.number().FLOATINGPOINTNUMBER().GetText());
         else if (target is Data.Bool) (target as IAtomicType).Assign(exp.boolean().GetText());
       }
       catch { }
+    }
+
+    public static void TryAssignString(IType target, string s) {
+      try {
+        (target as IAtomicType).Assign(s);
+      } catch { }
     }
 
     public static Message GetMessageType(string msgtypename, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {

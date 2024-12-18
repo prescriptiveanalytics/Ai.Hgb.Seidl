@@ -51,6 +51,7 @@ ELSE                : 'else';
 ELSEIF              : 'else if';
 FOR                 : 'for';
 IN                  : 'in';
+TO                  : 'to';
 WHILE               : 'while';
 RETURN              : 'return';
 AS                  : 'as';
@@ -62,6 +63,7 @@ TAGDEF              : 'tag';
 PACKAGE             : 'package';
 IMAGE               : 'image';
 QUEUE               : 'queue';
+VAR                 : 'var';
 
 // Operators
 
@@ -126,7 +128,7 @@ fragment NEWLINE
 
 NAME                  : [a-zA-Z_][a-zA-Z_0-9]*;
 WORD                  : (LOWERCASE | UPPERCASE)+;
-STRINGLITERAL            : '"'.*? '"'; // note: LITERAL postfix necessary due to already used keyword
+STRINGLITERAL         : '"'.*? '"'; // note: LITERAL postfix necessary due to already used keyword
 NORMALSTRING          : '"' ( ESCAPESEQUENCE | ~('\\'|'"') )* '"';
 CHARSTRING            : '\'' ( ESCAPESEQUENCE | ~('\''|'\\') )* '\'';
 LONGSTRING            : '[' NESTEDSTRING ']';

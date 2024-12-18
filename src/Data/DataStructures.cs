@@ -144,6 +144,7 @@ namespace Ai.Hgb.Seidl.Data {
         int parsedValue;
         if (int.TryParse(value, out parsedValue)) {
           Value = parsedValue;
+          _initialized = true;
         } else {
           throw new ArgumentException("The given value can not be converted to an integer.");
         }
@@ -175,6 +176,7 @@ namespace Ai.Hgb.Seidl.Data {
         int parsedValue;
         if (int.TryParse(value, out parsedValue)) {
           Value = parsedValue;
+          _initialized = true;
         }
         else {
           throw new ArgumentException("The given value can not be converted to an integer.");

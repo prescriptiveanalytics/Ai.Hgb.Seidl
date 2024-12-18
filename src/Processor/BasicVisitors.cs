@@ -154,7 +154,7 @@ namespace Ai.Hgb.Seidl.Processor {
       foreach (var variable in context.variablelist().variable()) {
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
 
-        scopedSymbolTable.AddSymbol(variable.GetText(), type, currentScope);
+        scopedSymbolTable.AddSymbol(variable.GetName(scopedSymbolTable, currentScope), type, currentScope);
       }
       return null;
     }
@@ -173,10 +173,12 @@ namespace Ai.Hgb.Seidl.Processor {
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope, expression);
         // TODO: assign expression to looked up type (if typecode = atomictype, all done)
 
-        scopedSymbolTable.AddSymbol(variable.GetText(), type, currentScope);
+        scopedSymbolTable.AddSymbol(variable.GetName(scopedSymbolTable, currentScope), type, currentScope);
       }
       return null;
     }
+
+
 
     public override object VisitTypedefStatement([NotNull] SeidlParser.TypedefStatementContext context) {
       var def = context.typedefstatement();
@@ -244,7 +246,7 @@ namespace Ai.Hgb.Seidl.Processor {
     public override object VisitNodeDefinitionStatement([NotNull] SeidlParser.NodeDefinitionStatementContext context) {
 
       var def = context.nodedefinition();
-      var name = def.variable()?.GetText();
+      var name = def.variable()?.GetName(scopedSymbolTable, currentScope);
       var constructor = def.nodeconstructor();
       var typename = def.typename();
 
@@ -260,7 +262,7 @@ namespace Ai.Hgb.Seidl.Processor {
           for (int i = 0; i < asslist.assignment().Length; i++) {
             var ass = asslist.assignment(i);
             var propertyName = ass.variable().GetText();
-            var exp = ass.expression();            
+            var exp = ass.expression();
 
             // evaluate expression
             // skip incompatible options
@@ -270,14 +272,15 @@ namespace Ai.Hgb.Seidl.Processor {
               | exp.assignmentlist() != null
               | exp.variablelist() != null) continue;
 
-            if(node.Properties.ContainsKey(propertyName)) {              
-              if(exp.variable() != null) {
+            if (node.Properties.ContainsKey(propertyName)) {
+              if (exp.variable() != null) {
                 var variableName = exp.variable().GetText();
                 var variableSymbol = scopedSymbolTable[currentScope, variableName];
-                if(variableSymbol != null) node.Properties[propertyName] = variableSymbol.Type;
-              } else {
+                if (variableSymbol != null) node.Properties[propertyName] = variableSymbol.Type;
+              }
+              else {
                 ProcessAssignment(node.Properties[propertyName], exp);
-              }              
+              }
             }
           }
         }
@@ -290,8 +293,20 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     private void ProcessAssignment(IType target, ExpressionContext exp) {
-      if(Utils.IsAtomicType(target)) {
-          Utils.TryAssignExpression(target, exp);        
+      if (Utils.IsAtomicType(target)) {
+        Utils.TryAssignExpression(target, exp);
+      }
+      else if (target is ISymbol) {
+        ProcessAssignment((target as ISymbol).Type, exp);
+      }
+    }
+
+    private void ProcessAssignment(IType target, string s) {
+      if (Utils.IsAtomicType(target)) {
+        Utils.TryAssignString(target, s);
+      }
+      else if (target is ISymbol) {
+        ProcessAssignment((target as ISymbol).Type, s);
       }
     }
 
@@ -299,32 +314,55 @@ namespace Ai.Hgb.Seidl.Processor {
       var varList = context.variablelist();
       var expList = context.expressionlist();
       var varListLength = varList.variable().Length;
-      var expListLength = expList.expression().Length;      
+      var expListLength = expList.expression().Length;
 
-      if(varListLength == expListLength) {
-        for(int i = 0; i < varListLength; i++) {
+      if (varListLength == expListLength) {
+        for (int i = 0; i < varListLength; i++) {
+          // variable (left side)
           var variableName = varList.variable(i).GetText();
-          var expression = expList.expression(i);
           var persistedVariable = scopedSymbolTable[currentScope, variableName];
-          if(persistedVariable != null && expression != null) ProcessAssignment(persistedVariable, expression);
 
-        }
-      } else {
-        var expression = expList.expression().First();
-        foreach (var variable in varList.variable()) {
-          var variableName = variable.GetText();
-          var persistedVariable = scopedSymbolTable[currentScope, variableName];
-          if(persistedVariable != null) ProcessAssignment(persistedVariable, expression);
+          // expression (right side)
+          var expression = expList.expression(i);
+          string expressionString = null;
+          if (expression.variable() != null) {
+            var persistedExpVar = scopedSymbolTable[currentScope, expression.variable().GetText()];
+            expressionString = persistedExpVar.GetValueString();
+          }
+
+          // assignment
+          if (persistedVariable != null && expressionString != null) ProcessAssignment(persistedVariable, expressionString);
+          else if (persistedVariable != null && expression != null) ProcessAssignment(persistedVariable, expression);
+
         }
       }
-      
+      else {
+        // expression (right side)
+        var expression = expList.expression().First();
+        string expressionString = null;
+        if (expression.variable() != null) {
+          var persistedExpVar = scopedSymbolTable[currentScope, expression.variable().GetText()];
+          expressionString = persistedExpVar.GetValueString();
+        }
+
+        foreach (var variable in varList.variable()) {
+          // variable (left side)
+          var variableName = variable.GetText();
+          var persistedVariable = scopedSymbolTable[currentScope, variableName];
+
+          // assignment
+          if (persistedVariable != null && expressionString != null) ProcessAssignment(persistedVariable, expressionString);
+          else if (persistedVariable != null && expression != null) ProcessAssignment(persistedVariable, expression);
+        }
+      }
+
       return null;
     }
 
     public override object VisitNodetypeDefinitionStatement([NotNull] SeidlParser.NodetypeDefinitionStatementContext context) {
       var def = context.nodetypedefinition();
 
-      var name = def.nodetypename().GetText();      
+      var name = def.nodetypename().GetText();
       var body = def.nodebody();
 
       Node node = new Node();
@@ -346,12 +384,12 @@ namespace Ai.Hgb.Seidl.Processor {
       var sinkNames = new List<Tuple<string, string>>();
 
       foreach (var from in stmt.sources.field()) {
-        if (from.variable().Length == 1) sourceNames.Add(Tuple.Create(from.variable(0).GetText(), ""));
-        else sourceNames.Add(Tuple.Create(from.variable(0).GetText(), from.variable(1).GetText()));
+        if (from.variable().Length == 1) sourceNames.Add(Tuple.Create(from.variable(0).GetName(scopedSymbolTable, currentScope), ""));
+        else sourceNames.Add(Tuple.Create(from.variable(0).GetName(scopedSymbolTable, currentScope), from.variable(1).GetText()));
       }
       foreach (var to in stmt.sinks.field()) {
-        if (to.variable().Length == 1) sinkNames.Add(Tuple.Create(to.variable(0).GetText(), ""));
-        else sinkNames.Add(Tuple.Create(to.variable(0).GetText(), to.variable(1).GetText()));
+        if (to.variable().Length == 1) sinkNames.Add(Tuple.Create(to.variable(0).GetName(scopedSymbolTable, currentScope), ""));
+        else sinkNames.Add(Tuple.Create(to.variable(0).GetName(scopedSymbolTable, currentScope), to.variable(1).GetText()));
       }
 
 
@@ -372,7 +410,7 @@ namespace Ai.Hgb.Seidl.Processor {
       else if (stmt.HEAVYARROW() != null) edgeType = EdgeType.ReqRes;
       else if (stmt.QUERYARROW_BEGIN() != null) edgeType = EdgeType.PubSubQuery;
       else if (stmt.QUERYHARROW_BEGIN() != null) edgeType = EdgeType.ReqResQuery;
-      
+
       // parse query
       string query = null;
       if (edgeType == EdgeType.PubSubQuery || edgeType == EdgeType.ReqResQuery) {
@@ -463,8 +501,8 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitNameDefinitionStatement([NotNull] SeidlParser.NameDefinitionStatementContext context) {
-      var stmt = context.namedefstatement();      
-      string name = string.Join('.', stmt.field().variable().Select(x => x.GetText()));      
+      var stmt = context.namedefstatement();
+      string name = string.Join('.', stmt.field().variable().Select(x => x.GetText()));
       scopedSymbolTable.Name = name;
       return null;
     }
@@ -474,7 +512,7 @@ namespace Ai.Hgb.Seidl.Processor {
       string tag = "latest";
 
       if (stmt.tag().versionnumber() != null) tag = string.Join('.', stmt.tag().versionnumber().number().Select(x => x.GetText()));
-      else if(string.IsNullOrEmpty(stmt.tag().GetText())) tag = stmt.tag().GetText();
+      else if (string.IsNullOrEmpty(stmt.tag().GetText())) tag = stmt.tag().GetText();
 
       scopedSymbolTable.Tag = tag;
       return null;
@@ -556,7 +594,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
       var pkg = new PackageInformation(new VersionIdentifier() { Name = pkgIdentifier.Item1, Tag = pkgIdentifier.Item2 });
 
-      foreach(var identifierCtx in pkgContent) {
+      foreach (var identifierCtx in pkgContent) {
         var identifier = VisitorUtils.ProcessNameTagDefinitionStatement(identifierCtx);
         pkg.DescriptionIdentifiers.Add(new VersionIdentifier() { Name = identifier.Item1, Tag = identifier.Item2 });
       }
@@ -564,10 +602,113 @@ namespace Ai.Hgb.Seidl.Processor {
       scopedSymbolTable.AddSymbol(pkg.GetIdentifier(), pkg, currentScope, false);
 
       return null;
-    }    
+    }
+
+    public override object VisitLoopStatement([NotNull] LoopStatementContext context) {
+      var stmt = context.loopstatement();
+
+      var loopsignature = stmt.loopsignature();
+      var iteratorName = loopsignature.iterator.GetText();
+
+      if (loopsignature.field() != null) {
+        // TODO
+      }
+      else if (loopsignature.integerrange() != null) {
+        var range = loopsignature.integerrange();
+        var from = int.Parse(range.from.Text);
+        var to = int.Parse(range.to.Text);
+
+        // create iterator variable
+        var iteratorType = Utils.InstanceAtomicType(SeidlLexer.INT, from.ToString());
+        scopedSymbolTable.AddSymbol(iteratorName, iteratorType, currentScope);
+
+        var loopbody = stmt.loopbody();
+        var statements = loopbody.statement();
+        for (int i = from; i < to; i++) {
+          // update iterator variable
+          var iteratorSymbol = scopedSymbolTable[currentScope, iteratorName];
+          (iteratorSymbol.Type as IAtomicType).Assign(i.ToString());
+          foreach (var statement in statements) Visit(statement);
+        }
+
+        // remove iterator variable
+        // TODO: scopedSymbolTable.RemoveSymbol(iteratorName);
+
+      }
+
+      return null;
+    }
+
+    public override object VisitConditionalStatement([NotNull] ConditionalStatementContext context) {
+      var stmt = context.conditionalstatement();
+      List<StatementContext> statements = new List<StatementContext>();      
+      var exp = stmt.expression();
+      bool matchCase = false;
+
+      // if case
+      // matchCase = exp.evaluate();
+      if(matchCase) {
+        statements.AddRange(stmt.statement());
+      } else {
+        
+        // else if case(s)
+        if(stmt.conditionalelseif() != null) {
+          var elseifBlocks = stmt.conditionalelseif();
+          for(int i = 0; i < elseifBlocks.Length && !matchCase; i++) {
+            var elseifBlock = elseifBlocks[i];
+            //matchCase = elseifBlock.expression().evaluate();
+            if (matchCase) statements.AddRange(elseifBlock.statement());
+          }
+        }
+
+        // else case
+        if(!matchCase && stmt.conditionalelse() != null) {
+          statements.AddRange(stmt.conditionalelse().statement());
+        }
+      }
+
+      foreach (var statement in statements) Visit(statement);
+
+      return null;
+    }
+
+    public override object VisitArrayDefinitionStatement([NotNull] ArrayDefinitionStatementContext context) {
+      // TODO
+
+      return base.VisitArrayDefinitionStatement(context);
+    }
+
   }
 
   public static class VisitorUtils {
+
+    public static string GetName(this VariableContext variable, ScopedSymbolTable sst, Scope s) {
+      string name = variable.GetText();
+
+      if (variable.generatename() != null) {
+        var ctx = variable.generatename();
+
+        var nameListLength = ctx.concatelement().Length;
+        string text = "";
+
+        for (int i = 0; i < nameListLength; i++) {
+          var element = ctx.concatelement(i);
+
+          if (element.NAME() != null) {
+            var variableName = element.NAME().GetText();
+            var persistedVariable = sst[s, variableName];
+            text += persistedVariable.Type.GetValueString();
+          }
+          else if (element.STRINGLITERAL() != null) {
+            text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
+          }
+        }
+        name = text.Replace(' ', '_');
+      }
+
+      return name;
+    }
+
     public static void ReadNodeBody(SeidlParser.NodebodyContext body, Node node, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {
       if (body.inout != null) {
         for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
@@ -584,7 +725,7 @@ namespace Ai.Hgb.Seidl.Processor {
         }
       }
 
-      foreach(var propertyCtx in body.nodebodyproperty()) {
+      foreach (var propertyCtx in body.nodebodyproperty()) {
         var typecode = propertyCtx.type()?.Start.Type;
         var typename = propertyCtx.typename()?.GetText();
         var type = Utils.CreateType(typecode, typename, scopedSymbolTable, currentScope);
@@ -602,7 +743,7 @@ namespace Ai.Hgb.Seidl.Processor {
       //    node.Properties.Add(v.GetText(), type);
       //  }
       //}
-      
+
       var imageCtx = body.nodebodyimage()?.Last();
       if (imageCtx != null) {
         var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());

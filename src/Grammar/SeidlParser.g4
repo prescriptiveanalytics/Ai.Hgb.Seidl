@@ -25,10 +25,11 @@ set // = global scope
 
 statement
     : terminator                                                            #terminatorStatement         
-    | scope                                                                 #scopeStatement
+    | scope                                                                 #scopeStatement     
     | (atomictype | typename) variablelist terminator                       #declarationStatement
     | variablelist '=' expressionlist terminator                            #assignmentStatement
     | (atomictype | typename) variablelist '=' expressionlist               #definitionStatement    
+    | arraydefinition                                                       #arrayDefinitionStatement
     | structdefinition                                                      #structDefinitionStatement
     // | structinstantiation                                                   #structInstantiationStatement // not necessary: handled by expression-rule
     | messagedefinition                                                     #messageDefinitionStatement
@@ -44,6 +45,8 @@ statement
     | tagdefstatement                                                       #tagDefinitionStatement
     | nametagdefstatement                                                   #nametagDefinitionStatement
     | packagedefstatement                                                   #packageDefinitionStatement
+    | loopstatement                                                         #loopStatement
+    | conditionalstatement                                                  #conditionalStatement
 
     // not yet in use
     // | functiondefinition
@@ -59,9 +62,8 @@ scope // = block scope
     ;
 
 type
-    : atomictype | complextype
-    | atomictype '[]' | complextype '[]'
-    | typename '[]'
+    : atomictype | complextype | typename
+    | atomictype '[]' | complextype '[]' | typename '[]'
     ;
 
 atomictype
@@ -81,7 +83,8 @@ graphtype
     ;
 
 variable
-    : NAME    
+    : generatename
+    | NAME
     ;
 
 typename
@@ -154,6 +157,10 @@ comparator
 
 arraydeclaration
     : type '[]' variable
+    ;
+
+arraydefinition
+    : atomictype '[]' variablelist '=' expressionlist
     ;
 
 arrayaccess
@@ -371,6 +378,42 @@ metadefinition
     '}'
     ;
 
+loopstatement
+    : loopsignature '{' loopbody '}'
+    ;
+
+loopsignature
+    : FOR iterator=variable IN field
+    | FOR iterator=variable IN integerrange
+    // | FOR iterator=variable IN collection=integerrange
+    ;
+
+loopbody
+    : statement*
+    ;
+
+conditionalstatement
+    : IF expression '{' statement* '}' conditionalelseif* conditionalelse?
+    ;
+
+conditionalelseif
+    : ELSEIF expression '{' statement* '}'
+    ;
+conditionalelse
+    : ELSE '{' statement* '}'
+    ;
+
+integerrange
+    : from=INTEGER TO to=INTEGER    
+    ;
+
+generatename
+    : VAR '(' concatelement (',' concatelement)*  ')'
+    ;
+
+concatelement
+    : NAME | STRINGLITERAL
+    ;
 
 number
     : INTEGER | FLOATINGPOINTNUMBER

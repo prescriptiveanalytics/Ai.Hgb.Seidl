@@ -80,6 +80,13 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitDefinitionStatement([NotNull] SeidlParser.DefinitionStatementContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>arrayDefinitionStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArrayDefinitionStatement([NotNull] SeidlParser.ArrayDefinitionStatementContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>structDefinitionStatement</c>
 	/// labeled alternative in <see cref="SeidlParser.statement"/>.
 	/// </summary>
@@ -177,6 +184,20 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitPackageDefinitionStatement([NotNull] SeidlParser.PackageDefinitionStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>loopStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLoopStatement([NotNull] SeidlParser.LoopStatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>conditionalStatement</c>
+	/// labeled alternative in <see cref="SeidlParser.statement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitConditionalStatement([NotNull] SeidlParser.ConditionalStatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.scope"/>.
 	/// </summary>
@@ -309,6 +330,12 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitArraydeclaration([NotNull] SeidlParser.ArraydeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.arraydefinition"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArraydefinition([NotNull] SeidlParser.ArraydefinitionContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.arrayaccess"/>.
 	/// </summary>
@@ -537,6 +564,60 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMetadefinition([NotNull] SeidlParser.MetadefinitionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.loopstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLoopstatement([NotNull] SeidlParser.LoopstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.loopsignature"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLoopsignature([NotNull] SeidlParser.LoopsignatureContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.loopbody"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLoopbody([NotNull] SeidlParser.LoopbodyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.conditionalstatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitConditionalstatement([NotNull] SeidlParser.ConditionalstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.conditionalelseif"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitConditionalelseif([NotNull] SeidlParser.ConditionalelseifContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.conditionalelse"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitConditionalelse([NotNull] SeidlParser.ConditionalelseContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.integerrange"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIntegerrange([NotNull] SeidlParser.IntegerrangeContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.generatename"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitGeneratename([NotNull] SeidlParser.GeneratenameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.concatelement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitConcatelement([NotNull] SeidlParser.ConcatelementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.number"/>.
 	/// </summary>
