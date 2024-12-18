@@ -711,17 +711,15 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public static void ReadNodeBody(SeidlParser.NodebodyContext body, Node node, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {
       if (body.inout != null) {
-        for (int i = 0; i < body.inout.messagetypelist().variable().Length; i++) {
+        for (int i = 0; i < body.nodebodyinout().Length; i++) {
 
-          var input = body.inout.INPUT();
-
-          var msgname = body.inout.messagetypelist().variable(i).GetText();
-          var msgtypename = body.inout.messagetypelist().messagetypename(i).GetText();
+          var inout = body.nodebodyinout()[i];
+          var msgname = inout.messagetypelist().variable(0).GetText();
+          var msgtypename = inout.messagetypelist().messagetypename(0).GetText();
           var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
 
-
-          if (input != null) node.Inputs.Add(msgname, msgtype);
-          else if (input == null) node.Outputs.Add(msgname, msgtype);
+          if (inout.INPUT != null) node.Inputs.Add(msgname, msgtype);
+          else node.Outputs.Add(msgname, msgtype);
         }
       }
 
