@@ -440,6 +440,9 @@ namespace Ai.Hgb.Seidl.Data {
       var n = new Node(false);
       n.ImageName = ImageName;
       n.ImageTag = ImageTag;
+      n.Command = Command;
+      n.WorkingDirectory = WorkingDirectory;
+      n.Arguments = Arguments;
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());
@@ -453,6 +456,9 @@ namespace Ai.Hgb.Seidl.Data {
       var n = new Node();
       n.ImageName = ImageName;
       n.ImageTag = ImageTag;
+      n.Command = Command;
+      n.WorkingDirectory = WorkingDirectory;
+      n.Arguments = Arguments;
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.DeepCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.DeepCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.DeepCopy());
