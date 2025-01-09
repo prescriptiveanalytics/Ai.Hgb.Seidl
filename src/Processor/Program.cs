@@ -68,6 +68,18 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       var text = table.Print(null);
       Console.WriteLine(text.ToString());
 
+      // node types:
+      Console.WriteLine("\n\nNodetypes:");
+      var nodeTypes = table[table.Global].Where(x => x.Type is Node && x.IsTypedef);
+      foreach (var n in nodeTypes) {
+        Console.WriteLine("node: " + n.Name);
+        var nt = (Node)n.Type;
+        Console.WriteLine(nt.ImageName + ":" + nt.ImageTag);
+        Console.WriteLine(nt.Command + "\t" + nt.Arguments + "\tin: " + nt.WorkingDirectory);
+        Console.WriteLine("\n");
+      }
+      Console.WriteLine("\n\n");
+
       // properties:
       Console.WriteLine("\n\nNodes:");
       var nodeSymbols = table[table.Global].Where(x => x.Type is Node && !x.IsTypedef);
