@@ -301,6 +301,18 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitExpression([NotNull] SeidlParser.ExpressionContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.binop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBinop([NotNull] SeidlParser.BinopContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.unop"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUnop([NotNull] SeidlParser.UnopContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.assignmentlist"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -546,6 +558,12 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNodebodyimage([NotNull] SeidlParser.NodebodyimageContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodycommand"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNodebodycommand([NotNull] SeidlParser.NodebodycommandContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyclientserver"/>.
 	/// </summary>

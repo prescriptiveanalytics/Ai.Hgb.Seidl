@@ -406,6 +406,10 @@ namespace Ai.Hgb.Seidl.Data {
     public string ImageName { get; set; }
     public string ImageTag { get; set; }
 
+    public string Command { get; set; }
+    public string WorkingDirectory { get; set; }
+    public string Arguments { get; set; }
+
     public Dictionary<string, IType> Properties { get; set; }
 
     public Dictionary<string, Message> Inputs { get; set; } // input port names and types

@@ -137,6 +137,12 @@ expression
     | '[' variablelist?  ']'
     ;
 
+binop : '+' | '-' | '*' | '/' 
+	    | '<' | '<=' | '>' | '>=' | '==' 
+	    | 'and' | 'or';
+
+unop : '-' | 'not';
+
 assignmentlist
     : assignment (',' assignment)*
     ;
@@ -337,7 +343,8 @@ nodebody
         | clientserver=nodebodyclientserver
         | property=nodebodyproperty
         // | IMAGE field COLON tag
-        | image=nodebodyimage        
+        | image=nodebodyimage
+        | command=nodebodycommand        
         | terminator
     )*
     ;
@@ -359,6 +366,10 @@ nodebodyproperty
 
 nodebodyimage
     : IMAGE nametagdefstatement
+    ;
+
+nodebodycommand
+    : COMMAND command=NAME workingdirectory=STRINGLITERAL arguments=STRINGLITERAL
     ;
 
 nodebodyclientserver

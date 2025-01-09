@@ -64,6 +64,7 @@ PACKAGE             : 'package';
 IMAGE               : 'image';
 QUEUE               : 'queue';
 VAR                 : 'var';
+COMMAND             : 'command';
 
 // Operators
 
@@ -91,6 +92,7 @@ LESSTHAN            : '<';
 LESSEQUALTHAN       : '<=';
 AND                 : 'and';
 OR                  : 'or';
+NOT                 : 'not';
 
 OPEN_PAREN          : '(';
 CLOSE_PAREN         : ')';

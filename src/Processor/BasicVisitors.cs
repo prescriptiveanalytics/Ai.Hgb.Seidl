@@ -748,6 +748,13 @@ namespace Ai.Hgb.Seidl.Processor {
         node.ImageName = nameTag.Item1;
         node.ImageTag = nameTag.Item2;
       }
+
+      var commandCtx = body.nodebodycommand()?.Last();
+      if(commandCtx != null) {
+        node.Command = commandCtx.command.Text;                
+        node.WorkingDirectory = Utils.TrimStringbody(commandCtx.workingdirectory.Text); // TODO: check if dir exists/is accessable
+        node.Arguments = Utils.TrimStringbody(commandCtx.arguments.Text); // TODO: use array instead of single string literal
+      }
     }
 
     public static void ProcessImportedScopedSymbolTable(ScopedSymbolTable sst, Scope currentScope) {

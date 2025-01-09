@@ -192,5 +192,9 @@ namespace Ai.Hgb.Seidl.Processor {
       return result;
     }
 
+    public static string TrimStringbody(string str) {
+      return str.Substring(1, str.Length - 2);                
+    }
+
   }
 }

@@ -14,5 +14,9 @@ namespace Ai.Hgb.Seidl.Data {
   public record NodeRecord(string name);
   public record EdgeRecord(string name, string from, string to, string type, string payload);
   public record GraphRecord(IEnumerable<NodeRecord> nodes, IEnumerable<EdgeRecord> edges);
-  public record InitializationRecord(string name, string typeImageName, string typeImageTag, Dictionary<string, object> parameters, RoutingTable routing);
+  public record InitializationRecordDepr(string name, string typeImageName, string typeImageTag, Dictionary<string, object> parameters, RoutingTable routing);
+
+  public record Executable (string imageName, string imageTag, string command, string workingDirectory, string arguments);
+  public record InitializationRecord(string name, Executable exe, Dictionary<string, object> parameters, RoutingTable routing);
+
 }
