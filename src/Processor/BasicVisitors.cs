@@ -742,15 +742,17 @@ namespace Ai.Hgb.Seidl.Processor {
       //  }
       //}
 
-      var imageCtx = body.nodebodyimage()?.Last();
-      if (imageCtx != null) {
+      var imageCtxList = body.nodebodyimage();
+      if (imageCtxList != null && imageCtxList.Length > 0) {
+        var imageCtx = imageCtxList.Last();
         var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
         node.ImageName = nameTag.Item1;
         node.ImageTag = nameTag.Item2;
       }
 
-      var commandCtx = body.nodebodycommand()?.Last();
-      if(commandCtx != null) {
+      var commandCtxList = body.nodebodycommand();
+      if(commandCtxList != null && commandCtxList.Length > 0) {
+        var commandCtx = commandCtxList.Last();
         node.Command = commandCtx.command.Text;                
         node.WorkingDirectory = Utils.TrimStringbody(commandCtx.workingdirectory.Text); // TODO: check if dir exists/is accessable
         node.Arguments = Utils.TrimStringbody(commandCtx.arguments.Text); // TODO: use array instead of single string literal
