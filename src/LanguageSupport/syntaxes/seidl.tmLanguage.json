@@ -20,7 +20,7 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.seidl",
-				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|name|tag|image|in|to)\\b"
+				"match": "\\b(typedef|import|include|property|topic|input|output|aux|req|res|pub|sub|request|response|publish|subscribe|client|server|as|imitate|imitates|for|with|name|tag|image|in|to|command)\\b"
 			}]
 		},
 		"types": {
