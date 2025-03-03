@@ -688,21 +688,44 @@ namespace Ai.Hgb.Seidl.Processor {
       if (variable.generatename() != null) {
         var ctx = variable.generatename();
 
-        var nameListLength = ctx.concatelement().Length;
         string text = "";
+        if (ctx.VAR() != null) { // VAR keyword
+          var nameListLength = ctx.concatelement().Length;
+          for (int i = 0; i < nameListLength; i++) {
+            var element = ctx.concatelement(i);
 
-        for (int i = 0; i < nameListLength; i++) {
-          var element = ctx.concatelement(i);
-
-          if (element.NAME() != null) {
-            var variableName = element.NAME().GetText();
-            var persistedVariable = sst[s, variableName];
-            text += persistedVariable.Type.GetValueString();
+            if (element.NAME() != null) {
+              var variableName = element.NAME().GetText();
+              var persistedVariable = sst[s, variableName];
+              text += persistedVariable.Type.GetValueString();
+            }
+            else if (element.STRINGLITERAL() != null) {
+              text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
+            }
           }
-          else if (element.STRINGLITERAL() != null) {
-            text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
+        } else { // Interpolation                    
+          if (ctx.baseinterpolation != null && ctx.baseelement.NAME() != null) {
+            var persistedVariable = sst[s, ctx.baseelement.NAME().GetText()];
+            text += persistedVariable != null ? persistedVariable.Type.GetValueString() : ctx.baseelement.NAME().GetText();
+          } else if(ctx.baseelement.STRINGLITERAL() != null) {
+            text += Utils.UnwrapStringbody(ctx.baseelement.STRINGLITERAL().GetText());
+          } else text += ctx.baseelement.NAME().GetText();
+
+          var listLength = ctx.interpolationlist().concatelement().Length;
+          var list = ctx.interpolationlist();
+          for (int i = 0; i < listLength; i++) {
+            var element = list.concatelement(i);
+
+            if(element.NAME() != null) {
+              var variablename = element.NAME().GetText();
+              var persistedVariable = sst[s, variablename];
+              text += persistedVariable != null ? persistedVariable.Type.GetValueString() : variablename;
+            } else if (element.STRINGLITERAL() != null) {
+              text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
+            }
           }
         }
+
         name = text.Replace(' ', '_');
       }
 

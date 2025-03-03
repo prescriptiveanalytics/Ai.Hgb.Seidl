@@ -631,6 +631,12 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitGeneratename([NotNull] SeidlParser.GeneratenameContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.interpolationlist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInterpolationlist([NotNull] SeidlParser.InterpolationlistContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.concatelement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

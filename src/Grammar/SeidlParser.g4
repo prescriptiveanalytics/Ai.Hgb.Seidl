@@ -352,6 +352,8 @@ nodebody
 nodebodyinout
     : INPUT messagetypelist
     | OUTPUT messagetypelist
+    | PUBLISH messagetypelist
+    | SUBSCRIBE messagetypelist
     | INPUT '[' inoutoption ']' messagetypelist
     | OUTPUT '[' inoutoption ']' messagetypelist
     ;
@@ -361,7 +363,7 @@ inoutoption
     ;
 
 nodebodyproperty
-    : PROPERTY (type | typename) variablelist    
+    : PROPERTY (type | typename) variablelist
     ;
 
 nodebodyimage
@@ -420,6 +422,11 @@ integerrange
 
 generatename
     : VAR '(' concatelement (',' concatelement)*  ')'
+    | baseinterpolation=INTERPOLATION? baseelement=concatelement interpolationelements=interpolationlist
+    ;
+
+interpolationlist
+    : (INTERPOLATION concatelement)*
     ;
 
 concatelement

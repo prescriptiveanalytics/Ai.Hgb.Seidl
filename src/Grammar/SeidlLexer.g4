@@ -77,6 +77,7 @@ ASSIGN              : '=';
 ADD                 : '+';
 MINUS               : '-';
 DIV                 : '/';
+INTERPOLATION       : '$';
 ARROW               : '-->';
 HEAVYARROW          : '==>';
 QUERYARROW_BEGIN    : '-:';
