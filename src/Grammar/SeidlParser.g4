@@ -123,6 +123,14 @@ expressionlist
     : expression (',' expression)*
     ;
 
+value
+    : boolean | number | string
+    ;
+
+valuelist
+    : value (',' value)*
+    ;
+
 expression
     : NULL
     | boolean
@@ -135,6 +143,7 @@ expression
     | assignmentlist
     | '{' assignmentlist? '}'
     | '[' variablelist?  ']'
+    | '[' valuelist?  ']'
     ;
 
 binop : '+' | '-' | '*' | '/' 
@@ -423,10 +432,18 @@ integerrange
 generatename
     : VAR '(' concatelement (',' concatelement)*  ')'
     | baseinterpolation=INTERPOLATION? baseelement=concatelement interpolationelements=interpolationlist
+    | baseelement=concatelement bracketinterpolationelements=bracketinterpolationlist 
     ;
 
 interpolationlist
     : (INTERPOLATION concatelement)*
+    ;
+
+bracketinterpolationlist
+    : (
+        interpolation='{' concatelement '}'
+        | element=concatelement
+     )*
     ;
 
 concatelement

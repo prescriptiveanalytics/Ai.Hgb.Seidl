@@ -295,6 +295,18 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitExpressionlist([NotNull] SeidlParser.ExpressionlistContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.value"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitValue([NotNull] SeidlParser.ValueContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.valuelist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitValuelist([NotNull] SeidlParser.ValuelistContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -636,6 +648,12 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitInterpolationlist([NotNull] SeidlParser.InterpolationlistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.bracketinterpolationlist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBracketinterpolationlist([NotNull] SeidlParser.BracketinterpolationlistContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.concatelement"/>.
 	/// </summary>

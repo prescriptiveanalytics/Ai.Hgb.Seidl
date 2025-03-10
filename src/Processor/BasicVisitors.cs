@@ -631,8 +631,8 @@ namespace Ai.Hgb.Seidl.Processor {
           foreach (var statement in statements) Visit(statement);
         }
 
-        // remove iterator variable
-        // TODO: scopedSymbolTable.RemoveSymbol(iteratorName);
+        // remove iterator variable        
+        scopedSymbolTable.RemoveSymbol(iteratorName, currentScope);
 
       }
 

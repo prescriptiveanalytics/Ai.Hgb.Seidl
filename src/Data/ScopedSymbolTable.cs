@@ -204,6 +204,14 @@ namespace Ai.Hgb.Seidl.Data {
       }
     }
 
+    public bool RemoveSymbol(string name, IScope parent) {
+      if(parent.Symbols.ContainsKey(name)) {
+        return parent.Symbols.Remove(name);
+      } else {
+        throw new Exception("The defined name to be removed is not present in this scope.");
+      }
+    }
+
     public void AddPackage(Common.Entities.Package package) {
       packages.Add(package);
     }
