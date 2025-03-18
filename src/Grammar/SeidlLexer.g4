@@ -65,6 +65,8 @@ IMAGE               : 'image';
 QUEUE               : 'queue';
 VAR                 : 'var';
 COMMAND             : 'command';
+SEQUENTIAL          : 'sequential';
+PARALLEL            : 'parallel';
 
 // Operators
 

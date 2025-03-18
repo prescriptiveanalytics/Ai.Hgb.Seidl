@@ -343,6 +343,7 @@ nodetypedefinition
 nodedefinition
     : NODE typename variable // using explicit nodetype
     | NODE typename variable nodeconstructor // using explicit nodetype and constructor
+    | NODE typename (SEQUENTIAL | PARALLEL) variable nodeconstructor
     // | NODE variable '{' nodebody '}' // using implicit nodetype     
     ;
 

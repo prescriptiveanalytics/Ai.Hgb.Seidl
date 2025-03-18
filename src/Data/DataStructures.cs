@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Ai.Hgb.Seidl.Data {
 
@@ -294,6 +295,45 @@ namespace Ai.Hgb.Seidl.Data {
           throw new ArgumentException("The given value can not be converted to a bool.");
         }
       }
+    }
+  }
+  
+  public class Array : Type, IComplexType {
+    public List<IType> Elements { get; set; }
+
+    public Array() { 
+      Elements = new List<IType>();
+    }
+
+    public void Assign(string value) {
+      throw new NotImplementedException();
+    }
+
+    public override IBaseType DeepCopy() {
+      var e = new Array();
+      foreach(var element in Elements) e.Elements.Add(element.DeepCopy());
+      return e;
+    }
+
+    public override IBaseType ShallowCopy() {
+      var e = new Array();
+      foreach (var element in Elements) e.Elements.Add(element.ShallowCopy());
+      return e;
+    }
+
+    public void Add(IType type) {
+      Elements.Add(type);
+    }
+    public override string GetIdentifier() {
+      return "array";
+    }
+
+    public override string GetValueString() {
+      return Elements != null && Elements.Count > 0 ? string.Join(", ", Elements.Select(x => x.GetValue())) : "";
+    }
+
+    public override object GetValue() {
+      return Elements.Select(x => x.GetValue());
     }
   }
 

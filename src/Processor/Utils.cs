@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Formats.Tar;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Ai.Hgb.Seidl.Processor {
   public class Utils {
@@ -100,6 +101,24 @@ namespace Ai.Hgb.Seidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
+    private static Data.Array InstanceAtomicTypeArray(int typeCode, SeidlParser.ExpressionContext? exp) {
+      var list = new Data.Array();
+      
+      for(int i = 0; i < exp.valuelist().value().Length; i++) {
+        var v = exp.valuelist().value(i);
+
+        switch (typeCode) {
+          case SeidlLexer.STRING: list.Add(new Data.String(UnwrapStringbody(v.@string().STRINGLITERAL().GetText()))); break;
+          case SeidlLexer.INT: list.Add(new Data.Integer(v.number().INTEGER().GetText())); break;
+          case SeidlLexer.FLOAT: list.Add(new Data.Float(v.number().FLOATINGPOINTNUMBER().GetText())); break;
+          case SeidlLexer.BOOL: list.Add(new Data.Bool(v.boolean().GetText())); break;
+          default: throw new ArgumentException("The given type is unknown.");
+        }
+      }
+
+      return list;
+    }
+
     private static IAtomicType DeclareAtomicType(int typeCode) => typeCode switch {
       SeidlLexer.STRING => new Data.String(),
       SeidlLexer.INT => new Data.Integer(),
@@ -136,6 +155,24 @@ namespace Ai.Hgb.Seidl.Processor {
       return type;
     }
 
+    public static Data.Array CreateAtomicTypeArray(int typeCode, SeidlParser.ExpressionContext? exp) {
+      Data.Array type;
+      bool initialize = exp != null && !exp.IsEmpty;
+
+      if (initialize) {
+        //int valueCode = initialize ? exp.Start.Type : -1;        
+        //if (CheckAtomicTypeValue(typeCode, valueCode)) type = InstanceAtomicTypeList(typeCode, exp);
+        //else throw new ArgumentException($"The stated expression ({SeidlLexer.DefaultVocabulary.GetDisplayName(valueCode)}) does not match the specified type ({SeidlLexer.DefaultVocabulary.GetDisplayName(typeCode)}).");
+        
+        type = InstanceAtomicTypeArray(typeCode, exp);
+      }
+      else {
+        type = new Data.Array();
+      }
+
+      return type;
+    }
+
     public static IType CreateType(int? typecode, string? typename, ScopedSymbolTable scopedSymbolTable, Scope currentScope, SeidlParser.ExpressionContext? expression = null) {
       IType type = null;
       if (typecode != null && typecode.HasValue) {
@@ -151,6 +188,18 @@ namespace Ai.Hgb.Seidl.Processor {
         }
       }
       return type;
+    }
+
+    public static Data.Array CreateTypeArray(int? typecode, ScopedSymbolTable scopedSymbolTable, Scope currentScope, SeidlParser.ExpressionContext? expression = null) {
+      Data.Array typeList = null;
+
+
+      if (typecode != null && typecode.HasValue) {
+        if (Utils.IsAtomicType(typecode.Value)) typeList = Utils.CreateAtomicTypeArray(typecode.Value, expression);
+        else throw new ArgumentException("The stated typecode is not a valid atomic type.");
+      }
+
+      return typeList;
     }
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {

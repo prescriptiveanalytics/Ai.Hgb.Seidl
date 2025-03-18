@@ -673,9 +673,25 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitArrayDefinitionStatement([NotNull] ArrayDefinitionStatementContext context) {
-      // TODO
+      var ctx = context.arraydefinition();
 
-      return base.VisitArrayDefinitionStatement(context);
+      if (ctx.variablelist().ChildCount != ctx.expressionlist().ChildCount && ctx.expressionlist().ChildCount != 1) {
+        throw new ArgumentException($"The number of expressions does not match the number of variables. Alternatively a single expression for all variables can be used.");
+      }
+      
+      var typecode = ctx.atomictype()?.Start.Type;
+      bool singleExp = ctx.expressionlist().ChildCount == 1;      
+
+      for (int i = 0; i < ctx.variablelist().variable().Length; i++) {
+        var variable = ctx.variablelist().variable(i);
+        var expression = ctx.expressionlist().expression(singleExp ? 0 : i);
+
+        var type = Utils.CreateTypeArray(typecode, scopedSymbolTable, currentScope, expression);
+        // TODO: assign expression to looked up type (if typecode = atomictype, all done)
+
+        scopedSymbolTable.AddSymbol(variable.GetName(scopedSymbolTable, currentScope), type, currentScope);
+      }
+      return null;      
     }
 
   }
