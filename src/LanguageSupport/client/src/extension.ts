@@ -81,7 +81,7 @@ export function activate(context: ExtensionContext) {
 			// Create and show a new webview
 			const panel = vscode.window.createWebviewPanel(
 				'seidlGraphVisualization', // Identifies the type of the webview. Used internally
-				'Seidl Graph', // Title of the panel displayed to the user
+				'Graph Monitor', // Seidl Graph Title of the panel displayed to the user
 				vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
 				{ // Webview options. More on these later.
 					enableScripts: true,
@@ -127,7 +127,7 @@ export function activate(context: ExtensionContext) {
 			// Create and show a new webview
 			const panel = vscode.window.createWebviewPanel(
 				'seidlDatamonitorVisualization', // Identifies the type of the webview. Used internally
-				'Seidl Data Monitor', // Title of the panel displayed to the user
+				'Data Monitor', // Title of the panel displayed to the user
 				vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
 				{ // Webview options. More on these later.
 					enableScripts: true,

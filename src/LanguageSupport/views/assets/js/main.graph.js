@@ -151,13 +151,13 @@ function initGraph(graphrec) {
 	options = {
 		layout: {
 			improvedLayout: true,
-			hierarchical: {
-				direction: "LR", // DU, LR, 
-				sortMethod: "directed", // hubsize, directed
-				parentCentralization: true, // true
-				levelSeparation: 100 // 100
-				// ,shakeTowards: "leaves"
-			}
+			// hierarchical: {
+			// 	direction: "DU", // DU, LR, 
+			// 	sortMethod: "directed", // hubsize, directed
+			// 	parentCentralization: false, // true
+			// 	levelSeparation: 100 // 100
+			// 	// ,shakeTowards: "leaves"
+			// }
 		},
 		edges: {
 			smooth: true

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>Ai.Hgb.Seidl.$(MSBuildProjectName)</AssemblyName>
@@ -34,10 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.10-prerelease-gd41b989097" />
+    <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.12-prerelease-g33780ec298" />
     <PackageReference Include="Ai.Hgb.Common.Utils" Version="0.1.2-prerelease-gd41b989097" />
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
-    <PackageReference Include="YamlDotNet" Version="13.0.2" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
 
   <ItemGroup>
