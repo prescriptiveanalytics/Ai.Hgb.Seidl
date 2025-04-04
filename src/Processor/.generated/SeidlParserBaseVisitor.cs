@@ -608,7 +608,7 @@ public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitNametagdefstatement([NotNull] SeidlParser.NametagdefstatementContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.nametaglistdefstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nametagstatement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -616,7 +616,17 @@ public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitNametaglistdefstatement([NotNull] SeidlParser.NametaglistdefstatementContext context) { return VisitChildren(context); }
+	public virtual Result VisitNametagstatement([NotNull] SeidlParser.NametagstatementContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.nametagliststatement"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitNametagliststatement([NotNull] SeidlParser.NametagliststatementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.namedefstatement"/>.
 	/// <para>
@@ -1048,7 +1058,7 @@ public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// <return>The visitor result.</return>
 	public virtual Result VisitInterpolationlist([NotNull] SeidlParser.InterpolationlistContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.bracketinterpolationlist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.bracketinterpolationelement"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -1056,7 +1066,7 @@ public partial class SeidlParserBaseVisitor<Result> : AbstractParseTreeVisitor<R
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitBracketinterpolationlist([NotNull] SeidlParser.BracketinterpolationlistContext context) { return VisitChildren(context); }
+	public virtual Result VisitBracketinterpolationelement([NotNull] SeidlParser.BracketinterpolationelementContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.concatelement"/>.
 	/// <para>

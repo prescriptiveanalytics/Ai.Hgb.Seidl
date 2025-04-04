@@ -7,20 +7,7 @@ using System.Text.Json;
 namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    //public static string demoTextFilePath = @"../../../../Samples/DocPubSub.3l";
-    //public static string demoTextFilePath = @"../../../../Samples/Lmd.3l";
-    //public static string demoTextFilePath = @"../../../../Samples/resinet_democombined.3l";
-    //public static string demoTextFilePath = @"../../../../Samples/resinet_instantiations.3l";
-    //public static string demoTextFilePath = @"../../../../Samples/ism2023_instances.3l";
-    //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.index.3l";
-    //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.network.3l";
-    //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.base/ai.hgb.packages.base.utils.3l";
-    //public static string demoTextFilePath = @"../../../packages/ai.hgb.packages.demoapps/ai.hgb.packages.demoapps.procon.3l";
-    //public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024_instances.3l";
-    //public static string demoTextFilePath = @"G:\My Drive\FHHAGENBERG\FE\Publications\2024_Eurocast\Presentation\Samples\eurocast2024.3l";
-    //public static string demoTextFilePath = @"C:\dev\workspaces\spa\Ai.Hgb.Runtime\src\DemoApps\SeidlTexts\simulation2.3l";
-    //public static string demoTextFilePath = @"C:\dev\workspaces\spa\Ai.Hgb.Runtime\src\DemoApps\SeidlTexts\demo4.3l";
-    public static string demoTextFilePath = @"C:\dev\workspaces\spa\Ai.Hgb.Runtime\src\DemoApps\SeidlTexts\gecco2025.full.experiment1.3l";
+    public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo5.3l";
 
 
     public static string repositoryHost = "127.0.0.1";

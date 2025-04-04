@@ -385,11 +385,17 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNametagdefstatement([NotNull] SeidlParser.NametagdefstatementContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.nametaglistdefstatement"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.nametagstatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitNametaglistdefstatement([NotNull] SeidlParser.NametaglistdefstatementContext context);
+	Result VisitNametagstatement([NotNull] SeidlParser.NametagstatementContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="SeidlParser.nametagliststatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNametagliststatement([NotNull] SeidlParser.NametagliststatementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.namedefstatement"/>.
 	/// </summary>
@@ -649,11 +655,11 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInterpolationlist([NotNull] SeidlParser.InterpolationlistContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.bracketinterpolationlist"/>.
+	/// Visit a parse tree produced by <see cref="SeidlParser.bracketinterpolationelement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitBracketinterpolationlist([NotNull] SeidlParser.BracketinterpolationlistContext context);
+	Result VisitBracketinterpolationelement([NotNull] SeidlParser.BracketinterpolationelementContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.concatelement"/>.
 	/// </summary>

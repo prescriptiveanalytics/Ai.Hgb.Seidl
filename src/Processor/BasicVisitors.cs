@@ -84,7 +84,8 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitNametagDefinitionStatement([NotNull] SeidlParser.NametagDefinitionStatementContext context) {
-      var nameTag = VisitorUtils.ProcessNameTagDefinitionStatement(context.nametagdefstatement());
+      var ntctx = context.nametagdefstatement().nametagstatement();
+      var nameTag = VisitorUtils.ProcessNameTagDefinitionStatement(ntctx);
 
       scopedSymbolTable.Name = nameTag.Item1;
       scopedSymbolTable.Tag = nameTag.Item2;
@@ -95,7 +96,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var stmt = context.packagedefstatement();
 
       var pkgIdentifier = VisitorUtils.ProcessNameTagDefinitionStatement(stmt.packageidentifier);
-      var pkgContent = stmt.packagecontent.nametagdefstatement();
+      var pkgContent = stmt.packagecontent.nametagstatement();
 
       var pkg = new PackageInformation(new VersionIdentifier() { Name = pkgIdentifier.Item1, Tag = pkgIdentifier.Item2 });
 
@@ -519,7 +520,8 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public override object VisitNametagDefinitionStatement([NotNull] SeidlParser.NametagDefinitionStatementContext context) {
-      var nameTag = VisitorUtils.ProcessNameTagDefinitionStatement(context.nametagdefstatement());
+      var ntctx = context.nametagdefstatement().nametagstatement();
+      var nameTag = VisitorUtils.ProcessNameTagDefinitionStatement(ntctx);
 
       scopedSymbolTable.Name = nameTag.Item1;
       scopedSymbolTable.Tag = nameTag.Item2;
@@ -590,7 +592,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var stmt = context.packagedefstatement();
 
       var pkgIdentifier = VisitorUtils.ProcessNameTagDefinitionStatement(stmt.packageidentifier);
-      var pkgContent = stmt.packagecontent.nametagdefstatement();
+      var pkgContent = stmt.packagecontent.nametagstatement();
 
       var pkg = new PackageInformation(new VersionIdentifier() { Name = pkgIdentifier.Item1, Tag = pkgIdentifier.Item2 });
 
@@ -612,6 +614,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
       if (loopsignature.field() != null) {
         // TODO
+        Console.WriteLine("HOLA!!!");
       }
       else if (loopsignature.integerrange() != null) {
         var range = loopsignature.integerrange();
@@ -719,30 +722,48 @@ namespace Ai.Hgb.Seidl.Processor {
               text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
             }
           }
-        } else { // Interpolation                    
-          if (ctx.baseinterpolation != null && ctx.baseelement.NAME() != null) {
-            var persistedVariable = sst[s, ctx.baseelement.NAME().GetText()];
-            text += persistedVariable != null ? persistedVariable.Type.GetValueString() : ctx.baseelement.NAME().GetText();
-          } else if(ctx.baseelement.STRINGLITERAL() != null) {
-            text += Utils.UnwrapStringbody(ctx.baseelement.STRINGLITERAL().GetText());
-          } else text += ctx.baseelement.NAME().GetText();
+        } else {
+          text += ctx.baseelement.Text;
+          var elements = ctx.bracketinterpolationelement();
+          var count = elements.Length;
 
-          var listLength = ctx.interpolationlist().concatelement().Length;
-          var list = ctx.interpolationlist();
-          for (int i = 0; i < listLength; i++) {
-            var element = list.concatelement(i);
-
-            if(element.NAME() != null) {
-              var variablename = element.NAME().GetText();
-              var persistedVariable = sst[s, variablename];
-              text += persistedVariable != null ? persistedVariable.Type.GetValueString() : variablename;
-            } else if (element.STRINGLITERAL() != null) {
-              text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
-            }
+          for (int i = 0; i < count; i++) {  
+            if(elements[i].interpolation != null) {              
+              var variableName = elements[i].NAME().GetText();
+              var persistedVariable = sst[s, variableName];
+              text += persistedVariable != null ? persistedVariable.Type.GetValueString() : variableName;
+            } else if (elements[i].element != null) {
+              text += elements[i].GetText();
+            }              
           }
         }
 
-        name = text.Replace(' ', '_');
+
+          //else { // Interpolation v1                   
+          //  if (ctx.baseinterpolation != null && ctx.baseelement.NAME() != null) {
+          //    var persistedVariable = sst[s, ctx.baseelement.NAME().GetText()];
+          //    text += persistedVariable != null ? persistedVariable.Type.GetValueString() : ctx.baseelement.NAME().GetText();
+          //  } else if(ctx.baseelement.STRINGLITERAL() != null) {
+          //    text += Utils.UnwrapStringbody(ctx.baseelement.STRINGLITERAL().GetText());
+          //  } else text += ctx.baseelement.NAME().GetText();
+
+          //  var listLength = ctx.interpolationlist().concatelement().Length;
+          //  var list = ctx.interpolationlist();
+          //  for (int i = 0; i < listLength; i++) {
+          //    var element = list.concatelement(i);
+
+          //    if(element.NAME() != null) {
+          //      var variablename = element.NAME().GetText();
+          //      var persistedVariable = sst[s, variablename];
+          //      text += persistedVariable != null ? persistedVariable.Type.GetValueString() : variablename;
+          //    } else if (element.STRINGLITERAL() != null) {
+          //      text += Utils.UnwrapStringbody(element.STRINGLITERAL().GetText());
+          //    }
+          //  }
+          //}
+
+
+          name = text.Replace(' ', '_');
       }
 
       return name;
@@ -784,7 +805,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var imageCtxList = body.nodebodyimage();
       if (imageCtxList != null && imageCtxList.Length > 0) {
         var imageCtx = imageCtxList.Last();
-        var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagdefstatement());
+        var nameTag = ProcessNameTagDefinitionStatement(imageCtx.nametagstatement());
         node.ImageName = nameTag.Item1;
         node.ImageTag = nameTag.Item2;
       }
@@ -806,7 +827,7 @@ namespace Ai.Hgb.Seidl.Processor {
       foreach (var s in readScope.ChildScopes) currentScope.ChildScopes.Add(s.Key, s.Value);
     }
 
-    public static Tuple<string, string> ProcessNameTagDefinitionStatement(NametagdefstatementContext ctx) {
+    public static Tuple<string, string> ProcessNameTagDefinitionStatement(NametagstatementContext ctx) {
       string name = "", tag = "latest";
 
       name = string.Join('.', ctx.field().variable().Select(x => x.GetText()));

@@ -195,13 +195,17 @@ lefthandside
 	;
 
 nametagdefstatement
+    : LABEL nametagstatement
+    ;
+
+nametagstatement
     : field COLON tag
     | field
     ;
 
-nametaglistdefstatement
+nametagliststatement
     : (
-        nametagdefstatement
+        nametagstatement
         | terminator
     )*
     ;
@@ -226,7 +230,7 @@ versionnumber
     ;
 
 packagedefstatement
-    : PACKAGE packageidentifier=nametagdefstatement '{' packagecontent=nametaglistdefstatement '}'
+    : PACKAGE packageidentifier=nametagstatement '{' packagecontent=nametagliststatement '}'
     ;
 
 importstatement
@@ -377,7 +381,7 @@ nodebodyproperty
     ;
 
 nodebodyimage
-    : IMAGE nametagdefstatement
+    : IMAGE nametagstatement
     ;
 
 nodebodycommand
@@ -432,19 +436,19 @@ integerrange
 
 generatename
     : VAR '(' concatelement (',' concatelement)*  ')'
-    | baseinterpolation=INTERPOLATION? baseelement=concatelement interpolationelements=interpolationlist
-    | baseelement=concatelement bracketinterpolationelements=bracketinterpolationlist 
+    // | baseinterpolation=INTERPOLATION? baseelement=concatelement interpolationelements=interpolationlist
+    | baseelement=NAME bracketinterpolationelements=bracketinterpolationelement+ 
     ;
 
 interpolationlist
-    : (INTERPOLATION concatelement)*
+    : (INTERPOLATION concatelement)+
     ;
 
-bracketinterpolationlist
+bracketinterpolationelement
     : (
-        interpolation='{' concatelement '}'
-        | element=concatelement
-     )*
+        interpolation='{' NAME '}'
+        | element=NAME
+     )
     ;
 
 concatelement

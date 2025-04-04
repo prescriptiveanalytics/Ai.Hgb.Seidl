@@ -58,6 +58,7 @@ AS                  : 'as';
 IMITATES            : 'imitates';
 WITH                : 'with';
 LATEST              : 'latest';
+LABEL               : 'label';
 NAMEDEF             : 'name';
 TAGDEF              : 'tag';
 PACKAGE             : 'package';

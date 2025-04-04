@@ -43,16 +43,16 @@ public partial class SeidlParser : Parser {
 		PUBLISH=23, SUBSCRIBE=24, REQUEST=25, RESPONSE=26, PUB=27, SUB=28, REQ=29, 
 		RES=30, AUX=31, NULL=32, TRUE=33, FALSE=34, IF=35, ELSE=36, ELSEIF=37, 
 		FOR=38, IN=39, TO=40, WHILE=41, RETURN=42, AS=43, IMITATES=44, WITH=45, 
-		LATEST=46, NAMEDEF=47, TAGDEF=48, PACKAGE=49, IMAGE=50, QUEUE=51, VAR=52, 
-		COMMAND=53, SEQUENTIAL=54, PARALLEL=55, DOT=56, STAR=57, COMMA=58, COLON=59, 
-		SEMI_COLON=60, ASSIGN=61, ADD=62, MINUS=63, DIV=64, INTERPOLATION=65, 
-		ARROW=66, HEAVYARROW=67, QUERYARROW_BEGIN=68, QUERYHARROW_BEGIN=69, QUERYARROW_END=70, 
-		QUERYHARROW_END=71, EQUAL=72, UNEQUAL=73, GREATERTHAN=74, GREATEREQUALTHAN=75, 
-		LESSTHAN=76, LESSEQUALTHAN=77, AND=78, OR=79, NOT=80, OPEN_PAREN=81, CLOSE_PAREN=82, 
-		OPEN_BRACE=83, CLOSE_BRACE=84, OPEN_BRACKET=85, CLOSE_BRACKET=86, NAME=87, 
-		WORD=88, STRINGLITERAL=89, NORMALSTRING=90, CHARSTRING=91, LONGSTRING=92, 
-		INTEGER=93, FLOATINGPOINTNUMBER=94, WHITESPACE=95, STMEND=96, COMMENT=97, 
-		LINECOMMENT=98, SHEBANG=99;
+		LATEST=46, LABEL=47, NAMEDEF=48, TAGDEF=49, PACKAGE=50, IMAGE=51, QUEUE=52, 
+		VAR=53, COMMAND=54, SEQUENTIAL=55, PARALLEL=56, DOT=57, STAR=58, COMMA=59, 
+		COLON=60, SEMI_COLON=61, ASSIGN=62, ADD=63, MINUS=64, DIV=65, INTERPOLATION=66, 
+		ARROW=67, HEAVYARROW=68, QUERYARROW_BEGIN=69, QUERYHARROW_BEGIN=70, QUERYARROW_END=71, 
+		QUERYHARROW_END=72, EQUAL=73, UNEQUAL=74, GREATERTHAN=75, GREATEREQUALTHAN=76, 
+		LESSTHAN=77, LESSEQUALTHAN=78, AND=79, OR=80, NOT=81, OPEN_PAREN=82, CLOSE_PAREN=83, 
+		OPEN_BRACE=84, CLOSE_BRACE=85, OPEN_BRACKET=86, CLOSE_BRACKET=87, NAME=88, 
+		WORD=89, STRINGLITERAL=90, NORMALSTRING=91, CHARSTRING=92, LONGSTRING=93, 
+		INTEGER=94, FLOATINGPOINTNUMBER=95, WHITESPACE=96, STMEND=97, COMMENT=98, 
+		LINECOMMENT=99, SHEBANG=100;
 	public const int
 		RULE_root = 0, RULE_set = 1, RULE_statement = 2, RULE_scope = 3, RULE_type = 4, 
 		RULE_atomictype = 5, RULE_complextype = 6, RULE_atomictypeortypename = 7, 
@@ -63,23 +63,23 @@ public partial class SeidlParser : Parser {
 		RULE_binop = 22, RULE_unop = 23, RULE_assignmentlist = 24, RULE_assignment = 25, 
 		RULE_query = 26, RULE_comparator = 27, RULE_arraydeclaration = 28, RULE_arraydefinition = 29, 
 		RULE_arrayaccess = 30, RULE_fieldaccess = 31, RULE_lefthandside = 32, 
-		RULE_nametagdefstatement = 33, RULE_nametaglistdefstatement = 34, RULE_namedefstatement = 35, 
-		RULE_tagdefstatement = 36, RULE_tag = 37, RULE_versionnumber = 38, RULE_packagedefstatement = 39, 
-		RULE_importstatement = 40, RULE_typedefstatement = 41, RULE_nodeconnectionstatement = 42, 
-		RULE_surrogatedefinitionstatement = 43, RULE_surrogatebody = 44, RULE_functiondefinition = 45, 
-		RULE_functionbody = 46, RULE_returnstatement = 47, RULE_functioncall = 48, 
-		RULE_structpropertylist = 49, RULE_structdefinition = 50, RULE_messagetypename = 51, 
-		RULE_nodetypename = 52, RULE_edgetypename = 53, RULE_messagetypelist = 54, 
-		RULE_messagedefinition = 55, RULE_edgetypedefinition = 56, RULE_edgetypebody = 57, 
-		RULE_nodetypedefinition = 58, RULE_nodedefinition = 59, RULE_nodebody = 60, 
-		RULE_nodebodyinout = 61, RULE_inoutoption = 62, RULE_nodebodyproperty = 63, 
-		RULE_nodebodyimage = 64, RULE_nodebodycommand = 65, RULE_nodebodyclientserver = 66, 
-		RULE_nodeconstructor = 67, RULE_metadefinition = 68, RULE_loopstatement = 69, 
-		RULE_loopsignature = 70, RULE_loopbody = 71, RULE_conditionalstatement = 72, 
-		RULE_conditionalelseif = 73, RULE_conditionalelse = 74, RULE_integerrange = 75, 
-		RULE_generatename = 76, RULE_interpolationlist = 77, RULE_bracketinterpolationlist = 78, 
-		RULE_concatelement = 79, RULE_number = 80, RULE_string = 81, RULE_boolean = 82, 
-		RULE_terminator = 83;
+		RULE_nametagdefstatement = 33, RULE_nametagstatement = 34, RULE_nametagliststatement = 35, 
+		RULE_namedefstatement = 36, RULE_tagdefstatement = 37, RULE_tag = 38, 
+		RULE_versionnumber = 39, RULE_packagedefstatement = 40, RULE_importstatement = 41, 
+		RULE_typedefstatement = 42, RULE_nodeconnectionstatement = 43, RULE_surrogatedefinitionstatement = 44, 
+		RULE_surrogatebody = 45, RULE_functiondefinition = 46, RULE_functionbody = 47, 
+		RULE_returnstatement = 48, RULE_functioncall = 49, RULE_structpropertylist = 50, 
+		RULE_structdefinition = 51, RULE_messagetypename = 52, RULE_nodetypename = 53, 
+		RULE_edgetypename = 54, RULE_messagetypelist = 55, RULE_messagedefinition = 56, 
+		RULE_edgetypedefinition = 57, RULE_edgetypebody = 58, RULE_nodetypedefinition = 59, 
+		RULE_nodedefinition = 60, RULE_nodebody = 61, RULE_nodebodyinout = 62, 
+		RULE_inoutoption = 63, RULE_nodebodyproperty = 64, RULE_nodebodyimage = 65, 
+		RULE_nodebodycommand = 66, RULE_nodebodyclientserver = 67, RULE_nodeconstructor = 68, 
+		RULE_metadefinition = 69, RULE_loopstatement = 70, RULE_loopsignature = 71, 
+		RULE_loopbody = 72, RULE_conditionalstatement = 73, RULE_conditionalelseif = 74, 
+		RULE_conditionalelse = 75, RULE_integerrange = 76, RULE_generatename = 77, 
+		RULE_interpolationlist = 78, RULE_bracketinterpolationelement = 79, RULE_concatelement = 80, 
+		RULE_number = 81, RULE_string = 82, RULE_boolean = 83, RULE_terminator = 84;
 	public static readonly string[] ruleNames = {
 		"root", "set", "statement", "scope", "type", "atomictype", "complextype", 
 		"atomictypeortypename", "graphtype", "variable", "typename", "field", 
@@ -87,19 +87,20 @@ public partial class SeidlParser : Parser {
 		"messageparameterlist", "messageparametersignature", "expressionlist", 
 		"value", "valuelist", "expression", "binop", "unop", "assignmentlist", 
 		"assignment", "query", "comparator", "arraydeclaration", "arraydefinition", 
-		"arrayaccess", "fieldaccess", "lefthandside", "nametagdefstatement", "nametaglistdefstatement", 
-		"namedefstatement", "tagdefstatement", "tag", "versionnumber", "packagedefstatement", 
-		"importstatement", "typedefstatement", "nodeconnectionstatement", "surrogatedefinitionstatement", 
-		"surrogatebody", "functiondefinition", "functionbody", "returnstatement", 
-		"functioncall", "structpropertylist", "structdefinition", "messagetypename", 
-		"nodetypename", "edgetypename", "messagetypelist", "messagedefinition", 
-		"edgetypedefinition", "edgetypebody", "nodetypedefinition", "nodedefinition", 
-		"nodebody", "nodebodyinout", "inoutoption", "nodebodyproperty", "nodebodyimage", 
-		"nodebodycommand", "nodebodyclientserver", "nodeconstructor", "metadefinition", 
-		"loopstatement", "loopsignature", "loopbody", "conditionalstatement", 
-		"conditionalelseif", "conditionalelse", "integerrange", "generatename", 
-		"interpolationlist", "bracketinterpolationlist", "concatelement", "number", 
-		"string", "boolean", "terminator"
+		"arrayaccess", "fieldaccess", "lefthandside", "nametagdefstatement", "nametagstatement", 
+		"nametagliststatement", "namedefstatement", "tagdefstatement", "tag", 
+		"versionnumber", "packagedefstatement", "importstatement", "typedefstatement", 
+		"nodeconnectionstatement", "surrogatedefinitionstatement", "surrogatebody", 
+		"functiondefinition", "functionbody", "returnstatement", "functioncall", 
+		"structpropertylist", "structdefinition", "messagetypename", "nodetypename", 
+		"edgetypename", "messagetypelist", "messagedefinition", "edgetypedefinition", 
+		"edgetypebody", "nodetypedefinition", "nodedefinition", "nodebody", "nodebodyinout", 
+		"inoutoption", "nodebodyproperty", "nodebodyimage", "nodebodycommand", 
+		"nodebodyclientserver", "nodeconstructor", "metadefinition", "loopstatement", 
+		"loopsignature", "loopbody", "conditionalstatement", "conditionalelseif", 
+		"conditionalelse", "integerrange", "generatename", "interpolationlist", 
+		"bracketinterpolationelement", "concatelement", "number", "string", "boolean", 
+		"terminator"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -109,8 +110,8 @@ public partial class SeidlParser : Parser {
 		"'output'", "'client'", "'server'", "'publish'", "'subscribe'", "'request'", 
 		"'response'", "'pub'", "'sub'", "'req'", "'res'", "'aux'", "'null'", "'true'", 
 		"'false'", "'if'", "'else'", "'else if'", "'for'", "'in'", "'to'", "'while'", 
-		"'return'", "'as'", "'imitates'", "'with'", "'latest'", "'name'", "'tag'", 
-		"'package'", "'image'", "'queue'", "'var'", "'command'", "'sequential'", 
+		"'return'", "'as'", "'imitates'", "'with'", "'latest'", "'label'", "'name'", 
+		"'tag'", "'package'", "'image'", "'queue'", "'var'", "'command'", "'sequential'", 
 		"'parallel'", "'.'", "'*'", "','", "':'", "';'", "'='", "'+'", "'-'", 
 		"'/'", "'$'", "'-->'", "'==>'", "'-:'", "'=:'", "'->'", "'=>'", "'=='", 
 		"'!='", "'>'", "'>='", "'<'", "'<='", "'and'", "'or'", "'not'", "'('", 
@@ -123,12 +124,12 @@ public partial class SeidlParser : Parser {
 		"SERVER", "PUBLISH", "SUBSCRIBE", "REQUEST", "RESPONSE", "PUB", "SUB", 
 		"REQ", "RES", "AUX", "NULL", "TRUE", "FALSE", "IF", "ELSE", "ELSEIF", 
 		"FOR", "IN", "TO", "WHILE", "RETURN", "AS", "IMITATES", "WITH", "LATEST", 
-		"NAMEDEF", "TAGDEF", "PACKAGE", "IMAGE", "QUEUE", "VAR", "COMMAND", "SEQUENTIAL", 
-		"PARALLEL", "DOT", "STAR", "COMMA", "COLON", "SEMI_COLON", "ASSIGN", "ADD", 
-		"MINUS", "DIV", "INTERPOLATION", "ARROW", "HEAVYARROW", "QUERYARROW_BEGIN", 
-		"QUERYHARROW_BEGIN", "QUERYARROW_END", "QUERYHARROW_END", "EQUAL", "UNEQUAL", 
-		"GREATERTHAN", "GREATEREQUALTHAN", "LESSTHAN", "LESSEQUALTHAN", "AND", 
-		"OR", "NOT", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", 
+		"LABEL", "NAMEDEF", "TAGDEF", "PACKAGE", "IMAGE", "QUEUE", "VAR", "COMMAND", 
+		"SEQUENTIAL", "PARALLEL", "DOT", "STAR", "COMMA", "COLON", "SEMI_COLON", 
+		"ASSIGN", "ADD", "MINUS", "DIV", "INTERPOLATION", "ARROW", "HEAVYARROW", 
+		"QUERYARROW_BEGIN", "QUERYHARROW_BEGIN", "QUERYARROW_END", "QUERYHARROW_END", 
+		"EQUAL", "UNEQUAL", "GREATERTHAN", "GREATEREQUALTHAN", "LESSTHAN", "LESSEQUALTHAN", 
+		"AND", "OR", "NOT", "OPEN_PAREN", "CLOSE_PAREN", "OPEN_BRACE", "CLOSE_BRACE", 
 		"OPEN_BRACKET", "CLOSE_BRACKET", "NAME", "WORD", "STRINGLITERAL", "NORMALSTRING", 
 		"CHARSTRING", "LONGSTRING", "INTEGER", "FLOATINGPOINTNUMBER", "WHITESPACE", 
 		"STMEND", "COMMENT", "LINECOMMENT", "SHEBANG"
@@ -190,9 +191,9 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 168;
+			State = 170;
 			set();
-			State = 169;
+			State = 171;
 			Match(Eof);
 			}
 		}
@@ -235,17 +236,17 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 174;
+			State = 176;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5489071283560444L) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 2168717313L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 11118570817773564L) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 8209L) != 0)) {
 				{
 				{
-				State = 171;
+				State = 173;
 				statement();
 				}
 				}
-				State = 176;
+				State = 178;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -579,14 +580,14 @@ public partial class SeidlParser : Parser {
 		StatementContext _localctx = new StatementContext(Context, State);
 		EnterRule(_localctx, 4, RULE_statement);
 		try {
-			State = 222;
+			State = 224;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,3,Context) ) {
 			case 1:
 				_localctx = new TerminatorStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 177;
+				State = 179;
 				terminator();
 				}
 				break;
@@ -594,7 +595,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new ScopeStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 178;
+				State = 180;
 				scope();
 				}
 				break;
@@ -602,7 +603,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new DeclarationStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 181;
+				State = 183;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case STRING:
@@ -610,22 +611,22 @@ public partial class SeidlParser : Parser {
 				case FLOAT:
 				case BOOL:
 					{
-					State = 179;
+					State = 181;
 					atomictype();
 					}
 					break;
 				case NAME:
 					{
-					State = 180;
+					State = 182;
 					typename();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 183;
+				State = 185;
 				variablelist();
-				State = 184;
+				State = 186;
 				terminator();
 				}
 				break;
@@ -633,13 +634,13 @@ public partial class SeidlParser : Parser {
 				_localctx = new AssignmentStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 186;
-				variablelist();
-				State = 187;
-				Match(ASSIGN);
 				State = 188;
-				expressionlist();
+				variablelist();
 				State = 189;
+				Match(ASSIGN);
+				State = 190;
+				expressionlist();
+				State = 191;
 				terminator();
 				}
 				break;
@@ -647,7 +648,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new DefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 193;
+				State = 195;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case STRING:
@@ -655,24 +656,24 @@ public partial class SeidlParser : Parser {
 				case FLOAT:
 				case BOOL:
 					{
-					State = 191;
+					State = 193;
 					atomictype();
 					}
 					break;
 				case NAME:
 					{
-					State = 192;
+					State = 194;
 					typename();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 195;
-				variablelist();
-				State = 196;
-				Match(ASSIGN);
 				State = 197;
+				variablelist();
+				State = 198;
+				Match(ASSIGN);
+				State = 199;
 				expressionlist();
 				}
 				break;
@@ -680,7 +681,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new ArrayDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 199;
+				State = 201;
 				arraydefinition();
 				}
 				break;
@@ -688,7 +689,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new StructDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 200;
+				State = 202;
 				structdefinition();
 				}
 				break;
@@ -696,7 +697,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new MessageDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 201;
+				State = 203;
 				messagedefinition();
 				}
 				break;
@@ -704,7 +705,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new EdgetypeDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 202;
+				State = 204;
 				edgetypedefinition();
 				}
 				break;
@@ -712,7 +713,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new NodetypeDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 10);
 				{
-				State = 203;
+				State = 205;
 				nodetypedefinition();
 				}
 				break;
@@ -720,7 +721,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new NodeDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 11);
 				{
-				State = 204;
+				State = 206;
 				nodedefinition();
 				}
 				break;
@@ -728,7 +729,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new MetaDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 12);
 				{
-				State = 205;
+				State = 207;
 				metadefinition();
 				}
 				break;
@@ -736,7 +737,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new ImportStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 13);
 				{
-				State = 206;
+				State = 208;
 				importstatement();
 				}
 				break;
@@ -744,9 +745,9 @@ public partial class SeidlParser : Parser {
 				_localctx = new TypedefStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 14);
 				{
-				State = 207;
+				State = 209;
 				typedefstatement();
-				State = 208;
+				State = 210;
 				terminator();
 				}
 				break;
@@ -754,9 +755,9 @@ public partial class SeidlParser : Parser {
 				_localctx = new NodeConnectionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 15);
 				{
-				State = 210;
+				State = 212;
 				nodeconnectionstatement();
-				State = 211;
+				State = 213;
 				terminator();
 				}
 				break;
@@ -764,9 +765,9 @@ public partial class SeidlParser : Parser {
 				_localctx = new SurrogateDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 16);
 				{
-				State = 213;
+				State = 215;
 				surrogatedefinitionstatement();
-				State = 214;
+				State = 216;
 				terminator();
 				}
 				break;
@@ -774,7 +775,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new NameDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 17);
 				{
-				State = 216;
+				State = 218;
 				namedefstatement();
 				}
 				break;
@@ -782,7 +783,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new TagDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 18);
 				{
-				State = 217;
+				State = 219;
 				tagdefstatement();
 				}
 				break;
@@ -790,7 +791,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new NametagDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 19);
 				{
-				State = 218;
+				State = 220;
 				nametagdefstatement();
 				}
 				break;
@@ -798,7 +799,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new PackageDefinitionStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 20);
 				{
-				State = 219;
+				State = 221;
 				packagedefstatement();
 				}
 				break;
@@ -806,7 +807,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new LoopStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 21);
 				{
-				State = 220;
+				State = 222;
 				loopstatement();
 				}
 				break;
@@ -814,7 +815,7 @@ public partial class SeidlParser : Parser {
 				_localctx = new ConditionalStatementContext(_localctx);
 				EnterOuterAlt(_localctx, 22);
 				{
-				State = 221;
+				State = 223;
 				conditionalstatement();
 				}
 				break;
@@ -861,21 +862,21 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 225;
+			State = 227;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (((((_la - 52)) & ~0x3f) == 0 && ((1L << (_la - 52)) & 171798700033L) != 0)) {
+			if (_la==VAR || _la==NAME) {
 				{
-				State = 224;
+				State = 226;
 				variable();
 				}
 			}
 
-			State = 227;
-			Match(OPEN_BRACE);
-			State = 228;
-			set();
 			State = 229;
+			Match(OPEN_BRACE);
+			State = 230;
+			set();
+			State = 231;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -919,54 +920,54 @@ public partial class SeidlParser : Parser {
 		TypeContext _localctx = new TypeContext(Context, State);
 		EnterRule(_localctx, 8, RULE_type);
 		try {
-			State = 243;
+			State = 245;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,5,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 231;
+				State = 233;
 				atomictype();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 232;
+				State = 234;
 				complextype();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 233;
+				State = 235;
 				typename();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 234;
+				State = 236;
 				atomictype();
-				State = 235;
+				State = 237;
 				Match(ARRAY);
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 237;
+				State = 239;
 				complextype();
-				State = 238;
+				State = 240;
 				Match(ARRAY);
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 240;
+				State = 242;
 				typename();
-				State = 241;
+				State = 243;
 				Match(ARRAY);
 				}
 				break;
@@ -1009,7 +1010,7 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 245;
+			State = 247;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 60L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -1053,7 +1054,7 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 247;
+			State = 249;
 			Match(STRUCT);
 			}
 		}
@@ -1093,7 +1094,7 @@ public partial class SeidlParser : Parser {
 		AtomictypeortypenameContext _localctx = new AtomictypeortypenameContext(Context, State);
 		EnterRule(_localctx, 14, RULE_atomictypeortypename);
 		try {
-			State = 251;
+			State = 253;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case STRING:
@@ -1102,14 +1103,14 @@ public partial class SeidlParser : Parser {
 			case BOOL:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 249;
+				State = 251;
 				atomictype();
 				}
 				break;
 			case NAME:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 250;
+				State = 252;
 				typename();
 				}
 				break;
@@ -1154,7 +1155,7 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 253;
+			State = 255;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 5760L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -1199,20 +1200,20 @@ public partial class SeidlParser : Parser {
 		VariableContext _localctx = new VariableContext(Context, State);
 		EnterRule(_localctx, 18, RULE_variable);
 		try {
-			State = 257;
+			State = 259;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 255;
+				State = 257;
 				generatename();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 256;
+				State = 258;
 				Match(NAME);
 				}
 				break;
@@ -1251,7 +1252,7 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 259;
+			State = 261;
 			Match(NAME);
 			}
 		}
@@ -1298,21 +1299,21 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 261;
+			State = 263;
 			variable();
-			State = 266;
+			State = 268;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==DOT) {
 				{
 				{
-				State = 262;
+				State = 264;
 				Match(DOT);
-				State = 263;
+				State = 265;
 				variable();
 				}
 				}
-				State = 268;
+				State = 270;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1361,21 +1362,21 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 269;
+			State = 271;
 			field();
-			State = 274;
+			State = 276;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 270;
+				State = 272;
 				Match(COMMA);
-				State = 271;
+				State = 273;
 				field();
 				}
 				}
-				State = 276;
+				State = 278;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1424,21 +1425,21 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 277;
+			State = 279;
 			variable();
-			State = 282;
+			State = 284;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 278;
+				State = 280;
 				Match(COMMA);
-				State = 279;
+				State = 281;
 				variable();
 				}
 				}
-				State = 284;
+				State = 286;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1493,25 +1494,25 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 285;
+			State = 287;
 			atomictype();
-			State = 286;
+			State = 288;
 			variable();
-			State = 293;
+			State = 295;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 287;
-				Match(COMMA);
-				State = 288;
-				atomictype();
 				State = 289;
+				Match(COMMA);
+				State = 290;
+				atomictype();
+				State = 291;
 				variable();
 				}
 				}
-				State = 295;
+				State = 297;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1572,12 +1573,12 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 298;
+			State = 300;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case NAME:
 				{
-				State = 296;
+				State = 298;
 				typename();
 				}
 				break;
@@ -1586,29 +1587,29 @@ public partial class SeidlParser : Parser {
 			case FLOAT:
 			case BOOL:
 				{
-				State = 297;
+				State = 299;
 				atomictype();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			State = 300;
+			State = 302;
 			variable();
-			State = 310;
+			State = 312;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 301;
+				State = 303;
 				Match(COMMA);
-				State = 304;
+				State = 306;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case NAME:
 					{
-					State = 302;
+					State = 304;
 					typename();
 					}
 					break;
@@ -1617,18 +1618,18 @@ public partial class SeidlParser : Parser {
 				case FLOAT:
 				case BOOL:
 					{
-					State = 303;
+					State = 305;
 					atomictype();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				State = 306;
+				State = 308;
 				variable();
 				}
 				}
-				State = 312;
+				State = 314;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1683,25 +1684,25 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 313;
+			State = 315;
 			messageparametersignature();
-			State = 314;
+			State = 316;
 			variable();
-			State = 321;
+			State = 323;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 315;
-				Match(COMMA);
-				State = 316;
-				messageparametersignature();
 				State = 317;
+				Match(COMMA);
+				State = 318;
+				messageparametersignature();
+				State = 319;
 				variable();
 				}
 				}
-				State = 323;
+				State = 325;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -1747,22 +1748,22 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 325;
+			State = 327;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==TOPIC) {
 				{
-				State = 324;
+				State = 326;
 				Match(TOPIC);
 				}
 			}
 
-			State = 329;
+			State = 331;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case NAME:
 				{
-				State = 327;
+				State = 329;
 				typename();
 				}
 				break;
@@ -1771,7 +1772,7 @@ public partial class SeidlParser : Parser {
 			case FLOAT:
 			case BOOL:
 				{
-				State = 328;
+				State = 330;
 				atomictype();
 				}
 				break;
@@ -1823,23 +1824,23 @@ public partial class SeidlParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 331;
+			State = 333;
 			expression();
-			State = 336;
+			State = 338;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,18,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					State = 332;
+					State = 334;
 					Match(COMMA);
-					State = 333;
+					State = 335;
 					expression();
 					}
 					} 
 				}
-				State = 338;
+				State = 340;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,18,Context);
 			}
@@ -1884,14 +1885,14 @@ public partial class SeidlParser : Parser {
 		ValueContext _localctx = new ValueContext(Context, State);
 		EnterRule(_localctx, 38, RULE_value);
 		try {
-			State = 342;
+			State = 344;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case TRUE:
 			case FALSE:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 339;
+				State = 341;
 				boolean();
 				}
 				break;
@@ -1899,14 +1900,14 @@ public partial class SeidlParser : Parser {
 			case FLOATINGPOINTNUMBER:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 340;
+				State = 342;
 				number();
 				}
 				break;
 			case STRINGLITERAL:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 341;
+				State = 343;
 				@string();
 				}
 				break;
@@ -1957,21 +1958,21 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 344;
+			State = 346;
 			value();
-			State = 349;
+			State = 351;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 345;
+				State = 347;
 				Match(COMMA);
-				State = 346;
+				State = 348;
 				value();
 				}
 				}
-				State = 351;
+				State = 353;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -2046,133 +2047,133 @@ public partial class SeidlParser : Parser {
 		EnterRule(_localctx, 42, RULE_expression);
 		int _la;
 		try {
-			State = 377;
+			State = 379;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,24,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 352;
+				State = 354;
 				Match(NULL);
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 353;
+				State = 355;
 				boolean();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 354;
+				State = 356;
 				number();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 355;
+				State = 357;
 				@string();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 356;
+				State = 358;
 				variable();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 357;
+				State = 359;
 				field();
 				}
 				break;
 			case 7:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 358;
+				State = 360;
 				functiondefinition();
 				}
 				break;
 			case 8:
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 359;
+				State = 361;
 				functioncall();
 				}
 				break;
 			case 9:
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 360;
+				State = 362;
 				importstatement();
 				}
 				break;
 			case 10:
 				EnterOuterAlt(_localctx, 10);
 				{
-				State = 361;
+				State = 363;
 				assignmentlist();
 				}
 				break;
 			case 11:
 				EnterOuterAlt(_localctx, 11);
 				{
-				State = 362;
-				Match(OPEN_BRACE);
 				State = 364;
+				Match(OPEN_BRACE);
+				State = 366;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				if (((((_la - 52)) & ~0x3f) == 0 && ((1L << (_la - 52)) & 171798700033L) != 0)) {
+				if (_la==VAR || _la==NAME) {
 					{
-					State = 363;
+					State = 365;
 					assignmentlist();
 					}
 				}
 
-				State = 366;
+				State = 368;
 				Match(CLOSE_BRACE);
 				}
 				break;
 			case 12:
 				EnterOuterAlt(_localctx, 12);
 				{
-				State = 367;
-				Match(OPEN_BRACKET);
 				State = 369;
+				Match(OPEN_BRACKET);
+				State = 371;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				if (((((_la - 52)) & ~0x3f) == 0 && ((1L << (_la - 52)) & 171798700033L) != 0)) {
+				if (_la==VAR || _la==NAME) {
 					{
-					State = 368;
+					State = 370;
 					variablelist();
 					}
 				}
 
-				State = 371;
+				State = 373;
 				Match(CLOSE_BRACKET);
 				}
 				break;
 			case 13:
 				EnterOuterAlt(_localctx, 13);
 				{
-				State = 372;
-				Match(OPEN_BRACKET);
 				State = 374;
+				Match(OPEN_BRACKET);
+				State = 376;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				if (((((_la - 33)) & ~0x3f) == 0 && ((1L << (_la - 33)) & 3530822107858468867L) != 0)) {
+				if (((((_la - 33)) & ~0x3f) == 0 && ((1L << (_la - 33)) & 7061644215716937731L) != 0)) {
 					{
-					State = 373;
+					State = 375;
 					valuelist();
 					}
 				}
 
-				State = 376;
+				State = 378;
 				Match(CLOSE_BRACKET);
 				}
 				break;
@@ -2222,9 +2223,9 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 379;
+			State = 381;
 			_la = TokenStream.LA(1);
-			if ( !(((((_la - 57)) & ~0x3f) == 0 && ((1L << (_la - 57)) & 8290529L) != 0)) ) {
+			if ( !(((((_la - 58)) & ~0x3f) == 0 && ((1L << (_la - 58)) & 8290529L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -2268,7 +2269,7 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 381;
+			State = 383;
 			_la = TokenStream.LA(1);
 			if ( !(_la==MINUS || _la==NOT) ) {
 			ErrorHandler.RecoverInline(this);
@@ -2322,23 +2323,23 @@ public partial class SeidlParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 383;
+			State = 385;
 			assignment();
-			State = 388;
+			State = 390;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,25,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					State = 384;
+					State = 386;
 					Match(COMMA);
-					State = 385;
+					State = 387;
 					assignment();
 					}
 					} 
 				}
-				State = 390;
+				State = 392;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,25,Context);
 			}
@@ -2384,28 +2385,28 @@ public partial class SeidlParser : Parser {
 		AssignmentContext _localctx = new AssignmentContext(Context, State);
 		EnterRule(_localctx, 50, RULE_assignment);
 		try {
-			State = 399;
+			State = 401;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,26,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 391;
-				variable();
-				State = 392;
-				Match(ASSIGN);
 				State = 393;
+				variable();
+				State = 394;
+				Match(ASSIGN);
+				State = 395;
 				expression();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 395;
-				field();
-				State = 396;
-				Match(ASSIGN);
 				State = 397;
+				field();
+				State = 398;
+				Match(ASSIGN);
+				State = 399;
 				expression();
 				}
 				break;
@@ -2451,27 +2452,25 @@ public partial class SeidlParser : Parser {
 		QueryContext _localctx = new QueryContext(Context, State);
 		EnterRule(_localctx, 52, RULE_query);
 		try {
-			State = 406;
+			State = 408;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case VAR:
-			case INTERPOLATION:
 			case NAME:
-			case STRINGLITERAL:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 401;
-				field();
-				State = 402;
-				comparator();
 				State = 403;
+				field();
+				State = 404;
+				comparator();
+				State = 405;
 				expression();
 				}
 				break;
 			case QUEUE:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 405;
+				State = 407;
 				Match(QUEUE);
 				}
 				break;
@@ -2518,9 +2517,9 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 408;
+			State = 410;
 			_la = TokenStream.LA(1);
-			if ( !(((((_la - 72)) & ~0x3f) == 0 && ((1L << (_la - 72)) & 63L) != 0)) ) {
+			if ( !(((((_la - 73)) & ~0x3f) == 0 && ((1L << (_la - 73)) & 63L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
 			}
 			else {
@@ -2568,11 +2567,11 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 410;
-			type();
-			State = 411;
-			Match(ARRAY);
 			State = 412;
+			type();
+			State = 413;
+			Match(ARRAY);
+			State = 414;
 			variable();
 			}
 		}
@@ -2619,15 +2618,15 @@ public partial class SeidlParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 414;
-			atomictype();
-			State = 415;
-			Match(ARRAY);
 			State = 416;
-			variablelist();
+			atomictype();
 			State = 417;
-			Match(ASSIGN);
+			Match(ARRAY);
 			State = 418;
+			variablelist();
+			State = 419;
+			Match(ASSIGN);
+			State = 420;
 			expressionlist();
 			}
 		}
@@ -2672,35 +2671,38 @@ public partial class SeidlParser : Parser {
 		ArrayaccessContext _localctx = new ArrayaccessContext(Context, State);
 		EnterRule(_localctx, 60, RULE_arrayaccess);
 		try {
-			State = 430;
+			State = 432;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,28,Context) ) {
-			case 1:
+			switch (TokenStream.LA(1)) {
+			case VAR:
+			case NAME:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 420;
-				variable();
-				State = 421;
-				Match(OPEN_BRACKET);
 				State = 422;
-				expression();
+				variable();
 				State = 423;
+				Match(OPEN_BRACKET);
+				State = 424;
+				expression();
+				State = 425;
 				Match(CLOSE_BRACKET);
 				}
 				break;
-			case 2:
+			case STRINGLITERAL:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 425;
-				@string();
-				State = 426;
-				Match(OPEN_BRACKET);
 				State = 427;
-				expression();
+				@string();
 				State = 428;
+				Match(OPEN_BRACKET);
+				State = 429;
+				expression();
+				State = 430;
 				Match(CLOSE_BRACKET);
 				}
 				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2743,28 +2745,28 @@ public partial class SeidlParser : Parser {
 		FieldaccessContext _localctx = new FieldaccessContext(Context, State);
 		EnterRule(_localctx, 62, RULE_fieldaccess);
 		try {
-			State = 440;
+			State = 442;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,29,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 432;
-				variable();
-				State = 433;
-				Match(DOT);
 				State = 434;
+				variable();
+				State = 435;
+				Match(DOT);
+				State = 436;
 				lefthandside();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 436;
-				arrayaccess();
-				State = 437;
-				Match(DOT);
 				State = 438;
+				arrayaccess();
+				State = 439;
+				Match(DOT);
+				State = 440;
 				lefthandside();
 				}
 				break;
@@ -2809,27 +2811,27 @@ public partial class SeidlParser : Parser {
 		LefthandsideContext _localctx = new LefthandsideContext(Context, State);
 		EnterRule(_localctx, 64, RULE_lefthandside);
 		try {
-			State = 445;
+			State = 447;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,30,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 442;
+				State = 444;
 				variable();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 443;
+				State = 445;
 				fieldaccess();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 444;
+				State = 446;
 				arrayaccess();
 				}
 				break;
@@ -2847,12 +2849,9 @@ public partial class SeidlParser : Parser {
 	}
 
 	public partial class NametagdefstatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public FieldContext field() {
-			return GetRuleContext<FieldContext>(0);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SeidlParser.COLON, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public TagContext tag() {
-			return GetRuleContext<TagContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LABEL() { return GetToken(SeidlParser.LABEL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public NametagstatementContext nametagstatement() {
+			return GetRuleContext<NametagstatementContext>(0);
 		}
 		public NametagdefstatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -2872,24 +2871,69 @@ public partial class SeidlParser : Parser {
 		NametagdefstatementContext _localctx = new NametagdefstatementContext(Context, State);
 		EnterRule(_localctx, 66, RULE_nametagdefstatement);
 		try {
-			State = 452;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 449;
+			Match(LABEL);
+			State = 450;
+			nametagstatement();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class NametagstatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public FieldContext field() {
+			return GetRuleContext<FieldContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COLON() { return GetToken(SeidlParser.COLON, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public TagContext tag() {
+			return GetRuleContext<TagContext>(0);
+		}
+		public NametagstatementContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_nametagstatement; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNametagstatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public NametagstatementContext nametagstatement() {
+		NametagstatementContext _localctx = new NametagstatementContext(Context, State);
+		EnterRule(_localctx, 68, RULE_nametagstatement);
+		try {
+			State = 457;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,31,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 447;
+				State = 452;
 				field();
-				State = 448;
+				State = 453;
 				Match(COLON);
-				State = 449;
+				State = 454;
 				tag();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 451;
+				State = 456;
 				field();
 				}
 				break;
@@ -2906,12 +2950,12 @@ public partial class SeidlParser : Parser {
 		return _localctx;
 	}
 
-	public partial class NametaglistdefstatementContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public NametagdefstatementContext[] nametagdefstatement() {
-			return GetRuleContexts<NametagdefstatementContext>();
+	public partial class NametagliststatementContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public NametagstatementContext[] nametagstatement() {
+			return GetRuleContexts<NametagstatementContext>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public NametagdefstatementContext nametagdefstatement(int i) {
-			return GetRuleContext<NametagdefstatementContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public NametagstatementContext nametagstatement(int i) {
+			return GetRuleContext<NametagstatementContext>(i);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext[] terminator() {
 			return GetRuleContexts<TerminatorContext>();
@@ -2919,47 +2963,45 @@ public partial class SeidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public TerminatorContext terminator(int i) {
 			return GetRuleContext<TerminatorContext>(i);
 		}
-		public NametaglistdefstatementContext(ParserRuleContext parent, int invokingState)
+		public NametagliststatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_nametaglistdefstatement; } }
+		public override int RuleIndex { get { return RULE_nametagliststatement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitNametaglistdefstatement(this);
+			if (typedVisitor != null) return typedVisitor.VisitNametagliststatement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public NametaglistdefstatementContext nametaglistdefstatement() {
-		NametaglistdefstatementContext _localctx = new NametaglistdefstatementContext(Context, State);
-		EnterRule(_localctx, 68, RULE_nametaglistdefstatement);
+	public NametagliststatementContext nametagliststatement() {
+		NametagliststatementContext _localctx = new NametagliststatementContext(Context, State);
+		EnterRule(_localctx, 70, RULE_nametagliststatement);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 458;
+			State = 463;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (((((_la - 52)) & ~0x3f) == 0 && ((1L << (_la - 52)) & 17763984744449L) != 0)) {
+			while (((((_la - 53)) & ~0x3f) == 0 && ((1L << (_la - 53)) & 17626545782785L) != 0)) {
 				{
-				State = 456;
+				State = 461;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case VAR:
-				case INTERPOLATION:
 				case NAME:
-				case STRINGLITERAL:
 					{
-					State = 454;
-					nametagdefstatement();
+					State = 459;
+					nametagstatement();
 					}
 					break;
 				case STMEND:
 					{
-					State = 455;
+					State = 460;
 					terminator();
 					}
 					break;
@@ -2967,7 +3009,7 @@ public partial class SeidlParser : Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				State = 460;
+				State = 465;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -3006,15 +3048,15 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NamedefstatementContext namedefstatement() {
 		NamedefstatementContext _localctx = new NamedefstatementContext(Context, State);
-		EnterRule(_localctx, 70, RULE_namedefstatement);
+		EnterRule(_localctx, 72, RULE_namedefstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 461;
+			State = 466;
 			Match(NAMEDEF);
-			State = 462;
+			State = 467;
 			Match(ASSIGN);
-			State = 463;
+			State = 468;
 			field();
 			}
 		}
@@ -3051,15 +3093,15 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public TagdefstatementContext tagdefstatement() {
 		TagdefstatementContext _localctx = new TagdefstatementContext(Context, State);
-		EnterRule(_localctx, 72, RULE_tagdefstatement);
+		EnterRule(_localctx, 74, RULE_tagdefstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 465;
+			State = 470;
 			Match(TAGDEF);
-			State = 466;
+			State = 471;
 			Match(ASSIGN);
-			State = 467;
+			State = 472;
 			tag();
 			}
 		}
@@ -3098,22 +3140,22 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public TagContext tag() {
 		TagContext _localctx = new TagContext(Context, State);
-		EnterRule(_localctx, 74, RULE_tag);
+		EnterRule(_localctx, 76, RULE_tag);
 		try {
-			State = 472;
+			State = 477;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case LATEST:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 469;
+				State = 474;
 				Match(LATEST);
 				}
 				break;
 			case STRINGLITERAL:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 470;
+				State = 475;
 				@string();
 				}
 				break;
@@ -3121,7 +3163,7 @@ public partial class SeidlParser : Parser {
 			case FLOATINGPOINTNUMBER:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 471;
+				State = 476;
 				versionnumber();
 				}
 				break;
@@ -3167,26 +3209,26 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public VersionnumberContext versionnumber() {
 		VersionnumberContext _localctx = new VersionnumberContext(Context, State);
-		EnterRule(_localctx, 76, RULE_versionnumber);
+		EnterRule(_localctx, 78, RULE_versionnumber);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 474;
-			number();
 			State = 479;
+			number();
+			State = 484;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==DOT) {
 				{
 				{
-				State = 475;
+				State = 480;
 				Match(DOT);
-				State = 476;
+				State = 481;
 				number();
 				}
 				}
-				State = 481;
+				State = 486;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -3204,16 +3246,16 @@ public partial class SeidlParser : Parser {
 	}
 
 	public partial class PackagedefstatementContext : ParserRuleContext {
-		public NametagdefstatementContext packageidentifier;
-		public NametaglistdefstatementContext packagecontent;
+		public NametagstatementContext packageidentifier;
+		public NametagliststatementContext packagecontent;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode PACKAGE() { return GetToken(SeidlParser.PACKAGE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public NametagdefstatementContext nametagdefstatement() {
-			return GetRuleContext<NametagdefstatementContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public NametagstatementContext nametagstatement() {
+			return GetRuleContext<NametagstatementContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public NametaglistdefstatementContext nametaglistdefstatement() {
-			return GetRuleContext<NametaglistdefstatementContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public NametagliststatementContext nametagliststatement() {
+			return GetRuleContext<NametagliststatementContext>(0);
 		}
 		public PackagedefstatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -3231,19 +3273,19 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public PackagedefstatementContext packagedefstatement() {
 		PackagedefstatementContext _localctx = new PackagedefstatementContext(Context, State);
-		EnterRule(_localctx, 78, RULE_packagedefstatement);
+		EnterRule(_localctx, 80, RULE_packagedefstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 482;
+			State = 487;
 			Match(PACKAGE);
-			State = 483;
-			_localctx.packageidentifier = nametagdefstatement();
-			State = 484;
+			State = 488;
+			_localctx.packageidentifier = nametagstatement();
+			State = 489;
 			Match(OPEN_BRACE);
-			State = 485;
-			_localctx.packagecontent = nametaglistdefstatement();
-			State = 486;
+			State = 490;
+			_localctx.packagecontent = nametagliststatement();
+			State = 491;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -3286,39 +3328,39 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public ImportstatementContext importstatement() {
 		ImportstatementContext _localctx = new ImportstatementContext(Context, State);
-		EnterRule(_localctx, 80, RULE_importstatement);
+		EnterRule(_localctx, 82, RULE_importstatement);
 		try {
-			State = 497;
+			State = 502;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,36,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 488;
+				State = 493;
 				Match(IMPORT);
-				State = 489;
+				State = 494;
 				@string();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 490;
+				State = 495;
 				Match(IMPORT);
-				State = 491;
+				State = 496;
 				field();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 492;
+				State = 497;
 				Match(IMPORT);
-				State = 493;
+				State = 498;
 				field();
-				State = 494;
+				State = 499;
 				Match(COLON);
-				State = 495;
+				State = 500;
 				tag();
 				}
 				break;
@@ -3362,13 +3404,13 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public TypedefstatementContext typedefstatement() {
 		TypedefstatementContext _localctx = new TypedefstatementContext(Context, State);
-		EnterRule(_localctx, 82, RULE_typedefstatement);
+		EnterRule(_localctx, 84, RULE_typedefstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 499;
+			State = 504;
 			Match(TYPEDEF);
-			State = 502;
+			State = 507;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case STRING:
@@ -3376,20 +3418,20 @@ public partial class SeidlParser : Parser {
 			case FLOAT:
 			case BOOL:
 				{
-				State = 500;
+				State = 505;
 				atomictype();
 				}
 				break;
 			case NAME:
 				{
-				State = 501;
+				State = 506;
 				typename();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			State = 504;
+			State = 509;
 			variable();
 			}
 		}
@@ -3438,60 +3480,60 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodeconnectionstatementContext nodeconnectionstatement() {
 		NodeconnectionstatementContext _localctx = new NodeconnectionstatementContext(Context, State);
-		EnterRule(_localctx, 84, RULE_nodeconnectionstatement);
+		EnterRule(_localctx, 86, RULE_nodeconnectionstatement);
 		try {
-			State = 526;
+			State = 531;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,38,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 506;
+				State = 511;
 				_localctx.sources = fieldlist();
-				State = 507;
+				State = 512;
 				Match(ARROW);
-				State = 508;
+				State = 513;
 				_localctx.sinks = fieldlist();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 510;
+				State = 515;
 				_localctx.sources = fieldlist();
-				State = 511;
+				State = 516;
 				Match(HEAVYARROW);
-				State = 512;
+				State = 517;
 				_localctx.sinks = fieldlist();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 514;
+				State = 519;
 				_localctx.sources = fieldlist();
-				State = 515;
+				State = 520;
 				Match(QUERYARROW_BEGIN);
-				State = 516;
+				State = 521;
 				query();
-				State = 517;
+				State = 522;
 				Match(QUERYARROW_END);
-				State = 518;
+				State = 523;
 				_localctx.sinks = fieldlist();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 520;
+				State = 525;
 				_localctx.sources = fieldlist();
-				State = 521;
+				State = 526;
 				Match(QUERYHARROW_BEGIN);
-				State = 522;
+				State = 527;
 				query();
-				State = 523;
+				State = 528;
 				Match(QUERYHARROW_END);
-				State = 524;
+				State = 529;
 				_localctx.sinks = fieldlist();
 				}
 				break;
@@ -3532,15 +3574,15 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public SurrogatedefinitionstatementContext surrogatedefinitionstatement() {
 		SurrogatedefinitionstatementContext _localctx = new SurrogatedefinitionstatementContext(Context, State);
-		EnterRule(_localctx, 86, RULE_surrogatedefinitionstatement);
+		EnterRule(_localctx, 88, RULE_surrogatedefinitionstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 528;
+			State = 533;
 			Match(SURROGATE);
-			State = 529;
+			State = 534;
 			variable();
-			State = 530;
+			State = 535;
 			surrogatebody();
 			}
 		}
@@ -3588,34 +3630,34 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public SurrogatebodyContext surrogatebody() {
 		SurrogatebodyContext _localctx = new SurrogatebodyContext(Context, State);
-		EnterRule(_localctx, 88, RULE_surrogatebody);
+		EnterRule(_localctx, 90, RULE_surrogatebody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 532;
+			State = 537;
 			Match(OPEN_BRACE);
-			State = 539;
+			State = 544;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==FOR || _la==WITH) {
 				{
-				State = 537;
+				State = 542;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case FOR:
 					{
-					State = 533;
+					State = 538;
 					Match(FOR);
-					State = 534;
+					State = 539;
 					field();
 					}
 					break;
 				case WITH:
 					{
-					State = 535;
+					State = 540;
 					Match(WITH);
-					State = 536;
+					State = 541;
 					field();
 					}
 					break;
@@ -3623,11 +3665,11 @@ public partial class SeidlParser : Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				State = 541;
+				State = 546;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 542;
+			State = 547;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -3681,31 +3723,17 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public FunctiondefinitionContext functiondefinition() {
 		FunctiondefinitionContext _localctx = new FunctiondefinitionContext(Context, State);
-		EnterRule(_localctx, 90, RULE_functiondefinition);
+		EnterRule(_localctx, 92, RULE_functiondefinition);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 544;
-			Match(FUNCTION);
-			State = 545;
-			variable();
-			State = 546;
-			Match(ASSIGN);
-			State = 547;
-			Match(OPEN_PAREN);
 			State = 549;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60L) != 0) || _la==NAME) {
-				{
-				State = 548;
-				customtypedvariablelist();
-				}
-			}
-
+			Match(FUNCTION);
+			State = 550;
+			variable();
 			State = 551;
-			Match(CLOSE_PAREN);
+			Match(ASSIGN);
 			State = 552;
 			Match(OPEN_PAREN);
 			State = 554;
@@ -3721,6 +3749,20 @@ public partial class SeidlParser : Parser {
 			State = 556;
 			Match(CLOSE_PAREN);
 			State = 557;
+			Match(OPEN_PAREN);
+			State = 559;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60L) != 0) || _la==NAME) {
+				{
+				State = 558;
+				customtypedvariablelist();
+				}
+			}
+
+			State = 561;
+			Match(CLOSE_PAREN);
+			State = 562;
 			functionbody();
 			}
 		}
@@ -3834,61 +3876,61 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public FunctionbodyContext functionbody() {
 		FunctionbodyContext _localctx = new FunctionbodyContext(Context, State);
-		EnterRule(_localctx, 92, RULE_functionbody);
+		EnterRule(_localctx, 94, RULE_functionbody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 559;
+			State = 564;
 			Match(OPEN_BRACE);
-			State = 608;
+			State = 613;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5495668353327100L) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 2168717313L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 11125167887540220L) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 8209L) != 0)) {
 				{
-				State = 606;
+				State = 611;
 				ErrorHandler.Sync(this);
 				switch ( Interpreter.AdaptivePredict(TokenStream,48,Context) ) {
 				case 1:
 					{
-					State = 560;
+					State = 565;
 					statement();
 					}
 					break;
 				case 2:
 					{
-					State = 561;
+					State = 566;
 					Match(IF);
-					State = 562;
+					State = 567;
 					expression();
-					State = 563;
+					State = 568;
 					scope();
-					State = 570;
+					State = 575;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 					while (_la==ELSEIF) {
 						{
 						{
-						State = 564;
+						State = 569;
 						Match(ELSEIF);
-						State = 565;
+						State = 570;
 						expression();
-						State = 566;
+						State = 571;
 						scope();
 						}
 						}
-						State = 572;
+						State = 577;
 						ErrorHandler.Sync(this);
 						_la = TokenStream.LA(1);
 					}
-					State = 575;
+					State = 580;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 					if (_la==ELSE) {
 						{
-						State = 573;
+						State = 578;
 						Match(ELSE);
-						State = 574;
+						State = 579;
 						scope();
 						}
 					}
@@ -3897,91 +3939,91 @@ public partial class SeidlParser : Parser {
 					break;
 				case 3:
 					{
-					State = 577;
+					State = 582;
 					Match(WHILE);
-					State = 578;
+					State = 583;
 					expression();
-					State = 579;
+					State = 584;
 					scope();
 					}
 					break;
 				case 4:
 					{
-					State = 581;
+					State = 586;
 					Match(FOR);
-					State = 583;
+					State = 588;
 					ErrorHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(TokenStream,45,Context) ) {
 					case 1:
 						{
-						State = 582;
+						State = 587;
 						type();
 						}
 						break;
 					}
-					State = 585;
+					State = 590;
 					variablelist();
-					State = 586;
+					State = 591;
 					Match(ASSIGN);
-					State = 587;
-					expressionlist();
-					State = 588;
-					Match(COMMA);
-					State = 589;
-					expression();
 					State = 592;
+					expressionlist();
+					State = 593;
+					Match(COMMA);
+					State = 594;
+					expression();
+					State = 597;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 					if (_la==COMMA) {
 						{
-						State = 590;
+						State = 595;
 						Match(COMMA);
-						State = 591;
+						State = 596;
 						expression();
 						}
 					}
 
-					State = 594;
+					State = 599;
 					scope();
 					}
 					break;
 				case 5:
 					{
-					State = 596;
+					State = 601;
 					Match(FOR);
-					State = 598;
+					State = 603;
 					ErrorHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(TokenStream,47,Context) ) {
 					case 1:
 						{
-						State = 597;
+						State = 602;
 						type();
 						}
 						break;
 					}
-					State = 600;
+					State = 605;
 					variable();
-					State = 601;
+					State = 606;
 					Match(IN);
-					State = 602;
+					State = 607;
 					variable();
-					State = 603;
+					State = 608;
 					scope();
 					}
 					break;
 				case 6:
 					{
-					State = 605;
+					State = 610;
 					returnstatement();
 					}
 					break;
 				}
 				}
-				State = 610;
+				State = 615;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 611;
+			State = 616;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -4017,18 +4059,18 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public ReturnstatementContext returnstatement() {
 		ReturnstatementContext _localctx = new ReturnstatementContext(Context, State);
-		EnterRule(_localctx, 94, RULE_returnstatement);
+		EnterRule(_localctx, 96, RULE_returnstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 613;
+			State = 618;
 			Match(RETURN);
-			State = 615;
+			State = 620;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,50,Context) ) {
 			case 1:
 				{
-				State = 614;
+				State = 619;
 				variablelist();
 				}
 				break;
@@ -4071,26 +4113,26 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public FunctioncallContext functioncall() {
 		FunctioncallContext _localctx = new FunctioncallContext(Context, State);
-		EnterRule(_localctx, 96, RULE_functioncall);
+		EnterRule(_localctx, 98, RULE_functioncall);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 617;
+			State = 622;
 			variable();
-			State = 618;
+			State = 623;
 			Match(OPEN_PAREN);
-			State = 620;
+			State = 625;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (((((_la - 52)) & ~0x3f) == 0 && ((1L << (_la - 52)) & 171798700033L) != 0)) {
+			if (_la==VAR || _la==NAME) {
 				{
-				State = 619;
+				State = 624;
 				variablelist();
 				}
 			}
 
-			State = 622;
+			State = 627;
 			Match(CLOSE_PAREN);
 			}
 		}
@@ -4144,18 +4186,18 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public StructpropertylistContext structpropertylist() {
 		StructpropertylistContext _localctx = new StructpropertylistContext(Context, State);
-		EnterRule(_localctx, 98, RULE_structpropertylist);
+		EnterRule(_localctx, 100, RULE_structpropertylist);
 		int _la;
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 650;
+			State = 655;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 60L) != 0) || _la==NAME || _la==STMEND) {
 				{
-				State = 648;
+				State = 653;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case STRING:
@@ -4164,55 +4206,55 @@ public partial class SeidlParser : Parser {
 				case BOOL:
 				case NAME:
 					{
-					State = 624;
+					State = 629;
 					atomictypeortypename();
-					State = 625;
+					State = 630;
 					variable();
-					State = 644;
+					State = 649;
 					ErrorHandler.Sync(this);
 					_alt = Interpreter.AdaptivePredict(TokenStream,54,Context);
 					while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
 						if ( _alt==1 ) {
 							{
 							{
-							State = 629;
+							State = 634;
 							ErrorHandler.Sync(this);
 							_la = TokenStream.LA(1);
 							while (_la==STMEND) {
 								{
 								{
-								State = 626;
-								terminator();
-								}
-								}
 								State = 631;
+								terminator();
+								}
+								}
+								State = 636;
 								ErrorHandler.Sync(this);
 								_la = TokenStream.LA(1);
 							}
-							State = 632;
+							State = 637;
 							Match(COMMA);
-							State = 636;
+							State = 641;
 							ErrorHandler.Sync(this);
 							_la = TokenStream.LA(1);
 							while (_la==STMEND) {
 								{
 								{
-								State = 633;
+								State = 638;
 								terminator();
 								}
 								}
-								State = 638;
+								State = 643;
 								ErrorHandler.Sync(this);
 								_la = TokenStream.LA(1);
 							}
-							State = 639;
+							State = 644;
 							atomictypeortypename();
-							State = 640;
+							State = 645;
 							variable();
 							}
 							} 
 						}
-						State = 646;
+						State = 651;
 						ErrorHandler.Sync(this);
 						_alt = Interpreter.AdaptivePredict(TokenStream,54,Context);
 					}
@@ -4220,7 +4262,7 @@ public partial class SeidlParser : Parser {
 					break;
 				case STMEND:
 					{
-					State = 647;
+					State = 652;
 					terminator();
 					}
 					break;
@@ -4228,7 +4270,7 @@ public partial class SeidlParser : Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				State = 652;
+				State = 657;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -4271,19 +4313,19 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public StructdefinitionContext structdefinition() {
 		StructdefinitionContext _localctx = new StructdefinitionContext(Context, State);
-		EnterRule(_localctx, 100, RULE_structdefinition);
+		EnterRule(_localctx, 102, RULE_structdefinition);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 653;
+			State = 658;
 			Match(STRUCT);
-			State = 654;
+			State = 659;
 			variable();
-			State = 655;
+			State = 660;
 			Match(OPEN_BRACE);
-			State = 656;
+			State = 661;
 			structpropertylist();
-			State = 657;
+			State = 662;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -4316,11 +4358,11 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public MessagetypenameContext messagetypename() {
 		MessagetypenameContext _localctx = new MessagetypenameContext(Context, State);
-		EnterRule(_localctx, 102, RULE_messagetypename);
+		EnterRule(_localctx, 104, RULE_messagetypename);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 659;
+			State = 664;
 			Match(NAME);
 			}
 		}
@@ -4353,11 +4395,11 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodetypenameContext nodetypename() {
 		NodetypenameContext _localctx = new NodetypenameContext(Context, State);
-		EnterRule(_localctx, 104, RULE_nodetypename);
+		EnterRule(_localctx, 106, RULE_nodetypename);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 661;
+			State = 666;
 			Match(NAME);
 			}
 		}
@@ -4390,11 +4432,11 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public EdgetypenameContext edgetypename() {
 		EdgetypenameContext _localctx = new EdgetypenameContext(Context, State);
-		EnterRule(_localctx, 106, RULE_edgetypename);
+		EnterRule(_localctx, 108, RULE_edgetypename);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 663;
+			State = 668;
 			Match(NAME);
 			}
 		}
@@ -4442,30 +4484,30 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public MessagetypelistContext messagetypelist() {
 		MessagetypelistContext _localctx = new MessagetypelistContext(Context, State);
-		EnterRule(_localctx, 108, RULE_messagetypelist);
+		EnterRule(_localctx, 110, RULE_messagetypelist);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 665;
+			State = 670;
 			messagetypename();
-			State = 666;
+			State = 671;
 			variable();
-			State = 673;
+			State = 678;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				State = 667;
+				State = 672;
 				Match(COMMA);
-				State = 668;
+				State = 673;
 				messagetypename();
-				State = 669;
+				State = 674;
 				variable();
 				}
 				}
-				State = 675;
+				State = 680;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -4508,28 +4550,28 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public MessagedefinitionContext messagedefinition() {
 		MessagedefinitionContext _localctx = new MessagedefinitionContext(Context, State);
-		EnterRule(_localctx, 110, RULE_messagedefinition);
+		EnterRule(_localctx, 112, RULE_messagedefinition);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 676;
+			State = 681;
 			Match(MESSAGE);
-			State = 677;
+			State = 682;
 			messagetypename();
-			State = 678;
+			State = 683;
 			Match(OPEN_BRACE);
-			State = 680;
+			State = 685;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 262204L) != 0) || _la==NAME) {
 				{
-				State = 679;
+				State = 684;
 				messageparameterlist();
 				}
 			}
 
-			State = 682;
+			State = 687;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -4570,19 +4612,19 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public EdgetypedefinitionContext edgetypedefinition() {
 		EdgetypedefinitionContext _localctx = new EdgetypedefinitionContext(Context, State);
-		EnterRule(_localctx, 112, RULE_edgetypedefinition);
+		EnterRule(_localctx, 114, RULE_edgetypedefinition);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 684;
+			State = 689;
 			Match(EDGETYPE);
-			State = 685;
+			State = 690;
 			edgetypename();
-			State = 686;
+			State = 691;
 			Match(OPEN_BRACE);
-			State = 687;
+			State = 692;
 			edgetypebody();
-			State = 688;
+			State = 693;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -4634,38 +4676,38 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public EdgetypebodyContext edgetypebody() {
 		EdgetypebodyContext _localctx = new EdgetypebodyContext(Context, State);
-		EnterRule(_localctx, 114, RULE_edgetypebody);
+		EnterRule(_localctx, 116, RULE_edgetypebody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 697;
+			State = 702;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==REQUEST || _la==RESPONSE || _la==STMEND) {
 				{
-				State = 695;
+				State = 700;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case REQUEST:
 					{
-					State = 690;
+					State = 695;
 					Match(REQUEST);
-					State = 691;
+					State = 696;
 					messagetypename();
 					}
 					break;
 				case RESPONSE:
 					{
-					State = 692;
+					State = 697;
 					Match(RESPONSE);
-					State = 693;
+					State = 698;
 					messagetypename();
 					}
 					break;
 				case STMEND:
 					{
-					State = 694;
+					State = 699;
 					terminator();
 					}
 					break;
@@ -4673,7 +4715,7 @@ public partial class SeidlParser : Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				State = 699;
+				State = 704;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -4716,19 +4758,19 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodetypedefinitionContext nodetypedefinition() {
 		NodetypedefinitionContext _localctx = new NodetypedefinitionContext(Context, State);
-		EnterRule(_localctx, 116, RULE_nodetypedefinition);
+		EnterRule(_localctx, 118, RULE_nodetypedefinition);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 700;
+			State = 705;
 			Match(NODETYPE);
-			State = 701;
+			State = 706;
 			nodetypename();
-			State = 702;
+			State = 707;
 			Match(OPEN_BRACE);
-			State = 703;
+			State = 708;
 			nodebody();
-			State = 704;
+			State = 709;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -4772,44 +4814,44 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodedefinitionContext nodedefinition() {
 		NodedefinitionContext _localctx = new NodedefinitionContext(Context, State);
-		EnterRule(_localctx, 118, RULE_nodedefinition);
+		EnterRule(_localctx, 120, RULE_nodedefinition);
 		int _la;
 		try {
-			State = 721;
+			State = 726;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,61,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 706;
+				State = 711;
 				Match(NODE);
-				State = 707;
+				State = 712;
 				typename();
-				State = 708;
+				State = 713;
 				variable();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 710;
+				State = 715;
 				Match(NODE);
-				State = 711;
+				State = 716;
 				typename();
-				State = 712;
+				State = 717;
 				variable();
-				State = 713;
+				State = 718;
 				nodeconstructor();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 715;
+				State = 720;
 				Match(NODE);
-				State = 716;
+				State = 721;
 				typename();
-				State = 717;
+				State = 722;
 				_la = TokenStream.LA(1);
 				if ( !(_la==SEQUENTIAL || _la==PARALLEL) ) {
 				ErrorHandler.RecoverInline(this);
@@ -4818,9 +4860,9 @@ public partial class SeidlParser : Parser {
 					ErrorHandler.ReportMatch(this);
 				    Consume();
 				}
-				State = 718;
+				State = 723;
 				variable();
-				State = 719;
+				State = 724;
 				nodeconstructor();
 				}
 				break;
@@ -4895,17 +4937,17 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodebodyContext nodebody() {
 		NodebodyContext _localctx = new NodebodyContext(Context, State);
-		EnterRule(_localctx, 120, RULE_nodebody);
+		EnterRule(_localctx, 122, RULE_nodebody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 731;
+			State = 736;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 10133099194744832L) != 0) || _la==STMEND) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 20266198356328448L) != 0) || _la==STMEND) {
 				{
-				State = 729;
+				State = 734;
 				ErrorHandler.Sync(this);
 				switch (TokenStream.LA(1)) {
 				case INPUT:
@@ -4913,38 +4955,38 @@ public partial class SeidlParser : Parser {
 				case PUBLISH:
 				case SUBSCRIBE:
 					{
-					State = 723;
+					State = 728;
 					_localctx.inout = nodebodyinout();
 					}
 					break;
 				case CLIENT:
 				case SERVER:
 					{
-					State = 724;
+					State = 729;
 					_localctx.clientserver = nodebodyclientserver();
 					}
 					break;
 				case PROPERTY:
 					{
-					State = 725;
+					State = 730;
 					_localctx.property = nodebodyproperty();
 					}
 					break;
 				case IMAGE:
 					{
-					State = 726;
+					State = 731;
 					_localctx.image = nodebodyimage();
 					}
 					break;
 				case COMMAND:
 					{
-					State = 727;
+					State = 732;
 					_localctx.command = nodebodycommand();
 					}
 					break;
 				case STMEND:
 					{
-					State = 728;
+					State = 733;
 					terminator();
 					}
 					break;
@@ -4952,7 +4994,7 @@ public partial class SeidlParser : Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				State = 733;
+				State = 738;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -4998,74 +5040,74 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodebodyinoutContext nodebodyinout() {
 		NodebodyinoutContext _localctx = new NodebodyinoutContext(Context, State);
-		EnterRule(_localctx, 122, RULE_nodebodyinout);
+		EnterRule(_localctx, 124, RULE_nodebodyinout);
 		try {
-			State = 754;
+			State = 759;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,64,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 734;
+				State = 739;
 				Match(INPUT);
-				State = 735;
+				State = 740;
 				messagetypelist();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 736;
+				State = 741;
 				Match(OUTPUT);
-				State = 737;
+				State = 742;
 				messagetypelist();
 				}
 				break;
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 738;
+				State = 743;
 				Match(PUBLISH);
-				State = 739;
+				State = 744;
 				messagetypelist();
 				}
 				break;
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 740;
+				State = 745;
 				Match(SUBSCRIBE);
-				State = 741;
+				State = 746;
 				messagetypelist();
 				}
 				break;
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 742;
+				State = 747;
 				Match(INPUT);
-				State = 743;
+				State = 748;
 				Match(OPEN_BRACKET);
-				State = 744;
+				State = 749;
 				inoutoption();
-				State = 745;
+				State = 750;
 				Match(CLOSE_BRACKET);
-				State = 746;
+				State = 751;
 				messagetypelist();
 				}
 				break;
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 748;
+				State = 753;
 				Match(OUTPUT);
-				State = 749;
+				State = 754;
 				Match(OPEN_BRACKET);
-				State = 750;
+				State = 755;
 				inoutoption();
-				State = 751;
+				State = 756;
 				Match(CLOSE_BRACKET);
-				State = 752;
+				State = 757;
 				messagetypelist();
 				}
 				break;
@@ -5110,12 +5152,12 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public InoutoptionContext inoutoption() {
 		InoutoptionContext _localctx = new InoutoptionContext(Context, State);
-		EnterRule(_localctx, 124, RULE_inoutoption);
+		EnterRule(_localctx, 126, RULE_inoutoption);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 756;
+			State = 761;
 			_la = TokenStream.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 4286578688L) != 0)) ) {
 			ErrorHandler.RecoverInline(this);
@@ -5124,9 +5166,9 @@ public partial class SeidlParser : Parser {
 				ErrorHandler.ReportMatch(this);
 			    Consume();
 			}
-			State = 757;
+			State = 762;
 			Match(COLON);
-			State = 758;
+			State = 763;
 			Match(NAME);
 			}
 		}
@@ -5168,29 +5210,29 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodebodypropertyContext nodebodyproperty() {
 		NodebodypropertyContext _localctx = new NodebodypropertyContext(Context, State);
-		EnterRule(_localctx, 126, RULE_nodebodyproperty);
+		EnterRule(_localctx, 128, RULE_nodebodyproperty);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 760;
+			State = 765;
 			Match(PROPERTY);
-			State = 763;
+			State = 768;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,65,Context) ) {
 			case 1:
 				{
-				State = 761;
+				State = 766;
 				type();
 				}
 				break;
 			case 2:
 				{
-				State = 762;
+				State = 767;
 				typename();
 				}
 				break;
 			}
-			State = 765;
+			State = 770;
 			variablelist();
 			}
 		}
@@ -5207,8 +5249,8 @@ public partial class SeidlParser : Parser {
 
 	public partial class NodebodyimageContext : ParserRuleContext {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IMAGE() { return GetToken(SeidlParser.IMAGE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public NametagdefstatementContext nametagdefstatement() {
-			return GetRuleContext<NametagdefstatementContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public NametagstatementContext nametagstatement() {
+			return GetRuleContext<NametagstatementContext>(0);
 		}
 		public NodebodyimageContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -5226,14 +5268,14 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodebodyimageContext nodebodyimage() {
 		NodebodyimageContext _localctx = new NodebodyimageContext(Context, State);
-		EnterRule(_localctx, 128, RULE_nodebodyimage);
+		EnterRule(_localctx, 130, RULE_nodebodyimage);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 767;
+			State = 772;
 			Match(IMAGE);
-			State = 768;
-			nametagdefstatement();
+			State = 773;
+			nametagstatement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -5273,17 +5315,17 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodebodycommandContext nodebodycommand() {
 		NodebodycommandContext _localctx = new NodebodycommandContext(Context, State);
-		EnterRule(_localctx, 130, RULE_nodebodycommand);
+		EnterRule(_localctx, 132, RULE_nodebodycommand);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 770;
+			State = 775;
 			Match(COMMAND);
-			State = 771;
+			State = 776;
 			_localctx.command = Match(NAME);
-			State = 772;
+			State = 777;
 			_localctx.workingdirectory = Match(STRINGLITERAL);
-			State = 773;
+			State = 778;
 			_localctx.arguments = Match(STRINGLITERAL);
 			}
 		}
@@ -5321,12 +5363,12 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodebodyclientserverContext nodebodyclientserver() {
 		NodebodyclientserverContext _localctx = new NodebodyclientserverContext(Context, State);
-		EnterRule(_localctx, 132, RULE_nodebodyclientserver);
+		EnterRule(_localctx, 134, RULE_nodebodyclientserver);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 775;
+			State = 780;
 			_la = TokenStream.LA(1);
 			if ( !(_la==CLIENT || _la==SERVER) ) {
 			ErrorHandler.RecoverInline(this);
@@ -5335,9 +5377,9 @@ public partial class SeidlParser : Parser {
 				ErrorHandler.ReportMatch(this);
 			    Consume();
 			}
-			State = 776;
+			State = 781;
 			edgetypename();
-			State = 777;
+			State = 782;
 			Match(NAME);
 			}
 		}
@@ -5374,24 +5416,24 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NodeconstructorContext nodeconstructor() {
 		NodeconstructorContext _localctx = new NodeconstructorContext(Context, State);
-		EnterRule(_localctx, 134, RULE_nodeconstructor);
+		EnterRule(_localctx, 136, RULE_nodeconstructor);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 779;
+			State = 784;
 			Match(OPEN_PAREN);
-			State = 781;
+			State = 786;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			if (((((_la - 52)) & ~0x3f) == 0 && ((1L << (_la - 52)) & 171798700033L) != 0)) {
+			if (_la==VAR || _la==NAME) {
 				{
-				State = 780;
+				State = 785;
 				assignmentlist();
 				}
 			}
 
-			State = 783;
+			State = 788;
 			Match(CLOSE_PAREN);
 			}
 		}
@@ -5451,38 +5493,38 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public MetadefinitionContext metadefinition() {
 		MetadefinitionContext _localctx = new MetadefinitionContext(Context, State);
-		EnterRule(_localctx, 136, RULE_metadefinition);
+		EnterRule(_localctx, 138, RULE_metadefinition);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 785;
+			State = 790;
 			Match(META);
-			State = 786;
+			State = 791;
 			variable();
-			State = 787;
+			State = 792;
 			Match(OPEN_BRACE);
-			State = 795;
+			State = 800;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==PROPERTY) {
 				{
 				{
-				State = 788;
+				State = 793;
 				Match(PROPERTY);
-				State = 789;
+				State = 794;
 				type();
-				State = 790;
+				State = 795;
 				variablelist();
-				State = 791;
+				State = 796;
 				terminator();
 				}
 				}
-				State = 797;
+				State = 802;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 798;
+			State = 803;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -5522,17 +5564,17 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public LoopstatementContext loopstatement() {
 		LoopstatementContext _localctx = new LoopstatementContext(Context, State);
-		EnterRule(_localctx, 138, RULE_loopstatement);
+		EnterRule(_localctx, 140, RULE_loopstatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 800;
+			State = 805;
 			loopsignature();
-			State = 801;
+			State = 806;
 			Match(OPEN_BRACE);
-			State = 802;
+			State = 807;
 			loopbody();
-			State = 803;
+			State = 808;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -5576,26 +5618,13 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public LoopsignatureContext loopsignature() {
 		LoopsignatureContext _localctx = new LoopsignatureContext(Context, State);
-		EnterRule(_localctx, 140, RULE_loopsignature);
+		EnterRule(_localctx, 142, RULE_loopsignature);
 		try {
-			State = 815;
+			State = 820;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,68,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
-				{
-				State = 805;
-				Match(FOR);
-				State = 806;
-				_localctx.iterator = variable();
-				State = 807;
-				Match(IN);
-				State = 808;
-				field();
-				}
-				break;
-			case 2:
-				EnterOuterAlt(_localctx, 2);
 				{
 				State = 810;
 				Match(FOR);
@@ -5604,6 +5633,19 @@ public partial class SeidlParser : Parser {
 				State = 812;
 				Match(IN);
 				State = 813;
+				field();
+				}
+				break;
+			case 2:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 815;
+				Match(FOR);
+				State = 816;
+				_localctx.iterator = variable();
+				State = 817;
+				Match(IN);
+				State = 818;
 				integerrange();
 				}
 				break;
@@ -5643,22 +5685,22 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public LoopbodyContext loopbody() {
 		LoopbodyContext _localctx = new LoopbodyContext(Context, State);
-		EnterRule(_localctx, 142, RULE_loopbody);
+		EnterRule(_localctx, 144, RULE_loopbody);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 820;
+			State = 825;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5489071283560444L) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 2168717313L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 11118570817773564L) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 8209L) != 0)) {
 				{
 				{
-				State = 817;
+				State = 822;
 				statement();
 				}
 				}
-				State = 822;
+				State = 827;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
@@ -5713,53 +5755,53 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public ConditionalstatementContext conditionalstatement() {
 		ConditionalstatementContext _localctx = new ConditionalstatementContext(Context, State);
-		EnterRule(_localctx, 144, RULE_conditionalstatement);
+		EnterRule(_localctx, 146, RULE_conditionalstatement);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 823;
+			State = 828;
 			Match(IF);
-			State = 824;
-			expression();
-			State = 825;
-			Match(OPEN_BRACE);
 			State = 829;
+			expression();
+			State = 830;
+			Match(OPEN_BRACE);
+			State = 834;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5489071283560444L) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 2168717313L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 11118570817773564L) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 8209L) != 0)) {
 				{
 				{
-				State = 826;
+				State = 831;
 				statement();
 				}
 				}
-				State = 831;
+				State = 836;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 832;
+			State = 837;
 			Match(CLOSE_BRACE);
-			State = 836;
+			State = 841;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==ELSEIF) {
 				{
 				{
-				State = 833;
+				State = 838;
 				conditionalelseif();
 				}
 				}
-				State = 838;
+				State = 843;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 840;
+			State = 845;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			if (_la==ELSE) {
 				{
-				State = 839;
+				State = 844;
 				conditionalelse();
 				}
 			}
@@ -5806,32 +5848,32 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public ConditionalelseifContext conditionalelseif() {
 		ConditionalelseifContext _localctx = new ConditionalelseifContext(Context, State);
-		EnterRule(_localctx, 146, RULE_conditionalelseif);
+		EnterRule(_localctx, 148, RULE_conditionalelseif);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 842;
+			State = 847;
 			Match(ELSEIF);
-			State = 843;
-			expression();
-			State = 844;
-			Match(OPEN_BRACE);
 			State = 848;
+			expression();
+			State = 849;
+			Match(OPEN_BRACE);
+			State = 853;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5489071283560444L) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 2168717313L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 11118570817773564L) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 8209L) != 0)) {
 				{
 				{
-				State = 845;
+				State = 850;
 				statement();
 				}
 				}
-				State = 850;
+				State = 855;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 851;
+			State = 856;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -5872,30 +5914,30 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public ConditionalelseContext conditionalelse() {
 		ConditionalelseContext _localctx = new ConditionalelseContext(Context, State);
-		EnterRule(_localctx, 148, RULE_conditionalelse);
+		EnterRule(_localctx, 150, RULE_conditionalelse);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 853;
-			Match(ELSE);
-			State = 854;
-			Match(OPEN_BRACE);
 			State = 858;
+			Match(ELSE);
+			State = 859;
+			Match(OPEN_BRACE);
+			State = 863;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 5489071283560444L) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & 2168717313L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 11118570817773564L) != 0) || ((((_la - 84)) & ~0x3f) == 0 && ((1L << (_la - 84)) & 8209L) != 0)) {
 				{
 				{
-				State = 855;
+				State = 860;
 				statement();
 				}
 				}
-				State = 860;
+				State = 865;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 861;
+			State = 866;
 			Match(CLOSE_BRACE);
 			}
 		}
@@ -5934,15 +5976,15 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public IntegerrangeContext integerrange() {
 		IntegerrangeContext _localctx = new IntegerrangeContext(Context, State);
-		EnterRule(_localctx, 150, RULE_integerrange);
+		EnterRule(_localctx, 152, RULE_integerrange);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 863;
+			State = 868;
 			_localctx.from = Match(INTEGER);
-			State = 864;
+			State = 869;
 			Match(TO);
-			State = 865;
+			State = 870;
 			_localctx.to = Match(INTEGER);
 			}
 		}
@@ -5958,10 +6000,8 @@ public partial class SeidlParser : Parser {
 	}
 
 	public partial class GeneratenameContext : ParserRuleContext {
-		public IToken baseinterpolation;
-		public ConcatelementContext baseelement;
-		public InterpolationlistContext interpolationelements;
-		public BracketinterpolationlistContext bracketinterpolationelements;
+		public IToken baseelement;
+		public BracketinterpolationelementContext bracketinterpolationelements;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode VAR() { return GetToken(SeidlParser.VAR, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_PAREN() { return GetToken(SeidlParser.OPEN_PAREN, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ConcatelementContext[] concatelement() {
@@ -5975,12 +6015,12 @@ public partial class SeidlParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode COMMA(int i) {
 			return GetToken(SeidlParser.COMMA, i);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public InterpolationlistContext interpolationlist() {
-			return GetRuleContext<InterpolationlistContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public BracketinterpolationelementContext[] bracketinterpolationelement() {
+			return GetRuleContexts<BracketinterpolationelementContext>();
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode INTERPOLATION() { return GetToken(SeidlParser.INTERPOLATION, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public BracketinterpolationlistContext bracketinterpolationlist() {
-			return GetRuleContext<BracketinterpolationlistContext>(0);
+		[System.Diagnostics.DebuggerNonUserCode] public BracketinterpolationelementContext bracketinterpolationelement(int i) {
+			return GetRuleContext<BracketinterpolationelementContext>(i);
 		}
 		public GeneratenameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -5998,69 +6038,71 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public GeneratenameContext generatename() {
 		GeneratenameContext _localctx = new GeneratenameContext(Context, State);
-		EnterRule(_localctx, 152, RULE_generatename);
+		EnterRule(_localctx, 154, RULE_generatename);
 		int _la;
 		try {
-			State = 888;
+			int _alt;
+			State = 890;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,77,Context) ) {
-			case 1:
+			switch (TokenStream.LA(1)) {
+			case VAR:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 867;
+				State = 872;
 				Match(VAR);
-				State = 868;
+				State = 873;
 				Match(OPEN_PAREN);
-				State = 869;
-				concatelement();
 				State = 874;
+				concatelement();
+				State = 879;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					State = 870;
+					State = 875;
 					Match(COMMA);
-					State = 871;
+					State = 876;
 					concatelement();
 					}
 					}
-					State = 876;
+					State = 881;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 				}
-				State = 877;
+				State = 882;
 				Match(CLOSE_PAREN);
 				}
 				break;
-			case 2:
+			case NAME:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 880;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
-				if (_la==INTERPOLATION) {
-					{
-					State = 879;
-					_localctx.baseinterpolation = Match(INTERPOLATION);
-					}
-				}
-
-				State = 882;
-				_localctx.baseelement = concatelement();
-				State = 883;
-				_localctx.interpolationelements = interpolationlist();
-				}
-				break;
-			case 3:
-				EnterOuterAlt(_localctx, 3);
-				{
-				State = 885;
-				_localctx.baseelement = concatelement();
+				State = 884;
+				_localctx.baseelement = Match(NAME);
 				State = 886;
-				_localctx.bracketinterpolationelements = bracketinterpolationlist();
+				ErrorHandler.Sync(this);
+				_alt = 1;
+				do {
+					switch (_alt) {
+					case 1:
+						{
+						{
+						State = 885;
+						_localctx.bracketinterpolationelements = bracketinterpolationelement();
+						}
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
+					}
+					State = 888;
+					ErrorHandler.Sync(this);
+					_alt = Interpreter.AdaptivePredict(TokenStream,76,Context);
+				} while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER );
 				}
 				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6101,29 +6143,27 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public InterpolationlistContext interpolationlist() {
 		InterpolationlistContext _localctx = new InterpolationlistContext(Context, State);
-		EnterRule(_localctx, 154, RULE_interpolationlist);
+		EnterRule(_localctx, 156, RULE_interpolationlist);
+		int _la;
 		try {
-			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 894;
 			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,78,Context);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					State = 890;
-					Match(INTERPOLATION);
-					State = 891;
-					concatelement();
-					}
-					} 
+			_la = TokenStream.LA(1);
+			do {
+				{
+				{
+				State = 892;
+				Match(INTERPOLATION);
+				State = 893;
+				concatelement();
+				}
 				}
 				State = 896;
 				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,78,Context);
-			}
+				_la = TokenStream.LA(1);
+			} while ( _la==INTERPOLATION );
 			}
 		}
 		catch (RecognitionException re) {
@@ -6137,78 +6177,53 @@ public partial class SeidlParser : Parser {
 		return _localctx;
 	}
 
-	public partial class BracketinterpolationlistContext : ParserRuleContext {
+	public partial class BracketinterpolationelementContext : ParserRuleContext {
 		public IToken interpolation;
-		public ConcatelementContext element;
-		[System.Diagnostics.DebuggerNonUserCode] public ConcatelementContext[] concatelement() {
-			return GetRuleContexts<ConcatelementContext>();
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ConcatelementContext concatelement(int i) {
-			return GetRuleContext<ConcatelementContext>(i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] CLOSE_BRACE() { return GetTokens(SeidlParser.CLOSE_BRACE); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE(int i) {
-			return GetToken(SeidlParser.CLOSE_BRACE, i);
-		}
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode[] OPEN_BRACE() { return GetTokens(SeidlParser.OPEN_BRACE); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE(int i) {
-			return GetToken(SeidlParser.OPEN_BRACE, i);
-		}
-		public BracketinterpolationlistContext(ParserRuleContext parent, int invokingState)
+		public IToken element;
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NAME() { return GetToken(SeidlParser.NAME, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode CLOSE_BRACE() { return GetToken(SeidlParser.CLOSE_BRACE, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode OPEN_BRACE() { return GetToken(SeidlParser.OPEN_BRACE, 0); }
+		public BracketinterpolationelementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_bracketinterpolationlist; } }
+		public override int RuleIndex { get { return RULE_bracketinterpolationelement; } }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ISeidlParserVisitor<TResult> typedVisitor = visitor as ISeidlParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitBracketinterpolationlist(this);
+			if (typedVisitor != null) return typedVisitor.VisitBracketinterpolationelement(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public BracketinterpolationlistContext bracketinterpolationlist() {
-		BracketinterpolationlistContext _localctx = new BracketinterpolationlistContext(Context, State);
-		EnterRule(_localctx, 156, RULE_bracketinterpolationlist);
+	public BracketinterpolationelementContext bracketinterpolationelement() {
+		BracketinterpolationelementContext _localctx = new BracketinterpolationelementContext(Context, State);
+		EnterRule(_localctx, 158, RULE_bracketinterpolationelement);
 		try {
-			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 904;
+			State = 902;
 			ErrorHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(TokenStream,80,Context);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					State = 902;
-					ErrorHandler.Sync(this);
-					switch (TokenStream.LA(1)) {
-					case OPEN_BRACE:
-						{
-						State = 897;
-						_localctx.interpolation = Match(OPEN_BRACE);
-						State = 898;
-						concatelement();
-						State = 899;
-						Match(CLOSE_BRACE);
-						}
-						break;
-					case NAME:
-					case STRINGLITERAL:
-						{
-						State = 901;
-						_localctx.element = concatelement();
-						}
-						break;
-					default:
-						throw new NoViableAltException(this);
-					}
-					} 
+			switch (TokenStream.LA(1)) {
+			case OPEN_BRACE:
+				{
+				State = 898;
+				_localctx.interpolation = Match(OPEN_BRACE);
+				State = 899;
+				Match(NAME);
+				State = 900;
+				Match(CLOSE_BRACE);
 				}
-				State = 906;
-				ErrorHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(TokenStream,80,Context);
+				break;
+			case NAME:
+				{
+				State = 901;
+				_localctx.element = Match(NAME);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 			}
 		}
@@ -6242,12 +6257,12 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public ConcatelementContext concatelement() {
 		ConcatelementContext _localctx = new ConcatelementContext(Context, State);
-		EnterRule(_localctx, 158, RULE_concatelement);
+		EnterRule(_localctx, 160, RULE_concatelement);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 907;
+			State = 904;
 			_la = TokenStream.LA(1);
 			if ( !(_la==NAME || _la==STRINGLITERAL) ) {
 			ErrorHandler.RecoverInline(this);
@@ -6288,12 +6303,12 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public NumberContext number() {
 		NumberContext _localctx = new NumberContext(Context, State);
-		EnterRule(_localctx, 160, RULE_number);
+		EnterRule(_localctx, 162, RULE_number);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 909;
+			State = 906;
 			_la = TokenStream.LA(1);
 			if ( !(_la==INTEGER || _la==FLOATINGPOINTNUMBER) ) {
 			ErrorHandler.RecoverInline(this);
@@ -6333,11 +6348,11 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public StringContext @string() {
 		StringContext _localctx = new StringContext(Context, State);
-		EnterRule(_localctx, 162, RULE_string);
+		EnterRule(_localctx, 164, RULE_string);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 911;
+			State = 908;
 			Match(STRINGLITERAL);
 			}
 		}
@@ -6371,12 +6386,12 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public BooleanContext boolean() {
 		BooleanContext _localctx = new BooleanContext(Context, State);
-		EnterRule(_localctx, 164, RULE_boolean);
+		EnterRule(_localctx, 166, RULE_boolean);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 913;
+			State = 910;
 			_la = TokenStream.LA(1);
 			if ( !(_la==TRUE || _la==FALSE) ) {
 			ErrorHandler.RecoverInline(this);
@@ -6416,11 +6431,11 @@ public partial class SeidlParser : Parser {
 	[RuleVersion(0)]
 	public TerminatorContext terminator() {
 		TerminatorContext _localctx = new TerminatorContext(Context, State);
-		EnterRule(_localctx, 166, RULE_terminator);
+		EnterRule(_localctx, 168, RULE_terminator);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 915;
+			State = 912;
 			Match(STMEND);
 			}
 		}
@@ -6436,8 +6451,8 @@ public partial class SeidlParser : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,99,918,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
-		7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
+		4,1,100,915,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+		7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,14,
 		2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,21,
 		2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,28,
 		2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,7,33,2,34,7,34,2,35,7,35,
@@ -6447,302 +6462,301 @@ public partial class SeidlParser : Parser {
 		2,57,7,57,2,58,7,58,2,59,7,59,2,60,7,60,2,61,7,61,2,62,7,62,2,63,7,63,
 		2,64,7,64,2,65,7,65,2,66,7,66,2,67,7,67,2,68,7,68,2,69,7,69,2,70,7,70,
 		2,71,7,71,2,72,7,72,2,73,7,73,2,74,7,74,2,75,7,75,2,76,7,76,2,77,7,77,
-		2,78,7,78,2,79,7,79,2,80,7,80,2,81,7,81,2,82,7,82,2,83,7,83,1,0,1,0,1,
-		0,1,1,5,1,173,8,1,10,1,12,1,176,9,1,1,2,1,2,1,2,1,2,3,2,182,8,2,1,2,1,
-		2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,194,8,2,1,2,1,2,1,2,1,2,1,2,1,2,
-		1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,
-		2,1,2,1,2,1,2,3,2,223,8,2,1,3,3,3,226,8,3,1,3,1,3,1,3,1,3,1,4,1,4,1,4,
-		1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,244,8,4,1,5,1,5,1,6,1,6,1,7,1,
-		7,3,7,252,8,7,1,8,1,8,1,9,1,9,3,9,258,8,9,1,10,1,10,1,11,1,11,1,11,5,11,
-		265,8,11,10,11,12,11,268,9,11,1,12,1,12,1,12,5,12,273,8,12,10,12,12,12,
-		276,9,12,1,13,1,13,1,13,5,13,281,8,13,10,13,12,13,284,9,13,1,14,1,14,1,
-		14,1,14,1,14,1,14,5,14,292,8,14,10,14,12,14,295,9,14,1,15,1,15,3,15,299,
-		8,15,1,15,1,15,1,15,1,15,3,15,305,8,15,1,15,1,15,5,15,309,8,15,10,15,12,
-		15,312,9,15,1,16,1,16,1,16,1,16,1,16,1,16,5,16,320,8,16,10,16,12,16,323,
-		9,16,1,17,3,17,326,8,17,1,17,1,17,3,17,330,8,17,1,18,1,18,1,18,5,18,335,
-		8,18,10,18,12,18,338,9,18,1,19,1,19,1,19,3,19,343,8,19,1,20,1,20,1,20,
-		5,20,348,8,20,10,20,12,20,351,9,20,1,21,1,21,1,21,1,21,1,21,1,21,1,21,
-		1,21,1,21,1,21,1,21,1,21,3,21,365,8,21,1,21,1,21,1,21,3,21,370,8,21,1,
-		21,1,21,1,21,3,21,375,8,21,1,21,3,21,378,8,21,1,22,1,22,1,23,1,23,1,24,
-		1,24,1,24,5,24,387,8,24,10,24,12,24,390,9,24,1,25,1,25,1,25,1,25,1,25,
-		1,25,1,25,1,25,3,25,400,8,25,1,26,1,26,1,26,1,26,1,26,3,26,407,8,26,1,
-		27,1,27,1,28,1,28,1,28,1,28,1,29,1,29,1,29,1,29,1,29,1,29,1,30,1,30,1,
-		30,1,30,1,30,1,30,1,30,1,30,1,30,1,30,3,30,431,8,30,1,31,1,31,1,31,1,31,
-		1,31,1,31,1,31,1,31,3,31,441,8,31,1,32,1,32,1,32,3,32,446,8,32,1,33,1,
-		33,1,33,1,33,1,33,3,33,453,8,33,1,34,1,34,5,34,457,8,34,10,34,12,34,460,
-		9,34,1,35,1,35,1,35,1,35,1,36,1,36,1,36,1,36,1,37,1,37,1,37,3,37,473,8,
-		37,1,38,1,38,1,38,5,38,478,8,38,10,38,12,38,481,9,38,1,39,1,39,1,39,1,
-		39,1,39,1,39,1,40,1,40,1,40,1,40,1,40,1,40,1,40,1,40,1,40,3,40,498,8,40,
-		1,41,1,41,1,41,3,41,503,8,41,1,41,1,41,1,42,1,42,1,42,1,42,1,42,1,42,1,
-		42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,1,42,3,
-		42,527,8,42,1,43,1,43,1,43,1,43,1,44,1,44,1,44,1,44,1,44,5,44,538,8,44,
-		10,44,12,44,541,9,44,1,44,1,44,1,45,1,45,1,45,1,45,1,45,3,45,550,8,45,
-		1,45,1,45,1,45,3,45,555,8,45,1,45,1,45,1,45,1,46,1,46,1,46,1,46,1,46,1,
-		46,1,46,1,46,1,46,5,46,569,8,46,10,46,12,46,572,9,46,1,46,1,46,3,46,576,
-		8,46,1,46,1,46,1,46,1,46,1,46,1,46,3,46,584,8,46,1,46,1,46,1,46,1,46,1,
-		46,1,46,1,46,3,46,593,8,46,1,46,1,46,1,46,1,46,3,46,599,8,46,1,46,1,46,
-		1,46,1,46,1,46,1,46,5,46,607,8,46,10,46,12,46,610,9,46,1,46,1,46,1,47,
-		1,47,3,47,616,8,47,1,48,1,48,1,48,3,48,621,8,48,1,48,1,48,1,49,1,49,1,
-		49,5,49,628,8,49,10,49,12,49,631,9,49,1,49,1,49,5,49,635,8,49,10,49,12,
-		49,638,9,49,1,49,1,49,1,49,5,49,643,8,49,10,49,12,49,646,9,49,1,49,5,49,
-		649,8,49,10,49,12,49,652,9,49,1,50,1,50,1,50,1,50,1,50,1,50,1,51,1,51,
-		1,52,1,52,1,53,1,53,1,54,1,54,1,54,1,54,1,54,1,54,5,54,672,8,54,10,54,
-		12,54,675,9,54,1,55,1,55,1,55,1,55,3,55,681,8,55,1,55,1,55,1,56,1,56,1,
-		56,1,56,1,56,1,56,1,57,1,57,1,57,1,57,1,57,5,57,696,8,57,10,57,12,57,699,
-		9,57,1,58,1,58,1,58,1,58,1,58,1,58,1,59,1,59,1,59,1,59,1,59,1,59,1,59,
-		1,59,1,59,1,59,1,59,1,59,1,59,1,59,1,59,3,59,722,8,59,1,60,1,60,1,60,1,
-		60,1,60,1,60,5,60,730,8,60,10,60,12,60,733,9,60,1,61,1,61,1,61,1,61,1,
-		61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,61,1,
-		61,1,61,3,61,755,8,61,1,62,1,62,1,62,1,62,1,63,1,63,1,63,3,63,764,8,63,
-		1,63,1,63,1,64,1,64,1,64,1,65,1,65,1,65,1,65,1,65,1,66,1,66,1,66,1,66,
-		1,67,1,67,3,67,782,8,67,1,67,1,67,1,68,1,68,1,68,1,68,1,68,1,68,1,68,1,
-		68,5,68,794,8,68,10,68,12,68,797,9,68,1,68,1,68,1,69,1,69,1,69,1,69,1,
-		69,1,70,1,70,1,70,1,70,1,70,1,70,1,70,1,70,1,70,1,70,3,70,816,8,70,1,71,
-		5,71,819,8,71,10,71,12,71,822,9,71,1,72,1,72,1,72,1,72,5,72,828,8,72,10,
-		72,12,72,831,9,72,1,72,1,72,5,72,835,8,72,10,72,12,72,838,9,72,1,72,3,
-		72,841,8,72,1,73,1,73,1,73,1,73,5,73,847,8,73,10,73,12,73,850,9,73,1,73,
-		1,73,1,74,1,74,1,74,5,74,857,8,74,10,74,12,74,860,9,74,1,74,1,74,1,75,
-		1,75,1,75,1,75,1,76,1,76,1,76,1,76,1,76,5,76,873,8,76,10,76,12,76,876,
-		9,76,1,76,1,76,1,76,3,76,881,8,76,1,76,1,76,1,76,1,76,1,76,1,76,3,76,889,
-		8,76,1,77,1,77,5,77,893,8,77,10,77,12,77,896,9,77,1,78,1,78,1,78,1,78,
-		1,78,5,78,903,8,78,10,78,12,78,906,9,78,1,79,1,79,1,80,1,80,1,81,1,81,
-		1,82,1,82,1,83,1,83,1,83,0,0,84,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,
-		30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,
-		78,80,82,84,86,88,90,92,94,96,98,100,102,104,106,108,110,112,114,116,118,
-		120,122,124,126,128,130,132,134,136,138,140,142,144,146,148,150,152,154,
-		156,158,160,162,164,166,0,11,1,0,2,5,3,0,7,7,9,10,12,12,4,0,57,57,62,64,
-		72,72,74,79,2,0,63,63,80,80,1,0,72,77,1,0,54,55,1,0,23,31,1,0,21,22,2,
-		0,87,87,89,89,1,0,93,94,1,0,33,34,970,0,168,1,0,0,0,2,174,1,0,0,0,4,222,
-		1,0,0,0,6,225,1,0,0,0,8,243,1,0,0,0,10,245,1,0,0,0,12,247,1,0,0,0,14,251,
-		1,0,0,0,16,253,1,0,0,0,18,257,1,0,0,0,20,259,1,0,0,0,22,261,1,0,0,0,24,
-		269,1,0,0,0,26,277,1,0,0,0,28,285,1,0,0,0,30,298,1,0,0,0,32,313,1,0,0,
-		0,34,325,1,0,0,0,36,331,1,0,0,0,38,342,1,0,0,0,40,344,1,0,0,0,42,377,1,
-		0,0,0,44,379,1,0,0,0,46,381,1,0,0,0,48,383,1,0,0,0,50,399,1,0,0,0,52,406,
-		1,0,0,0,54,408,1,0,0,0,56,410,1,0,0,0,58,414,1,0,0,0,60,430,1,0,0,0,62,
-		440,1,0,0,0,64,445,1,0,0,0,66,452,1,0,0,0,68,458,1,0,0,0,70,461,1,0,0,
-		0,72,465,1,0,0,0,74,472,1,0,0,0,76,474,1,0,0,0,78,482,1,0,0,0,80,497,1,
-		0,0,0,82,499,1,0,0,0,84,526,1,0,0,0,86,528,1,0,0,0,88,532,1,0,0,0,90,544,
-		1,0,0,0,92,559,1,0,0,0,94,613,1,0,0,0,96,617,1,0,0,0,98,650,1,0,0,0,100,
-		653,1,0,0,0,102,659,1,0,0,0,104,661,1,0,0,0,106,663,1,0,0,0,108,665,1,
-		0,0,0,110,676,1,0,0,0,112,684,1,0,0,0,114,697,1,0,0,0,116,700,1,0,0,0,
-		118,721,1,0,0,0,120,731,1,0,0,0,122,754,1,0,0,0,124,756,1,0,0,0,126,760,
-		1,0,0,0,128,767,1,0,0,0,130,770,1,0,0,0,132,775,1,0,0,0,134,779,1,0,0,
-		0,136,785,1,0,0,0,138,800,1,0,0,0,140,815,1,0,0,0,142,820,1,0,0,0,144,
-		823,1,0,0,0,146,842,1,0,0,0,148,853,1,0,0,0,150,863,1,0,0,0,152,888,1,
-		0,0,0,154,894,1,0,0,0,156,904,1,0,0,0,158,907,1,0,0,0,160,909,1,0,0,0,
-		162,911,1,0,0,0,164,913,1,0,0,0,166,915,1,0,0,0,168,169,3,2,1,0,169,170,
-		5,0,0,1,170,1,1,0,0,0,171,173,3,4,2,0,172,171,1,0,0,0,173,176,1,0,0,0,
-		174,172,1,0,0,0,174,175,1,0,0,0,175,3,1,0,0,0,176,174,1,0,0,0,177,223,
-		3,166,83,0,178,223,3,6,3,0,179,182,3,10,5,0,180,182,3,20,10,0,181,179,
-		1,0,0,0,181,180,1,0,0,0,182,183,1,0,0,0,183,184,3,26,13,0,184,185,3,166,
-		83,0,185,223,1,0,0,0,186,187,3,26,13,0,187,188,5,61,0,0,188,189,3,36,18,
-		0,189,190,3,166,83,0,190,223,1,0,0,0,191,194,3,10,5,0,192,194,3,20,10,
-		0,193,191,1,0,0,0,193,192,1,0,0,0,194,195,1,0,0,0,195,196,3,26,13,0,196,
-		197,5,61,0,0,197,198,3,36,18,0,198,223,1,0,0,0,199,223,3,58,29,0,200,223,
-		3,100,50,0,201,223,3,110,55,0,202,223,3,112,56,0,203,223,3,116,58,0,204,
-		223,3,118,59,0,205,223,3,136,68,0,206,223,3,80,40,0,207,208,3,82,41,0,
-		208,209,3,166,83,0,209,223,1,0,0,0,210,211,3,84,42,0,211,212,3,166,83,
-		0,212,223,1,0,0,0,213,214,3,86,43,0,214,215,3,166,83,0,215,223,1,0,0,0,
-		216,223,3,70,35,0,217,223,3,72,36,0,218,223,3,66,33,0,219,223,3,78,39,
-		0,220,223,3,138,69,0,221,223,3,144,72,0,222,177,1,0,0,0,222,178,1,0,0,
-		0,222,181,1,0,0,0,222,186,1,0,0,0,222,193,1,0,0,0,222,199,1,0,0,0,222,
-		200,1,0,0,0,222,201,1,0,0,0,222,202,1,0,0,0,222,203,1,0,0,0,222,204,1,
-		0,0,0,222,205,1,0,0,0,222,206,1,0,0,0,222,207,1,0,0,0,222,210,1,0,0,0,
-		222,213,1,0,0,0,222,216,1,0,0,0,222,217,1,0,0,0,222,218,1,0,0,0,222,219,
-		1,0,0,0,222,220,1,0,0,0,222,221,1,0,0,0,223,5,1,0,0,0,224,226,3,18,9,0,
-		225,224,1,0,0,0,225,226,1,0,0,0,226,227,1,0,0,0,227,228,5,83,0,0,228,229,
-		3,2,1,0,229,230,5,84,0,0,230,7,1,0,0,0,231,244,3,10,5,0,232,244,3,12,6,
-		0,233,244,3,20,10,0,234,235,3,10,5,0,235,236,5,1,0,0,236,244,1,0,0,0,237,
-		238,3,12,6,0,238,239,5,1,0,0,239,244,1,0,0,0,240,241,3,20,10,0,241,242,
-		5,1,0,0,242,244,1,0,0,0,243,231,1,0,0,0,243,232,1,0,0,0,243,233,1,0,0,
-		0,243,234,1,0,0,0,243,237,1,0,0,0,243,240,1,0,0,0,244,9,1,0,0,0,245,246,
-		7,0,0,0,246,11,1,0,0,0,247,248,5,6,0,0,248,13,1,0,0,0,249,252,3,10,5,0,
-		250,252,3,20,10,0,251,249,1,0,0,0,251,250,1,0,0,0,252,15,1,0,0,0,253,254,
-		7,1,0,0,254,17,1,0,0,0,255,258,3,152,76,0,256,258,5,87,0,0,257,255,1,0,
-		0,0,257,256,1,0,0,0,258,19,1,0,0,0,259,260,5,87,0,0,260,21,1,0,0,0,261,
-		266,3,18,9,0,262,263,5,56,0,0,263,265,3,18,9,0,264,262,1,0,0,0,265,268,
-		1,0,0,0,266,264,1,0,0,0,266,267,1,0,0,0,267,23,1,0,0,0,268,266,1,0,0,0,
-		269,274,3,22,11,0,270,271,5,58,0,0,271,273,3,22,11,0,272,270,1,0,0,0,273,
-		276,1,0,0,0,274,272,1,0,0,0,274,275,1,0,0,0,275,25,1,0,0,0,276,274,1,0,
-		0,0,277,282,3,18,9,0,278,279,5,58,0,0,279,281,3,18,9,0,280,278,1,0,0,0,
-		281,284,1,0,0,0,282,280,1,0,0,0,282,283,1,0,0,0,283,27,1,0,0,0,284,282,
-		1,0,0,0,285,286,3,10,5,0,286,293,3,18,9,0,287,288,5,58,0,0,288,289,3,10,
-		5,0,289,290,3,18,9,0,290,292,1,0,0,0,291,287,1,0,0,0,292,295,1,0,0,0,293,
-		291,1,0,0,0,293,294,1,0,0,0,294,29,1,0,0,0,295,293,1,0,0,0,296,299,3,20,
-		10,0,297,299,3,10,5,0,298,296,1,0,0,0,298,297,1,0,0,0,299,300,1,0,0,0,
-		300,310,3,18,9,0,301,304,5,58,0,0,302,305,3,20,10,0,303,305,3,10,5,0,304,
-		302,1,0,0,0,304,303,1,0,0,0,305,306,1,0,0,0,306,307,3,18,9,0,307,309,1,
-		0,0,0,308,301,1,0,0,0,309,312,1,0,0,0,310,308,1,0,0,0,310,311,1,0,0,0,
-		311,31,1,0,0,0,312,310,1,0,0,0,313,314,3,34,17,0,314,321,3,18,9,0,315,
-		316,5,58,0,0,316,317,3,34,17,0,317,318,3,18,9,0,318,320,1,0,0,0,319,315,
-		1,0,0,0,320,323,1,0,0,0,321,319,1,0,0,0,321,322,1,0,0,0,322,33,1,0,0,0,
-		323,321,1,0,0,0,324,326,5,18,0,0,325,324,1,0,0,0,325,326,1,0,0,0,326,329,
-		1,0,0,0,327,330,3,20,10,0,328,330,3,10,5,0,329,327,1,0,0,0,329,328,1,0,
-		0,0,330,35,1,0,0,0,331,336,3,42,21,0,332,333,5,58,0,0,333,335,3,42,21,
-		0,334,332,1,0,0,0,335,338,1,0,0,0,336,334,1,0,0,0,336,337,1,0,0,0,337,
-		37,1,0,0,0,338,336,1,0,0,0,339,343,3,164,82,0,340,343,3,160,80,0,341,343,
-		3,162,81,0,342,339,1,0,0,0,342,340,1,0,0,0,342,341,1,0,0,0,343,39,1,0,
-		0,0,344,349,3,38,19,0,345,346,5,58,0,0,346,348,3,38,19,0,347,345,1,0,0,
-		0,348,351,1,0,0,0,349,347,1,0,0,0,349,350,1,0,0,0,350,41,1,0,0,0,351,349,
-		1,0,0,0,352,378,5,32,0,0,353,378,3,164,82,0,354,378,3,160,80,0,355,378,
-		3,162,81,0,356,378,3,18,9,0,357,378,3,22,11,0,358,378,3,90,45,0,359,378,
-		3,96,48,0,360,378,3,80,40,0,361,378,3,48,24,0,362,364,5,83,0,0,363,365,
-		3,48,24,0,364,363,1,0,0,0,364,365,1,0,0,0,365,366,1,0,0,0,366,378,5,84,
-		0,0,367,369,5,85,0,0,368,370,3,26,13,0,369,368,1,0,0,0,369,370,1,0,0,0,
-		370,371,1,0,0,0,371,378,5,86,0,0,372,374,5,85,0,0,373,375,3,40,20,0,374,
-		373,1,0,0,0,374,375,1,0,0,0,375,376,1,0,0,0,376,378,5,86,0,0,377,352,1,
-		0,0,0,377,353,1,0,0,0,377,354,1,0,0,0,377,355,1,0,0,0,377,356,1,0,0,0,
-		377,357,1,0,0,0,377,358,1,0,0,0,377,359,1,0,0,0,377,360,1,0,0,0,377,361,
-		1,0,0,0,377,362,1,0,0,0,377,367,1,0,0,0,377,372,1,0,0,0,378,43,1,0,0,0,
-		379,380,7,2,0,0,380,45,1,0,0,0,381,382,7,3,0,0,382,47,1,0,0,0,383,388,
-		3,50,25,0,384,385,5,58,0,0,385,387,3,50,25,0,386,384,1,0,0,0,387,390,1,
-		0,0,0,388,386,1,0,0,0,388,389,1,0,0,0,389,49,1,0,0,0,390,388,1,0,0,0,391,
-		392,3,18,9,0,392,393,5,61,0,0,393,394,3,42,21,0,394,400,1,0,0,0,395,396,
-		3,22,11,0,396,397,5,61,0,0,397,398,3,42,21,0,398,400,1,0,0,0,399,391,1,
-		0,0,0,399,395,1,0,0,0,400,51,1,0,0,0,401,402,3,22,11,0,402,403,3,54,27,
-		0,403,404,3,42,21,0,404,407,1,0,0,0,405,407,5,51,0,0,406,401,1,0,0,0,406,
-		405,1,0,0,0,407,53,1,0,0,0,408,409,7,4,0,0,409,55,1,0,0,0,410,411,3,8,
-		4,0,411,412,5,1,0,0,412,413,3,18,9,0,413,57,1,0,0,0,414,415,3,10,5,0,415,
-		416,5,1,0,0,416,417,3,26,13,0,417,418,5,61,0,0,418,419,3,36,18,0,419,59,
-		1,0,0,0,420,421,3,18,9,0,421,422,5,85,0,0,422,423,3,42,21,0,423,424,5,
-		86,0,0,424,431,1,0,0,0,425,426,3,162,81,0,426,427,5,85,0,0,427,428,3,42,
-		21,0,428,429,5,86,0,0,429,431,1,0,0,0,430,420,1,0,0,0,430,425,1,0,0,0,
-		431,61,1,0,0,0,432,433,3,18,9,0,433,434,5,56,0,0,434,435,3,64,32,0,435,
-		441,1,0,0,0,436,437,3,60,30,0,437,438,5,56,0,0,438,439,3,64,32,0,439,441,
-		1,0,0,0,440,432,1,0,0,0,440,436,1,0,0,0,441,63,1,0,0,0,442,446,3,18,9,
-		0,443,446,3,62,31,0,444,446,3,60,30,0,445,442,1,0,0,0,445,443,1,0,0,0,
-		445,444,1,0,0,0,446,65,1,0,0,0,447,448,3,22,11,0,448,449,5,59,0,0,449,
-		450,3,74,37,0,450,453,1,0,0,0,451,453,3,22,11,0,452,447,1,0,0,0,452,451,
-		1,0,0,0,453,67,1,0,0,0,454,457,3,66,33,0,455,457,3,166,83,0,456,454,1,
-		0,0,0,456,455,1,0,0,0,457,460,1,0,0,0,458,456,1,0,0,0,458,459,1,0,0,0,
-		459,69,1,0,0,0,460,458,1,0,0,0,461,462,5,47,0,0,462,463,5,61,0,0,463,464,
-		3,22,11,0,464,71,1,0,0,0,465,466,5,48,0,0,466,467,5,61,0,0,467,468,3,74,
-		37,0,468,73,1,0,0,0,469,473,5,46,0,0,470,473,3,162,81,0,471,473,3,76,38,
-		0,472,469,1,0,0,0,472,470,1,0,0,0,472,471,1,0,0,0,473,75,1,0,0,0,474,479,
-		3,160,80,0,475,476,5,56,0,0,476,478,3,160,80,0,477,475,1,0,0,0,478,481,
-		1,0,0,0,479,477,1,0,0,0,479,480,1,0,0,0,480,77,1,0,0,0,481,479,1,0,0,0,
-		482,483,5,49,0,0,483,484,3,66,33,0,484,485,5,83,0,0,485,486,3,68,34,0,
-		486,487,5,84,0,0,487,79,1,0,0,0,488,489,5,15,0,0,489,498,3,162,81,0,490,
-		491,5,15,0,0,491,498,3,22,11,0,492,493,5,15,0,0,493,494,3,22,11,0,494,
-		495,5,59,0,0,495,496,3,74,37,0,496,498,1,0,0,0,497,488,1,0,0,0,497,490,
-		1,0,0,0,497,492,1,0,0,0,498,81,1,0,0,0,499,502,5,14,0,0,500,503,3,10,5,
-		0,501,503,3,20,10,0,502,500,1,0,0,0,502,501,1,0,0,0,503,504,1,0,0,0,504,
-		505,3,18,9,0,505,83,1,0,0,0,506,507,3,24,12,0,507,508,5,66,0,0,508,509,
-		3,24,12,0,509,527,1,0,0,0,510,511,3,24,12,0,511,512,5,67,0,0,512,513,3,
-		24,12,0,513,527,1,0,0,0,514,515,3,24,12,0,515,516,5,68,0,0,516,517,3,52,
-		26,0,517,518,5,70,0,0,518,519,3,24,12,0,519,527,1,0,0,0,520,521,3,24,12,
-		0,521,522,5,69,0,0,522,523,3,52,26,0,523,524,5,71,0,0,524,525,3,24,12,
-		0,525,527,1,0,0,0,526,506,1,0,0,0,526,510,1,0,0,0,526,514,1,0,0,0,526,
-		520,1,0,0,0,527,85,1,0,0,0,528,529,5,11,0,0,529,530,3,18,9,0,530,531,3,
-		88,44,0,531,87,1,0,0,0,532,539,5,83,0,0,533,534,5,38,0,0,534,538,3,22,
-		11,0,535,536,5,45,0,0,536,538,3,22,11,0,537,533,1,0,0,0,537,535,1,0,0,
-		0,538,541,1,0,0,0,539,537,1,0,0,0,539,540,1,0,0,0,540,542,1,0,0,0,541,
-		539,1,0,0,0,542,543,5,84,0,0,543,89,1,0,0,0,544,545,5,13,0,0,545,546,3,
-		18,9,0,546,547,5,61,0,0,547,549,5,81,0,0,548,550,3,30,15,0,549,548,1,0,
-		0,0,549,550,1,0,0,0,550,551,1,0,0,0,551,552,5,82,0,0,552,554,5,81,0,0,
-		553,555,3,30,15,0,554,553,1,0,0,0,554,555,1,0,0,0,555,556,1,0,0,0,556,
-		557,5,82,0,0,557,558,3,92,46,0,558,91,1,0,0,0,559,608,5,83,0,0,560,607,
-		3,4,2,0,561,562,5,35,0,0,562,563,3,42,21,0,563,570,3,6,3,0,564,565,5,37,
-		0,0,565,566,3,42,21,0,566,567,3,6,3,0,567,569,1,0,0,0,568,564,1,0,0,0,
-		569,572,1,0,0,0,570,568,1,0,0,0,570,571,1,0,0,0,571,575,1,0,0,0,572,570,
-		1,0,0,0,573,574,5,36,0,0,574,576,3,6,3,0,575,573,1,0,0,0,575,576,1,0,0,
-		0,576,607,1,0,0,0,577,578,5,41,0,0,578,579,3,42,21,0,579,580,3,6,3,0,580,
-		607,1,0,0,0,581,583,5,38,0,0,582,584,3,8,4,0,583,582,1,0,0,0,583,584,1,
-		0,0,0,584,585,1,0,0,0,585,586,3,26,13,0,586,587,5,61,0,0,587,588,3,36,
-		18,0,588,589,5,58,0,0,589,592,3,42,21,0,590,591,5,58,0,0,591,593,3,42,
-		21,0,592,590,1,0,0,0,592,593,1,0,0,0,593,594,1,0,0,0,594,595,3,6,3,0,595,
-		607,1,0,0,0,596,598,5,38,0,0,597,599,3,8,4,0,598,597,1,0,0,0,598,599,1,
-		0,0,0,599,600,1,0,0,0,600,601,3,18,9,0,601,602,5,39,0,0,602,603,3,18,9,
-		0,603,604,3,6,3,0,604,607,1,0,0,0,605,607,3,94,47,0,606,560,1,0,0,0,606,
-		561,1,0,0,0,606,577,1,0,0,0,606,581,1,0,0,0,606,596,1,0,0,0,606,605,1,
-		0,0,0,607,610,1,0,0,0,608,606,1,0,0,0,608,609,1,0,0,0,609,611,1,0,0,0,
-		610,608,1,0,0,0,611,612,5,84,0,0,612,93,1,0,0,0,613,615,5,42,0,0,614,616,
-		3,26,13,0,615,614,1,0,0,0,615,616,1,0,0,0,616,95,1,0,0,0,617,618,3,18,
-		9,0,618,620,5,81,0,0,619,621,3,26,13,0,620,619,1,0,0,0,620,621,1,0,0,0,
-		621,622,1,0,0,0,622,623,5,82,0,0,623,97,1,0,0,0,624,625,3,14,7,0,625,644,
-		3,18,9,0,626,628,3,166,83,0,627,626,1,0,0,0,628,631,1,0,0,0,629,627,1,
-		0,0,0,629,630,1,0,0,0,630,632,1,0,0,0,631,629,1,0,0,0,632,636,5,58,0,0,
-		633,635,3,166,83,0,634,633,1,0,0,0,635,638,1,0,0,0,636,634,1,0,0,0,636,
-		637,1,0,0,0,637,639,1,0,0,0,638,636,1,0,0,0,639,640,3,14,7,0,640,641,3,
-		18,9,0,641,643,1,0,0,0,642,629,1,0,0,0,643,646,1,0,0,0,644,642,1,0,0,0,
-		644,645,1,0,0,0,645,649,1,0,0,0,646,644,1,0,0,0,647,649,3,166,83,0,648,
-		624,1,0,0,0,648,647,1,0,0,0,649,652,1,0,0,0,650,648,1,0,0,0,650,651,1,
-		0,0,0,651,99,1,0,0,0,652,650,1,0,0,0,653,654,5,6,0,0,654,655,3,18,9,0,
-		655,656,5,83,0,0,656,657,3,98,49,0,657,658,5,84,0,0,658,101,1,0,0,0,659,
-		660,5,87,0,0,660,103,1,0,0,0,661,662,5,87,0,0,662,105,1,0,0,0,663,664,
-		5,87,0,0,664,107,1,0,0,0,665,666,3,102,51,0,666,673,3,18,9,0,667,668,5,
-		58,0,0,668,669,3,102,51,0,669,670,3,18,9,0,670,672,1,0,0,0,671,667,1,0,
-		0,0,672,675,1,0,0,0,673,671,1,0,0,0,673,674,1,0,0,0,674,109,1,0,0,0,675,
-		673,1,0,0,0,676,677,5,7,0,0,677,678,3,102,51,0,678,680,5,83,0,0,679,681,
-		3,32,16,0,680,679,1,0,0,0,680,681,1,0,0,0,681,682,1,0,0,0,682,683,5,84,
-		0,0,683,111,1,0,0,0,684,685,5,8,0,0,685,686,3,106,53,0,686,687,5,83,0,
-		0,687,688,3,114,57,0,688,689,5,84,0,0,689,113,1,0,0,0,690,691,5,25,0,0,
-		691,696,3,102,51,0,692,693,5,26,0,0,693,696,3,102,51,0,694,696,3,166,83,
-		0,695,690,1,0,0,0,695,692,1,0,0,0,695,694,1,0,0,0,696,699,1,0,0,0,697,
-		695,1,0,0,0,697,698,1,0,0,0,698,115,1,0,0,0,699,697,1,0,0,0,700,701,5,
-		9,0,0,701,702,3,104,52,0,702,703,5,83,0,0,703,704,3,120,60,0,704,705,5,
-		84,0,0,705,117,1,0,0,0,706,707,5,10,0,0,707,708,3,20,10,0,708,709,3,18,
-		9,0,709,722,1,0,0,0,710,711,5,10,0,0,711,712,3,20,10,0,712,713,3,18,9,
-		0,713,714,3,134,67,0,714,722,1,0,0,0,715,716,5,10,0,0,716,717,3,20,10,
-		0,717,718,7,5,0,0,718,719,3,18,9,0,719,720,3,134,67,0,720,722,1,0,0,0,
-		721,706,1,0,0,0,721,710,1,0,0,0,721,715,1,0,0,0,722,119,1,0,0,0,723,730,
-		3,122,61,0,724,730,3,132,66,0,725,730,3,126,63,0,726,730,3,128,64,0,727,
-		730,3,130,65,0,728,730,3,166,83,0,729,723,1,0,0,0,729,724,1,0,0,0,729,
-		725,1,0,0,0,729,726,1,0,0,0,729,727,1,0,0,0,729,728,1,0,0,0,730,733,1,
-		0,0,0,731,729,1,0,0,0,731,732,1,0,0,0,732,121,1,0,0,0,733,731,1,0,0,0,
-		734,735,5,19,0,0,735,755,3,108,54,0,736,737,5,20,0,0,737,755,3,108,54,
-		0,738,739,5,23,0,0,739,755,3,108,54,0,740,741,5,24,0,0,741,755,3,108,54,
-		0,742,743,5,19,0,0,743,744,5,85,0,0,744,745,3,124,62,0,745,746,5,86,0,
-		0,746,747,3,108,54,0,747,755,1,0,0,0,748,749,5,20,0,0,749,750,5,85,0,0,
-		750,751,3,124,62,0,751,752,5,86,0,0,752,753,3,108,54,0,753,755,1,0,0,0,
-		754,734,1,0,0,0,754,736,1,0,0,0,754,738,1,0,0,0,754,740,1,0,0,0,754,742,
-		1,0,0,0,754,748,1,0,0,0,755,123,1,0,0,0,756,757,7,6,0,0,757,758,5,59,0,
-		0,758,759,5,87,0,0,759,125,1,0,0,0,760,763,5,17,0,0,761,764,3,8,4,0,762,
-		764,3,20,10,0,763,761,1,0,0,0,763,762,1,0,0,0,764,765,1,0,0,0,765,766,
-		3,26,13,0,766,127,1,0,0,0,767,768,5,50,0,0,768,769,3,66,33,0,769,129,1,
-		0,0,0,770,771,5,53,0,0,771,772,5,87,0,0,772,773,5,89,0,0,773,774,5,89,
-		0,0,774,131,1,0,0,0,775,776,7,7,0,0,776,777,3,106,53,0,777,778,5,87,0,
-		0,778,133,1,0,0,0,779,781,5,81,0,0,780,782,3,48,24,0,781,780,1,0,0,0,781,
-		782,1,0,0,0,782,783,1,0,0,0,783,784,5,82,0,0,784,135,1,0,0,0,785,786,5,
-		12,0,0,786,787,3,18,9,0,787,795,5,83,0,0,788,789,5,17,0,0,789,790,3,8,
-		4,0,790,791,3,26,13,0,791,792,3,166,83,0,792,794,1,0,0,0,793,788,1,0,0,
-		0,794,797,1,0,0,0,795,793,1,0,0,0,795,796,1,0,0,0,796,798,1,0,0,0,797,
-		795,1,0,0,0,798,799,5,84,0,0,799,137,1,0,0,0,800,801,3,140,70,0,801,802,
-		5,83,0,0,802,803,3,142,71,0,803,804,5,84,0,0,804,139,1,0,0,0,805,806,5,
-		38,0,0,806,807,3,18,9,0,807,808,5,39,0,0,808,809,3,22,11,0,809,816,1,0,
-		0,0,810,811,5,38,0,0,811,812,3,18,9,0,812,813,5,39,0,0,813,814,3,150,75,
-		0,814,816,1,0,0,0,815,805,1,0,0,0,815,810,1,0,0,0,816,141,1,0,0,0,817,
-		819,3,4,2,0,818,817,1,0,0,0,819,822,1,0,0,0,820,818,1,0,0,0,820,821,1,
-		0,0,0,821,143,1,0,0,0,822,820,1,0,0,0,823,824,5,35,0,0,824,825,3,42,21,
-		0,825,829,5,83,0,0,826,828,3,4,2,0,827,826,1,0,0,0,828,831,1,0,0,0,829,
-		827,1,0,0,0,829,830,1,0,0,0,830,832,1,0,0,0,831,829,1,0,0,0,832,836,5,
-		84,0,0,833,835,3,146,73,0,834,833,1,0,0,0,835,838,1,0,0,0,836,834,1,0,
-		0,0,836,837,1,0,0,0,837,840,1,0,0,0,838,836,1,0,0,0,839,841,3,148,74,0,
-		840,839,1,0,0,0,840,841,1,0,0,0,841,145,1,0,0,0,842,843,5,37,0,0,843,844,
-		3,42,21,0,844,848,5,83,0,0,845,847,3,4,2,0,846,845,1,0,0,0,847,850,1,0,
-		0,0,848,846,1,0,0,0,848,849,1,0,0,0,849,851,1,0,0,0,850,848,1,0,0,0,851,
-		852,5,84,0,0,852,147,1,0,0,0,853,854,5,36,0,0,854,858,5,83,0,0,855,857,
-		3,4,2,0,856,855,1,0,0,0,857,860,1,0,0,0,858,856,1,0,0,0,858,859,1,0,0,
-		0,859,861,1,0,0,0,860,858,1,0,0,0,861,862,5,84,0,0,862,149,1,0,0,0,863,
-		864,5,93,0,0,864,865,5,40,0,0,865,866,5,93,0,0,866,151,1,0,0,0,867,868,
-		5,52,0,0,868,869,5,81,0,0,869,874,3,158,79,0,870,871,5,58,0,0,871,873,
-		3,158,79,0,872,870,1,0,0,0,873,876,1,0,0,0,874,872,1,0,0,0,874,875,1,0,
-		0,0,875,877,1,0,0,0,876,874,1,0,0,0,877,878,5,82,0,0,878,889,1,0,0,0,879,
-		881,5,65,0,0,880,879,1,0,0,0,880,881,1,0,0,0,881,882,1,0,0,0,882,883,3,
-		158,79,0,883,884,3,154,77,0,884,889,1,0,0,0,885,886,3,158,79,0,886,887,
-		3,156,78,0,887,889,1,0,0,0,888,867,1,0,0,0,888,880,1,0,0,0,888,885,1,0,
-		0,0,889,153,1,0,0,0,890,891,5,65,0,0,891,893,3,158,79,0,892,890,1,0,0,
-		0,893,896,1,0,0,0,894,892,1,0,0,0,894,895,1,0,0,0,895,155,1,0,0,0,896,
-		894,1,0,0,0,897,898,5,83,0,0,898,899,3,158,79,0,899,900,5,84,0,0,900,903,
-		1,0,0,0,901,903,3,158,79,0,902,897,1,0,0,0,902,901,1,0,0,0,903,906,1,0,
-		0,0,904,902,1,0,0,0,904,905,1,0,0,0,905,157,1,0,0,0,906,904,1,0,0,0,907,
-		908,7,8,0,0,908,159,1,0,0,0,909,910,7,9,0,0,910,161,1,0,0,0,911,912,5,
-		89,0,0,912,163,1,0,0,0,913,914,7,10,0,0,914,165,1,0,0,0,915,916,5,96,0,
-		0,916,167,1,0,0,0,81,174,181,193,222,225,243,251,257,266,274,282,293,298,
-		304,310,321,325,329,336,342,349,364,369,374,377,388,399,406,430,440,445,
-		452,456,458,472,479,497,502,526,537,539,549,554,570,575,583,592,598,606,
-		608,615,620,629,636,644,648,650,673,680,695,697,721,729,731,754,763,781,
-		795,815,820,829,836,840,848,858,874,880,888,894,902,904
+		2,78,7,78,2,79,7,79,2,80,7,80,2,81,7,81,2,82,7,82,2,83,7,83,2,84,7,84,
+		1,0,1,0,1,0,1,1,5,1,175,8,1,10,1,12,1,178,9,1,1,2,1,2,1,2,1,2,3,2,184,
+		8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,196,8,2,1,2,1,2,1,2,1,
+		2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,
+		1,2,1,2,1,2,1,2,1,2,1,2,3,2,225,8,2,1,3,3,3,228,8,3,1,3,1,3,1,3,1,3,1,
+		4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,1,4,3,4,246,8,4,1,5,1,5,1,6,
+		1,6,1,7,1,7,3,7,254,8,7,1,8,1,8,1,9,1,9,3,9,260,8,9,1,10,1,10,1,11,1,11,
+		1,11,5,11,267,8,11,10,11,12,11,270,9,11,1,12,1,12,1,12,5,12,275,8,12,10,
+		12,12,12,278,9,12,1,13,1,13,1,13,5,13,283,8,13,10,13,12,13,286,9,13,1,
+		14,1,14,1,14,1,14,1,14,1,14,5,14,294,8,14,10,14,12,14,297,9,14,1,15,1,
+		15,3,15,301,8,15,1,15,1,15,1,15,1,15,3,15,307,8,15,1,15,1,15,5,15,311,
+		8,15,10,15,12,15,314,9,15,1,16,1,16,1,16,1,16,1,16,1,16,5,16,322,8,16,
+		10,16,12,16,325,9,16,1,17,3,17,328,8,17,1,17,1,17,3,17,332,8,17,1,18,1,
+		18,1,18,5,18,337,8,18,10,18,12,18,340,9,18,1,19,1,19,1,19,3,19,345,8,19,
+		1,20,1,20,1,20,5,20,350,8,20,10,20,12,20,353,9,20,1,21,1,21,1,21,1,21,
+		1,21,1,21,1,21,1,21,1,21,1,21,1,21,1,21,3,21,367,8,21,1,21,1,21,1,21,3,
+		21,372,8,21,1,21,1,21,1,21,3,21,377,8,21,1,21,3,21,380,8,21,1,22,1,22,
+		1,23,1,23,1,24,1,24,1,24,5,24,389,8,24,10,24,12,24,392,9,24,1,25,1,25,
+		1,25,1,25,1,25,1,25,1,25,1,25,3,25,402,8,25,1,26,1,26,1,26,1,26,1,26,3,
+		26,409,8,26,1,27,1,27,1,28,1,28,1,28,1,28,1,29,1,29,1,29,1,29,1,29,1,29,
+		1,30,1,30,1,30,1,30,1,30,1,30,1,30,1,30,1,30,1,30,3,30,433,8,30,1,31,1,
+		31,1,31,1,31,1,31,1,31,1,31,1,31,3,31,443,8,31,1,32,1,32,1,32,3,32,448,
+		8,32,1,33,1,33,1,33,1,34,1,34,1,34,1,34,1,34,3,34,458,8,34,1,35,1,35,5,
+		35,462,8,35,10,35,12,35,465,9,35,1,36,1,36,1,36,1,36,1,37,1,37,1,37,1,
+		37,1,38,1,38,1,38,3,38,478,8,38,1,39,1,39,1,39,5,39,483,8,39,10,39,12,
+		39,486,9,39,1,40,1,40,1,40,1,40,1,40,1,40,1,41,1,41,1,41,1,41,1,41,1,41,
+		1,41,1,41,1,41,3,41,503,8,41,1,42,1,42,1,42,3,42,508,8,42,1,42,1,42,1,
+		43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,43,1,
+		43,1,43,1,43,1,43,1,43,1,43,3,43,532,8,43,1,44,1,44,1,44,1,44,1,45,1,45,
+		1,45,1,45,1,45,5,45,543,8,45,10,45,12,45,546,9,45,1,45,1,45,1,46,1,46,
+		1,46,1,46,1,46,3,46,555,8,46,1,46,1,46,1,46,3,46,560,8,46,1,46,1,46,1,
+		46,1,47,1,47,1,47,1,47,1,47,1,47,1,47,1,47,1,47,5,47,574,8,47,10,47,12,
+		47,577,9,47,1,47,1,47,3,47,581,8,47,1,47,1,47,1,47,1,47,1,47,1,47,3,47,
+		589,8,47,1,47,1,47,1,47,1,47,1,47,1,47,1,47,3,47,598,8,47,1,47,1,47,1,
+		47,1,47,3,47,604,8,47,1,47,1,47,1,47,1,47,1,47,1,47,5,47,612,8,47,10,47,
+		12,47,615,9,47,1,47,1,47,1,48,1,48,3,48,621,8,48,1,49,1,49,1,49,3,49,626,
+		8,49,1,49,1,49,1,50,1,50,1,50,5,50,633,8,50,10,50,12,50,636,9,50,1,50,
+		1,50,5,50,640,8,50,10,50,12,50,643,9,50,1,50,1,50,1,50,5,50,648,8,50,10,
+		50,12,50,651,9,50,1,50,5,50,654,8,50,10,50,12,50,657,9,50,1,51,1,51,1,
+		51,1,51,1,51,1,51,1,52,1,52,1,53,1,53,1,54,1,54,1,55,1,55,1,55,1,55,1,
+		55,1,55,5,55,677,8,55,10,55,12,55,680,9,55,1,56,1,56,1,56,1,56,3,56,686,
+		8,56,1,56,1,56,1,57,1,57,1,57,1,57,1,57,1,57,1,58,1,58,1,58,1,58,1,58,
+		5,58,701,8,58,10,58,12,58,704,9,58,1,59,1,59,1,59,1,59,1,59,1,59,1,60,
+		1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,1,60,
+		3,60,727,8,60,1,61,1,61,1,61,1,61,1,61,1,61,5,61,735,8,61,10,61,12,61,
+		738,9,61,1,62,1,62,1,62,1,62,1,62,1,62,1,62,1,62,1,62,1,62,1,62,1,62,1,
+		62,1,62,1,62,1,62,1,62,1,62,1,62,1,62,3,62,760,8,62,1,63,1,63,1,63,1,63,
+		1,64,1,64,1,64,3,64,769,8,64,1,64,1,64,1,65,1,65,1,65,1,66,1,66,1,66,1,
+		66,1,66,1,67,1,67,1,67,1,67,1,68,1,68,3,68,787,8,68,1,68,1,68,1,69,1,69,
+		1,69,1,69,1,69,1,69,1,69,1,69,5,69,799,8,69,10,69,12,69,802,9,69,1,69,
+		1,69,1,70,1,70,1,70,1,70,1,70,1,71,1,71,1,71,1,71,1,71,1,71,1,71,1,71,
+		1,71,1,71,3,71,821,8,71,1,72,5,72,824,8,72,10,72,12,72,827,9,72,1,73,1,
+		73,1,73,1,73,5,73,833,8,73,10,73,12,73,836,9,73,1,73,1,73,5,73,840,8,73,
+		10,73,12,73,843,9,73,1,73,3,73,846,8,73,1,74,1,74,1,74,1,74,5,74,852,8,
+		74,10,74,12,74,855,9,74,1,74,1,74,1,75,1,75,1,75,5,75,862,8,75,10,75,12,
+		75,865,9,75,1,75,1,75,1,76,1,76,1,76,1,76,1,77,1,77,1,77,1,77,1,77,5,77,
+		878,8,77,10,77,12,77,881,9,77,1,77,1,77,1,77,1,77,4,77,887,8,77,11,77,
+		12,77,888,3,77,891,8,77,1,78,1,78,4,78,895,8,78,11,78,12,78,896,1,79,1,
+		79,1,79,1,79,3,79,903,8,79,1,80,1,80,1,81,1,81,1,82,1,82,1,83,1,83,1,84,
+		1,84,1,84,0,0,85,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,
+		40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,
+		88,90,92,94,96,98,100,102,104,106,108,110,112,114,116,118,120,122,124,
+		126,128,130,132,134,136,138,140,142,144,146,148,150,152,154,156,158,160,
+		162,164,166,168,0,11,1,0,2,5,3,0,7,7,9,10,12,12,4,0,58,58,63,65,73,73,
+		75,80,2,0,64,64,81,81,1,0,73,78,1,0,55,56,1,0,23,31,1,0,21,22,2,0,88,88,
+		90,90,1,0,94,95,1,0,33,34,964,0,170,1,0,0,0,2,176,1,0,0,0,4,224,1,0,0,
+		0,6,227,1,0,0,0,8,245,1,0,0,0,10,247,1,0,0,0,12,249,1,0,0,0,14,253,1,0,
+		0,0,16,255,1,0,0,0,18,259,1,0,0,0,20,261,1,0,0,0,22,263,1,0,0,0,24,271,
+		1,0,0,0,26,279,1,0,0,0,28,287,1,0,0,0,30,300,1,0,0,0,32,315,1,0,0,0,34,
+		327,1,0,0,0,36,333,1,0,0,0,38,344,1,0,0,0,40,346,1,0,0,0,42,379,1,0,0,
+		0,44,381,1,0,0,0,46,383,1,0,0,0,48,385,1,0,0,0,50,401,1,0,0,0,52,408,1,
+		0,0,0,54,410,1,0,0,0,56,412,1,0,0,0,58,416,1,0,0,0,60,432,1,0,0,0,62,442,
+		1,0,0,0,64,447,1,0,0,0,66,449,1,0,0,0,68,457,1,0,0,0,70,463,1,0,0,0,72,
+		466,1,0,0,0,74,470,1,0,0,0,76,477,1,0,0,0,78,479,1,0,0,0,80,487,1,0,0,
+		0,82,502,1,0,0,0,84,504,1,0,0,0,86,531,1,0,0,0,88,533,1,0,0,0,90,537,1,
+		0,0,0,92,549,1,0,0,0,94,564,1,0,0,0,96,618,1,0,0,0,98,622,1,0,0,0,100,
+		655,1,0,0,0,102,658,1,0,0,0,104,664,1,0,0,0,106,666,1,0,0,0,108,668,1,
+		0,0,0,110,670,1,0,0,0,112,681,1,0,0,0,114,689,1,0,0,0,116,702,1,0,0,0,
+		118,705,1,0,0,0,120,726,1,0,0,0,122,736,1,0,0,0,124,759,1,0,0,0,126,761,
+		1,0,0,0,128,765,1,0,0,0,130,772,1,0,0,0,132,775,1,0,0,0,134,780,1,0,0,
+		0,136,784,1,0,0,0,138,790,1,0,0,0,140,805,1,0,0,0,142,820,1,0,0,0,144,
+		825,1,0,0,0,146,828,1,0,0,0,148,847,1,0,0,0,150,858,1,0,0,0,152,868,1,
+		0,0,0,154,890,1,0,0,0,156,894,1,0,0,0,158,902,1,0,0,0,160,904,1,0,0,0,
+		162,906,1,0,0,0,164,908,1,0,0,0,166,910,1,0,0,0,168,912,1,0,0,0,170,171,
+		3,2,1,0,171,172,5,0,0,1,172,1,1,0,0,0,173,175,3,4,2,0,174,173,1,0,0,0,
+		175,178,1,0,0,0,176,174,1,0,0,0,176,177,1,0,0,0,177,3,1,0,0,0,178,176,
+		1,0,0,0,179,225,3,168,84,0,180,225,3,6,3,0,181,184,3,10,5,0,182,184,3,
+		20,10,0,183,181,1,0,0,0,183,182,1,0,0,0,184,185,1,0,0,0,185,186,3,26,13,
+		0,186,187,3,168,84,0,187,225,1,0,0,0,188,189,3,26,13,0,189,190,5,62,0,
+		0,190,191,3,36,18,0,191,192,3,168,84,0,192,225,1,0,0,0,193,196,3,10,5,
+		0,194,196,3,20,10,0,195,193,1,0,0,0,195,194,1,0,0,0,196,197,1,0,0,0,197,
+		198,3,26,13,0,198,199,5,62,0,0,199,200,3,36,18,0,200,225,1,0,0,0,201,225,
+		3,58,29,0,202,225,3,102,51,0,203,225,3,112,56,0,204,225,3,114,57,0,205,
+		225,3,118,59,0,206,225,3,120,60,0,207,225,3,138,69,0,208,225,3,82,41,0,
+		209,210,3,84,42,0,210,211,3,168,84,0,211,225,1,0,0,0,212,213,3,86,43,0,
+		213,214,3,168,84,0,214,225,1,0,0,0,215,216,3,88,44,0,216,217,3,168,84,
+		0,217,225,1,0,0,0,218,225,3,72,36,0,219,225,3,74,37,0,220,225,3,66,33,
+		0,221,225,3,80,40,0,222,225,3,140,70,0,223,225,3,146,73,0,224,179,1,0,
+		0,0,224,180,1,0,0,0,224,183,1,0,0,0,224,188,1,0,0,0,224,195,1,0,0,0,224,
+		201,1,0,0,0,224,202,1,0,0,0,224,203,1,0,0,0,224,204,1,0,0,0,224,205,1,
+		0,0,0,224,206,1,0,0,0,224,207,1,0,0,0,224,208,1,0,0,0,224,209,1,0,0,0,
+		224,212,1,0,0,0,224,215,1,0,0,0,224,218,1,0,0,0,224,219,1,0,0,0,224,220,
+		1,0,0,0,224,221,1,0,0,0,224,222,1,0,0,0,224,223,1,0,0,0,225,5,1,0,0,0,
+		226,228,3,18,9,0,227,226,1,0,0,0,227,228,1,0,0,0,228,229,1,0,0,0,229,230,
+		5,84,0,0,230,231,3,2,1,0,231,232,5,85,0,0,232,7,1,0,0,0,233,246,3,10,5,
+		0,234,246,3,12,6,0,235,246,3,20,10,0,236,237,3,10,5,0,237,238,5,1,0,0,
+		238,246,1,0,0,0,239,240,3,12,6,0,240,241,5,1,0,0,241,246,1,0,0,0,242,243,
+		3,20,10,0,243,244,5,1,0,0,244,246,1,0,0,0,245,233,1,0,0,0,245,234,1,0,
+		0,0,245,235,1,0,0,0,245,236,1,0,0,0,245,239,1,0,0,0,245,242,1,0,0,0,246,
+		9,1,0,0,0,247,248,7,0,0,0,248,11,1,0,0,0,249,250,5,6,0,0,250,13,1,0,0,
+		0,251,254,3,10,5,0,252,254,3,20,10,0,253,251,1,0,0,0,253,252,1,0,0,0,254,
+		15,1,0,0,0,255,256,7,1,0,0,256,17,1,0,0,0,257,260,3,154,77,0,258,260,5,
+		88,0,0,259,257,1,0,0,0,259,258,1,0,0,0,260,19,1,0,0,0,261,262,5,88,0,0,
+		262,21,1,0,0,0,263,268,3,18,9,0,264,265,5,57,0,0,265,267,3,18,9,0,266,
+		264,1,0,0,0,267,270,1,0,0,0,268,266,1,0,0,0,268,269,1,0,0,0,269,23,1,0,
+		0,0,270,268,1,0,0,0,271,276,3,22,11,0,272,273,5,59,0,0,273,275,3,22,11,
+		0,274,272,1,0,0,0,275,278,1,0,0,0,276,274,1,0,0,0,276,277,1,0,0,0,277,
+		25,1,0,0,0,278,276,1,0,0,0,279,284,3,18,9,0,280,281,5,59,0,0,281,283,3,
+		18,9,0,282,280,1,0,0,0,283,286,1,0,0,0,284,282,1,0,0,0,284,285,1,0,0,0,
+		285,27,1,0,0,0,286,284,1,0,0,0,287,288,3,10,5,0,288,295,3,18,9,0,289,290,
+		5,59,0,0,290,291,3,10,5,0,291,292,3,18,9,0,292,294,1,0,0,0,293,289,1,0,
+		0,0,294,297,1,0,0,0,295,293,1,0,0,0,295,296,1,0,0,0,296,29,1,0,0,0,297,
+		295,1,0,0,0,298,301,3,20,10,0,299,301,3,10,5,0,300,298,1,0,0,0,300,299,
+		1,0,0,0,301,302,1,0,0,0,302,312,3,18,9,0,303,306,5,59,0,0,304,307,3,20,
+		10,0,305,307,3,10,5,0,306,304,1,0,0,0,306,305,1,0,0,0,307,308,1,0,0,0,
+		308,309,3,18,9,0,309,311,1,0,0,0,310,303,1,0,0,0,311,314,1,0,0,0,312,310,
+		1,0,0,0,312,313,1,0,0,0,313,31,1,0,0,0,314,312,1,0,0,0,315,316,3,34,17,
+		0,316,323,3,18,9,0,317,318,5,59,0,0,318,319,3,34,17,0,319,320,3,18,9,0,
+		320,322,1,0,0,0,321,317,1,0,0,0,322,325,1,0,0,0,323,321,1,0,0,0,323,324,
+		1,0,0,0,324,33,1,0,0,0,325,323,1,0,0,0,326,328,5,18,0,0,327,326,1,0,0,
+		0,327,328,1,0,0,0,328,331,1,0,0,0,329,332,3,20,10,0,330,332,3,10,5,0,331,
+		329,1,0,0,0,331,330,1,0,0,0,332,35,1,0,0,0,333,338,3,42,21,0,334,335,5,
+		59,0,0,335,337,3,42,21,0,336,334,1,0,0,0,337,340,1,0,0,0,338,336,1,0,0,
+		0,338,339,1,0,0,0,339,37,1,0,0,0,340,338,1,0,0,0,341,345,3,166,83,0,342,
+		345,3,162,81,0,343,345,3,164,82,0,344,341,1,0,0,0,344,342,1,0,0,0,344,
+		343,1,0,0,0,345,39,1,0,0,0,346,351,3,38,19,0,347,348,5,59,0,0,348,350,
+		3,38,19,0,349,347,1,0,0,0,350,353,1,0,0,0,351,349,1,0,0,0,351,352,1,0,
+		0,0,352,41,1,0,0,0,353,351,1,0,0,0,354,380,5,32,0,0,355,380,3,166,83,0,
+		356,380,3,162,81,0,357,380,3,164,82,0,358,380,3,18,9,0,359,380,3,22,11,
+		0,360,380,3,92,46,0,361,380,3,98,49,0,362,380,3,82,41,0,363,380,3,48,24,
+		0,364,366,5,84,0,0,365,367,3,48,24,0,366,365,1,0,0,0,366,367,1,0,0,0,367,
+		368,1,0,0,0,368,380,5,85,0,0,369,371,5,86,0,0,370,372,3,26,13,0,371,370,
+		1,0,0,0,371,372,1,0,0,0,372,373,1,0,0,0,373,380,5,87,0,0,374,376,5,86,
+		0,0,375,377,3,40,20,0,376,375,1,0,0,0,376,377,1,0,0,0,377,378,1,0,0,0,
+		378,380,5,87,0,0,379,354,1,0,0,0,379,355,1,0,0,0,379,356,1,0,0,0,379,357,
+		1,0,0,0,379,358,1,0,0,0,379,359,1,0,0,0,379,360,1,0,0,0,379,361,1,0,0,
+		0,379,362,1,0,0,0,379,363,1,0,0,0,379,364,1,0,0,0,379,369,1,0,0,0,379,
+		374,1,0,0,0,380,43,1,0,0,0,381,382,7,2,0,0,382,45,1,0,0,0,383,384,7,3,
+		0,0,384,47,1,0,0,0,385,390,3,50,25,0,386,387,5,59,0,0,387,389,3,50,25,
+		0,388,386,1,0,0,0,389,392,1,0,0,0,390,388,1,0,0,0,390,391,1,0,0,0,391,
+		49,1,0,0,0,392,390,1,0,0,0,393,394,3,18,9,0,394,395,5,62,0,0,395,396,3,
+		42,21,0,396,402,1,0,0,0,397,398,3,22,11,0,398,399,5,62,0,0,399,400,3,42,
+		21,0,400,402,1,0,0,0,401,393,1,0,0,0,401,397,1,0,0,0,402,51,1,0,0,0,403,
+		404,3,22,11,0,404,405,3,54,27,0,405,406,3,42,21,0,406,409,1,0,0,0,407,
+		409,5,52,0,0,408,403,1,0,0,0,408,407,1,0,0,0,409,53,1,0,0,0,410,411,7,
+		4,0,0,411,55,1,0,0,0,412,413,3,8,4,0,413,414,5,1,0,0,414,415,3,18,9,0,
+		415,57,1,0,0,0,416,417,3,10,5,0,417,418,5,1,0,0,418,419,3,26,13,0,419,
+		420,5,62,0,0,420,421,3,36,18,0,421,59,1,0,0,0,422,423,3,18,9,0,423,424,
+		5,86,0,0,424,425,3,42,21,0,425,426,5,87,0,0,426,433,1,0,0,0,427,428,3,
+		164,82,0,428,429,5,86,0,0,429,430,3,42,21,0,430,431,5,87,0,0,431,433,1,
+		0,0,0,432,422,1,0,0,0,432,427,1,0,0,0,433,61,1,0,0,0,434,435,3,18,9,0,
+		435,436,5,57,0,0,436,437,3,64,32,0,437,443,1,0,0,0,438,439,3,60,30,0,439,
+		440,5,57,0,0,440,441,3,64,32,0,441,443,1,0,0,0,442,434,1,0,0,0,442,438,
+		1,0,0,0,443,63,1,0,0,0,444,448,3,18,9,0,445,448,3,62,31,0,446,448,3,60,
+		30,0,447,444,1,0,0,0,447,445,1,0,0,0,447,446,1,0,0,0,448,65,1,0,0,0,449,
+		450,5,47,0,0,450,451,3,68,34,0,451,67,1,0,0,0,452,453,3,22,11,0,453,454,
+		5,60,0,0,454,455,3,76,38,0,455,458,1,0,0,0,456,458,3,22,11,0,457,452,1,
+		0,0,0,457,456,1,0,0,0,458,69,1,0,0,0,459,462,3,68,34,0,460,462,3,168,84,
+		0,461,459,1,0,0,0,461,460,1,0,0,0,462,465,1,0,0,0,463,461,1,0,0,0,463,
+		464,1,0,0,0,464,71,1,0,0,0,465,463,1,0,0,0,466,467,5,48,0,0,467,468,5,
+		62,0,0,468,469,3,22,11,0,469,73,1,0,0,0,470,471,5,49,0,0,471,472,5,62,
+		0,0,472,473,3,76,38,0,473,75,1,0,0,0,474,478,5,46,0,0,475,478,3,164,82,
+		0,476,478,3,78,39,0,477,474,1,0,0,0,477,475,1,0,0,0,477,476,1,0,0,0,478,
+		77,1,0,0,0,479,484,3,162,81,0,480,481,5,57,0,0,481,483,3,162,81,0,482,
+		480,1,0,0,0,483,486,1,0,0,0,484,482,1,0,0,0,484,485,1,0,0,0,485,79,1,0,
+		0,0,486,484,1,0,0,0,487,488,5,50,0,0,488,489,3,68,34,0,489,490,5,84,0,
+		0,490,491,3,70,35,0,491,492,5,85,0,0,492,81,1,0,0,0,493,494,5,15,0,0,494,
+		503,3,164,82,0,495,496,5,15,0,0,496,503,3,22,11,0,497,498,5,15,0,0,498,
+		499,3,22,11,0,499,500,5,60,0,0,500,501,3,76,38,0,501,503,1,0,0,0,502,493,
+		1,0,0,0,502,495,1,0,0,0,502,497,1,0,0,0,503,83,1,0,0,0,504,507,5,14,0,
+		0,505,508,3,10,5,0,506,508,3,20,10,0,507,505,1,0,0,0,507,506,1,0,0,0,508,
+		509,1,0,0,0,509,510,3,18,9,0,510,85,1,0,0,0,511,512,3,24,12,0,512,513,
+		5,67,0,0,513,514,3,24,12,0,514,532,1,0,0,0,515,516,3,24,12,0,516,517,5,
+		68,0,0,517,518,3,24,12,0,518,532,1,0,0,0,519,520,3,24,12,0,520,521,5,69,
+		0,0,521,522,3,52,26,0,522,523,5,71,0,0,523,524,3,24,12,0,524,532,1,0,0,
+		0,525,526,3,24,12,0,526,527,5,70,0,0,527,528,3,52,26,0,528,529,5,72,0,
+		0,529,530,3,24,12,0,530,532,1,0,0,0,531,511,1,0,0,0,531,515,1,0,0,0,531,
+		519,1,0,0,0,531,525,1,0,0,0,532,87,1,0,0,0,533,534,5,11,0,0,534,535,3,
+		18,9,0,535,536,3,90,45,0,536,89,1,0,0,0,537,544,5,84,0,0,538,539,5,38,
+		0,0,539,543,3,22,11,0,540,541,5,45,0,0,541,543,3,22,11,0,542,538,1,0,0,
+		0,542,540,1,0,0,0,543,546,1,0,0,0,544,542,1,0,0,0,544,545,1,0,0,0,545,
+		547,1,0,0,0,546,544,1,0,0,0,547,548,5,85,0,0,548,91,1,0,0,0,549,550,5,
+		13,0,0,550,551,3,18,9,0,551,552,5,62,0,0,552,554,5,82,0,0,553,555,3,30,
+		15,0,554,553,1,0,0,0,554,555,1,0,0,0,555,556,1,0,0,0,556,557,5,83,0,0,
+		557,559,5,82,0,0,558,560,3,30,15,0,559,558,1,0,0,0,559,560,1,0,0,0,560,
+		561,1,0,0,0,561,562,5,83,0,0,562,563,3,94,47,0,563,93,1,0,0,0,564,613,
+		5,84,0,0,565,612,3,4,2,0,566,567,5,35,0,0,567,568,3,42,21,0,568,575,3,
+		6,3,0,569,570,5,37,0,0,570,571,3,42,21,0,571,572,3,6,3,0,572,574,1,0,0,
+		0,573,569,1,0,0,0,574,577,1,0,0,0,575,573,1,0,0,0,575,576,1,0,0,0,576,
+		580,1,0,0,0,577,575,1,0,0,0,578,579,5,36,0,0,579,581,3,6,3,0,580,578,1,
+		0,0,0,580,581,1,0,0,0,581,612,1,0,0,0,582,583,5,41,0,0,583,584,3,42,21,
+		0,584,585,3,6,3,0,585,612,1,0,0,0,586,588,5,38,0,0,587,589,3,8,4,0,588,
+		587,1,0,0,0,588,589,1,0,0,0,589,590,1,0,0,0,590,591,3,26,13,0,591,592,
+		5,62,0,0,592,593,3,36,18,0,593,594,5,59,0,0,594,597,3,42,21,0,595,596,
+		5,59,0,0,596,598,3,42,21,0,597,595,1,0,0,0,597,598,1,0,0,0,598,599,1,0,
+		0,0,599,600,3,6,3,0,600,612,1,0,0,0,601,603,5,38,0,0,602,604,3,8,4,0,603,
+		602,1,0,0,0,603,604,1,0,0,0,604,605,1,0,0,0,605,606,3,18,9,0,606,607,5,
+		39,0,0,607,608,3,18,9,0,608,609,3,6,3,0,609,612,1,0,0,0,610,612,3,96,48,
+		0,611,565,1,0,0,0,611,566,1,0,0,0,611,582,1,0,0,0,611,586,1,0,0,0,611,
+		601,1,0,0,0,611,610,1,0,0,0,612,615,1,0,0,0,613,611,1,0,0,0,613,614,1,
+		0,0,0,614,616,1,0,0,0,615,613,1,0,0,0,616,617,5,85,0,0,617,95,1,0,0,0,
+		618,620,5,42,0,0,619,621,3,26,13,0,620,619,1,0,0,0,620,621,1,0,0,0,621,
+		97,1,0,0,0,622,623,3,18,9,0,623,625,5,82,0,0,624,626,3,26,13,0,625,624,
+		1,0,0,0,625,626,1,0,0,0,626,627,1,0,0,0,627,628,5,83,0,0,628,99,1,0,0,
+		0,629,630,3,14,7,0,630,649,3,18,9,0,631,633,3,168,84,0,632,631,1,0,0,0,
+		633,636,1,0,0,0,634,632,1,0,0,0,634,635,1,0,0,0,635,637,1,0,0,0,636,634,
+		1,0,0,0,637,641,5,59,0,0,638,640,3,168,84,0,639,638,1,0,0,0,640,643,1,
+		0,0,0,641,639,1,0,0,0,641,642,1,0,0,0,642,644,1,0,0,0,643,641,1,0,0,0,
+		644,645,3,14,7,0,645,646,3,18,9,0,646,648,1,0,0,0,647,634,1,0,0,0,648,
+		651,1,0,0,0,649,647,1,0,0,0,649,650,1,0,0,0,650,654,1,0,0,0,651,649,1,
+		0,0,0,652,654,3,168,84,0,653,629,1,0,0,0,653,652,1,0,0,0,654,657,1,0,0,
+		0,655,653,1,0,0,0,655,656,1,0,0,0,656,101,1,0,0,0,657,655,1,0,0,0,658,
+		659,5,6,0,0,659,660,3,18,9,0,660,661,5,84,0,0,661,662,3,100,50,0,662,663,
+		5,85,0,0,663,103,1,0,0,0,664,665,5,88,0,0,665,105,1,0,0,0,666,667,5,88,
+		0,0,667,107,1,0,0,0,668,669,5,88,0,0,669,109,1,0,0,0,670,671,3,104,52,
+		0,671,678,3,18,9,0,672,673,5,59,0,0,673,674,3,104,52,0,674,675,3,18,9,
+		0,675,677,1,0,0,0,676,672,1,0,0,0,677,680,1,0,0,0,678,676,1,0,0,0,678,
+		679,1,0,0,0,679,111,1,0,0,0,680,678,1,0,0,0,681,682,5,7,0,0,682,683,3,
+		104,52,0,683,685,5,84,0,0,684,686,3,32,16,0,685,684,1,0,0,0,685,686,1,
+		0,0,0,686,687,1,0,0,0,687,688,5,85,0,0,688,113,1,0,0,0,689,690,5,8,0,0,
+		690,691,3,108,54,0,691,692,5,84,0,0,692,693,3,116,58,0,693,694,5,85,0,
+		0,694,115,1,0,0,0,695,696,5,25,0,0,696,701,3,104,52,0,697,698,5,26,0,0,
+		698,701,3,104,52,0,699,701,3,168,84,0,700,695,1,0,0,0,700,697,1,0,0,0,
+		700,699,1,0,0,0,701,704,1,0,0,0,702,700,1,0,0,0,702,703,1,0,0,0,703,117,
+		1,0,0,0,704,702,1,0,0,0,705,706,5,9,0,0,706,707,3,106,53,0,707,708,5,84,
+		0,0,708,709,3,122,61,0,709,710,5,85,0,0,710,119,1,0,0,0,711,712,5,10,0,
+		0,712,713,3,20,10,0,713,714,3,18,9,0,714,727,1,0,0,0,715,716,5,10,0,0,
+		716,717,3,20,10,0,717,718,3,18,9,0,718,719,3,136,68,0,719,727,1,0,0,0,
+		720,721,5,10,0,0,721,722,3,20,10,0,722,723,7,5,0,0,723,724,3,18,9,0,724,
+		725,3,136,68,0,725,727,1,0,0,0,726,711,1,0,0,0,726,715,1,0,0,0,726,720,
+		1,0,0,0,727,121,1,0,0,0,728,735,3,124,62,0,729,735,3,134,67,0,730,735,
+		3,128,64,0,731,735,3,130,65,0,732,735,3,132,66,0,733,735,3,168,84,0,734,
+		728,1,0,0,0,734,729,1,0,0,0,734,730,1,0,0,0,734,731,1,0,0,0,734,732,1,
+		0,0,0,734,733,1,0,0,0,735,738,1,0,0,0,736,734,1,0,0,0,736,737,1,0,0,0,
+		737,123,1,0,0,0,738,736,1,0,0,0,739,740,5,19,0,0,740,760,3,110,55,0,741,
+		742,5,20,0,0,742,760,3,110,55,0,743,744,5,23,0,0,744,760,3,110,55,0,745,
+		746,5,24,0,0,746,760,3,110,55,0,747,748,5,19,0,0,748,749,5,86,0,0,749,
+		750,3,126,63,0,750,751,5,87,0,0,751,752,3,110,55,0,752,760,1,0,0,0,753,
+		754,5,20,0,0,754,755,5,86,0,0,755,756,3,126,63,0,756,757,5,87,0,0,757,
+		758,3,110,55,0,758,760,1,0,0,0,759,739,1,0,0,0,759,741,1,0,0,0,759,743,
+		1,0,0,0,759,745,1,0,0,0,759,747,1,0,0,0,759,753,1,0,0,0,760,125,1,0,0,
+		0,761,762,7,6,0,0,762,763,5,60,0,0,763,764,5,88,0,0,764,127,1,0,0,0,765,
+		768,5,17,0,0,766,769,3,8,4,0,767,769,3,20,10,0,768,766,1,0,0,0,768,767,
+		1,0,0,0,769,770,1,0,0,0,770,771,3,26,13,0,771,129,1,0,0,0,772,773,5,51,
+		0,0,773,774,3,68,34,0,774,131,1,0,0,0,775,776,5,54,0,0,776,777,5,88,0,
+		0,777,778,5,90,0,0,778,779,5,90,0,0,779,133,1,0,0,0,780,781,7,7,0,0,781,
+		782,3,108,54,0,782,783,5,88,0,0,783,135,1,0,0,0,784,786,5,82,0,0,785,787,
+		3,48,24,0,786,785,1,0,0,0,786,787,1,0,0,0,787,788,1,0,0,0,788,789,5,83,
+		0,0,789,137,1,0,0,0,790,791,5,12,0,0,791,792,3,18,9,0,792,800,5,84,0,0,
+		793,794,5,17,0,0,794,795,3,8,4,0,795,796,3,26,13,0,796,797,3,168,84,0,
+		797,799,1,0,0,0,798,793,1,0,0,0,799,802,1,0,0,0,800,798,1,0,0,0,800,801,
+		1,0,0,0,801,803,1,0,0,0,802,800,1,0,0,0,803,804,5,85,0,0,804,139,1,0,0,
+		0,805,806,3,142,71,0,806,807,5,84,0,0,807,808,3,144,72,0,808,809,5,85,
+		0,0,809,141,1,0,0,0,810,811,5,38,0,0,811,812,3,18,9,0,812,813,5,39,0,0,
+		813,814,3,22,11,0,814,821,1,0,0,0,815,816,5,38,0,0,816,817,3,18,9,0,817,
+		818,5,39,0,0,818,819,3,152,76,0,819,821,1,0,0,0,820,810,1,0,0,0,820,815,
+		1,0,0,0,821,143,1,0,0,0,822,824,3,4,2,0,823,822,1,0,0,0,824,827,1,0,0,
+		0,825,823,1,0,0,0,825,826,1,0,0,0,826,145,1,0,0,0,827,825,1,0,0,0,828,
+		829,5,35,0,0,829,830,3,42,21,0,830,834,5,84,0,0,831,833,3,4,2,0,832,831,
+		1,0,0,0,833,836,1,0,0,0,834,832,1,0,0,0,834,835,1,0,0,0,835,837,1,0,0,
+		0,836,834,1,0,0,0,837,841,5,85,0,0,838,840,3,148,74,0,839,838,1,0,0,0,
+		840,843,1,0,0,0,841,839,1,0,0,0,841,842,1,0,0,0,842,845,1,0,0,0,843,841,
+		1,0,0,0,844,846,3,150,75,0,845,844,1,0,0,0,845,846,1,0,0,0,846,147,1,0,
+		0,0,847,848,5,37,0,0,848,849,3,42,21,0,849,853,5,84,0,0,850,852,3,4,2,
+		0,851,850,1,0,0,0,852,855,1,0,0,0,853,851,1,0,0,0,853,854,1,0,0,0,854,
+		856,1,0,0,0,855,853,1,0,0,0,856,857,5,85,0,0,857,149,1,0,0,0,858,859,5,
+		36,0,0,859,863,5,84,0,0,860,862,3,4,2,0,861,860,1,0,0,0,862,865,1,0,0,
+		0,863,861,1,0,0,0,863,864,1,0,0,0,864,866,1,0,0,0,865,863,1,0,0,0,866,
+		867,5,85,0,0,867,151,1,0,0,0,868,869,5,94,0,0,869,870,5,40,0,0,870,871,
+		5,94,0,0,871,153,1,0,0,0,872,873,5,53,0,0,873,874,5,82,0,0,874,879,3,160,
+		80,0,875,876,5,59,0,0,876,878,3,160,80,0,877,875,1,0,0,0,878,881,1,0,0,
+		0,879,877,1,0,0,0,879,880,1,0,0,0,880,882,1,0,0,0,881,879,1,0,0,0,882,
+		883,5,83,0,0,883,891,1,0,0,0,884,886,5,88,0,0,885,887,3,158,79,0,886,885,
+		1,0,0,0,887,888,1,0,0,0,888,886,1,0,0,0,888,889,1,0,0,0,889,891,1,0,0,
+		0,890,872,1,0,0,0,890,884,1,0,0,0,891,155,1,0,0,0,892,893,5,66,0,0,893,
+		895,3,160,80,0,894,892,1,0,0,0,895,896,1,0,0,0,896,894,1,0,0,0,896,897,
+		1,0,0,0,897,157,1,0,0,0,898,899,5,84,0,0,899,900,5,88,0,0,900,903,5,85,
+		0,0,901,903,5,88,0,0,902,898,1,0,0,0,902,901,1,0,0,0,903,159,1,0,0,0,904,
+		905,7,8,0,0,905,161,1,0,0,0,906,907,7,9,0,0,907,163,1,0,0,0,908,909,5,
+		90,0,0,909,165,1,0,0,0,910,911,7,10,0,0,911,167,1,0,0,0,912,913,5,97,0,
+		0,913,169,1,0,0,0,80,176,183,195,224,227,245,253,259,268,276,284,295,300,
+		306,312,323,327,331,338,344,351,366,371,376,379,390,401,408,432,442,447,
+		457,461,463,477,484,502,507,531,542,544,554,559,575,580,588,597,603,611,
+		613,620,625,634,641,649,653,655,678,685,700,702,726,734,736,759,768,786,
+		800,820,825,834,841,845,853,863,879,888,890,896,902
 	};
 
 	public static readonly ATN _ATN =
