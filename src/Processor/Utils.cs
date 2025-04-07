@@ -101,6 +101,10 @@ namespace Ai.Hgb.Seidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
+    public static IAtomicType InstanceAtomicType(System.Type type, object value = null) => type switch {
+
+    };
+
     private static Data.Array InstanceAtomicTypeArray(int typeCode, SeidlParser.ExpressionContext? exp) {
       var list = new Data.Array();
       

@@ -611,10 +611,28 @@ namespace Ai.Hgb.Seidl.Processor {
 
       var loopsignature = stmt.loopsignature();
       var iteratorName = loopsignature.iterator.GetText();
+      var loopbody = stmt.loopbody();
+      var statements = loopbody.statement();
 
       if (loopsignature.field() != null) {
-        // TODO
-        Console.WriteLine("HOLA!!!");
+        var collectionName = loopsignature.field().GetText();
+        var elementName = loopsignature.variable().NAME().GetText();
+
+        var collectionSymbol = scopedSymbolTable[currentScope, collectionName];        
+        if(collectionSymbol != null && collectionSymbol.Type is Data.Array) {
+          var collection = collectionSymbol.Type as Data.Array;
+
+          foreach (IAtomicType iteratorType in collection.Elements) {
+            // create and add iterator variable
+            scopedSymbolTable.AddSymbol(iteratorName, iteratorType, currentScope);            
+
+            // execute loop body
+            foreach (var statement in statements) Visit(statement);
+
+            // remove iterator variable        
+            scopedSymbolTable.RemoveSymbol(iteratorName, currentScope);
+          }
+        }
       }
       else if (loopsignature.integerrange() != null) {
         var range = loopsignature.integerrange();
@@ -625,12 +643,12 @@ namespace Ai.Hgb.Seidl.Processor {
         var iteratorType = Utils.InstanceAtomicType(SeidlLexer.INT, from.ToString());
         scopedSymbolTable.AddSymbol(iteratorName, iteratorType, currentScope);
 
-        var loopbody = stmt.loopbody();
-        var statements = loopbody.statement();
         for (int i = from; i < to; i++) {
           // update iterator variable
           var iteratorSymbol = scopedSymbolTable[currentScope, iteratorName];
           (iteratorSymbol.Type as IAtomicType).Assign(i.ToString());
+
+          // execute loop body
           foreach (var statement in statements) Visit(statement);
         }
 
