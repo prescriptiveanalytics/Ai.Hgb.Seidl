@@ -32,7 +32,7 @@
 		"reservedvalues": {
 			"patterns": [{
 				"name": "markup.italic",
-				"match": "\\b(null|true|false|latest|queue)\\b"
+				"match": "\\b(null|true|false|latest|auto|queue)\\b"
 			}]
 		},
 		"strings": {

@@ -221,6 +221,7 @@ tagdefstatement
 
 tag
     : LATEST
+    | AUTO
     | string
     | versionnumber
     ;

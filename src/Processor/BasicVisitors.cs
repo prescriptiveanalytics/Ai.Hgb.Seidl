@@ -851,7 +851,7 @@ namespace Ai.Hgb.Seidl.Processor {
       name = string.Join('.', ctx.field().variable().Select(x => x.GetText()));
       if (ctx.tag() != null) {
         if (ctx.tag().versionnumber() != null) tag = string.Join('.', ctx.tag().versionnumber().number().Select(x => x.GetText()));
-        else if (string.IsNullOrEmpty(ctx.tag().GetText())) tag = ctx.tag().GetText();
+        else if (!string.IsNullOrEmpty(ctx.tag().GetText())) tag = ctx.tag().GetText();
       }
 
       return Tuple.Create(name, tag);
