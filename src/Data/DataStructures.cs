@@ -22,6 +22,8 @@ namespace Ai.Hgb.Seidl.Data {
     string GetValueString(); 
 
     object GetValue();
+
+    string GetTypeString();
   }
 
   public interface IBaseType : IType { 
@@ -66,6 +68,10 @@ namespace Ai.Hgb.Seidl.Data {
     
     public virtual object GetValue() {
       return null;
+    }
+
+    public virtual string GetTypeString() {
+      return "object";
     }
   }
 
@@ -122,6 +128,10 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value != null ? _value.ToString() : null) : null;
     }
 
+    public override string GetTypeString() {
+      return "string";
+    }
+
     public override void Assign(string value) {
       _initialized = true;
       _value = value;
@@ -170,6 +180,10 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override object GetValue() {
       return Initialized ? (Value != null ? Value : null) : null;
+    }
+
+    public override string GetTypeString() {
+      return "int";
     }
 
     public override void Assign(string value) {
@@ -223,6 +237,10 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetValueString() {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
+    }
+
+    public override string GetTypeString() {
+      return "float";
     }
 
     public override object GetValue() {
@@ -281,6 +299,10 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
 
+    public override string GetTypeString() {
+      return "bool";
+    }
+
     public override object GetValue() {
       return Initialized ? (Value != null ? Value : null) : null;
     }
@@ -301,7 +323,9 @@ namespace Ai.Hgb.Seidl.Data {
   public class Array : Type, IComplexType {
     public List<IType> Elements { get; set; }
 
-    public Array() { 
+    public IType DefinedType { get; set; }
+
+    public Array(IType definedType) { 
       Elements = new List<IType>();
     }
 
@@ -310,13 +334,13 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override IBaseType DeepCopy() {
-      var e = new Array();
+      var e = new Array(DefinedType);
       foreach(var element in Elements) e.Elements.Add(element.DeepCopy());
       return e;
     }
 
     public override IBaseType ShallowCopy() {
-      var e = new Array();
+      var e = new Array(DefinedType);
       foreach (var element in Elements) e.Elements.Add(element.ShallowCopy());
       return e;
     }
@@ -334,6 +358,16 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override object GetValue() {
       return Elements.Select(x => x.GetValue());
+    }
+
+    public override string GetTypeString() {
+      if (DefinedType != null) {
+        return DefinedType.GetTypeString() + "[]";
+      } else if (Elements.Count > 0) {
+        return Elements.First().GetTypeString();
+      } else {
+        return "object[]";
+      }
     }
   }
 
@@ -371,6 +405,19 @@ namespace Ai.Hgb.Seidl.Data {
     public override object GetValue() {
       return Properties.Select(x => new KeyValuePair<string, object>(x.Key, x.Value.GetValue()));
     }
+
+    string structName = "newStruct"; // TODO
+    public override string GetTypeString() {
+
+      var sb = new StringBuilder();
+      sb.AppendLine($"struct {structName} " + "{");
+      foreach (var p in Properties) {
+        sb.AppendLine($"{p.Value.GetTypeString()} {p.Key};");
+      }
+      sb.AppendLine("}");
+
+      return sb.ToString();
+    }    
 
     public void Assign(string value) {
       throw new NotImplementedException();

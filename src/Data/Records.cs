@@ -11,6 +11,7 @@ namespace Ai.Hgb.Seidl.Data {
   public record LintLineRequest(string programText, string lineText, int line, int character);
   public record LintSymbolRequest(string programText, string symbolName, int line, int character);
   public record ProgramRecord(string programText);
+  public record NodetypeRecord(string name, Dictionary<string, string> properties = null, Dictionary<string, string> publishers = null, Dictionary<string, string> subscribers = null, Dictionary<string, string> clients = null, Dictionary<string, string> servers = null);
   public record NodeRecord(string name);
   public record EdgeRecord(string name, string from, string to, string type, string payload);
   public record GraphRecord(IEnumerable<NodeRecord> nodes, IEnumerable<EdgeRecord> edges);

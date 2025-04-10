@@ -406,7 +406,28 @@ namespace Ai.Hgb.Seidl.Data {
       return rt;
     }
 
-      public StringBuilder Print(IScope parent) {
+    public IEnumerable<NodetypeRecord> GetNodetypes(IScope parent) {
+      var nodetypeSymbols = GetSymbolsUpstream(parent).Where(x => x.Type is Node && x.IsTypedef);
+      var nodetypes = new List<NodetypeRecord>();
+
+      foreach (var symbol in nodetypeSymbols) {
+        Dictionary<string, string> publishers, clients, servers;
+        var properties = (symbol as Node).Properties.Select(x => new KeyValuePair<string, string>(x.Key, x.Value.GetTypeString())).ToDictionary();
+        nodetypes.Add(new NodetypeRecord(
+          name: symbol.Name,
+          properties: properties
+        ));
+      }      
+
+      return nodetypes;
+    }
+
+    public Dictionary<string, string> GetDataStructures(IScope parent) {
+      var typeSymbols = GetSymbolsUpstream(parent).Where(x => x.Type is IAtomicType || x.Type is IComplexType);
+      return typeSymbols.ToDictionary(x => x.Name, y => (y as IType).GetTypeString());
+    }
+
+    public StringBuilder Print(IScope parent) {
 
       if (parent == null) {
         var currentScope = Scopes.Where(x => x.Parent == parent).First();

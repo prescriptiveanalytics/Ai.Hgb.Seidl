@@ -7,7 +7,8 @@ using System.Text.Json;
 namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the project name.
 {
   internal class Program {
-    public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo5.3l";
+    //public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo5.3l";
+    public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo4.3l";
 
 
     public static string repositoryHost = "127.0.0.1";
@@ -19,7 +20,6 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       TestRun();
       //new RuntimeTests().Run();
     }
-
 
     public static void TestRun() {
       // setup repository client
@@ -40,7 +40,7 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 
 
       Console.WriteLine(" - Analyzing program...");
-      Linter linter = new Linter(parser);
+      Transformer linter = new Transformer(parser);
       linter.ProgramTextUrl = fp;
       linter.RepositoryClient = repositoryClient;
       
@@ -99,9 +99,6 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 
       Console.WriteLine("\n\n\nEnd of processing.");
     }
-
-
-
 
     public static async Task SetupPackages() {
       try {
@@ -162,29 +159,16 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 
     public static ScopedSymbolTable ParseSST(string programText) {
       SeidlParser parser = Utils.TokenizeAndParse(programText);
-      Linter linter = new Linter(parser);
-      linter.RepositoryClient = repositoryClient;
-      return linter.CreateScopedSymbolTable();
+      Transformer transformer = new Transformer(parser);
+      transformer.RepositoryClient = repositoryClient;
+      return transformer.CreateScopedSymbolTable();
     }
 
     public static ScopedSymbolTable IdentifySST(string programText) {
       SeidlParser parser = Utils.TokenizeAndParse(programText);
-      Linter linter = new Linter(parser);
-      return linter.IdentifyScopedSymbolTable();
+      Transformer transformer = new Transformer(parser);
+      return transformer.IdentifyScopedSymbolTable();
     }
-
-    // TODO:
-    // ========================================================    
-    // type / assignment checks
-    // graph - node - edge mappings (messages)
-    // further on:
-    // - 1. mock a node-rep with a txt
-    // - 2. add interpreter check for existing node inside rep
-    // -- 2.1 check versions, message/input-outputs
-
-
-    // Interpreter Result: (REST)-API to access internally generated data structure
-
 
     // Ressources:
     // https://www.youtube.com/watch?v=bfiAvWZWnDA

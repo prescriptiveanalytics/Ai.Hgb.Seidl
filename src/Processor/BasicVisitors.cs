@@ -546,7 +546,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
         var programText = Utils.ReadFile(fp);
         var parser = Utils.TokenizeAndParse(programText);
-        var linter = new Linter(parser);
+        var linter = new Transformer(parser);
         linter.ProgramTextUrl = fp;
 
         var sst = linter.CreateScopedSymbolTable();
@@ -575,7 +575,7 @@ namespace Ai.Hgb.Seidl.Processor {
           foreach (var desc in pkg.Descriptions) {
             var descNameTag = $"{desc.Name}:{desc.Tag}";
             var parser = Utils.TokenizeAndParse(desc.Text);
-            var linter = new Linter(parser);
+            var linter = new Transformer(parser);
             linter.ProgramTextUrl = desc.Id;
             linter.RepositoryClient = this.RepositoryClient;
 

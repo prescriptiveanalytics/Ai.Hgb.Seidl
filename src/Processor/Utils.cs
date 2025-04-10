@@ -101,12 +101,8 @@ namespace Ai.Hgb.Seidl.Processor {
       _ => throw new ArgumentException("The given type is unknown.")
     };
 
-    public static IAtomicType InstanceAtomicType(System.Type type, object value = null) => type switch {
-
-    };
-
     private static Data.Array InstanceAtomicTypeArray(int typeCode, SeidlParser.ExpressionContext? exp) {
-      var list = new Data.Array();
+      var list = new Data.Array(GetIType(typeCode));
       
       for(int i = 0; i < exp.valuelist().value().Length; i++) {
         var v = exp.valuelist().value(i);
@@ -171,7 +167,7 @@ namespace Ai.Hgb.Seidl.Processor {
         type = InstanceAtomicTypeArray(typeCode, exp);
       }
       else {
-        type = new Data.Array();
+        type = new Data.Array(GetIType(typeCode));
       }
 
       return type;
@@ -205,6 +201,15 @@ namespace Ai.Hgb.Seidl.Processor {
 
       return typeList;
     }
+
+    private static IType GetIType(int typeCode) => typeCode switch
+    {
+      SeidlLexer.STRING => (IType)typeof(Data.String),
+      SeidlLexer.INT => (IType)typeof(Data.Integer),
+      SeidlLexer.FLOAT => (IType)typeof(Data.Float),
+      SeidlLexer.BOOL => (IType)typeof(Data.Bool),
+      _ => throw new ArgumentException("The given type is unknown.")
+    };
 
     public static void TryAssignExpression(IType target, SeidlParser.ExpressionContext? exp) {
       try {                

@@ -106,7 +106,7 @@ namespace Ai.Hgb.Seidl.Server {
     
     private static ScopedSymbolTable ParseSST(string programText) {
       SeidlParser parser = Processor.Utils.TokenizeAndParse(programText);
-      Linter linter = new Linter(parser);
+      Transformer linter = new Transformer(parser);
       return linter.CreateScopedSymbolTable();
     }
   }

@@ -68,7 +68,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
           // do work
           SeidlParser parser = Utils.TokenizeAndParse(programText);
-          Linter linter = new Linter(parser);
+          Transformer linter = new Transformer(parser);
           linter.ProgramTextUrl = fp;
           var table = linter.CreateScopedSymbolTableSecured();
 
