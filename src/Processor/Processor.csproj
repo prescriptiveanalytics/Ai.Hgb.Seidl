@@ -37,6 +37,8 @@
     <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.13-prerelease-gb162266326" />
     <PackageReference Include="Ai.Hgb.Common.Utils" Version="0.1.3-prerelease-gb162266326" />
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.13.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.13.0" />
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
 

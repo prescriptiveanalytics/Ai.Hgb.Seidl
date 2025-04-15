@@ -23,7 +23,7 @@ namespace Ai.Hgb.Seidl.Data {
 
     object GetValue();
 
-    string GetTypeString();
+    string GetPropertyString(string name = null);
   }
 
   public interface IBaseType : IType { 
@@ -70,8 +70,9 @@ namespace Ai.Hgb.Seidl.Data {
       return null;
     }
 
-    public virtual string GetTypeString() {
-      return "object";
+    public virtual string GetPropertyString(string name = null) {
+      return $"object {name}";
+      //return $$"""public object {{name}} { get; set; }""";
     }
   }
 
@@ -128,8 +129,9 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value != null ? _value.ToString() : null) : null;
     }
 
-    public override string GetTypeString() {
-      return "string";
+    public override string GetPropertyString(string name = null) {
+      return $"string {name}";
+      //return $$"""public string {{name}} { get; set; }""";
     }
 
     public override void Assign(string value) {
@@ -182,8 +184,9 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value != null ? Value : null) : null;
     }
 
-    public override string GetTypeString() {
-      return "int";
+    public override string GetPropertyString(string name = null) {
+      return $"int {name}";
+      //return $$"""public int {{name}} { get; set; }""";
     }
 
     public override void Assign(string value) {
@@ -239,8 +242,9 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
 
-    public override string GetTypeString() {
-      return "float";
+    public override string GetPropertyString(string name = null) {
+      return $"float {name}";
+      //return $$"""public float {{name}} { get; set; }""";
     }
 
     public override object GetValue() {
@@ -299,8 +303,9 @@ namespace Ai.Hgb.Seidl.Data {
       return Initialized ? (Value.HasValue ? Value.Value.ToString() : "null") : "";
     }
 
-    public override string GetTypeString() {
-      return "bool";
+    public override string GetPropertyString(string name = null) {
+      return $"bool {name}";
+      //return $$"""public bool {{name}} { get; set; }""";
     }
 
     public override object GetValue() {
@@ -349,7 +354,7 @@ namespace Ai.Hgb.Seidl.Data {
       Elements.Add(type);
     }
     public override string GetIdentifier() {
-      return "array";
+      return "[]";
     }
 
     public override string GetValueString() {
@@ -360,13 +365,16 @@ namespace Ai.Hgb.Seidl.Data {
       return Elements.Select(x => x.GetValue());
     }
 
-    public override string GetTypeString() {
+    public override string GetPropertyString(string name = null) {
       if (DefinedType != null) {
-        return DefinedType.GetTypeString() + "[]";
+        return $"{DefinedType.GetIdentifier()}[] {name}";
+        //return $$"""public {{DefinedType.GetIdentifier()}}[] {{name}} { get; set; }""";
       } else if (Elements.Count > 0) {
-        return Elements.First().GetTypeString();
+        return $"{Elements.First().GetIdentifier()}[] {name}";
+        //return $$"""public {{Elements.First().GetIdentifier()}}[] {{name}} { get; set; }""";
       } else {
-        return "object[]";
+        return $"object[] {name}";
+        //return $$"""public object[] {{name}} { get; set; }""";
       }
     }
   }
@@ -405,14 +413,13 @@ namespace Ai.Hgb.Seidl.Data {
     public override object GetValue() {
       return Properties.Select(x => new KeyValuePair<string, object>(x.Key, x.Value.GetValue()));
     }
-
-    string structName = "newStruct"; // TODO
-    public override string GetTypeString() {
+    
+    public override string GetPropertyString(string name = null) {
 
       var sb = new StringBuilder();
-      sb.AppendLine($"struct {structName} " + "{");
-      foreach (var p in Properties) {
-        sb.AppendLine($"{p.Value.GetTypeString()} {p.Key};");
+      sb.AppendLine($"struct {name} " + "{");
+      foreach (var p in Properties) {        
+        sb.AppendLine($$"""public {{p.Value.GetPropertyString(p.Key)}} { get; set; }""");
       }
       sb.AppendLine("}");
 

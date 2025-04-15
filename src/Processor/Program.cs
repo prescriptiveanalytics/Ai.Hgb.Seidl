@@ -9,7 +9,7 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
   internal class Program {
     //public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo5.3l";
     public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo4.3l";
-
+    public static string generateResultPathRoot = @"..\..\..\..\";
 
     public static string repositoryHost = "127.0.0.1";
     public static int repositoryPort = 8001;
@@ -96,6 +96,10 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
       Console.WriteLine("points: " + string.Join(' ', rtNew.Points.Select(x => x.Id)));
       Console.WriteLine("routes: " + string.Join(' ', rtNew.Routes.Select(x => x.Id)));
 
+      // generate solution
+      Console.WriteLine($"\n\nGenerate solution: {table.Name}.{table.Tag}");
+      var generator = new Generator();
+      generator.GenerateSolution(table, generateResultPathRoot, true);
 
       Console.WriteLine("\n\n\nEnd of processing.");
     }

@@ -412,19 +412,28 @@ namespace Ai.Hgb.Seidl.Data {
 
       foreach (var symbol in nodetypeSymbols) {
         Dictionary<string, string> publishers, clients, servers;
-        var properties = (symbol as Node).Properties.Select(x => new KeyValuePair<string, string>(x.Key, x.Value.GetTypeString())).ToDictionary();
+        var symboltype = (Node)symbol.Type;
+        var properties = symboltype.Properties
+          .Select(x => new KeyValuePair<string, string>(x.Key, x.Value.GetPropertyString(x.Key)))
+          .ToDictionary();
         nodetypes.Add(new NodetypeRecord(
           name: symbol.Name,
           properties: properties
         ));
-      }      
-
+      }
+      
       return nodetypes;
     }
 
-    public Dictionary<string, string> GetDataStructures(IScope parent) {
-      var typeSymbols = GetSymbolsUpstream(parent).Where(x => x.Type is IAtomicType || x.Type is IComplexType);
-      return typeSymbols.ToDictionary(x => x.Name, y => (y as IType).GetTypeString());
+    public Dictionary<string, List<string>> GetDataStructures(IScope parent) {
+      var datastructures = new Dictionary<string, List<string>>();
+      var atomictypeSymbols = GetSymbolsUpstream(parent).Where(x => x.Type is IAtomicType || x.Type is Array);
+      var structtypeSymbols = GetSymbolsUpstream(parent).Where(x => x.Type is Struct);
+
+      datastructures.Add("properties", atomictypeSymbols.Select(x => (x.Type as IType).GetPropertyString(x.Name)).ToList());
+      datastructures.Add("structs", structtypeSymbols.Select(x => (x.Type as IType).GetPropertyString(x.Name)).ToList());
+  
+      return datastructures;
     }
 
     public StringBuilder Print(IScope parent) {

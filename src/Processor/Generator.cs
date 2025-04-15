@@ -1,71 +1,83 @@
 ﻿using Ai.Hgb.Common.Entities;
 using Ai.Hgb.Seidl.Data;
+using Antlr4.Runtime.Dfa;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Formatting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Ai.Hgb.Seidl.Processor {
   public class Generator {
 
     private CancellationTokenSource cts;
+    private AdhocWorkspace workspace;
+
+    private static string libTypeGuid = "9A19103F-16F7-4668-BE54-9A1E7A4F7556";
+    private static string appTypeGuid = "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC";
+
 
     public Generator() {
       cts = new CancellationTokenSource();
+      workspace = new AdhocWorkspace();
     }
 
-    public void GenerateSolution(ScopedSymbolTable sst, string resultPath) {
-      if(!Directory.Exists(resultPath)) Directory.CreateDirectory(resultPath);
+    public void GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overRide) {
+      string rootDir = Path.Combine(resultPathRoot, $"{sst.Name}.{sst.Tag}");
+      if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
 
+      var splits = sst.Name.Split('.').ToList();
+      string scope = string.Join('.', splits.Take(splits.Count - 1));
+      string name = splits.Last();
 
+      var projects = new List<ProjectInfo>();
+
+      string commonDir = Path.Combine(rootDir, "Common");
+      if (!Directory.Exists(commonDir)) Directory.CreateDirectory(commonDir);
+      var datastructures = sst.GetDataStructures(null);
+      GenerateCommonStubs(Path.Combine(commonDir, "Data.cs"), scope, name, datastructures);
+      GenerateCommonProjectFile(Path.Combine(commonDir, "Common.csproj"), scope, name);
+      projects.Add(new ProjectInfo(Guid.NewGuid().ToString().ToUpper(), "Common", $"Common\\Common.csproj", libTypeGuid));
+
+      var nodetypes = sst.GetNodetypes(null);
+      foreach (var nodetype in nodetypes) {
+        Console.WriteLine(nodetype.name);
+        string projectDir = Path.Combine(rootDir, nodetype.name);
+        if (!Directory.Exists(projectDir)) Directory.CreateDirectory(projectDir);
+        projects.Add(new ProjectInfo(Guid.NewGuid().ToString().ToUpper(), nodetype.name, $"{nodetype.name}\\{nodetype.name}.csproj", appTypeGuid));
+        GenerateNodetypeProjectFile(Path.Combine(projectDir, $"{nodetype.name}.csproj"), scope, nodetype.name);
+        GenerateNodetypeStubs(Path.Combine(projectDir, "Program.cs"), scope, nodetype.name);
+        GenerateDockerFile(Path.Combine(projectDir, "Dockerfile"), scope, nodetype.name);
+      }
+
+      GenerateSolutionFile(Path.Combine(rootDir, $"{name}.sln"), name, projects);
     }
 
     #region code generation
 
-    private Task GenerateStubs(string path, string resultPath) {
-      return Task.Run(async () => {
-        try {
-          string runId = Guid.NewGuid().ToString();
-          string text = File.ReadAllText(path);
-          string fileName = Path.GetFileNameWithoutExtension(path);
-          var pr = new ProgramRecord(text);
+    private void GenerateNodetypeStubs(string resultPath, string scope, string name) {
+      try {
 
-          string name = fileName;
-          string scope = "Sample";
+        var sb = new StringBuilder();
 
-          var sb = new StringBuilder();
-
-          RoutingTable rt = null;
-          List<InitializationRecord> inits = null;          
-
-          sb.AppendLine(
-            $$"""
+        sb.AppendLine(
+          $$"""
             using System.Text.Json;
             using System.Text.Json.Serialization;
             using Ai.Hgb.Common.Entities;
             using Ai.Hgb.Dat.Communication;
             using Ai.Hgb.Dat.Configuration;
             
-            namespace Ai.Hgb.Application.{{scope}}.{{name}} {
-              
-              public class Parameters : IApplicationParametersBase, IApplicationParametersNetworking {
-                [JsonPropertyName("name")]
-                public string Name { get; set; }
-
-                [JsonPropertyName("description")]
-                public string Description { get; set; }
-
-                [JsonPropertyName("applicationParametersBase")]
-                public ApplicationParametersBase ApplicationParametersBase { get; set; }
-
-                [JsonPropertyName("applicationParametersNetworking")]
-                public ApplicationParametersNetworking ApplicationParametersNetworking { get; set; }
-              }
-
+            namespace {{scope}}.{{name}} {              
               public class Program {
                 public static void Main(string[] args) {
                   Console.WriteLine("{{scope}}.{{name}}\n");
+
                   var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
                   var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
 
@@ -77,20 +89,23 @@ namespace Ai.Hgb.Seidl.Processor {
 
                   try {
                     socket = new MqttSocket(parameters.Name, parameters.Name, address, converter, connect: true);
+
+                    // <add publish, subscribe, request, response actions here>
+
             """);
 
 
-          foreach (var init in inits) {
-            foreach (var route in rt.Routes.Where(x => x.Sink.Id == init.name)) {
-              sb.AppendLine($"socket.Subscribe<>({route.SinkPort.Address}, ProcessPayload, cts.Token);");
-            }
-            foreach (var route in rt.Routes.Where(x => x.Source.Id == init.name)) {
-              sb.AppendLine($"socket.Publish({route.SourcePort.Address}, new Payload(...));");
-            }
-          }
+        //foreach (var init in inits) {
+        //  foreach (var route in rt.Routes.Where(x => x.Sink.Id == init.name)) {
+        //    sb.AppendLine($"socket.Subscribe<>({route.SinkPort.Address}, ProcessPayload, cts.Token);");
+        //  }
+        //  foreach (var route in rt.Routes.Where(x => x.Source.Id == init.name)) {
+        //    sb.AppendLine($"socket.Publish({route.SourcePort.Address}, new Payload(...));");
+        //  }
+        //}
 
-          sb.AppendLine(
-            $$"""              
+        sb.AppendLine(
+          $$"""              
                   } catch(Exception ex) {
                     Console.WriteLine(ex.Message);
                   } finally {
@@ -98,32 +113,47 @@ namespace Ai.Hgb.Seidl.Processor {
                   }
                 }
               }
+
+              public class Parameters : IApplicationParametersBase, IApplicationParametersNetworking {
+                [JsonPropertyName("name")]
+                public string Name { get; set; }
+            
+                [JsonPropertyName("description")]
+                public string Description { get; set; }
+            
+                [JsonPropertyName("applicationParametersBase")]
+                public ApplicationParametersBase ApplicationParametersBase { get; set; }
+            
+                [JsonPropertyName("applicationParametersNetworking")]
+                public ApplicationParametersNetworking ApplicationParametersNetworking { get; set; }
+            
+                // <add nodetype properties here>
+              }
             }            
             """);
 
-          File.WriteAllText(resultPath, sb.ToString());
+        var formattedCode = FormatCode(sb.ToString());
+        File.WriteAllText(resultPath, formattedCode);
 
-        }
-        catch (Exception ex) { Console.WriteLine(ex.Message); }
-      }, cts.Token);
+      }
+      catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
-    private Task GenerateProjectFile(string sourcePath, string resultPath, string scope, string name) {
-      return Task.Run(async () => {
-        try {
-          var sb = new StringBuilder();
+    private void GenerateNodetypeProjectFile(string resultPath, string scope, string name) {
+      try {
+        var sb = new StringBuilder();
 
-          sb.AppendLine(
-            $$"""
-              <Project Sdk="Microsoft.NET.Sdk">
+        sb.AppendLine(
+          $$"""
+            <Project Sdk="Microsoft.NET.Sdk">
 
               <PropertyGroup>
                 <OutputType>Exe</OutputType>
                 <TargetFramework>net9.0</TargetFramework>
                 <ImplicitUsings>enable</ImplicitUsings>
                 <Nullable>enable</Nullable>
-                <AssemblyName>Ai.Hgb.Application.{{scope}}.$(MSBuildProjectName)</AssemblyName>
-                <RootNamespace>Ai.Hgb.Application.{{scope}}.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+                <AssemblyName>{{scope}}.$(MSBuildProjectName)</AssemblyName>
+                <RootNamespace>{{scope}}.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
               </PropertyGroup>
 
             	<ItemGroup>
@@ -140,19 +170,17 @@ namespace Ai.Hgb.Seidl.Processor {
             
             """);
 
-          File.WriteAllText(resultPath, sb.ToString());
-        }
-        catch (Exception ex) { Console.WriteLine(ex.Message); }
-      }, cts.Token);
+        File.WriteAllText(resultPath, sb.ToString());
+      }
+      catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
-    private Task GenerateDockerFile(string sourcePath, string resultPath, string scope, string name) {
-      return Task.Run(async () => {
-        try {
-          var sb = new StringBuilder();
+    private void GenerateDockerFile(string resultPath, string scope, string name) {
+      try {
+        var sb = new StringBuilder();
 
-          sb.AppendLine(
-            $$"""
+        sb.AppendLine(
+          $$"""
               FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
               WORKDIR .
 
@@ -174,93 +202,142 @@ namespace Ai.Hgb.Seidl.Processor {
               FROM mcr.microsoft.com/dotnet/aspnet:9.0
               WORKDIR /{{name}}
               COPY --from=build-env /{{name}}/out .
-              ENTRYPOINT ["dotnet", "Ai.Hgb.Application.{{scope}}.{{name}}.dll"]
+              ENTRYPOINT ["dotnet", "{{scope}}.{{name}}.dll"]                        
+            """);
+
+        File.WriteAllText(resultPath, sb.ToString());
+      }
+      catch (Exception ex) { Console.WriteLine(ex.Message); }
+    }
+
+    private void GenerateCommonStubs(string resultPath, string scope, string name, Dictionary<string, List<string>> ds) {
+      try {        
+        var sb = new StringBuilder();
+
+        sb.AppendLine(
+        $$"""
+          namespace {{scope}}.Common {
+          public class Properties {          
+          """);
+
+        foreach (var element in ds["properties"]) {
+          sb.AppendLine($"public static {element};");
+        }
+        sb.AppendLine("}");
+        sb.AppendLine();
+
+        foreach (var element in ds["structs"]) {
+          sb.AppendLine($"public {element}");
+        }
+        sb.AppendLine("}");
+
+        var formattedCode = FormatCode(sb.ToString());
+        File.WriteAllText(resultPath, formattedCode);
+      }
+      catch (Exception ex) { Console.WriteLine(ex.Message); }
+    }
+
+    private void GenerateCommonProjectFile(string resultPath, string scope, string name) {
+      try {
+        var sb = new StringBuilder();
+
+        sb.AppendLine(
+          $$"""
+            <Project Sdk="Microsoft.NET.Sdk">
+
+              <PropertyGroup>
+                <TargetFramework>net9.0</TargetFramework>
+                <ImplicitUsings>enable</ImplicitUsings>
+                <Nullable>enable</Nullable>
+                <AssemblyName>{{scope}}.$(MSBuildProjectName)</AssemblyName>
+                <RootNamespace>{{scope}}.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+              </PropertyGroup>
+
             </Project>
             
             """);
 
-          File.WriteAllText(resultPath, sb.ToString());
-        }
-        catch (Exception ex) { Console.WriteLine(ex.Message); }
-      }, cts.Token);
+        File.WriteAllText(resultPath, sb.ToString());
+      }
+      catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
+    
+    private void GenerateSolutionFile(string resultPath, string name, List<ProjectInfo> projects) {
+      try {
+        var sb = new StringBuilder();
 
-    private Task GenerateCommonProject(string resultPath, string scope, string name) {
-      return Task.Run(async () => {
-        try {
-
-          // Data.cs
-          var sb = new StringBuilder();
-
-          sb.AppendLine(
+        sb.AppendLine(
           $$"""
-            namespace Ai.Hgb.Application.{{scope}}.Common {
-            public struct Message {
-              public string Id { get; set; }
-              public string Text { get; set; }
-              public double Value { get; set; }
+            Microsoft Visual Studio Solution File, Format Version 12.00
+            # Visual Studio Version 17
+            VisualStudioVersion = 17.1.32228.430
+            MinimumVisualStudioVersion = 10.0.40219.1
+            """);
 
-              public Document(string id, string text, double value) {
-                Id = id;
-                Author = author;
-                Value = value;
-              }
 
-              public override string ToString() {
-                return $"Id: {Id}\tText: {Text}\tValue: {Value}";
-              }
-            }
-          }          
-          """);
-          File.WriteAllText(resultPath, sb.ToString());
+        foreach (var project in projects) {
+          sb.AppendLine(
+            $$"""
+              Project("{{{project.tguid}}}") = "{{project.name}}", "{{project.path}}", "{{{project.pguid}}}"
+              EndProject
+          
+              """
+          );
         }
-        catch (Exception ex) { Console.WriteLine(ex.Message); }
-      }, cts.Token);
+
+
+        sb.AppendLine(
+          $$"""
+            Global
+              GlobalSection(SolutionConfigurationPlatforms) = preSolution
+            	  Debug|Any CPU = Debug|Any CPU
+            	  Release|Any CPU = Release|Any CPU
+              EndGlobalSection
+              GlobalSection(ProjectConfigurationPlatforms) = postSolution
+            """);
+
+        foreach (var project in projects) {
+          sb.AppendLine(
+            $$"""
+              	{{project.pguid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+              	{{project.pguid}}.Debug|Any CPU.Build.0 = Debug|Any CPU
+              	{{project.pguid}}.Release|Any CPU.ActiveCfg = Release|Any CPU
+              	{{project.pguid}}.Release|Any CPU.Build.0 = Release|Any CPU
+          
+              """
+          );
+        }
+
+        sb.AppendLine(
+            $$"""
+              EndGlobalSection
+              GlobalSection(SolutionProperties) = preSolution
+            	  HideSolutionNode = FALSE
+              EndGlobalSection
+              GlobalSection(ExtensibilityGlobals) = postSolution
+            	  SolutionGuid = {{Guid.NewGuid().ToString().ToUpper()}}
+              EndGlobalSection
+            EndGlobal
+            """);
+
+        File.WriteAllText(resultPath, sb.ToString());
+      }
+      catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
 
-    record ProjectInfo(string pguid, string name, string path, string tguid);
-    private Task GenerateSolutionFile(string resultPath, string name, List<ProjectInfo> projects) {
-      return Task.Run(async () => {
-        try {
-          var sb = new StringBuilder();
+    public string FormatCode(string csCode) {
+      var tree = CSharpSyntaxTree.ParseText(csCode);
+      var root = tree.GetRoot();
+      //root = root.NormalizeWhitespace("  ", false);
 
-          sb.AppendLine(
-            $$"""
-              Microsoft Visual Studio Solution File, Format Version 12.00
-              # Visual Studio Version 17
-              VisualStudioVersion = 17.4.33205.214
-              MinimumVisualStudioVersion = 10.0.40219.1
-            """);
+      var options = workspace.Options;
+      var froot = Formatter.Format(root, workspace, options);
 
-          // Lib: 9A19103F-16F7-4668-BE54-9A1E7A4F7556
-          // App: FAE04EC0-301F-11D3-BF4B-00C04F79EFBC
-          foreach (var project in projects) {
-            sb.AppendLine(
-              $$"""
-                Project("{{{project.tguid}}}") = "{{project.name}}", "{{project.path}}", "{{{project.pguid}}}"
-              """);
-          }
-
-          sb.AppendLine(
-            $$"""
-              Global
-                GlobalSection(SolutionConfigurationPlatforms) = preSolution
-            	    Debug|Any CPU = Debug|Any CPU
-            	    Release|Any CPU = Release|Any CPU
-                EndGlobalSection
-                GlobalSection(SolutionProperties) = preSolution
-            	    HideSolutionNode = FALSE
-                EndGlobalSection
-              EndGlobal
-            """);
-
-          File.WriteAllText(resultPath, sb.ToString());
-        }
-        catch (Exception ex) { Console.WriteLine(ex.Message); }
-      }, cts.Token);
+      return froot.ToFullString();
     }
 
+    public record ProjectInfo(string pguid, string name, string path, string tguid);
 
     #endregion code generation
   }
