@@ -37,7 +37,7 @@ SERVER              : 'server';
 PUBLISH             : 'publish';
 SUBSCRIBE           : 'subscribe';
 REQUEST             : 'request';
-RESPONSE            : 'response';
+RESPOND             : 'respond';
 PUB                 : 'pub';
 SUB                 : 'sub';
 REQ                 : 'req';

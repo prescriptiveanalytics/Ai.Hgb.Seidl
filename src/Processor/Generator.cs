@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -27,7 +28,7 @@ namespace Ai.Hgb.Seidl.Processor {
       workspace = new AdhocWorkspace();
     }
 
-    public void GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overRide) {
+    public List<ProjectInfo> GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overRide) {
       string rootDir = Path.Combine(resultPathRoot, $"{sst.Name}.{sst.Tag}");
       if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
 
@@ -51,19 +52,21 @@ namespace Ai.Hgb.Seidl.Processor {
         if (!Directory.Exists(projectDir)) Directory.CreateDirectory(projectDir);
         projects.Add(new ProjectInfo(Guid.NewGuid().ToString().ToUpper(), nodetype.name, $"{nodetype.name}\\{nodetype.name}.csproj", appTypeGuid));
         GenerateNodetypeProjectFile(Path.Combine(projectDir, $"{nodetype.name}.csproj"), scope, nodetype.name);
-        GenerateNodetypeStubs(Path.Combine(projectDir, "Program.cs"), scope, nodetype.name);
+        GenerateNodetypeStubs(Path.Combine(projectDir, "Program.cs"), scope, nodetype.name, nodetype);
         GenerateDockerFile(Path.Combine(projectDir, "Dockerfile"), scope, nodetype.name);
       }
 
       GenerateSolutionFile(Path.Combine(rootDir, $"{name}.sln"), name, projects);
+
+      return projects;
     }
 
     #region code generation
 
-    private void GenerateNodetypeStubs(string resultPath, string scope, string name) {
+    private void GenerateNodetypeStubs(string resultPath, string scope, string name, NodetypeRecord ntr) {
       try {
 
-        var sb = new StringBuilder();
+        var sb = new StringBuilder();        
 
         sb.AppendLine(
           $$"""
@@ -72,10 +75,11 @@ namespace Ai.Hgb.Seidl.Processor {
             using Ai.Hgb.Common.Entities;
             using Ai.Hgb.Dat.Communication;
             using Ai.Hgb.Dat.Configuration;
+            using {{scope}}.Common;
             
             namespace {{scope}}.{{name}} {              
               public class Program {
-                public static void Main(string[] args) {
+                public static async Task Main(string[] args) {
                   Console.WriteLine("{{scope}}.{{name}}\n");
 
                   var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
@@ -85,52 +89,96 @@ namespace Ai.Hgb.Seidl.Processor {
                   var address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
                   var converter = new JsonPayloadConverter();
                   var cts = new CancellationTokenSource();
+                  var token = cts.Token;
                   ISocket socket = null;
 
                   try {
-                    socket = new MqttSocket(parameters.Name, parameters.Name, address, converter, connect: true);
-
-                    // <add publish, subscribe, request, response actions here>
+                    socket = new MqttSocket(parameters.Name, parameters.Name, address, converter, connect: true);                    
 
             """);
 
+        // publish
+        sb.AppendLine("#region publish");
+        sb.AppendLine("var producerTasks = new Dictionary<string, Task>();");
+        foreach (var port in ntr.routingPoint.Ports.Where(x => x.Type == PortType.Producer)) {
+          sb.AppendLine();
+          sb.AppendLine($"// producer port: {port.Id}");          
+          string outPayloadId = "outPayload_" + port.Id;
+          string outPayloadTypeDef = port.OutPayloadTypes.Count > 1 ? "Tuple<" + string.Join(',', port.OutPayloadTypes) + $"> {outPayloadId} = default;" : port.OutPayloadTypes.First() + $" {outPayloadId} = default;";
+          sb.AppendLine(outPayloadTypeDef);          
+          sb.AppendLine($$"""foreach(var route in routingTable.Routes.Where(x => x.Source.Id == parameters.Name && x.SourcePort.Type == PortType.Producer && x.SourcePort.Id == "{{port.Id}}")) {""");
+          sb.AppendLine($$"""            
+            producerTasks["{{port.Id}}"] = new Task( () => {
+              // dummy code, replace with custom:
+              while(!token.IsCancellationRequested) {
+                socket.Publish(route.SourcePort.Address, {{outPayloadId}});     
+                Task.Delay(1000, token);
+              }              
+            }, token);}
+            """);          
+        }
 
-        //foreach (var init in inits) {
-        //  foreach (var route in rt.Routes.Where(x => x.Sink.Id == init.name)) {
-        //    sb.AppendLine($"socket.Subscribe<>({route.SinkPort.Address}, ProcessPayload, cts.Token);");
-        //  }
-        //  foreach (var route in rt.Routes.Where(x => x.Source.Id == init.name)) {
-        //    sb.AppendLine($"socket.Publish({route.SourcePort.Address}, new Payload(...));");
-        //  }
-        //}
+        sb.AppendLine("var producerTasksFlat = producerTasks.Values.ToList();");
+        sb.AppendLine("#endregion publish");
+        sb.AppendLine();
+
+        // subscribe
+        sb.AppendLine("#region subscribe");
+        // TODO
+        sb.AppendLine("#endregion subscribe");
+        sb.AppendLine();
+
+        // request (client)
+        sb.AppendLine("#region request");
+        sb.AppendLine("var requestTasks = new Dictionary<string, Task>();");
+        // TODO
+        sb.AppendLine("var requestTasksFlat = requestTasks.Values.ToList();");
+        sb.AppendLine("#endregion request");
+        sb.AppendLine();
+
+        // respond (server)
+        sb.AppendLine("#region respond");
+        // TODO
+        sb.AppendLine("#endregion respond");
+        sb.AppendLine();
+
+        sb.AppendLine();
+        sb.AppendLine("// start publish and request actions");
+        sb.AppendLine("producerTasksFlat.ForEach(x => x.Start());");
+        sb.AppendLine("requestTasksFlat.ForEach(x => x.Start());");
+        sb.AppendLine();
+        sb.AppendLine("// do something else ...");
+        sb.AppendLine();
+        sb.AppendLine("// await publish and request actions");
+        sb.AppendLine("await Task.WhenAll(producerTasksFlat);");
+        sb.AppendLine("await Task.WhenAll(requestTasksFlat);");               
 
         sb.AppendLine(
           $$"""              
                   } catch(Exception ex) {
                     Console.WriteLine(ex.Message);
                   } finally {
+                    socket.Unsubscribe();
                     socket.Disconnect();
                   }
                 }
               }
 
-              public class Parameters : IApplicationParametersBase, IApplicationParametersNetworking {
-                [JsonPropertyName("name")]
-                public string Name { get; set; }
-            
-                [JsonPropertyName("description")]
-                public string Description { get; set; }
-            
+              public class Parameters : IApplicationParametersBase, IApplicationParametersNetworking {            
                 [JsonPropertyName("applicationParametersBase")]
                 public ApplicationParametersBase ApplicationParametersBase { get; set; }
             
                 [JsonPropertyName("applicationParametersNetworking")]
-                public ApplicationParametersNetworking ApplicationParametersNetworking { get; set; }
-            
-                // <add nodetype properties here>
-              }
-            }            
+                public ApplicationParametersNetworking ApplicationParametersNetworking { get; set; }        
             """);
+
+        foreach(var property in ntr.properties) {
+          sb.AppendLine();
+          sb.AppendLine($$"""[JsonPropertyName("{{property.Key}}")]""");
+          sb.AppendLine($$"""public {{property.Value}} { get; set; }""");          
+        }
+
+        sb.AppendLine("}}");
 
         var formattedCode = FormatCode(sb.ToString());
         File.WriteAllText(resultPath, formattedCode);
@@ -157,7 +205,7 @@ namespace Ai.Hgb.Seidl.Processor {
               </PropertyGroup>
 
             	<ItemGroup>
-            	  <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.13-prerelease-gb162266326" />
+            	  <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.15-prerelease-g369bb9a25a" />
             	  <PackageReference Include="Ai.Hgb.Dat.Communication" Version="0.1.7-prerelease-gdaf7bfe3e4" />
             	  <PackageReference Include="Ai.Hgb.Dat.Configuration" Version="0.1.11-prerelease-gdaf7bfe3e4" />
             	  <PackageReference Include="Ai.Hgb.Dat.Utils" Version="0.1.5-prerelease-gdaf7bfe3e4" />
@@ -265,7 +313,7 @@ namespace Ai.Hgb.Seidl.Processor {
     private void GenerateSolutionFile(string resultPath, string name, List<ProjectInfo> projects) {
       try {
         var sb = new StringBuilder();
-
+         
         sb.AppendLine(
           $$"""
             Microsoft Visual Studio Solution File, Format Version 12.00

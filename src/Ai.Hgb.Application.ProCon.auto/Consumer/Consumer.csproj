@@ -10,7 +10,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.13-prerelease-gb162266326" />
+	  <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.15-prerelease-g369bb9a25a" />
 	  <PackageReference Include="Ai.Hgb.Dat.Communication" Version="0.1.7-prerelease-gdaf7bfe3e4" />
 	  <PackageReference Include="Ai.Hgb.Dat.Configuration" Version="0.1.11-prerelease-gdaf7bfe3e4" />
 	  <PackageReference Include="Ai.Hgb.Dat.Utils" Version="0.1.5-prerelease-gdaf7bfe3e4" />

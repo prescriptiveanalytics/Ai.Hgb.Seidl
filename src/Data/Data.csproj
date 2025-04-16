@@ -14,7 +14,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.13-prerelease-gb162266326" />
+	  <PackageReference Include="Ai.Hgb.Common.Entities" Version="0.1.15-prerelease-g369bb9a25a" />
 	</ItemGroup>
 
 	<ItemGroup>

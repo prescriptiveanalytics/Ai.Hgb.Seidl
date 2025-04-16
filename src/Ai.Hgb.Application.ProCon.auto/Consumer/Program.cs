@@ -3,12 +3,13 @@ using System.Text.Json.Serialization;
 using Ai.Hgb.Common.Entities;
 using Ai.Hgb.Dat.Communication;
 using Ai.Hgb.Dat.Configuration;
+using Ai.Hgb.Application.Common;
 
 namespace Ai.Hgb.Application.Consumer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Console.WriteLine("Ai.Hgb.Application.Consumer\n");
 
@@ -19,14 +20,39 @@ namespace Ai.Hgb.Application.Consumer
             var address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
             var converter = new JsonPayloadConverter();
             var cts = new CancellationTokenSource();
+            var token = cts.Token;
             ISocket socket = null;
 
             try
             {
                 socket = new MqttSocket(parameters.Name, parameters.Name, address, converter, connect: true);
 
-                // <add publish, subscribe, request, response actions here>
+                #region publish
+                var producerTasks = new Dictionary<string, Task>();
+                var producerTasksFlat = producerTasks.Values.ToList();
+                #endregion publish
 
+                #region subscribe
+                #endregion subscribe
+
+                #region request
+                var requestTasks = new Dictionary<string, Task>();
+                var requestTasksFlat = requestTasks.Values.ToList();
+                #endregion request
+
+                #region respond
+                #endregion respond
+
+
+                // start publish and request actions
+                producerTasksFlat.ForEach(x => x.Start());
+                requestTasksFlat.ForEach(x => x.Start());
+
+                // do something else ...
+
+                // await publish and request actions
+                await Task.WhenAll(producerTasksFlat);
+                await Task.WhenAll(requestTasksFlat);
             }
             catch (Exception ex)
             {
@@ -34,6 +60,7 @@ namespace Ai.Hgb.Application.Consumer
             }
             finally
             {
+                socket.Unsubscribe();
                 socket.Disconnect();
             }
         }
@@ -41,18 +68,19 @@ namespace Ai.Hgb.Application.Consumer
 
     public class Parameters : IApplicationParametersBase, IApplicationParametersNetworking
     {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
         [JsonPropertyName("applicationParametersBase")]
         public ApplicationParametersBase ApplicationParametersBase { get; set; }
 
         [JsonPropertyName("applicationParametersNetworking")]
         public ApplicationParametersNetworking ApplicationParametersNetworking { get; set; }
 
-        // <add nodetype properties here>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [JsonPropertyName("docCount")]
+        public int DocCount { get; set; }
     }
 }

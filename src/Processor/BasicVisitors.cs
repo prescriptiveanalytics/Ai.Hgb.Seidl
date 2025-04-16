@@ -235,8 +235,8 @@ namespace Ai.Hgb.Seidl.Processor {
           if (t != null) type = t.ShallowCopy();
           else throw new ArgumentException($"The message parameter {typename} is not / derived from a base type and hence, not allowed.");
         }
-
-        message.AddParameter(type, parametername, topic);
+        var tn = typename.GetText();
+        message.AddParameter(type, typename.GetText(), parametername, topic);
       }
 
       scopedSymbolTable.AddSymbol(name, message, currentScope, true);
@@ -788,19 +788,21 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public static void ReadNodeBody(SeidlParser.NodebodyContext body, Node node, ScopedSymbolTable scopedSymbolTable, Scope currentScope) {
+
+      // parse ports (publish, subscribe)
       if (body.inout != null) {
         for (int i = 0; i < body.nodebodyinout().Length; i++) {
-
           var inout = body.nodebodyinout()[i];
           var msgname = inout.messagetypelist().variable(0).GetText();
           var msgtypename = inout.messagetypelist().messagetypename(0).GetText();
           var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
 
-          if (inout.INPUT != null) node.Inputs.Add(msgname, msgtype);
-          else node.Outputs.Add(msgname, msgtype);
+          if(inout.PUBLISH() != null) node.Publish.Add(msgname, msgtype);
+          else if(inout.SUBSCRIBE() != null) node.Subscribe.Add(msgname, msgtype);          
         }
       }
 
+      // parse properties
       foreach (var propertyCtx in body.nodebodyproperty()) {
         var typecode = propertyCtx.type()?.Start.Type;
         var typename = propertyCtx.typename()?.GetText();
@@ -820,6 +822,7 @@ namespace Ai.Hgb.Seidl.Processor {
       //  }
       //}
 
+      // image
       var imageCtxList = body.nodebodyimage();
       if (imageCtxList != null && imageCtxList.Length > 0) {
         var imageCtx = imageCtxList.Last();
@@ -828,6 +831,7 @@ namespace Ai.Hgb.Seidl.Processor {
         node.ImageTag = nameTag.Item2;
       }
 
+      // command
       var commandCtxList = body.nodebodycommand();
       if(commandCtxList != null && commandCtxList.Length > 0) {
         var commandCtx = commandCtxList.Last();

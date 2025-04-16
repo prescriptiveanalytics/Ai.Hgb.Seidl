@@ -12,7 +12,7 @@ using System.Formats.Tar;
 using System.Reflection.Metadata.Ecma335;
 
 namespace Ai.Hgb.Seidl.Processor {
-  public class Utils {
+  public static class Utils {
 
     public static string ReadFile(string filePath) {
       if (!File.Exists(filePath)) throw new FileNotFoundException($"Warning: File could not be found.");
@@ -252,7 +252,16 @@ namespace Ai.Hgb.Seidl.Processor {
 
     public static string TrimStringbody(string str) {
       return str.Substring(1, str.Length - 2);                
-    }
+    }    
+  }
 
+  public static class StringExtensions {
+    public static string FirstCharToUpper(this string input) =>
+        input switch
+        {
+          null => throw new ArgumentNullException(nameof(input)),
+          "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+          _ => input[0].ToString().ToUpper() + input.Substring(1)
+        };
   }
 }

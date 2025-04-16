@@ -559,12 +559,6 @@ public interface ISeidlParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitNodebodyinout([NotNull] SeidlParser.NodebodyinoutContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SeidlParser.inoutoption"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitInoutoption([NotNull] SeidlParser.InoutoptionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="SeidlParser.nodebodyproperty"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -71,7 +71,7 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public virtual string GetPropertyString(string name = null) {
-      return $"object {name}";
+      return $"object {name.FirstCharToUpper()}";
       //return $$"""public object {{name}} { get; set; }""";
     }
   }
@@ -130,7 +130,7 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override string GetPropertyString(string name = null) {
-      return $"string {name}";
+      return $"string {name.FirstCharToUpper()}";
       //return $$"""public string {{name}} { get; set; }""";
     }
 
@@ -185,7 +185,7 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override string GetPropertyString(string name = null) {
-      return $"int {name}";
+      return $"int {name.FirstCharToUpper()}";
       //return $$"""public int {{name}} { get; set; }""";
     }
 
@@ -243,7 +243,7 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override string GetPropertyString(string name = null) {
-      return $"float {name}";
+      return $"float {name.FirstCharToUpper()}";
       //return $$"""public float {{name}} { get; set; }""";
     }
 
@@ -304,7 +304,7 @@ namespace Ai.Hgb.Seidl.Data {
     }
 
     public override string GetPropertyString(string name = null) {
-      return $"bool {name}";
+      return $"bool {name.FirstCharToUpper()}";
       //return $$"""public bool {{name}} { get; set; }""";
     }
 
@@ -367,13 +367,13 @@ namespace Ai.Hgb.Seidl.Data {
 
     public override string GetPropertyString(string name = null) {
       if (DefinedType != null) {
-        return $"{DefinedType.GetIdentifier()}[] {name}";
+        return $"{DefinedType.GetIdentifier()}[] {name.FirstCharToUpper()}";
         //return $$"""public {{DefinedType.GetIdentifier()}}[] {{name}} { get; set; }""";
       } else if (Elements.Count > 0) {
-        return $"{Elements.First().GetIdentifier()}[] {name}";
+        return $"{Elements.First().GetIdentifier()}[] {name.FirstCharToUpper()}";
         //return $$"""public {{Elements.First().GetIdentifier()}}[] {{name}} { get; set; }""";
       } else {
-        return $"object[] {name}";
+        return $"object[] {name.FirstCharToUpper()}";
         //return $$"""public object[] {{name}} { get; set; }""";
       }
     }
@@ -417,7 +417,7 @@ namespace Ai.Hgb.Seidl.Data {
     public override string GetPropertyString(string name = null) {
 
       var sb = new StringBuilder();
-      sb.AppendLine($"struct {name} " + "{");
+      sb.AppendLine($"struct {name.FirstCharToUpper()} " + "{");
       foreach (var p in Properties) {        
         sb.AppendLine($$"""public {{p.Value.GetPropertyString(p.Key)}} { get; set; }""");
       }
@@ -434,29 +434,31 @@ namespace Ai.Hgb.Seidl.Data {
   public class MessageParameter : Type, IType {
     IType Type { get; set; }
 
+    public string TypeName { get; set; }
+
     public string Name { get; set; }
     public bool Topic { get; set; }    
 
     public MessageParameter() { }
 
-    public MessageParameter(IType type, string name, bool topic = false) {
+    public MessageParameter(IType type, string typename, string name, bool topic = false) {
       Type = type;
+      TypeName = typename;
       Name = name;
       Topic = topic;
     }
 
     public override IType ShallowCopy() {
-      return new MessageParameter(Type.ShallowCopy(), Name, Topic);            
+      return new MessageParameter(Type.ShallowCopy(), TypeName, Name, Topic);            
     }
 
     public override IType DeepCopy() {
-      return new MessageParameter(Type.DeepCopy(), Name, Topic);
+      return new MessageParameter(Type.DeepCopy(), TypeName, Name, Topic);
     }
 
     public override object GetValue() {
       return Type.GetValue();
     }
-
   }
 
   public class Message : Type, IGraphType {
@@ -466,8 +468,8 @@ namespace Ai.Hgb.Seidl.Data {
       Parameters = new Dictionary<string, MessageParameter>();      
     }
 
-    public void AddParameter(IType type, string name, bool topic = false) {
-      Parameters.Add(name, new MessageParameter(type, name, topic));
+    public void AddParameter(IType type, string typename, string name, bool topic = false) {
+      Parameters.Add(name, new MessageParameter(type, typename, name, topic));
     }
 
     public override IType ShallowCopy() {
@@ -509,6 +511,11 @@ namespace Ai.Hgb.Seidl.Data {
     public Dictionary<string, Message> Inputs { get; set; } // input port names and types
     public Dictionary<string, Message> Outputs { get; set; } // output port names and types
 
+    public Dictionary<string, Message> Publish { get; set; }
+    public Dictionary<string, Message> Subscribe { get; set; }
+    public Dictionary<string, Tuple<Message, Message>> Request { get; set; }
+    public Dictionary<string, Tuple<Message, Message>> Respond { get; set; }
+
     public List<string> Sources { get; set; } // input node names (incoming messages)
     public List<string> Sinks { get; set; } // output node names (outgoing messages)
 
@@ -519,6 +526,11 @@ namespace Ai.Hgb.Seidl.Data {
       Properties = new Dictionary<string, IType>();
       Inputs = new Dictionary<string, Message>();
       Outputs = new Dictionary<string, Message>();
+      Publish = new Dictionary<string, Message>();
+      Subscribe = new Dictionary<string, Message>();
+      Request = new Dictionary<string, Tuple<Message, Message>>();
+      Respond = new Dictionary<string, Tuple<Message, Message>>();
+
       Sources = new List<string>();
       Sinks = new List<string>();
       Edges = new List<Edge>();

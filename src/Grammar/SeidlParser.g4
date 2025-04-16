@@ -336,7 +336,7 @@ edgetypedefinition
 edgetypebody
     : (
         REQUEST messagetypename
-        | RESPONSE messagetypename
+        | RESPOND messagetypename
         | terminator
         )*
     ;
@@ -369,12 +369,8 @@ nodebodyinout
     | OUTPUT messagetypelist
     | PUBLISH messagetypelist
     | SUBSCRIBE messagetypelist
-    | INPUT '[' inoutoption ']' messagetypelist
-    | OUTPUT '[' inoutoption ']' messagetypelist
-    ;
-
-inoutoption
-    : (AUX | REQ | RES | REQUEST | RESPONSE | PUB | SUB | PUBLISH | SUBSCRIBE) ':' NAME
+    | REQUEST messagetypename messagetypename variable
+    | RESPOND messagetypename messagetypename variable
     ;
 
 nodebodyproperty

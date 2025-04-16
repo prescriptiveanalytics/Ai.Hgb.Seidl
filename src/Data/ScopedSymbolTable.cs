@@ -384,13 +384,8 @@ namespace Ai.Hgb.Seidl.Data {
       var rt = new RoutingTable();      
       // loop over all node instances
       foreach (ISymbol s in GetSymbolsUpstream().Where(x => x.Type is Node && !x.IsTypedef)) {
-        var nt = (Ai.Hgb.Seidl.Data.Node)s.Type;
-        var ports = new List<Port>();
-        //foreach(var source in nt.Sources) ports.Add(new Port() { Id = source, Type = PortType.Out });
-        //foreach (var sink in nt.Sinks) ports.Add(new Port() { Id = sink, Type = PortType.In });
-        foreach (var p in nt.Inputs) ports.Add(new Port() { Id = p.Key, Type = PortType.In });
-        foreach (var p in nt.Outputs) ports.Add(new Port() { Id = p.Key, Type = PortType.Out });
-        rt.AddPoint(new Point(s.Name, nt.GetIdentifier(), nt.ImageName + ":" + nt.ImageTag, ports));
+        var p = CreatePoint(s);
+        rt.AddPoint(p);
       }
 
       // loop over all edges
@@ -418,11 +413,29 @@ namespace Ai.Hgb.Seidl.Data {
           .ToDictionary();
         nodetypes.Add(new NodetypeRecord(
           name: symbol.Name,
-          properties: properties
-        ));
+          properties: properties,
+          routingPoint: CreatePoint(symbol)
+        ));        
       }
       
       return nodetypes;
+    }
+
+    private Point CreatePoint(ISymbol s) {
+      var nt = (Ai.Hgb.Seidl.Data.Node)s.Type;
+      var ports = new List<Port>();
+      foreach (var p in nt.Subscribe) ports.Add(new Port() { Id = p.Key, Type = PortType.Consumer, InPayloadTypes = new List<string>{ "Document" } });
+      foreach (var p in nt.Publish) ports.Add(new Port() { Id = p.Key, Type = PortType.Producer, OutPayloadTypes = p.Value.Parameters.Values.Select(x => x.TypeName).ToList() });
+
+      //Console.WriteLine();
+      //foreach (var p in ports) {
+      //  Console.WriteLine("types in " + p.Id);
+      //  if (p.OutPayloadTypes != null) {
+      //    foreach (var opt in p.OutPayloadTypes) Console.WriteLine(opt);
+      //  }
+      //}
+
+      return new Point(s.Name, nt.GetIdentifier(), nt.ImageName + ":" + nt.ImageTag, ports);
     }
 
     public Dictionary<string, List<string>> GetDataStructures(IScope parent) {
