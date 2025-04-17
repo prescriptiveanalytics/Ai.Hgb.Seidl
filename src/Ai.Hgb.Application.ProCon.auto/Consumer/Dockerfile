@@ -19,4 +19,4 @@
   FROM mcr.microsoft.com/dotnet/aspnet:9.0
   WORKDIR /Consumer
   COPY --from=build-env /Consumer/out .
-  ENTRYPOINT ["dotnet", "Ai.Hgb.Application.Consumer.dll"]                        
+  ENTRYPOINT ["dotnet", "Ai.Hgb.Application.ProCon.Consumer.dll"]                        

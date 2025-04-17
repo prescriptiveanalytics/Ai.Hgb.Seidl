@@ -33,7 +33,8 @@ namespace Ai.Hgb.Seidl.Processor {
       if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
 
       var splits = sst.Name.Split('.').ToList();
-      string scope = string.Join('.', splits.Take(splits.Count - 1));
+      //string scope = string.Join('.', splits.Take(splits.Count - 1));
+      string scope = sst.Name;
       string name = splits.Last();
 
       var projects = new List<ProjectInfo>();
@@ -102,14 +103,15 @@ namespace Ai.Hgb.Seidl.Processor {
         sb.AppendLine("var producerTasks = new Dictionary<string, Task>();");
         foreach (var port in ntr.routingPoint.Ports.Where(x => x.Type == PortType.Producer)) {
           sb.AppendLine();
-          sb.AppendLine($"// producer port: {port.Id}");          
+          sb.AppendLine("// TODO: move the following to the desired position");
+          sb.AppendLine($"// publish port: {port.Id}");          
           string outPayloadId = "outPayload_" + port.Id;
           string outPayloadTypeDef = port.OutPayloadTypes.Count > 1 ? "Tuple<" + string.Join(',', port.OutPayloadTypes) + $"> {outPayloadId} = default;" : port.OutPayloadTypes.First() + $" {outPayloadId} = default;";
           sb.AppendLine(outPayloadTypeDef);          
           sb.AppendLine($$"""foreach(var route in routingTable.Routes.Where(x => x.Source.Id == parameters.Name && x.SourcePort.Type == PortType.Producer && x.SourcePort.Id == "{{port.Id}}")) {""");
           sb.AppendLine($$"""            
             producerTasks["{{port.Id}}"] = new Task( () => {
-              // dummy code, replace with custom:
+              // TODO: modify the following control structures by your needs
               while(!token.IsCancellationRequested) {
                 socket.Publish(route.SourcePort.Address, {{outPayloadId}});     
                 Task.Delay(1000, token);
@@ -124,7 +126,22 @@ namespace Ai.Hgb.Seidl.Processor {
 
         // subscribe
         sb.AppendLine("#region subscribe");
-        // TODO
+        foreach(var port in ntr.routingPoint.Ports.Where(x => x.Type == PortType.Consumer)) {
+          sb.AppendLine();
+          sb.AppendLine("// TODO: move the following to the desired position");
+          sb.AppendLine($"// subscription port: {port.Id}");
+          string inPayloadType = port.InPayloadTypes.Count > 1 ? $"Tuple<{string.Join(',', port.InPayloadTypes)}>" : port.InPayloadTypes.First();
+          sb.AppendLine($$"""foreach(var route in routingTable.Routes.Where(x => x.Sink.Id == parameters.Name && x.SinkPort.Type == PortType.Consumer && x.SinkPort.Id == "{{port.Id}}")) {""");
+          sb.AppendLine($$"""
+            socket.Subscribe<{{inPayloadType}}>(route.SinkPort.Address, (msg, t) => {
+              // TODO: modify the following by your needs
+              var payload = ({{inPayloadType}})msg.Content;
+              Console.WriteLine($"Received message: {payload.ToString()}");
+            }, token);
+            """);
+          sb.AppendLine("}");
+        }
+
         sb.AppendLine("#endregion subscribe");
         sb.AppendLine();
 

@@ -5,8 +5,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyName>Ai.Hgb.Application.$(MSBuildProjectName)</AssemblyName>
-    <RootNamespace>Ai.Hgb.Application.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>Ai.Hgb.Application.ProCon.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>Ai.Hgb.Application.ProCon.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
   </PropertyGroup>
 
 	<ItemGroup>

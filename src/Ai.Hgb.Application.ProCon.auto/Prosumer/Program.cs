@@ -3,15 +3,15 @@ using System.Text.Json.Serialization;
 using Ai.Hgb.Common.Entities;
 using Ai.Hgb.Dat.Communication;
 using Ai.Hgb.Dat.Configuration;
-using Ai.Hgb.Application.Common;
+using Ai.Hgb.Application.ProCon.Common;
 
-namespace Ai.Hgb.Application.Prosumer
+namespace Ai.Hgb.Application.ProCon.Prosumer
 {
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine("Ai.Hgb.Application.Prosumer\n");
+            Console.WriteLine("Ai.Hgb.Application.ProCon.Prosumer\n");
 
             var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
             var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
@@ -30,13 +30,14 @@ namespace Ai.Hgb.Application.Prosumer
                 #region publish
                 var producerTasks = new Dictionary<string, Task>();
 
-                // producer port: docs
+                // TODO: move the following to the desired position
+                // publish port: docs
                 Document outPayload_docs = default;
                 foreach (var route in routingTable.Routes.Where(x => x.Source.Id == parameters.Name && x.SourcePort.Type == PortType.Producer && x.SourcePort.Id == "docs"))
                 {
                     producerTasks["docs"] = new Task(() =>
                     {
-                        // dummy code, replace with custom:
+                        // TODO: modify the following control structures by your needs
                         while (!token.IsCancellationRequested)
                         {
                             socket.Publish(route.SourcePort.Address, outPayload_docs);
@@ -48,6 +49,18 @@ namespace Ai.Hgb.Application.Prosumer
                 #endregion publish
 
                 #region subscribe
+
+                // TODO: move the following to the desired position
+                // subscription port: docparts
+                foreach (var route in routingTable.Routes.Where(x => x.Sink.Id == parameters.Name && x.SinkPort.Type == PortType.Consumer && x.SinkPort.Id == "docparts"))
+                {
+                    socket.Subscribe<Document>(route.SinkPort.Address, (msg, t) =>
+                    {
+                        // TODO: modify the following by your needs
+                        var payload = (Document)msg.Content;
+                        Console.WriteLine($"Received message: {payload.ToString()}");
+                    }, token);
+                }
                 #endregion subscribe
 
                 #region request

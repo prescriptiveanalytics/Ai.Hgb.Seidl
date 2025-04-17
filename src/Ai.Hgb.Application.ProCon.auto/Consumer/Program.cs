@@ -3,15 +3,15 @@ using System.Text.Json.Serialization;
 using Ai.Hgb.Common.Entities;
 using Ai.Hgb.Dat.Communication;
 using Ai.Hgb.Dat.Configuration;
-using Ai.Hgb.Application.Common;
+using Ai.Hgb.Application.ProCon.Common;
 
-namespace Ai.Hgb.Application.Consumer
+namespace Ai.Hgb.Application.ProCon.Consumer
 {
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine("Ai.Hgb.Application.Consumer\n");
+            Console.WriteLine("Ai.Hgb.Application.ProCon.Consumer\n");
 
             var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
             var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
@@ -33,6 +33,18 @@ namespace Ai.Hgb.Application.Consumer
                 #endregion publish
 
                 #region subscribe
+
+                // TODO: move the following to the desired position
+                // subscription port: docs
+                foreach (var route in routingTable.Routes.Where(x => x.Sink.Id == parameters.Name && x.SinkPort.Type == PortType.Consumer && x.SinkPort.Id == "docs"))
+                {
+                    socket.Subscribe<Document>(route.SinkPort.Address, (msg, t) =>
+                    {
+                        // TODO: modify the following by your needs
+                        var payload = (Document)msg.Content;
+                        Console.WriteLine($"Received message: {payload.ToString()}");
+                    }, token);
+                }
                 #endregion subscribe
 
                 #region request

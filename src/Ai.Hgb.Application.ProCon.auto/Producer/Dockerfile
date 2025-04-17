@@ -19,4 +19,4 @@
   FROM mcr.microsoft.com/dotnet/aspnet:9.0
   WORKDIR /Producer
   COPY --from=build-env /Producer/out .
-  ENTRYPOINT ["dotnet", "Ai.Hgb.Application.Producer.dll"]                        
+  ENTRYPOINT ["dotnet", "Ai.Hgb.Application.ProCon.Producer.dll"]                        

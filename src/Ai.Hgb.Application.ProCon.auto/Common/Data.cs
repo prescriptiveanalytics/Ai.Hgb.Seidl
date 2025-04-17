@@ -1,4 +1,4 @@
-namespace Ai.Hgb.Application.Common
+namespace Ai.Hgb.Application.ProCon.Common
 {
     public class Properties
     {
