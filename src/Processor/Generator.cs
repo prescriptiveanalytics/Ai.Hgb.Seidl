@@ -48,7 +48,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
       var nodetypes = sst.GetNodetypes(null);
       foreach (var nodetype in nodetypes) {
-        Console.WriteLine(nodetype.name);
+        //Console.WriteLine(nodetype.name);
         string projectDir = Path.Combine(rootDir, nodetype.name);
         if (!Directory.Exists(projectDir)) Directory.CreateDirectory(projectDir);
         projects.Add(new ProjectInfo(Guid.NewGuid().ToString().ToUpper(), nodetype.name, $"{nodetype.name}\\{nodetype.name}.csproj", appTypeGuid));
