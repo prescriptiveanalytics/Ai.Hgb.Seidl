@@ -76,7 +76,7 @@ namespace Ai.Hgb.Application.ProCon.Prosumer
                 producerTasksFlat.ForEach(x => x.Start());
                 requestTasksFlat.ForEach(x => x.Start());
 
-                // do something else ...
+                // TODO: do something else ...
 
                 // await publish and request actions
                 await Task.WhenAll(producerTasksFlat);

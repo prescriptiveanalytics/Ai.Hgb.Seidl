@@ -22,13 +22,15 @@ namespace Ai.Hgb.Seidl.Processor {
     private static string libTypeGuid = "9A19103F-16F7-4668-BE54-9A1E7A4F7556";
     private static string appTypeGuid = "FAE04EC0-301F-11D3-BF4B-00C04F79EFBC";
 
+    public List<Data.ProjectInfo> Projects { get; set; }
+
 
     public Generator() {
       cts = new CancellationTokenSource();
       workspace = new AdhocWorkspace();
     }
 
-    public List<ProjectInfo> GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overRide) {
+    public List<Data.ProjectInfo> GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overRide) {
       string rootDir = Path.Combine(resultPathRoot, $"{sst.Name}.{sst.Tag}");
       if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
 
@@ -37,21 +39,21 @@ namespace Ai.Hgb.Seidl.Processor {
       string scope = sst.Name;
       string name = splits.Last();
 
-      var projects = new List<ProjectInfo>();
+      var projects = new List<Data.ProjectInfo>();
 
       string commonDir = Path.Combine(rootDir, "Common");
       if (!Directory.Exists(commonDir)) Directory.CreateDirectory(commonDir);
       var datastructures = sst.GetDataStructures(null);
       GenerateCommonStubs(Path.Combine(commonDir, "Data.cs"), scope, name, datastructures);
       GenerateCommonProjectFile(Path.Combine(commonDir, "Common.csproj"), scope, name);
-      projects.Add(new ProjectInfo(Guid.NewGuid().ToString().ToUpper(), "Common", $"Common\\Common.csproj", libTypeGuid));
+      projects.Add(new Data.ProjectInfo(Guid.NewGuid().ToString().ToUpper(), libTypeGuid, "Common", ".\\Common", $"Common\\Common.csproj", commonDir, null, null, null));
 
       var nodetypes = sst.GetNodetypes(null);
       foreach (var nodetype in nodetypes) {
         //Console.WriteLine(nodetype.name);
         string projectDir = Path.Combine(rootDir, nodetype.name);
-        if (!Directory.Exists(projectDir)) Directory.CreateDirectory(projectDir);
-        projects.Add(new ProjectInfo(Guid.NewGuid().ToString().ToUpper(), nodetype.name, $"{nodetype.name}\\{nodetype.name}.csproj", appTypeGuid));
+        if (!Directory.Exists(projectDir)) Directory.CreateDirectory(projectDir);        
+        projects.Add(new Data.ProjectInfo(Guid.NewGuid().ToString().ToUpper(), appTypeGuid, nodetype.name, $".\\{nodetype.name}", $"{nodetype.name}\\{nodetype.name}.csproj", projectDir, nodetype.imageName, nodetype.imageTag, nodetype.command));
         GenerateNodetypeProjectFile(Path.Combine(projectDir, $"{nodetype.name}.csproj"), scope, nodetype.name);
         GenerateNodetypeStubs(Path.Combine(projectDir, "Program.cs"), scope, nodetype.name, nodetype);
         GenerateDockerFile(Path.Combine(projectDir, "Dockerfile"), scope, nodetype.name);
@@ -59,7 +61,35 @@ namespace Ai.Hgb.Seidl.Processor {
 
       GenerateSolutionFile(Path.Combine(rootDir, $"{name}.sln"), name, projects);
 
-      return projects;
+      Projects = projects;
+      return Projects;
+    }
+
+    public List<Data.ProjectInfo> GetProjectInfos() {
+      return Projects;
+    }
+
+    public List<Data.ProjectInfo> ParseProjectInfo(ScopedSymbolTable sst, string resultPathRoot) {
+      string rootDir = Path.Combine(resultPathRoot, $"{sst.Name}.{sst.Tag}");      
+
+      var splits = sst.Name.Split('.').ToList();
+      string scope = sst.Name;
+      string name = splits.Last();
+
+      var projects = new List<Data.ProjectInfo>();
+
+      string commonDir = Path.Combine(rootDir, "Common");
+      if (!Directory.Exists(commonDir)) Directory.CreateDirectory(commonDir);
+      var datastructures = sst.GetDataStructures(null);
+      projects.Add(new Data.ProjectInfo(Guid.NewGuid().ToString().ToUpper(), libTypeGuid, "Common", ".\\Common", $"Common\\Common.csproj", commonDir, null, null, null));
+
+      var nodetypes = sst.GetNodetypes(null);
+      foreach (var nodetype in nodetypes) {        
+        string projectDir = Path.Combine(rootDir, nodetype.name);        
+        projects.Add(new Data.ProjectInfo(Guid.NewGuid().ToString().ToUpper(), appTypeGuid, nodetype.name, $".\\{nodetype.name}", $"{nodetype.name}\\{nodetype.name}.csproj", projectDir, nodetype.imageName, nodetype.imageTag, nodetype.command));
+      }      
+
+      return projects;      
     }
 
     #region code generation
@@ -164,7 +194,7 @@ namespace Ai.Hgb.Seidl.Processor {
         sb.AppendLine("producerTasksFlat.ForEach(x => x.Start());");
         sb.AppendLine("requestTasksFlat.ForEach(x => x.Start());");
         sb.AppendLine();
-        sb.AppendLine("// do something else ...");
+        sb.AppendLine("// TODO: do something else ...");
         sb.AppendLine();
         sb.AppendLine("// await publish and request actions");
         sb.AppendLine("await Task.WhenAll(producerTasksFlat);");
@@ -327,7 +357,7 @@ namespace Ai.Hgb.Seidl.Processor {
       catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
     
-    private void GenerateSolutionFile(string resultPath, string name, List<ProjectInfo> projects) {
+    private void GenerateSolutionFile(string resultPath, string name, List<Data.ProjectInfo> projects) {
       try {
         var sb = new StringBuilder();
          
@@ -343,7 +373,7 @@ namespace Ai.Hgb.Seidl.Processor {
         foreach (var project in projects) {
           sb.AppendLine(
             $$"""
-              Project("{{{project.tguid}}}") = "{{project.name}}", "{{project.path}}", "{{{project.pguid}}}"
+              Project("{{{project.tguid}}}") = "{{project.name}}", "{{project.relpath}}", "{{{project.pguid}}}"
               EndProject
           
               """
@@ -400,9 +430,7 @@ namespace Ai.Hgb.Seidl.Processor {
       var froot = Formatter.Format(root, workspace, options);
 
       return froot.ToFullString();
-    }
-
-    public record ProjectInfo(string pguid, string name, string path, string tguid);
+    }    
 
     #endregion code generation
   }

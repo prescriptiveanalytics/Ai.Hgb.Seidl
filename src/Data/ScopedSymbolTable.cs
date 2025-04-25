@@ -413,6 +413,9 @@ namespace Ai.Hgb.Seidl.Data {
           .ToDictionary();
         nodetypes.Add(new NodetypeRecord(
           name: symbol.Name,
+          imageName: symboltype.ImageName,
+          imageTag: symboltype.ImageTag,
+          command: symboltype.Command,
           properties: properties,
           routingPoint: CreatePoint(symbol)
         ));        
