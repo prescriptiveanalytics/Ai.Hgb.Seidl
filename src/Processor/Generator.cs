@@ -72,7 +72,10 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public List<Data.ProjectInfo> ParseProjectInfo(ScopedSymbolTable sst, string resultPathRoot) {
-      string rootDir = Path.Combine(resultPathRoot, $"{sst.Name}.{sst.Tag}");      
+      var fullPath = Path.GetFullPath(resultPathRoot);
+      if (!Directory.Exists(fullPath)) return null;
+      string rootDir = Path.Combine(fullPath, $"{sst.Name}.{sst.Tag}");
+      if (!Directory.Exists(rootDir)) return null;
 
       var splits = sst.Name.Split('.').ToList();
       string scope = sst.Name;
@@ -81,13 +84,14 @@ namespace Ai.Hgb.Seidl.Processor {
       var projects = new List<Data.ProjectInfo>();
 
       string commonDir = Path.Combine(rootDir, "Common");
-      if (!Directory.Exists(commonDir)) Directory.CreateDirectory(commonDir);
+      if (!Directory.Exists(commonDir)) return null;
       var datastructures = sst.GetDataStructures(null);
       projects.Add(new Data.ProjectInfo(Guid.NewGuid().ToString().ToUpper(), libTypeGuid, "Common", ".\\Common", $"Common\\Common.csproj", commonDir, null, null, null));
 
       var nodetypes = sst.GetNodetypes(null);
       foreach (var nodetype in nodetypes) {        
-        string projectDir = Path.Combine(rootDir, nodetype.name);        
+        string projectDir = Path.Combine(rootDir, nodetype.name);
+        if (!Directory.Exists(projectDir)) return null;
         projects.Add(new Data.ProjectInfo(Guid.NewGuid().ToString().ToUpper(), appTypeGuid, nodetype.name, $".\\{nodetype.name}", $"{nodetype.name}\\{nodetype.name}.csproj", projectDir, nodetype.imageName, nodetype.imageTag, nodetype.command));
       }      
 
@@ -293,7 +297,7 @@ namespace Ai.Hgb.Seidl.Processor {
               COPY "Common/" "Common/"
               WORKDIR /{{name}}
               RUN dotnet publish -c Release -o out
-              COPY {{name}}/configurations /{{name}}/out/configurations
+              # COPY {{name}}/configurations /{{name}}/out/configurations
 
               # Build runtime image
               FROM mcr.microsoft.com/dotnet/aspnet:9.0
