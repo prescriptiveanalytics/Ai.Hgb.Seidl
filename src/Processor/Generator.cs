@@ -30,8 +30,9 @@ namespace Ai.Hgb.Seidl.Processor {
       workspace = new AdhocWorkspace();
     }
 
-    public List<Data.ProjectInfo> GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overRide) {
-      string rootDir = Path.Combine(resultPathRoot, $"{sst.Name}.{sst.Tag}");
+    public List<Data.ProjectInfo> GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overide) {
+      var fullPath = Path.GetFullPath(resultPathRoot);      
+      string rootDir = Path.Combine(Path.GetDirectoryName(fullPath), $"{sst.Name}.{sst.Tag}");
       if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
 
       var splits = sst.Name.Split('.').ToList();
@@ -373,7 +374,7 @@ namespace Ai.Hgb.Seidl.Processor {
         foreach (var project in projects) {
           sb.AppendLine(
             $$"""
-              Project("{{{project.tguid}}}") = "{{project.name}}", "{{project.relpath}}", "{{{project.pguid}}}"
+              Project("{{{project.tguid}}}") = "{{project.name}}", "{{project.relpathpfile}}", "{{{project.pguid}}}"
               EndProject
           
               """
