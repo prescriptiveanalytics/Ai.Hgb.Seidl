@@ -31,8 +31,9 @@ namespace Ai.Hgb.Seidl.Processor {
     }
 
     public List<Data.ProjectInfo> GenerateSolution(ScopedSymbolTable sst, string resultPathRoot, bool overide) {
-      var fullPath = Path.GetFullPath(resultPathRoot);      
-      string rootDir = Path.Combine(Path.GetDirectoryName(fullPath), $"{sst.Name}.{sst.Tag}");
+      var fullPath = Path.GetFullPath(resultPathRoot);
+      if(!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
+      string rootDir = Path.Combine(fullPath, $"{sst.Name}.{sst.Tag}");
       if (!Directory.Exists(rootDir)) Directory.CreateDirectory(rootDir);
 
       var splits = sst.Name.Split('.').ToList();
