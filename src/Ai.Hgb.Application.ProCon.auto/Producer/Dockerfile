@@ -13,7 +13,7 @@
   COPY "Common/" "Common/"
   WORKDIR /Producer
   RUN dotnet publish -c Release -o out
-  COPY Producer/configurations /Producer/out/configurations
+  # COPY Producer/configurations /Producer/out/configurations
 
   # Build runtime image
   FROM mcr.microsoft.com/dotnet/aspnet:9.0

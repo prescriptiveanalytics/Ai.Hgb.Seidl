@@ -13,7 +13,7 @@
   COPY "Common/" "Common/"
   WORKDIR /Prosumer
   RUN dotnet publish -c Release -o out
-  COPY Prosumer/configurations /Prosumer/out/configurations
+  # COPY Prosumer/configurations /Prosumer/out/configurations
 
   # Build runtime image
   FROM mcr.microsoft.com/dotnet/aspnet:9.0

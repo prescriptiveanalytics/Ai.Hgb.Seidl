@@ -165,7 +165,7 @@ namespace Ai.Hgb.Seidl.Processor {
               Console.WriteLine("Start publishing");
               while(!token.IsCancellationRequested) {
                 socket.Publish(route.SourcePort.Address, {{outPayloadId}});     
-                Task.Delay(1000, token);
+                await Task.Delay(1000, token);
               }              
             }, token);}
             """);          
@@ -192,7 +192,8 @@ namespace Ai.Hgb.Seidl.Processor {
             """);
           sb.AppendLine("}");
         }
-
+        CancellationToken cancellationToken = new CancellationToken();
+        
         sb.AppendLine("#endregion subscribe");
         sb.AppendLine();
 
@@ -219,6 +220,7 @@ namespace Ai.Hgb.Seidl.Processor {
         sb.AppendLine("// TODO: do something else ...");
         sb.AppendLine();
         sb.AppendLine("// await publish and request actions");
+        sb.AppendLine("Console.WriteLine(\"await producer tasks\");");
         sb.AppendLine("await Task.WhenAll(producerTasksFlat);");
         sb.AppendLine("await Task.WhenAll(requestTasksFlat);");               
 

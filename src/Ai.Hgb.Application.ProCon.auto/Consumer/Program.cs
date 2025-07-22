@@ -13,11 +13,26 @@ namespace Ai.Hgb.Application.ProCon.Consumer
         {
             Console.WriteLine("Ai.Hgb.Application.ProCon.Consumer\n");
 
-            var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
-            var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
+            Parameters parameters = null;
+            RoutingTable routingTable = null;
+            HostAddress address = null;
 
-            // setup socket and converter
-            var address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
+            try
+            {
+                Console.WriteLine("Parsing parameters");
+                parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
+                Console.WriteLine("Parsing routing table");
+                routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
+                address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return;
+            }
+            Console.WriteLine("Parsed parameters");
+
+            // setup socket and converter                  
             var converter = new JsonPayloadConverter();
             var cts = new CancellationTokenSource();
             var token = cts.Token;
@@ -25,6 +40,7 @@ namespace Ai.Hgb.Application.ProCon.Consumer
 
             try
             {
+                Console.WriteLine("Setup socket");
                 socket = new MqttSocket(parameters.Name, parameters.Name, address, converter, connect: true);
 
                 #region publish
@@ -57,6 +73,7 @@ namespace Ai.Hgb.Application.ProCon.Consumer
 
 
                 // start publish and request actions
+                Console.WriteLine("start producer tasks");
                 producerTasksFlat.ForEach(x => x.Start());
                 requestTasksFlat.ForEach(x => x.Start());
 
