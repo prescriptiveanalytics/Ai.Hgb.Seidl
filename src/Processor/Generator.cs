@@ -133,8 +133,7 @@ namespace Ai.Hgb.Seidl.Processor {
                       return;
                   }
 
-                  // setup socket and converter
-                  var address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
+                  // setup socket and converter                  
                   var converter = new JsonPayloadConverter();
                   var cts = new CancellationTokenSource();
                   var token = cts.Token;
