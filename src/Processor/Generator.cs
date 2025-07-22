@@ -119,8 +119,12 @@ namespace Ai.Hgb.Seidl.Processor {
                 public static async Task Main(string[] args) {
                   Console.WriteLine("{{scope}}.{{name}}\n");
 
-                  var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
-                  var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
+                  try {
+                    var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
+                    var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
+                  } catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
+                  }
 
                   // setup socket and converter
                   var address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
@@ -244,6 +248,7 @@ namespace Ai.Hgb.Seidl.Processor {
       try {
         var sb = new StringBuilder();
 
+        // TODO: insert version of package references via nuget lookup
         sb.AppendLine(
           $$"""
             <Project Sdk="Microsoft.NET.Sdk">
