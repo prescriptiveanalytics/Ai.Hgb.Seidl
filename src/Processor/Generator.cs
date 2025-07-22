@@ -122,9 +122,11 @@ namespace Ai.Hgb.Seidl.Processor {
                   Parameters parameters = null;
                   RoutingTable routingTable = null;
                   HostAddress address = null;
-
+                  
                   try {
+                    Console.WriteLine("Parsing parameters");
                     parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
+                    Console.WriteLine("Parsing routing table");
                     routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
                     address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
                   }
@@ -132,6 +134,7 @@ namespace Ai.Hgb.Seidl.Processor {
                       Console.WriteLine(ex.Message);
                       return;
                   }
+                  Console.WriteLine("Parsed parameters");
 
                   // setup socket and converter                  
                   var converter = new JsonPayloadConverter();
@@ -140,6 +143,7 @@ namespace Ai.Hgb.Seidl.Processor {
                   ISocket socket = null;
 
                   try {
+                    Console.WriteLine("Setup socket");
                     socket = new MqttSocket(parameters.Name, parameters.Name, address, converter, connect: true);                    
 
             """);
@@ -158,6 +162,7 @@ namespace Ai.Hgb.Seidl.Processor {
           sb.AppendLine($$"""            
             producerTasks["{{port.Id}}"] = new Task( () => {
               // TODO: modify the following control structures by your needs
+              Console.WriteLine("Start publishing");
               while(!token.IsCancellationRequested) {
                 socket.Publish(route.SourcePort.Address, {{outPayloadId}});     
                 Task.Delay(1000, token);
@@ -207,6 +212,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
         sb.AppendLine();
         sb.AppendLine("// start publish and request actions");
+        sb.AppendLine("Console.WriteLine(\"start producer tasks\");");
         sb.AppendLine("producerTasksFlat.ForEach(x => x.Start());");
         sb.AppendLine("requestTasksFlat.ForEach(x => x.Start());");
         sb.AppendLine();
