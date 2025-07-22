@@ -160,7 +160,7 @@ namespace Ai.Hgb.Seidl.Processor {
           sb.AppendLine(outPayloadTypeDef);          
           sb.AppendLine($$"""foreach(var route in routingTable.Routes.Where(x => x.Source.Id == parameters.Name && x.SourcePort.Type == PortType.Producer && x.SourcePort.Id == "{{port.Id}}")) {""");
           sb.AppendLine($$"""            
-            producerTasks["{{port.Id}}"] = new Task( () => {
+            producerTasks["{{port.Id}}"] = new Task( async () => {
               // TODO: modify the following control structures by your needs
               Console.WriteLine("Start publishing");
               while(!token.IsCancellationRequested) {
