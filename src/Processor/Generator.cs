@@ -119,11 +119,18 @@ namespace Ai.Hgb.Seidl.Processor {
                 public static async Task Main(string[] args) {
                   Console.WriteLine("{{scope}}.{{name}}\n");
 
+                  Parameters parameters = null;
+                  RoutingTable routingTable = null;
+                  HostAddress address = null;
+
                   try {
-                    var parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
-                    var routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
-                  } catch (Exception ex) {
-                    Console.WriteLine(ex.Message);
+                    parameters = JsonSerializer.Deserialize<Parameters>(args[0]);
+                    routingTable = JsonSerializer.Deserialize<RoutingTable>(args[1]);
+                    address = new HostAddress(parameters.ApplicationParametersNetworking.HostName, parameters.ApplicationParametersNetworking.HostPort);
+                  }
+                  catch (Exception ex) {
+                      Console.WriteLine(ex.Message);
+                      return;
                   }
 
                   // setup socket and converter
