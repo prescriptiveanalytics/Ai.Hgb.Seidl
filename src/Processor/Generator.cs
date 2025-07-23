@@ -152,6 +152,7 @@ namespace Ai.Hgb.Seidl.Processor {
         sb.AppendLine("#region publish");
         sb.AppendLine("var producerTasks = new Dictionary<string, Task>();");
         foreach (var port in ntr.routingPoint.Ports.Where(x => x.Type == PortType.Producer)) {
+          sb.AppendLine("Console.WriteLine(\"for each producer port...\");");
           sb.AppendLine();
           sb.AppendLine("// TODO: move the following to the desired position");
           sb.AppendLine($"// publish port: {port.Id}");          
@@ -159,6 +160,7 @@ namespace Ai.Hgb.Seidl.Processor {
           string outPayloadTypeDef = port.OutPayloadTypes.Count > 1 ? "Tuple<" + string.Join(',', port.OutPayloadTypes) + $"> {outPayloadId} = default;" : port.OutPayloadTypes.First() + $" {outPayloadId} = default;";
           sb.AppendLine(outPayloadTypeDef);          
           sb.AppendLine($$"""foreach(var route in routingTable.Routes.Where(x => x.Source.Id == parameters.Name && x.SourcePort.Type == PortType.Producer && x.SourcePort.Id == "{{port.Id}}")) {""");
+          sb.AppendLine("Console.WriteLine($\"appending route: {route.Source.Id} --> {route.Sink.Id} \");");
           sb.AppendLine($$"""            
             producerTasks["{{port.Id}}"] = new Task( () => {
               // TODO: modify the following control structures by your needs
@@ -169,8 +171,8 @@ namespace Ai.Hgb.Seidl.Processor {
               }              
             }, token);}
             """);          
-        }
-
+        }       
+        
         sb.AppendLine("var producerTasksFlat = producerTasks.Values.ToList();");
         sb.AppendLine("#endregion publish");
         sb.AppendLine();
