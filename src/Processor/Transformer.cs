@@ -76,13 +76,8 @@ namespace Ai.Hgb.Seidl.Processor {
 
       // loop over all node instances
       foreach (ISymbol s in sst.Symbols.Where(x => x.Type is Node && !x.IsTypedef)) {
-        var nt = (Ai.Hgb.Seidl.Data.Node)s.Type;
-        var ports = new List<Port>();
-        //foreach(var source in nt.Sources) ports.Add(new Port() { Id = source, Type = PortType.Out });
-        //foreach (var sink in nt.Sinks) ports.Add(new Port() { Id = sink, Type = PortType.In });
-        foreach (var p in nt.Inputs) ports.Add(new Port() { Id = p.Key, Type = PortType.In });
-        foreach (var p in nt.Outputs) ports.Add(new Port() { Id = p.Key, Type = PortType.Out });
-        rt.AddPoint(new Point(s.Name, nt.GetIdentifier(), nt.ImageName + ":" + nt.ImageTag, ports));
+        var p = CreatePoint(s);
+        rt.AddPoint(p);
       }
 
       // loop over all edges
@@ -97,6 +92,25 @@ namespace Ai.Hgb.Seidl.Processor {
       }
 
       return rt;
+    }
+
+    private Point CreatePoint(ISymbol s) {
+      var nt = (Ai.Hgb.Seidl.Data.Node)s.Type;
+      var ports = new List<Port>();
+      foreach (var p in nt.Subscribe) ports.Add(new Port() { Id = p.Key, Type = PortType.Consumer, InPayloadTypes = p.Value.Parameters.Values.Select(x => x.TypeName).ToList() });
+      foreach (var p in nt.Publish) ports.Add(new Port() { Id = p.Key, Type = PortType.Producer, OutPayloadTypes = p.Value.Parameters.Values.Select(x => x.TypeName).ToList() });
+
+      // TODO: req/res adden
+
+      //Console.WriteLine();
+      //foreach (var p in ports) {
+      //  Console.WriteLine("types in " + p.Id);
+      //  if (p.OutPayloadTypes != null) {
+      //    foreach (var opt in p.OutPayloadTypes) Console.WriteLine(opt);
+      //  }
+      //}
+
+      return new Point(s.Name, nt.GetIdentifier(), nt.ImageName + ":" + nt.ImageTag, ports);
     }
 
     [Obsolete("Method is deprecated due to the new scoped symbol table implementation and hence, will be removed soon.")]

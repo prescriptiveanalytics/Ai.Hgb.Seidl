@@ -150,7 +150,7 @@ namespace Ai.Hgb.Seidl.Processor {
 
         // publish
         sb.AppendLine("#region publish");
-        sb.AppendLine("var producerTasks = new Dictionary<string, Task>();");
+        sb.AppendLine("var producerTasks = new Dictionary<string, Task>();"); // TODO: change to List<Task>
         foreach (var port in ntr.routingPoint.Ports.Where(x => x.Type == PortType.Producer)) {
           sb.AppendLine("Console.WriteLine(\"for each producer port...\");");
           sb.AppendLine();
@@ -161,6 +161,7 @@ namespace Ai.Hgb.Seidl.Processor {
           sb.AppendLine(outPayloadTypeDef);          
           sb.AppendLine($$"""foreach(var route in routingTable.Routes.Where(x => x.Source.Id == parameters.Name && x.SourcePort.Type == PortType.Producer && x.SourcePort.Id == "{{port.Id}}")) {""");
           sb.AppendLine("Console.WriteLine($\"appending route: {route.Source.Id} --> {route.Sink.Id} \");");
+          // TODO: change to producerTasks.Add(...
           sb.AppendLine($$"""            
             producerTasks["{{port.Id}}"] = new Task( () => {
               // TODO: modify the following control structures by your needs
@@ -193,8 +194,7 @@ namespace Ai.Hgb.Seidl.Processor {
             }, token);
             """);
           sb.AppendLine("}");
-        }
-        CancellationToken cancellationToken = new CancellationToken();
+        }        
         
         sb.AppendLine("#endregion subscribe");
         sb.AppendLine();

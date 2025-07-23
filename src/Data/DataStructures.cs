@@ -552,6 +552,10 @@ namespace Ai.Hgb.Seidl.Data {
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.ShallowCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.ShallowCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.ShallowCopy());
+      foreach (var p in Publish) n.Publish.Add(p.Key, (Message)p.Value.ShallowCopy());
+      foreach (var s in Subscribe) n.Subscribe.Add(s.Key, (Message)s.Value.ShallowCopy());
+      foreach (var r in Request) n.Request.Add(r.Key, new Tuple<Message, Message>((Message)r.Value.Item1.ShallowCopy(), (Message)r.Value.Item2.ShallowCopy()));
+      foreach (var r in Respond) n.Respond.Add(r.Key, new Tuple<Message, Message>((Message)r.Value.Item1.ShallowCopy(), (Message)r.Value.Item2.ShallowCopy()));
       foreach (var i in Sources) n.Sources.Add(i);
       foreach (var i in Sinks) n.Sinks.Add(i);
 
@@ -568,6 +572,10 @@ namespace Ai.Hgb.Seidl.Data {
       foreach (var p in Properties) n.Properties.Add(p.Key, p.Value.DeepCopy());
       foreach (var i in Inputs) n.Inputs.Add(i.Key, (Message)i.Value.DeepCopy());
       foreach (var i in Outputs) n.Outputs.Add(i.Key, (Message)i.Value.DeepCopy());
+      foreach (var p in Publish) n.Publish.Add(p.Key, (Message)p.Value.DeepCopy());
+      foreach (var s in Subscribe) n.Subscribe.Add(s.Key, (Message)s.Value.DeepCopy());
+      foreach (var r in Request) n.Request.Add(r.Key, new Tuple<Message, Message>((Message)r.Value.Item1.DeepCopy(), (Message)r.Value.Item2.DeepCopy()));
+      foreach (var r in Respond) n.Respond.Add(r.Key, new Tuple<Message, Message>((Message)r.Value.Item1.DeepCopy(), (Message)r.Value.Item2.DeepCopy()));
       foreach (var i in Sources) n.Sources.Add(i);
       foreach (var i in Sinks) n.Sinks.Add(i);
 

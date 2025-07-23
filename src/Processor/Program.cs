@@ -8,7 +8,7 @@ namespace Ai.Hgb.Seidl.Processor // Note: actual namespace depends on the projec
 {
   internal class Program {
     //public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo5.3l";
-    public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\demo4.3l";
+    public static string demoTextFilePath = @"..\..\..\..\..\..\Ai.Hgb.Runtime\src\DemoApps\Texts\procon.3l";
     public static string generateResultPathRoot = @"..\..\..\..\";
 
     public static string repositoryHost = "127.0.0.1";

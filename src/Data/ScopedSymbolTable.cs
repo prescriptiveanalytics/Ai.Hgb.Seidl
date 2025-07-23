@@ -427,8 +427,10 @@ namespace Ai.Hgb.Seidl.Data {
     private Point CreatePoint(ISymbol s) {
       var nt = (Ai.Hgb.Seidl.Data.Node)s.Type;
       var ports = new List<Port>();
-      foreach (var p in nt.Subscribe) ports.Add(new Port() { Id = p.Key, Type = PortType.Consumer, InPayloadTypes = new List<string>{ "Document" } });
+      foreach (var p in nt.Subscribe) ports.Add(new Port() { Id = p.Key, Type = PortType.Consumer, InPayloadTypes = p.Value.Parameters.Values.Select(x => x.TypeName).ToList() });
       foreach (var p in nt.Publish) ports.Add(new Port() { Id = p.Key, Type = PortType.Producer, OutPayloadTypes = p.Value.Parameters.Values.Select(x => x.TypeName).ToList() });
+
+      // TODO: req/res adden
 
       //Console.WriteLine();
       //foreach (var p in ports) {

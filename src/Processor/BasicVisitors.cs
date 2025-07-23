@@ -791,14 +791,16 @@ namespace Ai.Hgb.Seidl.Processor {
 
       // parse ports (publish, subscribe)
       if (body.inout != null) {
-        for (int i = 0; i < body.nodebodyinout().Length; i++) {
+        for (int i = 0; i < body.nodebodyinout().Length; i++) {          
           var inout = body.nodebodyinout()[i];
           var msgname = inout.messagetypelist().variable(0).GetText();
           var msgtypename = inout.messagetypelist().messagetypename(0).GetText();
           var msgtype = Utils.GetMessageType(msgtypename, scopedSymbolTable, currentScope);
 
           if(inout.PUBLISH() != null) node.Publish.Add(msgname, msgtype);
-          else if(inout.SUBSCRIBE() != null) node.Subscribe.Add(msgname, msgtype);          
+          else if(inout.SUBSCRIBE() != null) node.Subscribe.Add(msgname, msgtype);  
+          
+          // TODO: req/res adden
         }
       }
 
